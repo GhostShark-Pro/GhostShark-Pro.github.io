@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>glibc源码分析 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="优先分析版本：2.23，2.27，2.31，2.35 glibc2.23也是终于开始分析源码了… (后面保留你原本的内容即可) 优先分析版本：2.23，2.27，2.31，2.35 glibc2.23也是终于开始分析源码了   吓哭了   malloc.c这么长的注释是在写故事吗   malloc_chunk  prev_size(offset 0x0)如果前一个chunk 被free了，记录bk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="glibc源码分析">
+<meta property="og:url" content="http://example.com/2026/04/21/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="优先分析版本：2.23，2.27，2.31，2.35 glibc2.23也是终于开始分析源码了… (后面保留你原本的内容即可) 优先分析版本：2.23，2.27，2.31，2.35 glibc2.23也是终于开始分析源码了   吓哭了   malloc.c这么长的注释是在写故事吗   malloc_chunk  prev_size(offset 0x0)如果前一个chunk 被free了，记录bk">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/glibc/1774961450267-38c81201-19ec-4c3f-82a2-40b70caa86ab.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775562850072-3afb6720-5e36-468f-894a-1acb3b910d1c.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775562778380-2428f712-32a2-4f6b-a7c4-da531d5d7955.jpeg.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775632591299-c07ce096-24e8-43ce-ab25-7ebe46c7d795.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775636485342-60cb3319-21fe-4f7b-a771-e2e99715229f.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775636907677-72872408-5269-4083-8165-f8e6fc7632fa.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775637610356-35bd3f47-271e-4c2e-80da-fa901314021a.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775637865806-93521bd1-69e9-4a5e-80c3-e9cb70469724.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775818961790-c80e1ea5-ac41-4ea9-acf9-e0a2d05a36f3.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775823874808-06d0fa70-12bc-4e3b-b070-d85422e76188.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775824881658-104af007-db74-4204-bbc9-51c671ba162f.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775824918167-2b9e3db1-3696-4400-8fa0-b34e3e834e88.jpeg.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775825033970-81ada640-d314-44f7-9981-f12c5d323724.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775825150368-83324973-86bd-49bc-ac91-279cb71e4f42.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775825201101-8e749ef1-5a8f-4c90-bccf-fd80a4335b34.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775640269639-cccabef5-a4e2-45db-bbd1-f3bd1da7a4de.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775640294493-f81bd642-9637-46aa-82c5-b756ee55fe78.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775644669305-8b36b837-54f1-4b81-b11f-cab2add125d7.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775645257154-702cc5fc-8954-452a-8b4b-dee2df93f13f.jpeg.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775645301311-3f66ea86-f54e-4758-a561-f549f50f3d9b.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775646320169-f512f31a-b34b-426f-b1bb-0f5e91e39269.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775646568165-90e37c29-fb33-4ac3-9f44-36a8ebc6ee5a.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775651122087-be6b8f81-7d86-46a8-a8b7-d1ea6111ee23.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775651332608-e3cf78ae-c557-4ed5-8ee6-5b0f1cf4f970.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775651391244-747cabb9-f6e8-45f4-a68f-5e2e480a8411.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775651864609-7e052c29-4c18-4346-abe3-7bcedbd51f1c.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775653785766-9e166475-2539-4129-89ad-cec2204ab2ec.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775655311236-ed59235a-4f7a-46c8-bf20-e931e55d2efd.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775655668775-644879fe-8fe9-47b9-b018-fcbdbd3c8313.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775656163613-762ed3eb-4444-47a1-b6e1-30335fc3e0d4.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775656231709-a3472322-0dc0-4ecf-9cd4-f487d967ba3f.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775656318831-b051bac1-95bf-4ead-8a4e-2cad6c7f70f1.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775656541661-75020e39-c0ad-44d6-b81c-6b3c15014b2c.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775656697279-93084693-6f6e-4803-9bf3-300e406252e5.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775717857153-169366c8-4147-4797-8ed6-99a6b1581410.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775734384454-e66206e7-06d5-4cb6-ad74-11b2b0eac6e4.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775813486016-98e47fc6-a07d-489f-9e11-d81986a6c576.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775905298465-ad0205bd-9839-4d8a-9f06-8d3ab5570074.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775827737343-1fcd89cb-77cf-4715-8fe8-f3ab9c84cab7.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775905330651-80564c60-485b-48b2-b578-74cde61bc17d.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775829912386-625a1e67-697d-4639-b790-a99a7c90c5e5.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775898716207-2dee962b-5774-445d-b200-a0c736ae0f8c.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775898939312-2242c0f0-161d-47a4-97ee-16ea2b15f080.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775898951108-07eddf33-3292-4d33-b49c-a9d893dd638f.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775905471865-16c5f039-ea19-4f94-a9dd-643c13afb7c9.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775902643404-b2dfe8d5-4d7c-452d-8e7f-0fdf3e064d7a.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775905917606-e71ff60b-3bc8-407b-ae61-7c3f8048b72f.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775902858544-dd20f05c-f45c-43ca-a519-520116e18aba.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775912148106-8a86680e-0b30-4497-a019-bd35cbe3bff8.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775912258430-fe7fbd21-b14e-47ee-bb45-6088be8d4222.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775912306563-6ae7eaf2-a985-4e80-9000-6de586c2d776.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775912353396-ac301887-ad51-4999-bf99-da817e7386a2.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775912384341-2006dd36-2b50-4223-9f62-b0a40bf30dbf.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775912515576-1acc0b3f-e9de-4822-a3b5-9ca4e57e4e2e.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775912649087-dbfc71d2-7807-486a-83e9-d74b309e7cfe.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775912928262-daaf1796-d542-42a3-8421-881f1427cc43.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775970416129-3614868e-19dc-4cdc-a13c-b9cf614fcb72.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775925653106-8ad28aea-ae24-440b-b56d-cf6853744c49.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775926044987-b1225b28-78eb-48dd-8b46-4de8d2048106.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775926070872-9b8c3163-0cee-4aaa-b3a8-9afb21c541c1.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775975189326-be6627e6-663a-418e-beb5-9a05a5d52b84.jpeg.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775975178050-a5bfd33b-118a-452b-8dcc-fe1afbcb41df.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775975423762-1bcdb989-869b-45ce-8813-0a3a2ace4fac.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775975710884-433352f0-480c-4461-89c6-84b323da08d9.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775975891890-3fce2197-d05c-47d3-9598-2b1cd51b3b00.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775975974108-1530a93a-e5d0-4376-8f57-f4831217ac13.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775976578973-29c4c943-f6fa-4084-9052-de348b46f9cb.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775977770166-cd4bc646-2f08-48a9-9080-b69a417c3d00.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775978294375-2d80e755-743e-4586-a00e-58be8392f615.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775978332038-5bd46e10-1e65-4702-8271-bc35f2216787.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775978382278-0c2a4a1a-3117-4647-ba95-99d04219a137.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775978788680-3f439da0-5271-4e63-9fe4-3e3db7b5dd11.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775978812112-5a53d74a-1539-47e1-965c-a02c634f503d.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775978828840-f3adaa39-5b43-4dd8-a0b1-79954c4313ab.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775978940838-971b058f-c628-4945-9486-bd426385dab8.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775979094317-87a983de-ae14-4d7d-9730-e32a789d4b29.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775981163588-02eea672-ed70-484d-ba26-3286be19b874.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775981193159-63db3cfb-66b4-42a6-bcb8-7a8a86d23036.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775981233308-a3790621-809c-46b0-a429-89ad22bafdff.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775981458320-c736076c-266b-4b5b-bd84-f639606b6ea7.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775981640147-0aaa1cfe-2857-4171-af53-d8d713fc0fcc.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775981742789-2a372eef-8279-4d91-86b5-78fd55dea800.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775982028113-230eba20-4a6d-4be3-8c42-b9ba52a4268c.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775982041100-fcc430c0-20ce-4525-9d66-933229863e1c.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775982092264-f989d333-1f0d-4730-a7bd-c6f643861fec.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775982534487-9983646a-a5df-4d59-96bd-5e5262e9f67a.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775982768506-b4093aea-5260-44f1-a7d6-8bf51465961b.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775982817571-6b3c9137-1be9-46e7-9763-e3ada27bbb42.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776081325094-3405433b-29f2-46bf-973f-7d12b0ca739c.jpeg.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776081662707-57488b79-7ed3-4222-8cab-18f79b54252a.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776255117037-553cce90-d58e-4335-ae0c-a40e8cb31a1a.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776082297928-6da93b58-2c0b-43c2-a89d-dbb4112c72b2.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776169756085-6df3943e-5818-4c50-975c-4c258c831b19.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776169801026-541a0ab9-e821-43be-a052-1774d53ef243.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776169832917-9f50ad43-58b1-4a11-92e0-f8e31485f2b3.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776170977220-f43089df-602a-4f68-bdb9-df2a15012c60.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776171005596-81c0be99-e5d2-42e2-b7ed-a7cc9f710251.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776171487565-7502e03c-8606-4403-8c4b-9856f52933c7.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776171726842-f59f834d-2e69-4833-939a-ef812e23e8b3.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776172145405-a4374657-6994-41f5-9511-0245d8d9ec90.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776172588672-4b1d7225-f38e-42e4-8b7e-d1123847a86f.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776172948515-3a2a6906-e6e3-47de-a49b-42289ef96873.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776174285090-96b913a3-b8ca-4a8d-976a-1a76e298f297.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776243311554-21d0a3c9-1bbf-4a16-8e69-de8fbc72df8d.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776243381540-241a339f-28e8-40b0-a092-d5da647ea89e.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776247489567-526b3909-3882-429a-9e9b-4b90f8b5d686.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776247781775-aeddcb7e-a201-435a-902e-ed65aed656ca.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776248144228-53a4ac61-26b5-4e51-9ef8-1dfb79aa0a21.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776248167508-ad7c694a-0d0f-482e-8925-60ffd8a8b105.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776248274530-ceb0563a-1189-4b20-ad06-106650e23a27.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776248371124-db580d2f-48de-42a2-9d5c-51be253932ab.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776254261664-3da9e9ef-a094-43ee-90c7-e9c6355ae097.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776254856048-ea6c1b89-68b1-4283-abe1-b846b0f09a79.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776254934005-e7e4c22a-ad19-41ac-ac5b-1ebdaf89fcab.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775982974677-78cc0dfd-f58b-42b4-882d-f9afc904d931.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775986763296-83ee0c2d-d5e1-4c86-a7cb-a02ef9c85f40.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775991199368-b88b9c88-1eb6-49ff-8421-6192c2ae3699.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1775991271036-3764a8fa-f748-4b8b-8eeb-1d2a3429648a.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776259127458-12550470-7fef-4f90-8992-cd7001e32be6.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776259184692-7fbdd4d5-5bf8-46d1-8cad-002a0a3596d2.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776342013154-593796d1-0dfc-4f60-adbc-c90f5c441872.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776343503142-a88bf2bd-3fd7-4ab6-b1a0-cd36a4b11c65.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776343953559-ec58f3fe-7ceb-49d9-a144-e023fbe9e07c.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776344131156-2e83bd74-51f9-493c-b643-2424229d5591.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776344380486-6faf9172-6408-496c-be01-f40d528b7d27.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776345987919-b740c835-b9d1-4cc4-a02f-be2f90edf20e.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776346204668-d21fdc14-91b7-425b-9d61-41def905c039.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776347426686-24e99d2e-d628-470d-a974-7e4c82865dac.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776347963007-817c537f-cae7-4d9d-a7b8-46b9b897e427.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776430442856-a154418a-b152-4e11-ba85-dabbbfea686c.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776430539880-fed68c34-090e-44e0-997e-32b2d1435c69.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776430555328-305b1932-1250-421c-99cf-668b21a8fe61.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776430618591-e6c477e3-0add-46b0-8234-b87f5dff887c.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776495116427-4acbcd8a-f845-4d15-a764-22751c6a1fe5.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776495520264-9b77e0e3-83db-492d-a5df-4f3aaf8c0b89.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776495731179-26845eda-97c4-47f4-807b-517bfd766372.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776495941556-b9f42f17-2339-4106-94c9-96799a984458.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776496265856-5729994f-ef03-46c6-b982-efb47ee46bc5.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776500868717-20084907-d471-4371-a0a1-da2f7c89aced.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776501223280-00a0c47c-10b2-44fa-b441-bbb2a1f3908b.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776501595342-e4be05fa-9582-470e-9503-6834c2d8cc6a.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776501702732-d2f22cd4-7bfa-4a06-89cf-3ce1cf72cb95.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776516536557-384afe70-acb9-4aba-ae22-a8624c2ba27c.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776567242276-4cb7c9f8-ef72-478c-a980-63f5b8e74a29.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776567901922-af97773d-f5d3-49c2-b29f-8691c8359ce7.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776568193564-5fa1f6e7-20d9-4f91-89f0-5a7f0580f0ba.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776568218615-f4837c26-cacd-4c5f-96bd-25a92f02af27.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776569116378-b8a2f896-3a41-42ed-9e02-dcc60ac15d07.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776568248322-ed51ee7c-27c3-42ea-93fc-43b407523560.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776569332363-581f59d5-7915-43b5-bd5f-4de3a65aefe0.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776569427634-acd115d4-4859-4c53-baec-78bebad4cd0b.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776569456235-f2637cfb-4335-4143-9fd7-ed391a1299f8.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776585946247-db57a184-97bf-4309-96c2-373dbd2d6af3.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776587194174-09d86199-17da-43e4-bb5c-eab7b5b8cfc8.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776587236081-521db7c9-0b00-4092-aaba-47d0bb24705b.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776585215424-86fe0cf4-5233-47d3-b8b9-7d5a180e1577.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776588388594-e37dc926-3006-4402-913c-97e903ede9a7.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776588517071-1f49184b-aa75-4a51-ab6d-e028cdd0b183.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776589044334-72d9d37c-83b4-456f-8b0d-b589c62ddbbb.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776590889211-c8de14d1-9778-479e-b381-0c5242abbba2.png.png">
+<meta property="og:image" content="http://example.com/images/glibc/1776592804667-502a77e4-b309-4c17-a707-69aae5258c90.png.png">
+<meta property="article:published_time" content="2026-04-21T07:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-21T13:45:07.939Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Heap">
+<meta property="article:tag" content="Pwn">
+<meta property="article:tag" content="glibc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/glibc/1774961450267-38c81201-19ec-4c3f-82a2-40b70caa86ab.png.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-glibc源码分析" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/04/21/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="article-date">
+  <time class="dt-published" datetime="2026-04-21T07:00:00.000Z" itemprop="datePublished">2026-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      glibc源码分析
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>优先分析版本：2.23，2.27，2.31，2.35</p>
+<h1 id="glibc2-23"><a href="#glibc2-23" class="headerlink" title="glibc2.23"></a>glibc2.23</h1><p>也是终于开始分析源码了<br>… (后面保留你原本的内容即可)</p>
+<p>优先分析版本：2.23，2.27，2.31，2.35</p>
+<h1 id="glibc2-23-1"><a href="#glibc2-23-1" class="headerlink" title="glibc2.23"></a>glibc2.23</h1><p>也是终于开始分析源码了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1774961450267-38c81201-19ec-4c3f-82a2-40b70caa86ab.png.png"></p>
+<p>吓哭了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775562850072-3afb6720-5e36-468f-894a-1acb3b910d1c.png.png"></p>
+<h2 id="malloc-c"><a href="#malloc-c" class="headerlink" title="malloc.c"></a>malloc.c</h2><p>这么长的注释是在写故事吗</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775562778380-2428f712-32a2-4f6b-a7c4-da531d5d7955.jpeg.png"></p>
+<h3 id="malloc-chunk"><a href="#malloc-chunk" class="headerlink" title="malloc_chunk"></a>malloc_chunk</h3><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775632591299-c07ce096-24e8-43ce-ab25-7ebe46c7d795.png.png"></p>
+<h4 id="prev-size-offset-0x0"><a href="#prev-size-offset-0x0" class="headerlink" title="prev_size(offset 0x0)"></a>prev_size(offset 0x0)</h4><p>如果前一个chunk 被free了，记录bk chunk的size</p>
+<p>也就是说，如果前一个chunk正在使用（allocated），它的user data 可以覆盖下一个chunk的prev_size,存在 space overlap</p>
+<h4 id="size-offset-0x4-0x8"><a href="#size-offset-0x4-0x8" class="headerlink" title="size(offset 0x4&#x2F;0x8)"></a>size(offset 0x4&#x2F;0x8)</h4><p>记录的是当前chunk的大小（including ‘size’）</p>
+<p>由于8&#x2F;16字节对齐，size的低3位恒为0，这3位就被glibc作为储存状态标志位</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775636485342-60cb3319-21fe-4f7b-a771-e2e99715229f.png.png"></p>
+<h4 id="fd-bk-0x10-0x18"><a href="#fd-bk-0x10-0x18" class="headerlink" title="fd &amp; bk(0x10 &amp; 0x18)"></a>fd &amp; bk(0x10 &amp; 0x18)</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775636907677-72872408-5269-4083-8165-f8e6fc7632fa.png.png"></p>
+<h4 id="fd-nextsize-bk-nextsize-0x20-0x28"><a href="#fd-nextsize-bk-nextsize-0x20-0x28" class="headerlink" title="fd_nextsize &amp; bk_nextsize (0x20 &amp; 0x28)"></a>fd_nextsize &amp; bk_nextsize (0x20 &amp; 0x28)</h4><p>给large bin用的（free）</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><p>底下还有画的图</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775637610356-35bd3f47-271e-4c2e-80da-fa901314021a.png.png"></p>
+<p>这是一个正在使用的chunk的布局</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775637865806-93521bd1-69e9-4a5e-80c3-e9cb70469724.png.png"></p>
+<p>free掉的</p>
+<h4 id="-1"><a href="#-1" class="headerlink" title=""></a></h4><h3 id="malloc-state"><a href="#malloc-state" class="headerlink" title="malloc_state"></a>malloc_state</h3><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775818961790-c80e1ea5-ac41-4ea9-acf9-e0a2d05a36f3.png.png"></p>
+<h4 id="mutex-t-mutex"><a href="#mutex-t-mutex" class="headerlink" title="mutex_t mutex"></a>mutex_t mutex</h4><p> 互斥锁  </p>
+<h4 id="int-flags"><a href="#int-flags" class="headerlink" title="int flags"></a>int flags</h4><p>标志位</p>
+<p>主要记录当前arena是否有fastbin,用于判断是否需要执行malloc_consolidate</p>
+<h4 id="mfastbinptr-fastbinsY-NFASTBINS"><a href="#mfastbinptr-fastbinsY-NFASTBINS" class="headerlink" title="mfastbinptr fastbinsY[NFASTBINS]"></a>mfastbinptr fastbinsY[NFASTBINS]</h4><p>fastbins数组，放单向链表头</p>
+<h4 id="mchunkptr-bins-NBINS-2-2"><a href="#mchunkptr-bins-NBINS-2-2" class="headerlink" title="mchunkptr bins[NBINS * 2 - 2]"></a>mchunkptr bins[NBINS * 2 - 2]</h4><p>普通bins(unsorted,small,large)的数组</p>
+<p>由于每个bin都是由fd和bk组成的双向链表头，成对出现，所以要用*2-2，unsorted bin 的fd , bk指针就在这个数组内</p>
+<p>64 位系统下，NBINS 通常定义为 128</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775823874808-06d0fa70-12bc-4e3b-b070-d85422e76188.png.png"></p>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">索引位置</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">对应指针</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">逻辑身份</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bins[0]&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">Unsorted Bin 的头指针（Forward）</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bins[1]&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">Unsorted Bin 的尾指针（Backward）</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bins[2]&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">Small Bin 2 的头指针</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bins[3]&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">Small Bin 2 的尾指针</font></td>
+</tr>
+<tr>
+<td><font style="color:rgb(31, 31, 31);">…</font></td>
+<td><font style="color:rgb(31, 31, 31);">…</font></td>
+<td><font style="color:rgb(31, 31, 31);">…</font></td>
+</tr>
+</tbody></table>
+<h4 id="mchunkptr-top"><a href="#mchunkptr-top" class="headerlink" title="mchunkptr top"></a>mchunkptr top</h4><p>指向top chunk的指针，在古老的houst of force有用</p>
+<h4 id="mchunkptr-last-remainder"><a href="#mchunkptr-last-remainder" class="headerlink" title="mchunkptr last_remainder"></a>mchunkptr last_remainder</h4><p> 指向最近一次从 Unsorted Bin 拆分后剩下的那个“碎块”  </p>
+<h4 id="unsigned-int-binmap-BINMAPSIZE"><a href="#unsigned-int-binmap-BINMAPSIZE" class="headerlink" title="unsigned int binmap [BINMAPSIZE]"></a>unsigned int binmap [BINMAPSIZE]</h4><p>malloc 不会逐个查bins是否为空，先看位图，如果某一位为0则对应bin为空</p>
+<h4 id="struct-malloc-state-next"><a href="#struct-malloc-state-next" class="headerlink" title="struct malloc_state *next"></a>struct malloc_state *next</h4><p>指向下一个arena</p>
+<h4 id="system-mem-max-system-mem"><a href="#system-mem-max-system-mem" class="headerlink" title="system_mem&#x2F;max_system_mem"></a>system_mem&#x2F;max_system_mem</h4><p> 当前 arena 从系统申请的内存总量和历史峰值  </p>
+<h4 id="static-struct-malloc-state-main-arena"><a href="#static-struct-malloc-state-main-arena" class="headerlink" title="static struct malloc_state main_arena"></a>static struct malloc_state main_arena</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775824881658-104af007-db74-4204-bbc9-51c671ba162f.png.png"></p>
+<p>这是干什么的</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775824918167-2b9e3db1-3696-4400-8fa0-b34e3e834e88.jpeg.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775825033970-81ada640-d314-44f7-9981-f12c5d323724.png.png"></p>
+<p>main_arena是唯一静态定义的arena其他线程的arena是动态申请的</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775825150368-83324973-86bd-49bc-ac91-279cb71e4f42.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775825201101-8e749ef1-5a8f-4c90-bccf-fd80a4335b34.png.png"></p>
+<p>.attached_threads &#x3D; 1</p>
+<p>用于记录当前有多少个线程连接到这个arena</p>
+<h4 id="-2"><a href="#-2" class="headerlink" title=""></a></h4><h3 id="int-malloc"><a href="#int-malloc" class="headerlink" title="_int_malloc"></a>_int_malloc</h3><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775640269639-cccabef5-a4e2-45db-bbd1-f3bd1da7a4de.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775640294493-f81bd642-9637-46aa-82c5-b756ee55fe78.png.png"></p>
+<p>真是好大一坨</p>
+<h4 id="checked-request2size-bytes-nb"><a href="#checked-request2size-bytes-nb" class="headerlink" title="checked_request2size (bytes, nb)"></a>checked_request2size (bytes, nb)</h4><p>将请求的bytes转换为nb（normalized request size   16字节对齐）</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775644669305-8b36b837-54f1-4b81-b11f-cab2add125d7.png.png"></p>
+<p>av（arena） &#x3D;&#x3D; NULL时，heap未初始化或其他原因，</p>
+<p>直接调用syamalloc 申请 memory（brk or mmap）</p>
+<p>下面怎么if else窜起来了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775645257154-702cc5fc-8954-452a-8b4b-dee2df93f13f.jpeg.png"></p>
+<h5 id="to-fastbin"><a href="#to-fastbin" class="headerlink" title="to fastbin"></a>to fastbin</h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775645301311-3f66ea86-f54e-4758-a561-f549f50f3d9b.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775646320169-f512f31a-b34b-426f-b1bb-0f5e91e39269.png.png"></p>
+<p>检查nb是否在fastbin范围内后用fastbin_index()将nb转化成idx,再用fastbin定位到该arena中的链表头指针</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775646568165-90e37c29-fb33-4ac3-9f44-36a8ebc6ee5a.png.png"></p>
+<p>mchunkptr pp &#x3D; *fb;</p>
+<p>先尝试从单链表头取出一个chunk -&gt; victim</p>
+<p>victim &#x3D;&#x3D; NULL则break</p>
+<p>catomic_compare_and_exchange_val_acq()用于处理多线程</p>
+<p>检查当前的fd是否等于victim,防止被其他线程抢先</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775651122087-be6b8f81-7d86-46a8-a8b7-d1ea6111ee23.png.png"></p>
+<p>用victim里的size重新算一遍idx,算出的idx必须等于进入if分支的idx</p>
+<p>那么改fd的时候就要找附近的一个看起来是合法size的字节</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775651332608-e3cf78ae-c557-4ed5-8ee6-5b0f1cf4f970.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775651391244-747cabb9-f6e8-45f4-a68f-5e2e480a8411.png.png"></p>
+<h5 id="to-smallbin"><a href="#to-smallbin" class="headerlink" title="to smallbin"></a>to smallbin</h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775651864609-7e052c29-4c18-4346-abe3-7bcedbd51f1c.png.png"></p>
+<p>可以看出smallbin用的是双向链表</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775653785766-9e166475-2539-4129-89ad-cec2204ab2ec.png.png"></p>
+<p>判断大小，算idx，拿bin头指针</p>
+<p>3410       if ((victim &#x3D; last (bin)) !&#x3D; bin)</p>
+<p>last(bin)就是bin-&gt;bk,如果bin-&gt;bk &#x3D;&#x3D; bin,则链表为空，跳过</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775655311236-ed59235a-4f7a-46c8-bf20-e931e55d2efd.png.png"></p>
+<p>如果victim &#x3D;&#x3D; 0，调用malloc_consolidate(),将初始化分配区</p>
+<p>并合并fastbins中的所有的空闲块进入unsorted bin</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775655668775-644879fe-8fe9-47b9-b018-fcbdbd3c8313.png.png"></p>
+<p>检查victim-&gt;bk-&gt;fd &#x3D; victim</p>
+<p>3422               set_inuse_bit_at_offset (victim, nb);</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775656163613-762ed3eb-4444-47a1-b6e1-30335fc3e0d4.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775656231709-a3472322-0dc0-4ecf-9cd4-f487d967ba3f.png.png"></p>
+<p>脱链</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775656318831-b051bac1-95bf-4ead-8a4e-2cad6c7f70f1.png.png"></p>
+<p>标志位与指针转化</p>
+<h5 id="to-largebin"><a href="#to-largebin" class="headerlink" title="to largebin"></a>to largebin</h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775656541661-75020e39-c0ad-44d6-b81c-6b3c15014b2c.png.png"></p>
+<p>malloc size 在largebin的区间时</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775656697279-93084693-6f6e-4803-9bf3-300e406252e5.png.png"></p>
+<h5 id="to-unsorted-bin"><a href="#to-unsorted-bin" class="headerlink" title="to unsorted bin"></a>to unsorted bin</h5><p>到了unsorted bin画风就诡异起来了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775717857153-169366c8-4147-4797-8ed6-99a6b1581410.png.png"></p>
+<p>可以发现，unsorted bin这一块都镶入了for（ ; ; ）死循环</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775734384454-e66206e7-06d5-4cb6-ad74-11b2b0eac6e4.png.png"></p>
+<p>不太好切片分析，我copy了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">     Process recently freed or remaindered chunks, taking one only if</span></span><br><span class="line"><span class="comment">     it is exact fit, or, if this a small request, the chunk is remainder from</span></span><br><span class="line"><span class="comment">     the most recent non-exact fit.  Place other traversed chunks in</span></span><br><span class="line"><span class="comment">     bins.  Note that this step is the only place in any routine where</span></span><br><span class="line"><span class="comment">     chunks are placed in bins.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">     The outer loop here is needed because we might not realize until</span></span><br><span class="line"><span class="comment">     near the end of malloc that we should have consolidated, so must</span></span><br><span class="line"><span class="comment">     do so and retry. This happens at most once, and only when we would</span></span><br><span class="line"><span class="comment">     otherwise need to expand memory to service a &quot;small&quot; request.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (;; )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="type">int</span> iters = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">while</span> ((victim = unsorted_chunks (av)-&gt;bk) != unsorted_chunks (av))</span><br><span class="line">        &#123;</span><br><span class="line">          bck = victim-&gt;bk;</span><br><span class="line">          <span class="keyword">if</span> (__builtin_expect (victim-&gt;size &lt;= <span class="number">2</span> * SIZE_SZ, <span class="number">0</span>)</span><br><span class="line">              || __builtin_expect (victim-&gt;size &gt; av-&gt;system_mem, <span class="number">0</span>))</span><br><span class="line">            malloc_printerr (check_action, <span class="string">&quot;malloc(): memory corruption&quot;</span>,</span><br><span class="line">                             chunk2mem (victim), av);</span><br><span class="line">          size = chunksize (victim);</span><br><span class="line"></span><br><span class="line">          <span class="comment">/*</span></span><br><span class="line"><span class="comment">             If a small request, try to use last remainder if it is the</span></span><br><span class="line"><span class="comment">             only chunk in unsorted bin.  This helps promote locality for</span></span><br><span class="line"><span class="comment">             runs of consecutive small requests. This is the only</span></span><br><span class="line"><span class="comment">             exception to best-fit, and applies only when there is</span></span><br><span class="line"><span class="comment">             no exact fit for a small chunk.</span></span><br><span class="line"><span class="comment">           */</span></span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (in_smallbin_range (nb) &amp;&amp;</span><br><span class="line">              bck == unsorted_chunks (av) &amp;&amp;</span><br><span class="line">              victim == av-&gt;last_remainder &amp;&amp;</span><br><span class="line">              (<span class="type">unsigned</span> <span class="type">long</span>) (size) &gt; (<span class="type">unsigned</span> <span class="type">long</span>) (nb + MINSIZE))</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="comment">/* split and reattach remainder */</span></span><br><span class="line">              remainder_size = size - nb;</span><br><span class="line">              remainder = chunk_at_offset (victim, nb);</span><br><span class="line">              unsorted_chunks (av)-&gt;bk = unsorted_chunks (av)-&gt;fd = remainder;</span><br><span class="line">              av-&gt;last_remainder = remainder;</span><br><span class="line">              remainder-&gt;bk = remainder-&gt;fd = unsorted_chunks (av);</span><br><span class="line">              <span class="keyword">if</span> (!in_smallbin_range (remainder_size))</span><br><span class="line">                &#123;</span><br><span class="line">                  remainder-&gt;fd_nextsize = <span class="literal">NULL</span>;</span><br><span class="line">                  remainder-&gt;bk_nextsize = <span class="literal">NULL</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">              set_head (victim, nb | PREV_INUSE |</span><br><span class="line">                        (av != &amp;main_arena ? NON_MAIN_ARENA : <span class="number">0</span>));</span><br><span class="line">              set_head (remainder, remainder_size | PREV_INUSE);</span><br><span class="line">              set_foot (remainder, remainder_size);</span><br><span class="line"></span><br><span class="line">              check_malloced_chunk (av, victim, nb);</span><br><span class="line">              <span class="type">void</span> *p = chunk2mem (victim);</span><br><span class="line">              alloc_perturb (p, bytes);</span><br><span class="line">              <span class="keyword">return</span> p;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">          <span class="comment">/* remove from unsorted list */</span></span><br><span class="line">          unsorted_chunks (av)-&gt;bk = bck;</span><br><span class="line">          bck-&gt;fd = unsorted_chunks (av);</span><br><span class="line"></span><br><span class="line">          <span class="comment">/* Take now instead of binning if exact fit */</span></span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (size == nb)</span><br><span class="line">            &#123;</span><br><span class="line">              set_inuse_bit_at_offset (victim, size);</span><br><span class="line">              <span class="keyword">if</span> (av != &amp;main_arena)</span><br><span class="line">                victim-&gt;size |= NON_MAIN_ARENA;</span><br><span class="line">              check_malloced_chunk (av, victim, nb);</span><br><span class="line">              <span class="type">void</span> *p = chunk2mem (victim);</span><br><span class="line">              alloc_perturb (p, bytes);</span><br><span class="line">              <span class="keyword">return</span> p;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">          <span class="comment">/* place chunk in bin */</span></span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (in_smallbin_range (size))</span><br><span class="line">            &#123;</span><br><span class="line">              victim_index = smallbin_index (size);</span><br><span class="line">              bck = bin_at (av, victim_index);</span><br><span class="line">              fwd = bck-&gt;fd;</span><br><span class="line">            &#125;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">              victim_index = largebin_index (size);</span><br><span class="line">              bck = bin_at (av, victim_index);</span><br><span class="line">              fwd = bck-&gt;fd;</span><br><span class="line"></span><br><span class="line">              <span class="comment">/* maintain large bins in sorted order */</span></span><br><span class="line">              <span class="keyword">if</span> (fwd != bck)</span><br><span class="line">                &#123;</span><br><span class="line">                  <span class="comment">/* Or with inuse bit to speed comparisons */</span></span><br><span class="line">                  size |= PREV_INUSE;</span><br><span class="line">                  <span class="comment">/* if smaller than smallest, bypass loop below */</span></span><br><span class="line">                  assert ((bck-&gt;bk-&gt;size &amp; NON_MAIN_ARENA) == <span class="number">0</span>);</span><br><span class="line">                  <span class="keyword">if</span> ((<span class="type">unsigned</span> <span class="type">long</span>) (size) &lt; (<span class="type">unsigned</span> <span class="type">long</span>) (bck-&gt;bk-&gt;size))</span><br><span class="line">                    &#123;</span><br><span class="line">                      fwd = bck;</span><br><span class="line">                      bck = bck-&gt;bk;</span><br><span class="line"></span><br><span class="line">                      victim-&gt;fd_nextsize = fwd-&gt;fd;</span><br><span class="line">                      victim-&gt;bk_nextsize = fwd-&gt;fd-&gt;bk_nextsize;</span><br><span class="line">                      fwd-&gt;fd-&gt;bk_nextsize = victim-&gt;bk_nextsize-&gt;fd_nextsize = victim;</span><br><span class="line">                    &#125;</span><br><span class="line">                  <span class="keyword">else</span></span><br><span class="line">                    &#123;</span><br><span class="line">                      assert ((fwd-&gt;size &amp; NON_MAIN_ARENA) == <span class="number">0</span>);</span><br><span class="line">                      <span class="keyword">while</span> ((<span class="type">unsigned</span> <span class="type">long</span>) size &lt; fwd-&gt;size)</span><br><span class="line">                        &#123;</span><br><span class="line">                          fwd = fwd-&gt;fd_nextsize;</span><br><span class="line">                          assert ((fwd-&gt;size &amp; NON_MAIN_ARENA) == <span class="number">0</span>);</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                      <span class="keyword">if</span> ((<span class="type">unsigned</span> <span class="type">long</span>) size == (<span class="type">unsigned</span> <span class="type">long</span>) fwd-&gt;size)</span><br><span class="line">                        <span class="comment">/* Always insert in the second position.  */</span></span><br><span class="line">                        fwd = fwd-&gt;fd;</span><br><span class="line">                      <span class="keyword">else</span></span><br><span class="line">                        &#123;</span><br><span class="line">                          victim-&gt;fd_nextsize = fwd;</span><br><span class="line">                          victim-&gt;bk_nextsize = fwd-&gt;bk_nextsize;</span><br><span class="line">                          fwd-&gt;bk_nextsize = victim;</span><br><span class="line">                          victim-&gt;bk_nextsize-&gt;fd_nextsize = victim;</span><br><span class="line">                        &#125;</span><br><span class="line">                      bck = fwd-&gt;bk;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">              <span class="keyword">else</span></span><br><span class="line">                victim-&gt;fd_nextsize = victim-&gt;bk_nextsize = victim;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">          mark_bin (av, victim_index);</span><br><span class="line">          victim-&gt;bk = bck;</span><br><span class="line">          victim-&gt;fd = fwd;</span><br><span class="line">          fwd-&gt;bk = victim;</span><br><span class="line">          bck-&gt;fd = victim;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_ITERS       10000</span></span><br><span class="line">          <span class="keyword">if</span> (++iters &gt;= MAX_ITERS)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">         If a large request, scan through the chunks of current bin in</span></span><br><span class="line"><span class="comment">         sorted order to find smallest that fits.  Use the skip list for this.</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (!in_smallbin_range (nb))</span><br><span class="line">        &#123;</span><br><span class="line">          bin = bin_at (av, idx);</span><br><span class="line"></span><br><span class="line">          <span class="comment">/* skip scan if empty or largest chunk is too small */</span></span><br><span class="line">          <span class="keyword">if</span> ((victim = first (bin)) != bin &amp;&amp;</span><br><span class="line">              (<span class="type">unsigned</span> <span class="type">long</span>) (victim-&gt;size) &gt;= (<span class="type">unsigned</span> <span class="type">long</span>) (nb))</span><br><span class="line">            &#123;</span><br><span class="line">              victim = victim-&gt;bk_nextsize;</span><br><span class="line">              <span class="keyword">while</span> (((<span class="type">unsigned</span> <span class="type">long</span>) (size = chunksize (victim)) &lt;</span><br><span class="line">                      (<span class="type">unsigned</span> <span class="type">long</span>) (nb)))</span><br><span class="line">                victim = victim-&gt;bk_nextsize;</span><br><span class="line"></span><br><span class="line">              <span class="comment">/* Avoid removing the first entry for a size so that the skip</span></span><br><span class="line"><span class="comment">                 list does not have to be rerouted.  */</span></span><br><span class="line">              <span class="keyword">if</span> (victim != last (bin) &amp;&amp; victim-&gt;size == victim-&gt;fd-&gt;size)</span><br><span class="line">                victim = victim-&gt;fd;</span><br><span class="line"></span><br><span class="line">              remainder_size = size - nb;</span><br><span class="line">              unlink (av, victim, bck, fwd);</span><br><span class="line"></span><br><span class="line">              <span class="comment">/* Exhaust */</span></span><br><span class="line">              <span class="keyword">if</span> (remainder_size &lt; MINSIZE)</span><br><span class="line">                &#123;</span><br><span class="line">                  set_inuse_bit_at_offset (victim, size);</span><br><span class="line">                  <span class="keyword">if</span> (av != &amp;main_arena)</span><br><span class="line">                    victim-&gt;size |= NON_MAIN_ARENA;</span><br><span class="line">                &#125;</span><br><span class="line">              <span class="comment">/* Split */</span></span><br><span class="line">              <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                  remainder = chunk_at_offset (victim, nb);</span><br><span class="line">                  <span class="comment">/* We cannot assume the unsorted list is empty and therefore</span></span><br><span class="line"><span class="comment">                     have to perform a complete insert here.  */</span></span><br><span class="line">                  bck = unsorted_chunks (av);</span><br><span class="line">                  fwd = bck-&gt;fd;</span><br><span class="line">	  <span class="keyword">if</span> (__glibc_unlikely (fwd-&gt;bk != bck))</span><br><span class="line">                    &#123;</span><br><span class="line">                      errstr = <span class="string">&quot;malloc(): corrupted unsorted chunks&quot;</span>;</span><br><span class="line">                      <span class="keyword">goto</span> errout;</span><br><span class="line">                    &#125;</span><br><span class="line">                  remainder-&gt;bk = bck;</span><br><span class="line">                  remainder-&gt;fd = fwd;</span><br><span class="line">                  bck-&gt;fd = remainder;</span><br><span class="line">                  fwd-&gt;bk = remainder;</span><br><span class="line">                  <span class="keyword">if</span> (!in_smallbin_range (remainder_size))</span><br><span class="line">                    &#123;</span><br><span class="line">                      remainder-&gt;fd_nextsize = <span class="literal">NULL</span>;</span><br><span class="line">                      remainder-&gt;bk_nextsize = <span class="literal">NULL</span>;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                  set_head (victim, nb | PREV_INUSE |</span><br><span class="line">                            (av != &amp;main_arena ? NON_MAIN_ARENA : <span class="number">0</span>));</span><br><span class="line">                  set_head (remainder, remainder_size | PREV_INUSE);</span><br><span class="line">                  set_foot (remainder, remainder_size);</span><br><span class="line">                &#125;</span><br><span class="line">              check_malloced_chunk (av, victim, nb);</span><br><span class="line">              <span class="type">void</span> *p = chunk2mem (victim);</span><br><span class="line">              alloc_perturb (p, bytes);</span><br><span class="line">              <span class="keyword">return</span> p;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">         Search for a chunk by scanning bins, starting with next largest</span></span><br><span class="line"><span class="comment">         bin. This search is strictly by best-fit; i.e., the smallest</span></span><br><span class="line"><span class="comment">         (with ties going to approximately the least recently used) chunk</span></span><br><span class="line"><span class="comment">         that fits is selected.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">         The bitmap avoids needing to check that most blocks are nonempty.</span></span><br><span class="line"><span class="comment">         The particular case of skipping all bins during warm-up phases</span></span><br><span class="line"><span class="comment">         when no chunks have been returned yet is faster than it might look.</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line"></span><br><span class="line">      ++idx;</span><br><span class="line">      bin = bin_at (av, idx);</span><br><span class="line">      block = idx2block (idx);</span><br><span class="line">      <span class="built_in">map</span> = av-&gt;binmap[block];</span><br><span class="line">      bit = idx2bit (idx);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> (;; )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="comment">/* Skip rest of block if there are no more set bits in this block.  */</span></span><br><span class="line">          <span class="keyword">if</span> (bit &gt; <span class="built_in">map</span> || bit == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="keyword">do</span></span><br><span class="line">                &#123;</span><br><span class="line">                  <span class="keyword">if</span> (++block &gt;= BINMAPSIZE) <span class="comment">/* out of bins */</span></span><br><span class="line">                    <span class="keyword">goto</span> use_top;</span><br><span class="line">                &#125;</span><br><span class="line">              <span class="keyword">while</span> ((<span class="built_in">map</span> = av-&gt;binmap[block]) == <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">              bin = bin_at (av, (block &lt;&lt; BINMAPSHIFT));</span><br><span class="line">              bit = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">          <span class="comment">/* Advance to bin with set bit. There must be one. */</span></span><br><span class="line">          <span class="keyword">while</span> ((bit &amp; <span class="built_in">map</span>) == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">              bin = next_bin (bin);</span><br><span class="line">              bit &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">              assert (bit != <span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">          <span class="comment">/* Inspect the bin. It is likely to be non-empty */</span></span><br><span class="line">          victim = last (bin);</span><br><span class="line"></span><br><span class="line">          <span class="comment">/*  If a false alarm (empty bin), clear the bit. */</span></span><br><span class="line">          <span class="keyword">if</span> (victim == bin)</span><br><span class="line">            &#123;</span><br><span class="line">              av-&gt;binmap[block] = <span class="built_in">map</span> &amp;= ~bit; <span class="comment">/* Write through */</span></span><br><span class="line">              bin = next_bin (bin);</span><br><span class="line">              bit &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">              size = chunksize (victim);</span><br><span class="line"></span><br><span class="line">              <span class="comment">/*  We know the first chunk in this bin is big enough to use. */</span></span><br><span class="line">              assert ((<span class="type">unsigned</span> <span class="type">long</span>) (size) &gt;= (<span class="type">unsigned</span> <span class="type">long</span>) (nb));</span><br><span class="line"></span><br><span class="line">              remainder_size = size - nb;</span><br><span class="line"></span><br><span class="line">              <span class="comment">/* unlink */</span></span><br><span class="line">              unlink (av, victim, bck, fwd);</span><br><span class="line"></span><br><span class="line">              <span class="comment">/* Exhaust */</span></span><br><span class="line">              <span class="keyword">if</span> (remainder_size &lt; MINSIZE)</span><br><span class="line">                &#123;</span><br><span class="line">                  set_inuse_bit_at_offset (victim, size);</span><br><span class="line">                  <span class="keyword">if</span> (av != &amp;main_arena)</span><br><span class="line">                    victim-&gt;size |= NON_MAIN_ARENA;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">              <span class="comment">/* Split */</span></span><br><span class="line">              <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                  remainder = chunk_at_offset (victim, nb);</span><br><span class="line"></span><br><span class="line">                  <span class="comment">/* We cannot assume the unsorted list is empty and therefore</span></span><br><span class="line"><span class="comment">                     have to perform a complete insert here.  */</span></span><br><span class="line">                  bck = unsorted_chunks (av);</span><br><span class="line">                  fwd = bck-&gt;fd;</span><br><span class="line">	  <span class="keyword">if</span> (__glibc_unlikely (fwd-&gt;bk != bck))</span><br><span class="line">                    &#123;</span><br><span class="line">                      errstr = <span class="string">&quot;malloc(): corrupted unsorted chunks 2&quot;</span>;</span><br><span class="line">                      <span class="keyword">goto</span> errout;</span><br><span class="line">                    &#125;</span><br><span class="line">                  remainder-&gt;bk = bck;</span><br><span class="line">                  remainder-&gt;fd = fwd;</span><br><span class="line">                  bck-&gt;fd = remainder;</span><br><span class="line">                  fwd-&gt;bk = remainder;</span><br><span class="line"></span><br><span class="line">                  <span class="comment">/* advertise as last remainder */</span></span><br><span class="line">                  <span class="keyword">if</span> (in_smallbin_range (nb))</span><br><span class="line">                    av-&gt;last_remainder = remainder;</span><br><span class="line">                  <span class="keyword">if</span> (!in_smallbin_range (remainder_size))</span><br><span class="line">                    &#123;</span><br><span class="line">                      remainder-&gt;fd_nextsize = <span class="literal">NULL</span>;</span><br><span class="line">                      remainder-&gt;bk_nextsize = <span class="literal">NULL</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                  set_head (victim, nb | PREV_INUSE |</span><br><span class="line">                            (av != &amp;main_arena ? NON_MAIN_ARENA : <span class="number">0</span>));</span><br><span class="line">                  set_head (remainder, remainder_size | PREV_INUSE);</span><br><span class="line">                  set_foot (remainder, remainder_size);</span><br><span class="line">                &#125;</span><br><span class="line">              check_malloced_chunk (av, victim, nb);</span><br><span class="line">              <span class="type">void</span> *p = chunk2mem (victim);</span><br><span class="line">              alloc_perturb (p, bytes);</span><br><span class="line">              <span class="keyword">return</span> p;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    use_top:</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">         If large enough, split off the chunk bordering the end of memory</span></span><br><span class="line"><span class="comment">         (held in av-&gt;top). Note that this is in accord with the best-fit</span></span><br><span class="line"><span class="comment">         search rule.  In effect, av-&gt;top is treated as larger (and thus</span></span><br><span class="line"><span class="comment">         less well fitting) than any other available chunk since it can</span></span><br><span class="line"><span class="comment">         be extended to be as large as necessary (up to system</span></span><br><span class="line"><span class="comment">         limitations).</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">         We require that av-&gt;top always exists (i.e., has size &gt;=</span></span><br><span class="line"><span class="comment">         MINSIZE) after initialization, so if it would otherwise be</span></span><br><span class="line"><span class="comment">         exhausted by current request, it is replenished. (The main</span></span><br><span class="line"><span class="comment">         reason for ensuring it exists is that we may need MINSIZE space</span></span><br><span class="line"><span class="comment">         to put in fenceposts in sysmalloc.)</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line"></span><br><span class="line">      victim = av-&gt;top;</span><br><span class="line">      size = chunksize (victim);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> ((<span class="type">unsigned</span> <span class="type">long</span>) (size) &gt;= (<span class="type">unsigned</span> <span class="type">long</span>) (nb + MINSIZE))</span><br><span class="line">        &#123;</span><br><span class="line">          remainder_size = size - nb;</span><br><span class="line">          remainder = chunk_at_offset (victim, nb);</span><br><span class="line">          av-&gt;top = remainder;</span><br><span class="line">          set_head (victim, nb | PREV_INUSE |</span><br><span class="line">                    (av != &amp;main_arena ? NON_MAIN_ARENA : <span class="number">0</span>));</span><br><span class="line">          set_head (remainder, remainder_size | PREV_INUSE);</span><br><span class="line"></span><br><span class="line">          check_malloced_chunk (av, victim, nb);</span><br><span class="line">          <span class="type">void</span> *p = chunk2mem (victim);</span><br><span class="line">          alloc_perturb (p, bytes);</span><br><span class="line">          <span class="keyword">return</span> p;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/* When we are using atomic ops to free fast chunks we can get</span></span><br><span class="line"><span class="comment">         here for all block sizes.  */</span></span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (have_fastchunks (av))</span><br><span class="line">        &#123;</span><br><span class="line">          malloc_consolidate (av);</span><br><span class="line">          <span class="comment">/* restore original bin index */</span></span><br><span class="line">          <span class="keyword">if</span> (in_smallbin_range (nb))</span><br><span class="line">            idx = smallbin_index (nb);</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">            idx = largebin_index (nb);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">         Otherwise, relay to handle system-dependent cases</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="type">void</span> *p = sysmalloc (nb, av);</span><br><span class="line">          <span class="keyword">if</span> (p != <span class="literal">NULL</span>)</span><br><span class="line">            alloc_perturb (p, bytes);</span><br><span class="line">          <span class="keyword">return</span> p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这就是unsorted bin的分拣规则吗</p>
+<h6 id="1-从-Unsorted-Bin-摘下-chunk-并检查"><a href="#1-从-Unsorted-Bin-摘下-chunk-并检查" class="headerlink" title="1.从 Unsorted Bin 摘下 chunk 并检查"></a>1.从 Unsorted Bin 摘下 chunk 并检查</h6><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775813486016-98e47fc6-a07d-489f-9e11-d81986a6c576.png.png"></p>
+<p>首先，我们知道在glibc中bin是malloc_chunk结构体数组（in main_arena)</p>
+<p>unsorted_chunks(av)为宏定义，指向main_arena中idx为1的chunk</p>
+<p>这个chunk不在user数据区，它是当双向循环链表的“头”用的</p>
+<p>这里的if有对chunk -&gt;size的大小检查，</p>
+<p>victim-&gt;size &lt;&#x3D; 2 * SIZE_SZ  是检查size最小值</p>
+<p>victim-&gt;size &gt; av-&gt;system_mem  检查最大值</p>
+<p>size &#x3D; chunksize (victim);用于提取victim-&gt;size,去掉低3位</p>
+<h6 id="2-尝试利用-last-remainder-快速切割-（针对-Small-Request）"><a href="#2-尝试利用-last-remainder-快速切割-（针对-Small-Request）" class="headerlink" title="2.尝试利用 last_remainder 快速切割 （针对 Small Request）"></a>2.尝试利用 <code>last_remainder</code> 快速切割 （针对 Small Request）</h6><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775905298465-ad0205bd-9839-4d8a-9f06-8d3ab5570074.png.png"></p>
+<p>Last Remainder 机制 </p>
+<p>如果刚刚切开一个大块分给用户，剩下的那部分（Remainder）很有可能紧接着就被再次申请  </p>
+<p>可以看到if后面有好长一段判断逻辑</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (in_smallbin_range (nb) &amp;&amp;             <span class="comment">// 1. 你申请的是个小块 (Small Bin 范围)</span></span><br><span class="line">    bck == unsorted_chunks (av) &amp;&amp;       <span class="comment">// 2. Unsorted Bin 里【只有一个】chunk</span></span><br><span class="line">    victim == av-&gt;last_remainder &amp;&amp;      <span class="comment">// 3. 这个 chunk 正好是“上次剩下的”</span></span><br><span class="line">    (<span class="type">unsigned</span> <span class="type">long</span>) (size) &gt; (<span class="type">unsigned</span> <span class="type">long</span>) (nb + MINSIZE)) <span class="comment">// 4. 它足够大</span></span><br></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775827737343-1fcd89cb-77cf-4715-8fe8-f3ab9c84cab7.png.png"></p>
+<p>算余量，定新块，改链表</p>
+<p>原来的去掉，新切的塞回来</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775905330651-80564c60-485b-48b2-b578-74cde61bc17d.png.png"></p>
+<p>收尾工作</p>
+<p>check_malloced_chunk (av, victim, nb);</p>
+<p>检查对齐</p>
+<p>void *p &#x3D; chunk2mem (victim);</p>
+<p>p &#x3D; (char *)victim + 2 * SIZE_SZ</p>
+<p>alloc_perturb是什么</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775829912386-625a1e67-697d-4639-b790-a99a7c90c5e5.png.png"></p>
+<h6 id="3-移出-Unsorted-Bin-与精确匹配"><a href="#3-移出-Unsorted-Bin-与精确匹配" class="headerlink" title="3.移出 Unsorted Bin 与精确匹配"></a>3.移出 Unsorted Bin 与精确匹配</h6><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775898716207-2dee962b-5774-445d-b200-a0c736ae0f8c.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775898939312-2242c0f0-161d-47a4-97ee-16ea2b15f080.png.png"></p>
+<p>将victim从双向循环链表中移除</p>
+<p>没有safe unlinking(bck-&gt;fd &#x3D;&#x3D; victim)</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775898951108-07eddf33-3292-4d33-b49c-a9d893dd638f.png.png"></p>
+<p>检查chunk大小，改PREV_INUSE,return p</p>
+<h6 id="4-分拣归仓，small-bin-or-large-bin"><a href="#4-分拣归仓，small-bin-or-large-bin" class="headerlink" title="4.分拣归仓，small bin or large bin"></a>4.分拣归仓，small bin or large bin</h6><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775905471865-16c5f039-ea19-4f94-a9dd-643c13afb7c9.png.png"></p>
+<p> 当 Unsorted Bin 中的 chunk 既没有被“精确匹配”拎走，也没有被“最后剩余块”逻辑切开时，分配器就会把它正式移出 Unsorted Bin，并根据它的 <code>size</code> 投递到<strong>Small Bin</strong> 或 <strong>Large Bin</strong></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775902643404-b2dfe8d5-4d7c-452d-8e7f-0fdf3e064d7a.png.png"></p>
+<p>进smallbin</p>
+<p>Small Bin 内部不排序，所有堆块大小相同，直接插入链表头部即可  </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775905917606-e71ff60b-3bc8-407b-ae61-7c3f8048b72f.png.png"></p>
+<p>进large bin就麻烦了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775902858544-dd20f05c-f45c-43ca-a519-520116e18aba.png.png"></p>
+<p>largebin 对比smallbin，它是有序的，按size从大到小</p>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">特性</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">Smallbin</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">Largebin</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><font style="color:rgb(31, 31, 31);">尺寸</font></strong></td>
+<td><font style="color:rgb(31, 31, 31);">固定（0x20, 0x30…）</font></td>
+<td><font style="color:rgb(31, 31, 31);">范围（Range）</font></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">排序</font></strong></td>
+<td><font style="color:rgb(31, 31, 31);">FIFO</font></td>
+<td><font style="color:rgb(31, 31, 31);">按 Size 降序 + FIFO</font></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">指针数量</font></strong></td>
+<td><font style="color:rgb(31, 31, 31);">2 (</font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">, </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">)</font></td>
+<td><font style="color:rgb(31, 31, 31);">4 (</font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">, </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">, </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd_ns&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">, </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk_ns&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">)</font></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">分配策略</font></strong></td>
+<td><font style="color:rgb(31, 31, 31);">精确匹配</font></td>
+<td><font style="color:rgb(31, 31, 31);">最佳匹配 (Best-fit)</font></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">攻击难点</font></strong></td>
+<td><font style="color:rgb(31, 31, 31);">主要是 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;unlink&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 检查</font></td>
+<td><font style="color:rgb(31, 31, 31);">需要操作 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;nextsize&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 指针，逻辑较深</font></td>
+</tr>
+</tbody></table>
+<p>为了加速查找，它引入了第二套指针：fd_nextsize 和 bk_nextsize（跳表结构）</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775912148106-8a86680e-0b30-4497-a019-bd35cbe3bff8.png.png"></p>
+<p>情况1：当前堆块比 Bin 中最小的还要小</p>
+<p>直接插入到链表尾部，并维护 nextsize 链表（循环结构）</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775912258430-fe7fbd21-b14e-47ee-bb45-6088be8d4222.png.png"></p>
+<p>情况2：寻找插入位置</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775912306563-6ae7eaf2-a985-4e80-9000-6de586c2d776.png.png"></p>
+<p>情况3：大小已存在，插入到该大小对应组的第二个节点（优化性能，不更新 nextsize）</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775912353396-ac301887-ad51-4999-bf99-da817e7386a2.png.png"></p>
+<p>情况4：找到位置，插入新大小节点</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775912384341-2006dd36-2b50-4223-9f62-b0a40bf30dbf.png.png"></p>
+<p>情况5：Bin 原本为空，自己作为 nextsize 的起点</p>
+<hr>
+<p>最终的链表链接</p>
+<p>不论是 Small 还是 Large，最后都会执行这一组标准的双向链表插入操作</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775912515576-1acc0b3f-e9de-4822-a3b5-9ca4e57e4e2e.png.png"></p>
+<p>mark_bin（）的作用</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775912649087-dbfc71d2-7807-486a-83e9-d74b309e7cfe.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775912928262-daaf1796-d542-42a3-8421-881f1427cc43.png.png"></p>
+<p>对于 <strong>Small Bin</strong>：新堆块总是插入到 Bin 头部，所以 <code>bck</code> 通常是 Bin 头部，<code>fwd</code> 是原本的第一块</p>
+<p>对于 <strong>Large Bin</strong>：<code>fwd</code> 和 <code>bck</code> 是根据大小排序逻辑计算出来的插入点</p>
+<h6 id="5-扫描-Large-Bin、Binmap-与-Top-Chunk"><a href="#5-扫描-Large-Bin、Binmap-与-Top-Chunk" class="headerlink" title="5. 扫描 Large Bin、Binmap 与 Top Chunk"></a>5. 扫描 Large Bin、Binmap 与 Top Chunk</h6><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775970416129-3614868e-19dc-4cdc-a13c-b9cf614fcb72.png.png"></p>
+<p>如果 Unsorted Bin 遍历了一圈（默认最多 10000 次）还没返回，就只能去更大的 Bin 里找兜底方案了说是</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775925653106-8ad28aea-ae24-440b-b56d-cf6853744c49.png.png"></p>
+<p>防止极端情况下 unsorted 链表特别长导致这一轮 malloc 花费太久</p>
+<p>也保护自己：如果链表结构被破坏（比如自环或环很大），可以避免在这里无限循环</p>
+<p>5.1 Large Bin 的 Best-Fit 深度扫描</p>
+<p>对“大请求”：从当前 largebin 中按 size 有序链找最佳 fit</p>
+<p>接下来是这段（只有在“大请求”即 !in_smallbin_range(nb) 时走）只处理 large request</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775926044987-b1225b28-78eb-48dd-8b46-4de8d2048106.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775926070872-9b8c3163-0cee-4aaa-b3a8-9afb21c541c1.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775975189326-be6627e6-663a-418e-beb5-9a05a5d52b84.jpeg.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775975178050-a5bfd33b-118a-452b-8dcc-fe1afbcb41df.png.png">先检查这个 Large Bin 是否为空，或者里面最大的 chunk（链表头 <code>first(bin)</code>）是否都比你要申请的 <code>nb</code> 小。如果是，直接跳过这个 bin</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775975423762-1bcdb989-869b-45ce-8813-0a3a2ace4fac.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775975710884-433352f0-480c-4461-89c6-84b323da08d9.png.png">在 Large Bin 中，如果有多个大小完全相同的 chunk，它们会被挂在同一个位置，互相之间只通过 <code>fd</code> 和 <code>bk</code> 链接，而 <code>fd_nextsize</code> 和 <code>bk_nextsize</code><strong>只保留在第一个（首个插入的）该大小的 chunk 上</strong></p>
+<p>拿走第二个 chunk，就不需要去nextsize指针</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775975891890-3fce2197-d05c-47d3-9598-2b1cd51b3b00.png.png"></p>
+<p>unlink</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775975974108-1530a93a-e5d0-4376-8f57-f4831217ac13.png.png">摘下 chunk 后，如果它比你申请的 <code>nb</code> 还要大，就需要进行切割 </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775976578973-29c4c943-f6fa-4084-9052-de348b46f9cb.png.png"></p>
+<p>剩的太少，不切</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775977770166-cd4bc646-2f08-48a9-9080-b69a417c3d00.png.png"></p>
+<p>够大就切</p>
+<p>3635：算remainder指针</p>
+<p>3638-3648：放回unsorted bin</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775978294375-2d80e755-743e-4586-a00e-58be8392f615.png.png"></p>
+<p>清指针</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775978332038-5bd46e10-1e65-4702-8271-bc35f2216787.png.png"></p>
+<p>重新打标签</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775978382278-0c2a4a1a-3117-4647-ba95-99d04219a137.png.png"></p>
+<p>return</p>
+<p>5.2 Binmap 位图扫描</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775978788680-3f439da0-5271-4e63-9fe4-3e3db7b5dd11.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775978812112-5a53d74a-1539-47e1-965c-a02c634f503d.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775978828840-f3adaa39-5b43-4dd8-a0b1-79954c4313ab.png.png"></p>
+<hr>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775978940838-971b058f-c628-4945-9486-bd426385dab8.png.png"></p>
+<p>当前请求的 size 对应的 Bin 没货就++idx找下一个更大的</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775979094317-87a983de-ae14-4d7d-9730-e32a789d4b29.png.png">为了极速查找，glibc 把所有的 Bin 分成了几个大的 Block（每个 block 是一个整数，用 bit 代表对应的 bin 是否有货）</p>
+<p>3693： 如果一个 block 是 0，说明这连续的几十个 Bin 全是空的，直接跳过整个 block  </p>
+<p>3691： 如果所有的 block 都扫完了还是没货，就会直接去找 Top Chunk  </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775981163588-02eea672-ed70-484d-ba26-3286be19b874.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775981193159-63db3cfb-66b4-42a6-bcb8-7a8a86d23036.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775981233308-a3790621-809c-46b0-a429-89ad22bafdff.png.png"></p>
+<p>检查后unlink，剩下的太小就不切</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775981458320-c736076c-266b-4b5b-bd84-f639606b6ea7.png.png"></p>
+<p>大块就切</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775981640147-0aaa1cfe-2857-4171-af53-d8d713fc0fcc.png.png">每次发生大块切割时，glibc 会检查你当前申请的尺寸 <code>nb</code> 是不是属于 <strong>Small Bin</strong> 的范围（通常是小于 0x400 字节）。如果是，它就会把切剩下的这块肉（<code>remainder</code>）的地址，记录在当前 arena 的 <code>last_remainder</code> 变量中</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775981742789-2a372eef-8279-4d91-86b5-78fd55dea800.png.png"></p>
+<p>进large bin就清指针</p>
+<p>5.3 use_top</p>
+<p>前面的都不行就找top chunk(wilderness)</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775982028113-230eba20-4a6d-4be3-8c42-b9ba52a4268c.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775982041100-fcc430c0-20ce-4525-9d66-933229863e1c.png.png"></p>
+<hr>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775982092264-f989d333-1f0d-4730-a7bd-c6f643861fec.png.png"></p>
+<p>house of force</p>
+<p>这里对 top chunk size 没有检查</p>
+<p>没什么好说的，跳到3811</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775982534487-9983646a-a5df-4d59-96bd-5e5262e9f67a.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775982768506-b4093aea-5260-44f1-a7d6-8bf51465961b.png.png"></p>
+<p>相当于消除内存碎片</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775982817571-6b3c9137-1be9-46e7-9763-e3ada27bbb42.png.png"></p>
+<p>最后没招了就向os申请</p>
+<h3 id="int-free"><a href="#int-free" class="headerlink" title="_int_free"></a>_int_free</h3><p>_int_free不多，200多行</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776081325094-3405433b-29f2-46bf-973f-7d12b0ca739c.jpeg.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776081662707-57488b79-7ed3-4222-8cab-18f79b54252a.png.png"></p>
+<p>各个bin要用到的指针</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776255117037-553cce90-d58e-4335-ae0c-a40e8cb31a1a.png.png"></p>
+<h4 id="check-pointer-and-size"><a href="#check-pointer-and-size" class="headerlink" title="check pointer and size"></a>check pointer and size</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776082297928-6da93b58-2c0b-43c2-a89d-dbb4112c72b2.png.png"></p>
+<p>chunksize(p)读取p-&gt;mchunk_size并屏蔽（A|M|P）</p>
+<p>3861-3862:防size过大，检查p指针16字节对齐</p>
+<p>3873：size至少是0x20bytes</p>
+<p>3868：打印错误</p>
+<p>3879：确保当前chunk在使用中</p>
+<h4 id="int-free处理的几类chunk"><a href="#int-free处理的几类chunk" class="headerlink" title="_int_free处理的几类chunk"></a>_int_free处理的几类chunk</h4><p>1.fastbin chunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776169756085-6df3943e-5818-4c50-975c-4c258c831b19.png.png"></p>
+<p>2.nom chunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776169801026-541a0ab9-e821-43be-a052-1774d53ef243.png.png"></p>
+<p>3.mapped chunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776169832917-9f50ad43-58b1-4a11-92e0-f8e31485f2b3.png.png"></p>
+<h4 id="fastbin-路径"><a href="#fastbin-路径" class="headerlink" title="fastbin 路径"></a>fastbin 路径</h4><p>3880-3956</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776170977220-f43089df-602a-4f68-bdb9-df2a15012c60.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776171005596-81c0be99-e5d2-42e2-b7ed-a7cc9f710251.png.png"></p>
+<p>触发条件：size &lt;&#x3D; get_max_fast()</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776171487565-7502e03c-8606-4403-8c4b-9856f52933c7.png.png"></p>
+<p><font style="color:rgb(31, 31, 31);">如果开启了这个宏，并且当前释放的 chunk 物理上紧挨着 top chunk，那么它</font><strong><font style="color:rgb(31, 31, 31);">不能</font></strong><font style="color:rgb(31, 31, 31);">进入 fastbin，而是会进入后面的逻辑直接和 top chunk 合并</font></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776171726842-f59f834d-2e69-4833-939a-ef812e23e8b3.png.png"></p>
+<p><font style="color:rgb(31, 31, 31);">通过 chunk_at_offset(p, size) 找到当前 chunk 在内存中物理相邻的下一个 chunk。检查这个 next chunk 的 size 字段</font></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776172145405-a4374657-6994-41f5-9511-0245d8d9ec90.png.png"></p>
+<p><font style="color:rgb(31, 31, 31);">如果当前没锁（have_lock&#x3D;&#x3D;0），它会临时加锁重查一次，避免并发导致误报（malloc.c:3901-3919）</font></p>
+<p><font style="color:rgb(31, 31, 31);">3879-3919:</font></p>
+<p>这段检查 next chunk 头是否离谱：</p>
+<p><font style="color:rgb(31, 31, 31);">next-&gt;size &lt;&#x3D; 2*SIZE_SZ 或 chunksize(next) &gt;&#x3D; av-&gt;system_mem</font></p>
+<p><font style="color:rgb(31, 31, 31);">命中就报：free(): invalid next size (fast)</font></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776172588672-4b1d7225-f38e-42e4-8b7e-d1123847a86f.png.png"></p>
+<p>填充用户区数据</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776172948515-3a2a6906-e6e3-47de-a49b-42289ef96873.png.png"></p>
+<p>set_fastchunks(av)：标记 arena 里存在 fastbin 块</p>
+<p>idx &#x3D; fastbin_index(size) 找 bin 下标</p>
+<p>fb &#x3D; &amp;fastbin(av, idx) 拿到该链表头</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776174285090-96b913a3-b8ca-4a8d-976a-1a76e298f297.png.png"></p>
+<p>注释写的还挺详细的</p>
+<p>3935-3938：<font style="color:rgb(31, 31, 31);">检查 bin 的顶部是不是我们准备添加的 chunk。仅检查 old &#x3D;&#x3D; p，即“你要插入的 chunk 已经在链表头”能拦截 A -&gt; free(A) -&gt; free(A)，但fastbin dup（A,B,A）不行</font></p>
+<p><font style="color:rgb(31, 31, 31);">3944-3948：防多线程</font></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776243311554-21d0a3c9-1bbf-4a16-8e69-de8fbc72df8d.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776243381540-241a339f-28e8-40b0-a092-d5da647ea89e.png.png"></p>
+<h4 id="普通-chunk（非-mmapped，且不进-fastbin）"><a href="#普通-chunk（非-mmapped，且不进-fastbin）" class="headerlink" title="普通 chunk（非 mmapped，且不进 fastbin）"></a>普通 chunk（非 mmapped，且不进 fastbin）</h4><p>3956-4098</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776247489567-526b3909-3882-429a-9e9b-4b90f8b5d686.png.png"></p>
+<p>要动双向链表，加个lock</p>
+<p>3967:算nextchunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776247781775-aeddcb7e-a201-435a-902e-ed65aed656ca.png.png"></p>
+<p>一大坨检查</p>
+<p>不能释放 top chunk，next chunk 不能越界，PREV_INUSE 检查，next chunk size 合法性</p>
+<p>3999：填充字节进user data</p>
+<h5 id="向后合并-Backward-Consolidation-4001-4007"><a href="#向后合并-Backward-Consolidation-4001-4007" class="headerlink" title="向后合并 (Backward Consolidation) (4001-4007)"></a>向后合并 (Backward Consolidation) (4001-4007)</h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776248144228-53a4ac61-26b5-4e51-9ef8-1dfb79aa0a21.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776248167508-ad7c694a-0d0f-482e-8925-60ffd8a8b105.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776248274530-ceb0563a-1189-4b20-ad06-106650e23a27.png.png"></p>
+<h5 id="向前合并-Forward-Consolidation-4009-4059"><a href="#向前合并-Forward-Consolidation-4009-4059" class="headerlink" title="向前合并 (Forward Consolidation) (4009-4059)"></a>向前合并 (Forward Consolidation) (4009-4059)</h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776248371124-db580d2f-48de-42a2-9d5c-51be253932ab.png.png"></p>
+<p>如果nextchunk也free了，两个合并，放入unsorted bin</p>
+<p>如果nextchuck是top chunk，直接跟top chunk合并</p>
+<h5 id="大块释放的后续处理-4060-4098"><a href="#大块释放的后续处理-4060-4098" class="headerlink" title="大块释放的后续处理 (4060-4098)"></a>大块释放的后续处理 (4060-4098)</h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776254261664-3da9e9ef-a094-43ee-90c7-e9c6355ae097.png.png"></p>
+<p>4076：合并fastbin chunk</p>
+<p>4078-4092：如果合并后top chunk过大，则用sbrk或非main arena的用trim返还mem给os</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776254856048-ea6c1b89-68b1-4283-abe1-b846b0f09a79.png.png"></p>
+<p>lock检查</p>
+<h4 id="mmap-chunk释放（4099-4107）"><a href="#mmap-chunk释放（4099-4107）" class="headerlink" title="mmap chunk释放（4099-4107）"></a>mmap chunk释放（4099-4107）</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776254934005-e7e4c22a-ad19-41ac-ac5b-1ebdaf89fcab.png.png"></p>
+<p>直接用munmap_chunk()</p>
+<h4 id="-3"><a href="#-3" class="headerlink" title=""></a></h4><h3 id="-4"><a href="#-4" class="headerlink" title=""></a></h3><h2 id="how2heap"><a href="#how2heap" class="headerlink" title="how2heap"></a>how2heap</h2><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775982974677-78cc0dfd-f58b-42b4-882d-f9afc904d931.png.png"></p>
+<p>用how2heap辅助一下</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775986763296-83ee0c2d-d5e1-4c86-a7cb-a02ef9c85f40.png.png"></p>
+<p>按说明书操作就对了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775991199368-b88b9c88-1eb6-49ff-8421-6192c2ae3699.png.png"></p>
+<p>源码加载进去</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1775991271036-3764a8fa-f748-4b8b-8eeb-1d2a3429648a.png.png"></p>
+<p>directory &#x2F;home&#x2F;shark&#x2F;Desktop&#x2F;ctf&#x2F;claude_code&#x2F;how2heap&#x2F;glibc_2.23&#x2F;malloc</p>
+<p>start</p>
+<p>add-symbol-file &#x2F;home&#x2F;shark&#x2F;Desktop&#x2F;ctf&#x2F;claude_code&#x2F;how2heap&#x2F;glibc-all-in-one&#x2F;libs&#x2F;2.23-0ubuntu11.3_amd64&#x2F;.debug&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so 0x7ffff7800000（gibc开始地址）</p>
+<p>不用了，有更好的方法</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776259127458-12550470-7fef-4f90-8992-cd7001e32be6.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776259184692-7fbdd4d5-5bf8-46d1-8cad-002a0a3596d2.png.png"></p>
+<p>太超模了</p>
+<h3 id="fastbin-dup"><a href="#fastbin-dup" class="headerlink" title="fastbin_dup"></a>fastbin_dup</h3><p>fastbin中简单的double free</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776342013154-593796d1-0dfc-4f60-adbc-c90f5c441872.png.png"></p>
+<p>先看看正常运行后的结果</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776343503142-a88bf2bd-3fd7-4ab6-b1a0-cd36a4b11c65.png.png"></p>
+<p>可以看到第二轮malloc的时候返回了两次同样的addr</p>
+<p>用pwndbg调试看看</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776343953559-ec58f3fe-7ceb-49d9-a144-e023fbe9e07c.png.png"></p>
+<p>先free了一个a，这是bins链表和heap空间的布局</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776344131156-2e83bd74-51f9-493c-b643-2424229d5591.png.png"></p>
+<p>free b后用头插法进入fastbins bins</p>
+<p>接下来看看double free</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776344380486-6faf9172-6408-496c-be01-f40d528b7d27.png.png"></p>
+<p>可以看出a的next指针指向了b</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776345987919-b740c835-b9d1-4cc4-a02f-be2f90edf20e.png.png"></p>
+<p>看看</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776346204668-d21fdc14-91b7-425b-9d61-41def905c039.png.png"></p>
+<p>仅检查 fastbin 头部是否 &#x3D;&#x3D; 被 free 的指针</p>
+<p>也就是说只要隔一个chunk就可以实现double free</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776347426686-24e99d2e-d628-470d-a974-7e4c82865dac.png.png"></p>
+<p>old装的chunk b</p>
+<p>然后malloc回来</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776347963007-817c537f-cae7-4d9d-a7b8-46b9b897e427.png.png"></p>
+<p>为什么malloc后fastbin的链表没变化？</p>
+<p>不对，有变化</p>
+<p>从aba变成bab了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776430442856-a154418a-b152-4e11-ba85-dabbbfea686c.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776430539880-fed68c34-090e-44e0-997e-32b2d1435c69.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776430555328-305b1932-1250-421c-99cf-668b21a8fe61.png.png"></p>
+<p>循环了，怪不得</p>
+<p>fastbin的检查还是太weak了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776430618591-e6c477e3-0add-46b0-8234-b87f5dff887c.png.png"></p>
+<h3 id="fastbin-dup-into-stack"><a href="#fastbin-dup-into-stack" class="headerlink" title="fastbin_dup_into_stack"></a>fastbin_dup_into_stack</h3><p>任意地址分配</p>
+<p>先run一下</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776495116427-4acbcd8a-f845-4d15-a764-22751c6a1fe5.png.png"></p>
+<p>用fastbin_dup伪造后还得伪造size</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776495520264-9b77e0e3-83db-492d-a5df-4f3aaf8c0b89.png.png"></p>
+<p>看看源码</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776495731179-26845eda-97c4-47f4-807b-517bfd766372.png.png"></p>
+<p>stack_var在stack上</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776495941556-b9f42f17-2339-4106-94c9-96799a984458.png.png"></p>
+<p>伪造size</p>
+<p>一个正常的 Chunk 结构是：prev_size (8 bytes) -&gt; size (8 bytes) -&gt; user_data</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776496265856-5729994f-ef03-46c6-b982-efb47ee46bc5.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776500868717-20084907-d471-4371-a0a1-da2f7c89aced.png.png"></p>
+<p>这时候的d指向a，我们要return stack_var+8就得在&amp;stack_var伪造size通过检查</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776501223280-00a0c47c-10b2-44fa-b441-bbb2a1f3908b.png.png"></p>
+<p>改完后</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776501595342-e4be05fa-9582-470e-9503-6834c2d8cc6a.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776501702732-d2f22cd4-7bfa-4a06-89cf-3ce1cf72cb95.png.png"></p>
+<p>malloc出来了</p>
+<h3 id="house-of-spirit"><a href="#house-of-spirit" class="headerlink" title="house_of_spirit"></a>house_of_spirit</h3><p>fake chunk这一块</p>
+<p>在可控空间内伪造chunk结构**<font style="color:rgba(0, 0, 0, 0.87);background-color:rgb(241, 243, 245);">（比如栈、BSS段）</font>**，然后调用free,malloc后返回，实现任意地址写</p>
+<p>pwn.college里写过好多了</p>
+<p>这回先看看源码</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776516536557-384afe70-acb9-4aba-ae22-a8624c2ba27c.png.png"></p>
+<p>初始化栈空间</p>
+<p>fake_chunk注意16字节对齐</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776567242276-4cb7c9f8-ef72-478c-a980-63f5b8e74a29.png.png"></p>
+<p>next size的value只要&gt;16, &lt;128kb左右（<font style="color:rgba(0, 0, 0, 0.87);background-color:rgb(241, 243, 245);">系统分配的堆内存总大小）</font>就可以了，不要忘了top chunk也是chunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776567901922-af97773d-f5d3-49c2-b29f-8691c8359ce7.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776568193564-5fa1f6e7-20d9-4f91-89f0-5a7f0580f0ba.png.png"></p>
+<p>ni步进</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776568218615-f4837c26-cacd-4c5f-96bd-25a92f02af27.png.png"><!-- 这是一张图片，ocr 内容为： --><br><img src="/images/glibc/1776569116378-b8a2f896-3a41-42ed-9e02-dcc60ac15d07.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776568248322-ed51ee7c-27c3-42ea-93fc-43b407523560.png.png"></p>
+<p>_int_free检查</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776569332363-581f59d5-7915-43b5-bd5f-4de3a65aefe0.png.png"></p>
+<p>成了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776569427634-acd115d4-4859-4c53-baec-78bebad4cd0b.png.png"></p>
+<p>返回satck_addr</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776569456235-f2637cfb-4335-4143-9fd7-ed391a1299f8.png.png"></p>
+<h3 id="unsorted-bin-attack"><a href="#unsorted-bin-attack" class="headerlink" title="unsorted_bin_attack"></a>unsorted_bin_attack</h3><p>将一个libc的地址写入到一个任意的内存地址中</p>
+<p>glibc2.23中的_int_malloc在遍历unsorted bin并取出chunk时缺少链表完整性检查</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776585946247-db57a184-97bf-4309-96c2-373dbd2d6af3.png.png"></p>
+<p>看看unsorted_chunks()宏，</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776587194174-09d86199-17da-43e4-bb5c-eab7b5b8cfc8.png.png"></p>
+<p>简单粗暴</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776587236081-521db7c9-0b00-4092-aaba-47d0bb24705b.png.png"></p>
+<p>可以修改unsorted bin chunk中的bk,取出时bck-&gt;fd &#x3D; libc_addr</p>
+<p>先看看源码</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776585215424-86fe0cf4-5233-47d3-b8b9-7d5a180e1577.png.png"></p>
+<p>19：此时，这个 Chunk 会被 glibc 放入 Unsorted Bin 的双向链表中。</p>
+<p>在这个状态下，p 的前向指针 (fd) 和后向指针 (bk) 都会指向 libc 内部的 main_arena 结构体中的某个地址。p[1] 其实就是访问这个 Chunk 的 bk 指针</p>
+<p>25：模拟UAF,把chunk的bk指针改成&amp;stack_var - 2,即目标地址-0x10</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776588388594-e37dc926-3006-4402-913c-97e903ede9a7.png.png">free后</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776588517071-1f49184b-aa75-4a51-ab6d-e028cdd0b183.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776589044334-72d9d37c-83b4-456f-8b0d-b589c62ddbbb.png.png"></p>
+<p>改bk成功</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776590889211-c8de14d1-9778-479e-b381-0c5242abbba2.png.png"></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/glibc/1776592804667-502a77e4-b309-4c17-a707-69aae5258c90.png.png"></p>
+<h3 id="unsafe-unlink"><a href="#unsafe-unlink" class="headerlink" title="unsafe_unlink"></a>unsafe_unlink</h3><p>利用free时chunk向后合并，触发unlink</p>
+<p>fastbin的free不会改变相邻chunk的PREV_INUSE，也不会触发合并，所以要malloc大一点</p>
+<h3 id="-5"><a href="#-5" class="headerlink" title=""></a></h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2026/04/21/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-id="cuidZf9y5rErceaemB-Fe8AYk" data-title="glibc源码分析" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pwn/" rel="tag">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/glibc/" rel="tag">glibc</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2026/01/09/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pwn/" rel="tag">Pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glibc/" rel="tag">glibc</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/Pwn/" style="font-size: 10px;">Pwn</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">April 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/04/21/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">glibc源码分析</a>
+          </li>
+        
+          <li>
+            <a href="/2026/01/09/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
