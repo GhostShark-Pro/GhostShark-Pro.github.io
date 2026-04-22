@@ -1,0 +1,24 @@
+/* 白天模式下强制使用 day.jpg */
+[data-user-color-scheme="light"] #banner {
+    background-image: url('/img/day.jpg') !important;
+}
+
+/* 黑夜模式下强制使用 dark.jpg */
+[data-user-color-scheme="dark"] #banner {
+    background-image: url('/img/dark.jpg') !important;
+}
+
+/* 无论白天黑夜，把 Fluid 默认的背景图强制设为透明 */
+#banner {
+    background-image: none !important;
+    background-color: transparent !important;
+}
+
+/* 让导航栏也稍微透明一点，透出下面的极光 */
+#board {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(10px); /* 毛玻璃特效 */
+}
+[data-user-color-scheme="dark"] #board {
+    background-color: rgba(30, 30, 34, 0.5) !important;
+}
