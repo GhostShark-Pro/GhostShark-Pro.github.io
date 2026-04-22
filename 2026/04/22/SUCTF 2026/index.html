@@ -16,79 +16,79 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="shark">
   <meta name="keywords" content="">
   
     <meta name="description" content="SU_evbuffer    服务器？？？ 开了8888和8889两个监听端口   socket（2-&gt;ipv4,2-&gt;UDP,0)   UDP监听，8889     TCP监听，8888 tcp由于稳定大多用于核心业务，udp则是发个小数据包看看服务器在不在之类的 总之udp要的是快，tcp要稳（我在说什么废话） 无论数据从哪个端口进入，最终都会汇聚到 sub_13A4 函数进行处理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SUCTF 2026">
-<meta property="og:url" content="http://example.com/2026/04/22/SUCTF%202026/index.html">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/04/22/SUCTF%202026/index.html">
 <meta property="og:site_name" content="shark&#39;s home">
 <meta property="og:description" content="SU_evbuffer    服务器？？？ 开了8888和8889两个监听端口   socket（2-&gt;ipv4,2-&gt;UDP,0)   UDP监听，8889     TCP监听，8888 tcp由于稳定大多用于核心业务，udp则是发个小数据包看看服务器在不在之类的 总之udp要的是快，tcp要稳（我在说什么废话） 无论数据从哪个端口进入，最终都会汇聚到 sub_13A4 函数进行处理">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773452883027-bcb01524-b7f5-4dd8-83d4-4285fe2d22f4.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773452903356-95788d2e-0b24-4d4a-b189-7b98e5f22a69.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773455594021-697e861e-d1c8-408f-adba-ff310f3bab6a.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773456029843-661aceee-e27c-4762-aee1-7bdbe9fb5076.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773455639836-c40d0638-e6e4-447e-adf8-fd335caea360.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773456070403-1dab2631-3d3e-4d04-8628-f2fbb5ebccb4.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773457578971-215afa3e-12ad-46ed-8354-000550d71efe.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773457734561-fe3dc0c1-2732-4613-bee4-0c9100718c51.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773457925821-3ca00494-213b-4dbb-b69d-5f967a6f47cf.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773458937962-69fa0ca0-58f2-41f5-ac83-afb76c93adb5.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773462056250-9ca27730-25a4-4795-b510-c475a02563a2.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773462804494-277b31b4-55e6-45f1-b941-51f7d5aba1f3.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773462934146-cf86812c-5e7f-4e79-8bc9-67d8331502b7.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773467794052-684d0bfb-1262-4051-a59f-f8565666de3e.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773475734214-dcddd471-f3a8-441d-baa0-dd021a7056ac.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773475755166-b0e3de2e-0cc7-4f2e-a758-d182e78d7c84.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773475778678-c13c0721-7339-46a5-97a5-5a0c388c6983.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773475938811-f24a5b3d-faca-4d92-bfd2-733352c46a07.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773475958822-b2b6025a-ce10-4048-a51f-e116bc6f0910.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773476113362-495dfd98-231e-4fb3-86af-44d0996875ec.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773554983989-95b08103-2223-41a2-9ad8-c75424524856.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773559198134-f9883081-627d-4e9e-ad8c-b14115dc2930.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773570347578-39f15634-e277-4829-9bb1-3e143361556c.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773569926058-6e4f0eef-ce65-4b1c-9ae7-3cbdee185503.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773569963839-aabee77a-e74b-447a-a7de-b3b5dd5dd1d7.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773571950785-03aae0bc-0e8f-403e-a94a-73eaad16961d.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773572027575-1dd3c0ca-1a05-4cdc-bf30-5fc07ffcb9ec.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773575321795-41188374-da28-4086-a5f3-4bb52e086ed3.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773575642284-f94ae803-bbc4-4238-927b-1bdf43dfa248.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773579824864-8533c737-ebf7-44cd-bbb6-783b82bd0b1c.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773579856979-155c7355-18fa-4e06-b835-40d8f3a0963f.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773579882865-dd0b9862-3cb1-4145-9d7f-b7e38d9672a5.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773580078300-c6718dce-aedc-4ea4-9127-4479bc691464.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773580193867-4374b3b2-d771-446c-a775-7e05a1e16aba.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773581421440-61b826b1-43f7-42c7-b6de-ce7aa77a56f5.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773581767039-522c2634-1ece-4334-b9c0-b07e1f24b679.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773753624873-5b8afcf3-12be-4fd3-b778-83a271088596.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773754817668-6fe97104-6b28-4552-8437-175f87380edd.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773756388468-95961bc4-f9fd-4d89-b8e5-27ab0f2ba93d.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773817207978-6a5f56ec-7e20-4a7a-8041-bdb5c8c2b8fd.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773821880343-c3ce2630-c060-4452-9855-b7f527648949.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773822145465-0e4affef-aa35-4aea-bcbe-97f06e62a18f.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773822544914-2a82b04b-7594-4f88-9f73-167db89c815e.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773823847627-2396ef08-ff3e-496e-a9d1-10006b18f485.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773823197191-be6031c2-f50b-464f-bbdd-8769108e399a.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773824373763-805d1680-935e-4594-8298-bc8b4d6759ee.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773825362986-cecbca8c-3434-4376-b82f-f0f09aed50e3.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773825395021-29c14413-68c1-4629-a648-dbc4a48dcaa8.jpeg">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773826636992-0cb35d2e-cc07-4c03-b56e-3b6cbcf067c2.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773827086438-24dc978a-743b-45af-be6c-95c351abff16.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773827134050-20a9cba9-1cef-4dec-8615-d87484152e4f.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773827161404-f0120a27-0a5c-4b82-b556-db73b01330ab.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773827190355-b9b20e2e-fb2b-4277-b84e-4e5802ca5ce5.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773827336516-baf1289c-f5f9-4e03-8ae9-9a67dc8690fe.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773827363968-e63cf7ee-1c2c-4062-b7db-b5b2850cc168.png">
-<meta property="og:image" content="http://example.com/images/SUCTF-2026/1773841267428-3fefdfd8-840a-4f59-bbe2-3f0d22331ac6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773452883027-bcb01524-b7f5-4dd8-83d4-4285fe2d22f4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773452903356-95788d2e-0b24-4d4a-b189-7b98e5f22a69.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773455594021-697e861e-d1c8-408f-adba-ff310f3bab6a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773456029843-661aceee-e27c-4762-aee1-7bdbe9fb5076.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773455639836-c40d0638-e6e4-447e-adf8-fd335caea360.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773456070403-1dab2631-3d3e-4d04-8628-f2fbb5ebccb4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773457578971-215afa3e-12ad-46ed-8354-000550d71efe.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773457734561-fe3dc0c1-2732-4613-bee4-0c9100718c51.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773457925821-3ca00494-213b-4dbb-b69d-5f967a6f47cf.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773458937962-69fa0ca0-58f2-41f5-ac83-afb76c93adb5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773462056250-9ca27730-25a4-4795-b510-c475a02563a2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773462804494-277b31b4-55e6-45f1-b941-51f7d5aba1f3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773462934146-cf86812c-5e7f-4e79-8bc9-67d8331502b7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773467794052-684d0bfb-1262-4051-a59f-f8565666de3e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773475734214-dcddd471-f3a8-441d-baa0-dd021a7056ac.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773475755166-b0e3de2e-0cc7-4f2e-a758-d182e78d7c84.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773475778678-c13c0721-7339-46a5-97a5-5a0c388c6983.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773475938811-f24a5b3d-faca-4d92-bfd2-733352c46a07.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773475958822-b2b6025a-ce10-4048-a51f-e116bc6f0910.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773476113362-495dfd98-231e-4fb3-86af-44d0996875ec.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773554983989-95b08103-2223-41a2-9ad8-c75424524856.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773559198134-f9883081-627d-4e9e-ad8c-b14115dc2930.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773570347578-39f15634-e277-4829-9bb1-3e143361556c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773569926058-6e4f0eef-ce65-4b1c-9ae7-3cbdee185503.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773569963839-aabee77a-e74b-447a-a7de-b3b5dd5dd1d7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773571950785-03aae0bc-0e8f-403e-a94a-73eaad16961d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773572027575-1dd3c0ca-1a05-4cdc-bf30-5fc07ffcb9ec.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773575321795-41188374-da28-4086-a5f3-4bb52e086ed3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773575642284-f94ae803-bbc4-4238-927b-1bdf43dfa248.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773579824864-8533c737-ebf7-44cd-bbb6-783b82bd0b1c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773579856979-155c7355-18fa-4e06-b835-40d8f3a0963f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773579882865-dd0b9862-3cb1-4145-9d7f-b7e38d9672a5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773580078300-c6718dce-aedc-4ea4-9127-4479bc691464.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773580193867-4374b3b2-d771-446c-a775-7e05a1e16aba.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773581421440-61b826b1-43f7-42c7-b6de-ce7aa77a56f5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773581767039-522c2634-1ece-4334-b9c0-b07e1f24b679.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773753624873-5b8afcf3-12be-4fd3-b778-83a271088596.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773754817668-6fe97104-6b28-4552-8437-175f87380edd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773756388468-95961bc4-f9fd-4d89-b8e5-27ab0f2ba93d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773817207978-6a5f56ec-7e20-4a7a-8041-bdb5c8c2b8fd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773821880343-c3ce2630-c060-4452-9855-b7f527648949.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773822145465-0e4affef-aa35-4aea-bcbe-97f06e62a18f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773822544914-2a82b04b-7594-4f88-9f73-167db89c815e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773823847627-2396ef08-ff3e-496e-a9d1-10006b18f485.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773823197191-be6031c2-f50b-464f-bbdd-8769108e399a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773824373763-805d1680-935e-4594-8298-bc8b4d6759ee.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773825362986-cecbca8c-3434-4376-b82f-f0f09aed50e3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773825395021-29c14413-68c1-4629-a648-dbc4a48dcaa8.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773826636992-0cb35d2e-cc07-4c03-b56e-3b6cbcf067c2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827086438-24dc978a-743b-45af-be6c-95c351abff16.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827134050-20a9cba9-1cef-4dec-8615-d87484152e4f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827161404-f0120a27-0a5c-4b82-b556-db73b01330ab.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827190355-b9b20e2e-fb2b-4277-b84e-4e5802ca5ce5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827336516-baf1289c-f5f9-4e03-8ae9-9a67dc8690fe.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827363968-e63cf7ee-1c2c-4062-b7db-b5b2850cc168.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773841267428-3fefdfd8-840a-4f59-bbe2-3f0d22331ac6.png">
 <meta property="article:published_time" content="2026-04-21T17:25:16.000Z">
 <meta property="article:modified_time" content="2026-04-21T17:25:48.464Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="shark">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="Pwn">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/SUCTF-2026/1773452883027-bcb01524-b7f5-4dd8-83d4-4285fe2d22f4.png">
+<meta name="twitter:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773452883027-bcb01524-b7f5-4dd8-83d4-4285fe2d22f4.png">
   
   
   
@@ -130,7 +130,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"ghostshark-pro.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -751,13 +751,13 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>SUCTF 2026</div>
-      <div>http://example.com/2026/04/22/SUCTF 2026/</div>
+      <div>https://ghostshark-pro.github.io/2026/04/22/SUCTF 2026/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>John Doe</div>
+          <div>shark</div>
         </div>
       
       

@@ -16,61 +16,61 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="shark">
   <meta name="keywords" content="">
   
     <meta name="description" content="首先我得搞明白静态编译是什么静态编译（Static Compilation） 是一种将程序及其所有依赖的库在编译时直接打包到最终可执行文件中的编译方式。与之相对的是动态编译（Dynamic Compilation），后者在运行时才通过动态链接库（如 .dll、.so 文件）加载依赖 还是见识少了 rop_master考点难道是rop大杂烩？ 分析  没开pie，地址固定   俩个自定义函数 set">
 <meta property="og:type" content="article">
 <meta property="og:title" content="403招新赛">
-<meta property="og:url" content="http://example.com/2026/04/22/403%E6%8B%9B%E6%96%B0%E8%B5%9B/index.html">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/04/22/403%E6%8B%9B%E6%96%B0%E8%B5%9B/index.html">
 <meta property="og:site_name" content="shark&#39;s home">
 <meta property="og:description" content="首先我得搞明白静态编译是什么静态编译（Static Compilation） 是一种将程序及其所有依赖的库在编译时直接打包到最终可执行文件中的编译方式。与之相对的是动态编译（Dynamic Compilation），后者在运行时才通过动态链接库（如 .dll、.so 文件）加载依赖 还是见识少了 rop_master考点难道是rop大杂烩？ 分析  没开pie，地址固定   俩个自定义函数 set">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765001320569-ccdcbadf-790b-4d30-a96a-b76a835061ed.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765001376328-0a7defaa-5fdd-483a-a896-e69f288a370d.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765001505457-5dbe2a57-58d7-4d67-8a57-c993485d180e.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765001524837-450bfa90-7b92-40b7-bc08-6a81abba8216.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765002155875-71ea0506-3362-4e34-bef1-10465ac519ca.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765002396044-e2acde21-e3b7-4d61-9ed6-9e27256a535d.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765003696506-90dfaf65-6e3a-4bf0-bb17-cb18b7baacfc.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765007563593-5ef7175f-af07-4f18-b0df-e94e05ee9f6c.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765007729892-2602da33-9c7b-4fc6-84cc-e4ce8306d7b5.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765007939831-49327762-54dc-4a8c-9c15-8dd229ea2d9d.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765007948288-c89f733a-35b3-4b1e-9754-e932dddc67be.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765076387395-1ab3964f-0a7e-4801-88d4-d8a8b60f883c.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765008650656-51c3814c-ea8a-4922-b73a-6b84b7ee775e.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765008778696-13c90e96-f5e1-433b-ba4b-c26752a3f9d6.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765008850459-e6c8d692-ef33-4520-80fb-10d1f1248e8b.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765008861430-0c167593-692f-4c85-8a95-472c44ec63ac.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765042582848-c61feb71-5015-4899-b73f-8bf94cbcf11d.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765174608482-b6abe2a9-4b74-4790-bcb7-154e1dd94479.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773143197221-a0cc6fdd-f094-4602-89de-df117f87d78e.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773144855854-d4abcff4-c59a-4f0c-8bb9-4810b05c282f.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773145331513-a15b661f-eb30-44a7-8961-4740377eb8dd.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773147330768-489e9394-f647-4935-853f-81149adb76f3.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773147638247-b6bd50be-f80c-490b-b1dc-bcff5007a24a.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773147816698-2ab23574-6833-4545-a21b-84c072e96297.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773148619213-4871b679-a1ba-4877-bfa6-02ca170da8ce.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773148707464-9b5139c5-8e42-4358-87ae-0d755d9c23b7.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773150524908-765e17a1-1eab-4920-ac3b-90d11c65d184.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773151313860-8f87ae24-8c3e-4fde-be0a-39a7f8be4587.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773151486322-84fc42d3-942c-4000-999a-f11e6b1ca37e.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773155545571-64da8b12-81ff-4b81-97c0-a627228d789a.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773155645595-1159dc43-b64d-4357-b3d2-6a67dec7bb29.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773155749472-d12fda72-1e12-4494-b718-c4fbb362ea75.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773157146088-476b9a56-3987-4168-b97c-5776fc75d2e9.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773157815119-b07282c4-f85f-4909-ba7d-6a769fbcb605.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773158102429-4e502138-0541-4aa1-99ba-03c1d9eff0f7.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773158361969-d076f8fd-111c-423b-b613-eced195df903.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773159139572-e9301134-24f5-4256-b827-884332534b45.png">
-<meta property="og:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773159513011-01b23983-2d26-4e43-a456-516ebab310fe.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765001320569-ccdcbadf-790b-4d30-a96a-b76a835061ed.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765001376328-0a7defaa-5fdd-483a-a896-e69f288a370d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765001505457-5dbe2a57-58d7-4d67-8a57-c993485d180e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765001524837-450bfa90-7b92-40b7-bc08-6a81abba8216.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765002155875-71ea0506-3362-4e34-bef1-10465ac519ca.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765002396044-e2acde21-e3b7-4d61-9ed6-9e27256a535d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765003696506-90dfaf65-6e3a-4bf0-bb17-cb18b7baacfc.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765007563593-5ef7175f-af07-4f18-b0df-e94e05ee9f6c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765007729892-2602da33-9c7b-4fc6-84cc-e4ce8306d7b5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765007939831-49327762-54dc-4a8c-9c15-8dd229ea2d9d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765007948288-c89f733a-35b3-4b1e-9754-e932dddc67be.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765076387395-1ab3964f-0a7e-4801-88d4-d8a8b60f883c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765008650656-51c3814c-ea8a-4922-b73a-6b84b7ee775e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765008778696-13c90e96-f5e1-433b-ba4b-c26752a3f9d6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765008850459-e6c8d692-ef33-4520-80fb-10d1f1248e8b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765008861430-0c167593-692f-4c85-8a95-472c44ec63ac.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765042582848-c61feb71-5015-4899-b73f-8bf94cbcf11d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765174608482-b6abe2a9-4b74-4790-bcb7-154e1dd94479.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773143197221-a0cc6fdd-f094-4602-89de-df117f87d78e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773144855854-d4abcff4-c59a-4f0c-8bb9-4810b05c282f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773145331513-a15b661f-eb30-44a7-8961-4740377eb8dd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773147330768-489e9394-f647-4935-853f-81149adb76f3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773147638247-b6bd50be-f80c-490b-b1dc-bcff5007a24a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773147816698-2ab23574-6833-4545-a21b-84c072e96297.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773148619213-4871b679-a1ba-4877-bfa6-02ca170da8ce.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773148707464-9b5139c5-8e42-4358-87ae-0d755d9c23b7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773150524908-765e17a1-1eab-4920-ac3b-90d11c65d184.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773151313860-8f87ae24-8c3e-4fde-be0a-39a7f8be4587.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773151486322-84fc42d3-942c-4000-999a-f11e6b1ca37e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773155545571-64da8b12-81ff-4b81-97c0-a627228d789a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773155645595-1159dc43-b64d-4357-b3d2-6a67dec7bb29.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773155749472-d12fda72-1e12-4494-b718-c4fbb362ea75.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773157146088-476b9a56-3987-4168-b97c-5776fc75d2e9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773157815119-b07282c4-f85f-4909-ba7d-6a769fbcb605.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773158102429-4e502138-0541-4aa1-99ba-03c1d9eff0f7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773158361969-d076f8fd-111c-423b-b613-eced195df903.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773159139572-e9301134-24f5-4256-b827-884332534b45.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1773159513011-01b23983-2d26-4e43-a456-516ebab310fe.png">
 <meta property="article:published_time" content="2026-04-21T17:16:10.000Z">
 <meta property="article:modified_time" content="2026-04-21T17:18:56.586Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="shark">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="Pwn">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765001320569-ccdcbadf-790b-4d30-a96a-b76a835061ed.png">
+<meta name="twitter:image" content="https://ghostshark-pro.github.io/images/403%E6%8B%9B%E6%96%B0%E8%B5%9B/1765001320569-ccdcbadf-790b-4d30-a96a-b76a835061ed.png">
   
   
   
@@ -112,7 +112,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"ghostshark-pro.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -610,13 +610,13 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>403招新赛</div>
-      <div>http://example.com/2026/04/22/403招新赛/</div>
+      <div>https://ghostshark-pro.github.io/2026/04/22/403招新赛/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>John Doe</div>
+          <div>shark</div>
         </div>
       
       

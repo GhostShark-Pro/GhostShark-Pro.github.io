@@ -16,54 +16,54 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="shark">
   <meta name="keywords" content="">
   
     <meta name="description" content="【pwn】newstar2024 Bad Asm考点代码试图阻止用户使用syscall和sysenter指令，但允许其他指令 看来是检查绕过方面的内容 分析就一个文件，先看看护盾   IDA启动   “ERROR \\ Unavailable ! : syscall&#x2F;sysenter&#x2F;int 0x80”  过滤了syscall &#x2F; sysenter &#x2F; in">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NewStar2024">
-<meta property="og:url" content="http://example.com/2026/04/22/NewStar2024/index.html">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/04/22/NewStar2024/index.html">
 <meta property="og:site_name" content="shark&#39;s home">
 <meta property="og:description" content="【pwn】newstar2024 Bad Asm考点代码试图阻止用户使用syscall和sysenter指令，但允许其他指令 看来是检查绕过方面的内容 分析就一个文件，先看看护盾   IDA启动   “ERROR \\ Unavailable ! : syscall&#x2F;sysenter&#x2F;int 0x80”  过滤了syscall &#x2F; sysenter &#x2F; in">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762584942437-61ce86df-24f8-49d1-bb98-e09a66e1f6c6.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762585107306-555931f9-e3e2-4ac1-91e7-9254eb71e7ad.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762598529330-bc7014b0-dbf5-4980-aa30-e65f82511d76.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762598594379-8c0b89fa-1aeb-440a-b3f8-3f99e61bc548.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762607503506-d9265f9b-c250-4be0-8469-7a9c2744c836.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762612675335-4dafa0f7-4274-4aec-9f45-a26f2a051b25.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762613211694-102633cc-e562-4e53-92b2-87c67afee936.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762615596311-784c111b-b9d2-433d-8e45-8a5972d2aaef.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762615746949-ec9f7a98-f7e6-4b5f-a109-5bd5f191d08f.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762666186510-2bbc2d45-dc0f-47db-94fe-1727cdd70c11.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762670165559-5882fa9e-7bb1-43bb-acb0-8f4dca79066a.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762671171906-4e73685a-8a6a-47ea-af2e-13b7e22b22ed.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762671537367-de911630-6a13-4dc6-ac29-15289909e84b.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762879263811-b355deef-bc0f-48bb-9cdf-28684ab34fc8.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762962374892-c2c25f39-514d-4832-87bf-15d7d5436adf.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1762962396351-6ac5a230-4b7e-4310-9d5d-6f7832335fc6.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763019426890-954394d5-9533-439e-a74b-5398ef19901d.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763019555642-428ffcd9-b0d9-4fd1-8d19-578e99887fa0.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763274441832-d3615a7c-d0a1-484e-80fc-9c04f47c7cac.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763274450005-d4772d45-8628-44b8-8c95-f27f5c715bc4.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763274458381-0a880252-9e38-4def-9796-9597d4255010.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763274841580-dd7de2b0-22f7-44fd-b89c-2589d937da33.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763275992704-356452af-d6df-4c64-a90e-1a52c7cbbf28.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763277726780-83c38e0d-03c4-4043-bf8b-81fb0b2d250e.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763278391615-c4cab259-b777-489c-974c-86699301aa16.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763286436677-88b57f85-1f0b-4701-8953-5d13a07a0fc5.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763279365978-4a63e104-4ccc-4149-9655-c248b4faac4b.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1763362618240-f801c6e7-bcea-4572-9069-a4a6d28d897f.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1764083254650-2d167794-1e54-4b16-8910-1c177870b1b5.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1764052763376-30943230-9a2a-403f-878c-0e507a527746.png">
-<meta property="og:image" content="http://example.com/images/NewStar2024/1764674912365-20e27879-831a-48d1-a972-d4aac1b338b8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762584942437-61ce86df-24f8-49d1-bb98-e09a66e1f6c6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762585107306-555931f9-e3e2-4ac1-91e7-9254eb71e7ad.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762598529330-bc7014b0-dbf5-4980-aa30-e65f82511d76.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762598594379-8c0b89fa-1aeb-440a-b3f8-3f99e61bc548.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762607503506-d9265f9b-c250-4be0-8469-7a9c2744c836.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762612675335-4dafa0f7-4274-4aec-9f45-a26f2a051b25.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762613211694-102633cc-e562-4e53-92b2-87c67afee936.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762615596311-784c111b-b9d2-433d-8e45-8a5972d2aaef.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762615746949-ec9f7a98-f7e6-4b5f-a109-5bd5f191d08f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762666186510-2bbc2d45-dc0f-47db-94fe-1727cdd70c11.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762670165559-5882fa9e-7bb1-43bb-acb0-8f4dca79066a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762671171906-4e73685a-8a6a-47ea-af2e-13b7e22b22ed.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762671537367-de911630-6a13-4dc6-ac29-15289909e84b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762879263811-b355deef-bc0f-48bb-9cdf-28684ab34fc8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762962374892-c2c25f39-514d-4832-87bf-15d7d5436adf.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762962396351-6ac5a230-4b7e-4310-9d5d-6f7832335fc6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763019426890-954394d5-9533-439e-a74b-5398ef19901d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763019555642-428ffcd9-b0d9-4fd1-8d19-578e99887fa0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763274441832-d3615a7c-d0a1-484e-80fc-9c04f47c7cac.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763274450005-d4772d45-8628-44b8-8c95-f27f5c715bc4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763274458381-0a880252-9e38-4def-9796-9597d4255010.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763274841580-dd7de2b0-22f7-44fd-b89c-2589d937da33.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763275992704-356452af-d6df-4c64-a90e-1a52c7cbbf28.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763277726780-83c38e0d-03c4-4043-bf8b-81fb0b2d250e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763278391615-c4cab259-b777-489c-974c-86699301aa16.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763286436677-88b57f85-1f0b-4701-8953-5d13a07a0fc5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763279365978-4a63e104-4ccc-4149-9655-c248b4faac4b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1763362618240-f801c6e7-bcea-4572-9069-a4a6d28d897f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1764083254650-2d167794-1e54-4b16-8910-1c177870b1b5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1764052763376-30943230-9a2a-403f-878c-0e507a527746.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1764674912365-20e27879-831a-48d1-a972-d4aac1b338b8.png">
 <meta property="article:published_time" content="2026-04-21T17:18:02.000Z">
 <meta property="article:modified_time" content="2026-04-21T17:20:20.488Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="shark">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="Pwn">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/NewStar2024/1762584942437-61ce86df-24f8-49d1-bb98-e09a66e1f6c6.png">
+<meta name="twitter:image" content="https://ghostshark-pro.github.io/images/NewStar2024/1762584942437-61ce86df-24f8-49d1-bb98-e09a66e1f6c6.png">
   
   
   
@@ -105,7 +105,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"ghostshark-pro.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -714,13 +714,13 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>NewStar2024</div>
-      <div>http://example.com/2026/04/22/NewStar2024/</div>
+      <div>https://ghostshark-pro.github.io/2026/04/22/NewStar2024/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>John Doe</div>
+          <div>shark</div>
         </div>
       
       
