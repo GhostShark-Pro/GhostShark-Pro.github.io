@@ -20,8 +20,8 @@
   <meta name="keywords" content="">
   
     <meta property="og:type" content="website">
-<meta property="og:title" content="Tags">
-<meta property="og:url" content="https://ghostshark-pro.github.io/tags/index.html">
+<meta property="og:title" content="shark&#39;s home">
+<meta property="og:url" content="https://ghostshark-pro.github.io/page/2/index.html">
 <meta property="og:site_name" content="shark&#39;s home">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="shark">
@@ -29,7 +29,7 @@
   
   
   
-  <title>Tags - shark&#39;s home</title>
+  <title>shark&#39;s home</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 100vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -316,13 +316,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Tags"></span>
+            <span id="subtitle" data-typed-text="welcome to back"></span>
           
         </div>
 
@@ -348,16 +348,280 @@
     
       <div class="container nopadding-x-md">
         <div id="board"
-          >
+          style="margin-top: 0">
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="text-center tagcloud">
-  <a href="/tags/index/" style="font-size: 15px; color: #bbe">-index</a> <a href="/tags/Pwn/" style="font-size: 30px; color: #337ab7">Pwn</a> <a href="/tags/canary-leak/" style="font-size: 15px; color: #bbe">canary_leak</a> <a href="/tags/glibc-2-23/" style="font-size: 15px; color: #bbe">glibc_2.23</a> <a href="/tags/heap/" style="font-size: 15px; color: #bbe">heap</a> <a href="/tags/how2heap-2-23/" style="font-size: 15px; color: #bbe">how2heap_2.23</a> <a href="/tags/intro/" style="font-size: 15px; color: #bbe">intro</a> <a href="/tags/rop/" style="font-size: 22.5px; color: #779bd3">rop</a> <a href="/tags/shellcode/" style="font-size: 15px; color: #bbe">shellcode</a> <a href="/tags/start/" style="font-size: 15px; color: #bbe">start</a>
-</div>
+<h1 style="display: none">shark&#39;s home</h1>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/04/23/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-_2.23/" target="_self">
+          glibc源码分析-_2.23
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/04/23/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-_2.23/" target="_self">
+        <div>
+          优先分析版本：2.23，2.27，2.31，2.35 glibc2.23也是终于开始分析源码了   吓哭了   malloc.c这么长的注释是在写故事吗   malloc_chunk  prev_size(offset 0x0)如果前一个chunk 被free了，记录bk chunk的size 也就是说，如果前一个chunk正在使用（allocated），它的user data 可以覆盖下一个ch
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-04-23 20:51" pubdate>
+              2026-04-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="category-chain-item">glibc源码分析</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Pwn/">#Pwn</a>
+            
+              <a href="/tags/glibc-2-23/">#glibc_2.23</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/03/20/desctf2026/" target="_self">
+          desctf2026
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/03/20/desctf2026/" target="_self">
+        <div>
+          array  非常友好啊   行，看看ida       看着像stack overflow     ida 太好用了你知道吗   还有这好事     本地过了 1234567891011121314151617181920212223242526272829303132333435363738394041from pwn import *#io = remote(&quot;129.211.17
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-03-20 20:51" pubdate>
+              2026-03-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/desctf-Writeup/" class="category-chain-item">desctf Writeup</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Pwn/">#Pwn</a>
+            
+              <a href="/tags/rop/">#rop</a>
+            
+              <a href="/tags/canary-leak/">#canary_leak</a>
+            
+              <a href="/tags/index/">#-index</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/12/28/ciscn2025/" target="_self">
+          ciscn2025
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/12/28/ciscn2025/" target="_self">
+        <div>
+          smart_home通过update.bin 得到 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-12-28 20:51" pubdate>
+              2025-12-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ciscn-Writeup/" class="category-chain-item">ciscn Writeup</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Pwn/">#Pwn</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/12/06/403%E6%8B%9B%E6%96%B0%E8%B5%9B/" target="_self">
+          403招新赛
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/12/06/403%E6%8B%9B%E6%96%B0%E8%B5%9B/" target="_self">
+        <div>
+          首先我得搞明白静态编译是什么静态编译（Static Compilation） 是一种将程序及其所有依赖的库在编译时直接打包到最终可执行文件中的编译方式。与之相对的是动态编译（Dynamic Compilation），后者在运行时才通过动态链接库（如 .dll、.so 文件）加载依赖 还是见识少了 rop_master考点难道是rop大杂烩？ 分析  没开pie，地址固定   俩个自定义函数 set
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-12-06 20:51" pubdate>
+              2025-12-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%90%AF%E6%BA%90/" class="category-chain-item">启源</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Pwn/">#Pwn</a>
+            
+              <a href="/tags/shellcode/">#shellcode</a>
+            
+              <a href="/tags/rop/">#rop</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
+
+
 
               </div>
             </div>

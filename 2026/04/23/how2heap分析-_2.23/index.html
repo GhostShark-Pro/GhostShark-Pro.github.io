@@ -1,0 +1,1116 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="shark">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="how2heap  用how2heap辅助一下   按说明书操作就对了   源码加载进去   directory &#x2F;home&#x2F;shark&#x2F;Desktop&#x2F;ctf&#x2F;claude_code&#x2F;how2heap&#x2F;glibc_2.23&#x2F;malloc start add-symbol-file &#x2F;home&#x2F;sh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="how2heap分析-_2.23">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/04/23/how2heap%E5%88%86%E6%9E%90-_2.23/index.html">
+<meta property="og:site_name" content="shark&#39;s home">
+<meta property="og:description" content="how2heap  用how2heap辅助一下   按说明书操作就对了   源码加载进去   directory &#x2F;home&#x2F;shark&#x2F;Desktop&#x2F;ctf&#x2F;claude_code&#x2F;how2heap&#x2F;glibc_2.23&#x2F;malloc start add-symbol-file &#x2F;home&#x2F;sh">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1775982974677-78cc0dfd-f58b-42b4-882d-f9afc904d931.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1775986763296-83ee0c2d-d5e1-4c86-a7cb-a02ef9c85f40.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1775991199368-b88b9c88-1eb6-49ff-8421-6192c2ae3699.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1775991271036-3764a8fa-f748-4b8b-8eeb-1d2a3429648a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776259127458-12550470-7fef-4f90-8992-cd7001e32be6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776259184692-7fbdd4d5-5bf8-46d1-8cad-002a0a3596d2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776342013154-593796d1-0dfc-4f60-adbc-c90f5c441872.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776343503142-a88bf2bd-3fd7-4ab6-b1a0-cd36a4b11c65.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776343953559-ec58f3fe-7ceb-49d9-a144-e023fbe9e07c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776344131156-2e83bd74-51f9-493c-b643-2424229d5591.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776344380486-6faf9172-6408-496c-be01-f40d528b7d27.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776345987919-b740c835-b9d1-4cc4-a02f-be2f90edf20e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776346204668-d21fdc14-91b7-425b-9d61-41def905c039.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776347426686-24e99d2e-d628-470d-a974-7e4c82865dac.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776347963007-817c537f-cae7-4d9d-a7b8-46b9b897e427.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776430442856-a154418a-b152-4e11-ba85-dabbbfea686c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776430539880-fed68c34-090e-44e0-997e-32b2d1435c69.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776430555328-305b1932-1250-421c-99cf-668b21a8fe61.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776430618591-e6c477e3-0add-46b0-8234-b87f5dff887c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776495116427-4acbcd8a-f845-4d15-a764-22751c6a1fe5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776495520264-9b77e0e3-83db-492d-a5df-4f3aaf8c0b89.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776495731179-26845eda-97c4-47f4-807b-517bfd766372.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776495941556-b9f42f17-2339-4106-94c9-96799a984458.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776496265856-5729994f-ef03-46c6-b982-efb47ee46bc5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776500868717-20084907-d471-4371-a0a1-da2f7c89aced.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776501223280-00a0c47c-10b2-44fa-b441-bbb2a1f3908b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776501595342-e4be05fa-9582-470e-9503-6834c2d8cc6a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776501702732-d2f22cd4-7bfa-4a06-89cf-3ce1cf72cb95.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776516536557-384afe70-acb9-4aba-ae22-a8624c2ba27c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776567242276-4cb7c9f8-ef72-478c-a980-63f5b8e74a29.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776567901922-af97773d-f5d3-49c2-b29f-8691c8359ce7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776568193564-5fa1f6e7-20d9-4f91-89f0-5a7f0580f0ba.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776568218615-f4837c26-cacd-4c5f-96bd-25a92f02af27.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776569116378-b8a2f896-3a41-42ed-9e02-dcc60ac15d07.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776568248322-ed51ee7c-27c3-42ea-93fc-43b407523560.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776569332363-581f59d5-7915-43b5-bd5f-4de3a65aefe0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776569427634-acd115d4-4859-4c53-baec-78bebad4cd0b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776569456235-f2637cfb-4335-4143-9fd7-ed391a1299f8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776585946247-db57a184-97bf-4309-96c2-373dbd2d6af3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776587194174-09d86199-17da-43e4-bb5c-eab7b5b8cfc8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776587236081-521db7c9-0b00-4092-aaba-47d0bb24705b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776585215424-86fe0cf4-5233-47d3-b8b9-7d5a180e1577.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776588388594-e37dc926-3006-4402-913c-97e903ede9a7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776588517071-1f49184b-aa75-4a51-ab6d-e028cdd0b183.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776589044334-72d9d37c-83b4-456f-8b0d-b589c62ddbbb.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776590889211-c8de14d1-9778-479e-b381-0c5242abbba2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776592804667-502a77e4-b309-4c17-a707-69aae5258c90.png">
+<meta property="article:published_time" content="2026-04-23T12:53:16.000Z">
+<meta property="article:modified_time" content="2026-04-23T13:24:26.152Z">
+<meta property="article:author" content="shark">
+<meta property="article:tag" content="Pwn">
+<meta property="article:tag" content="how2heap_2.23">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1775982974677-78cc0dfd-f58b-42b4-882d-f9afc904d931.png">
+  
+  
+  
+  <title>how2heap分析-_2.23 - shark&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ghostshark-pro.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#00FFFF","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>shark&#39;s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Terminal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Arsenal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Timeline</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Friends</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>Whoami</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>Terminal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>Arsenal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>Tags</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>Timeline</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>Friends</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>Whoami</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>Grep</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="Light Mode"
+               data-label-dark="Dark Mode">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">Dark Mode</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="how2heap分析-_2.23"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-23 20:53" pubdate>
+          2026年4月23日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k bytes
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          ETA: 14 min
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">how2heap分析-_2.23</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="how2heap"><a href="#how2heap" class="headerlink" title="how2heap"></a>how2heap</h2><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1775982974677-78cc0dfd-f58b-42b4-882d-f9afc904d931.png" srcset="/img/loading.gif" lazyload></p>
+<p>用how2heap辅助一下</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1775986763296-83ee0c2d-d5e1-4c86-a7cb-a02ef9c85f40.png" srcset="/img/loading.gif" lazyload></p>
+<p>按说明书操作就对了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1775991199368-b88b9c88-1eb6-49ff-8421-6192c2ae3699.png" srcset="/img/loading.gif" lazyload></p>
+<p>源码加载进去</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1775991271036-3764a8fa-f748-4b8b-8eeb-1d2a3429648a.png" srcset="/img/loading.gif" lazyload></p>
+<p>directory &#x2F;home&#x2F;shark&#x2F;Desktop&#x2F;ctf&#x2F;claude_code&#x2F;how2heap&#x2F;glibc_2.23&#x2F;malloc</p>
+<p>start</p>
+<p>add-symbol-file &#x2F;home&#x2F;shark&#x2F;Desktop&#x2F;ctf&#x2F;claude_code&#x2F;how2heap&#x2F;glibc-all-in-one&#x2F;libs&#x2F;2.23-0ubuntu11.3_amd64&#x2F;.debug&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so 0x7ffff7800000（gibc开始地址）</p>
+<p>不用了，有更好的方法</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776259127458-12550470-7fef-4f90-8992-cd7001e32be6.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776259184692-7fbdd4d5-5bf8-46d1-8cad-002a0a3596d2.png" srcset="/img/loading.gif" lazyload></p>
+<p>太超模了</p>
+<h3 id="fastbin-dup"><a href="#fastbin-dup" class="headerlink" title="fastbin_dup"></a>fastbin_dup</h3><p>fastbin中简单的double free</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776342013154-593796d1-0dfc-4f60-adbc-c90f5c441872.png" srcset="/img/loading.gif" lazyload></p>
+<p>先看看正常运行后的结果</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776343503142-a88bf2bd-3fd7-4ab6-b1a0-cd36a4b11c65.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到第二轮malloc的时候返回了两次同样的addr</p>
+<p>用pwndbg调试看看</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776343953559-ec58f3fe-7ceb-49d9-a144-e023fbe9e07c.png" srcset="/img/loading.gif" lazyload></p>
+<p>先free了一个a，这是bins链表和heap空间的布局</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776344131156-2e83bd74-51f9-493c-b643-2424229d5591.png" srcset="/img/loading.gif" lazyload></p>
+<p>free b后用头插法进入fastbins bins</p>
+<p>接下来看看double free</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776344380486-6faf9172-6408-496c-be01-f40d528b7d27.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看出a的next指针指向了b</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776345987919-b740c835-b9d1-4cc4-a02f-be2f90edf20e.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776346204668-d21fdc14-91b7-425b-9d61-41def905c039.png" srcset="/img/loading.gif" lazyload></p>
+<p>仅检查 fastbin 头部是否 &#x3D;&#x3D; 被 free 的指针</p>
+<p>也就是说只要隔一个chunk就可以实现double free</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776347426686-24e99d2e-d628-470d-a974-7e4c82865dac.png" srcset="/img/loading.gif" lazyload></p>
+<p>old装的chunk b</p>
+<p>然后malloc回来</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776347963007-817c537f-cae7-4d9d-a7b8-46b9b897e427.png" srcset="/img/loading.gif" lazyload></p>
+<p>为什么malloc后fastbin的链表没变化？</p>
+<p>不对，有变化</p>
+<p>从aba变成bab了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776430442856-a154418a-b152-4e11-ba85-dabbbfea686c.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776430539880-fed68c34-090e-44e0-997e-32b2d1435c69.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776430555328-305b1932-1250-421c-99cf-668b21a8fe61.png" srcset="/img/loading.gif" lazyload></p>
+<p>循环了，怪不得</p>
+<p>fastbin的检查还是太weak了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776430618591-e6c477e3-0add-46b0-8234-b87f5dff887c.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="fastbin-dup-into-stack"><a href="#fastbin-dup-into-stack" class="headerlink" title="fastbin_dup_into_stack"></a>fastbin_dup_into_stack</h3><p>任意地址分配</p>
+<p>先run一下</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776495116427-4acbcd8a-f845-4d15-a764-22751c6a1fe5.png" srcset="/img/loading.gif" lazyload></p>
+<p>用fastbin_dup伪造后还得伪造size</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776495520264-9b77e0e3-83db-492d-a5df-4f3aaf8c0b89.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看源码</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776495731179-26845eda-97c4-47f4-807b-517bfd766372.png" srcset="/img/loading.gif" lazyload></p>
+<p>stack_var在stack上</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776495941556-b9f42f17-2339-4106-94c9-96799a984458.png" srcset="/img/loading.gif" lazyload></p>
+<p>伪造size</p>
+<p>一个正常的 Chunk 结构是：prev_size (8 bytes) -&gt; size (8 bytes) -&gt; user_data</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776496265856-5729994f-ef03-46c6-b982-efb47ee46bc5.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776500868717-20084907-d471-4371-a0a1-da2f7c89aced.png" srcset="/img/loading.gif" lazyload></p>
+<p>这时候的d指向a，我们要return stack_var+8就得在&amp;stack_var伪造size通过检查</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776501223280-00a0c47c-10b2-44fa-b441-bbb2a1f3908b.png" srcset="/img/loading.gif" lazyload></p>
+<p>改完后</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776501595342-e4be05fa-9582-470e-9503-6834c2d8cc6a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776501702732-d2f22cd4-7bfa-4a06-89cf-3ce1cf72cb95.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc出来了</p>
+<h3 id="house-of-spirit"><a href="#house-of-spirit" class="headerlink" title="house_of_spirit"></a>house_of_spirit</h3><p>fake chunk这一块</p>
+<p>在可控空间内伪造chunk结构**<font style="color:rgba(0, 0, 0, 0.87);background-color:rgb(241, 243, 245);">（比如栈、BSS段）</font>**，然后调用free,malloc后返回，实现任意地址写</p>
+<p>pwn.college里写过好多了</p>
+<p>这回先看看源码</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776516536557-384afe70-acb9-4aba-ae22-a8624c2ba27c.png" srcset="/img/loading.gif" lazyload></p>
+<p>初始化栈空间</p>
+<p>fake_chunk注意16字节对齐</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776567242276-4cb7c9f8-ef72-478c-a980-63f5b8e74a29.png" srcset="/img/loading.gif" lazyload></p>
+<p>next size的value只要&gt;16, &lt;128kb左右（<font style="color:rgba(0, 0, 0, 0.87);background-color:rgb(241, 243, 245);">系统分配的堆内存总大小）</font>就可以了，不要忘了top chunk也是chunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776567901922-af97773d-f5d3-49c2-b29f-8691c8359ce7.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776568193564-5fa1f6e7-20d9-4f91-89f0-5a7f0580f0ba.png" srcset="/img/loading.gif" lazyload></p>
+<p>ni步进</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776568218615-f4837c26-cacd-4c5f-96bd-25a92f02af27.png" srcset="/img/loading.gif" lazyload><!-- 这是一张图片，ocr 内容为： --><br><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776569116378-b8a2f896-3a41-42ed-9e02-dcc60ac15d07.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776568248322-ed51ee7c-27c3-42ea-93fc-43b407523560.png" srcset="/img/loading.gif" lazyload></p>
+<p>_int_free检查</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776569332363-581f59d5-7915-43b5-bd5f-4de3a65aefe0.png" srcset="/img/loading.gif" lazyload></p>
+<p>成了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776569427634-acd115d4-4859-4c53-baec-78bebad4cd0b.png" srcset="/img/loading.gif" lazyload></p>
+<p>返回satck_addr</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776569456235-f2637cfb-4335-4143-9fd7-ed391a1299f8.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="unsorted-bin-attack"><a href="#unsorted-bin-attack" class="headerlink" title="unsorted_bin_attack"></a>unsorted_bin_attack</h3><p>将一个libc的地址写入到一个任意的内存地址中</p>
+<p>glibc2.23中的_int_malloc在遍历unsorted bin并取出chunk时缺少链表完整性检查</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776585946247-db57a184-97bf-4309-96c2-373dbd2d6af3.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看unsorted_chunks()宏，</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776587194174-09d86199-17da-43e4-bb5c-eab7b5b8cfc8.png" srcset="/img/loading.gif" lazyload></p>
+<p>简单粗暴</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776587236081-521db7c9-0b00-4092-aaba-47d0bb24705b.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以修改unsorted bin chunk中的bk,取出时bck-&gt;fd &#x3D; libc_addr</p>
+<p>先看看源码</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776585215424-86fe0cf4-5233-47d3-b8b9-7d5a180e1577.png" srcset="/img/loading.gif" lazyload></p>
+<p>19：此时，这个 Chunk 会被 glibc 放入 Unsorted Bin 的双向链表中。</p>
+<p>在这个状态下，p 的前向指针 (fd) 和后向指针 (bk) 都会指向 libc 内部的 main_arena 结构体中的某个地址。p[1] 其实就是访问这个 Chunk 的 bk 指针</p>
+<p>25：模拟UAF,把chunk的bk指针改成&amp;stack_var - 2,即目标地址-0x10</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776588388594-e37dc926-3006-4402-913c-97e903ede9a7.png" srcset="/img/loading.gif" lazyload>free后</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776588517071-1f49184b-aa75-4a51-ab6d-e028cdd0b183.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776589044334-72d9d37c-83b4-456f-8b0d-b589c62ddbbb.png" srcset="/img/loading.gif" lazyload></p>
+<p>改bk成功</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776590889211-c8de14d1-9778-479e-b381-0c5242abbba2.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1776592804667-502a77e4-b309-4c17-a707-69aae5258c90.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="unsafe-unlink"><a href="#unsafe-unlink" class="headerlink" title="unsafe_unlink"></a>unsafe_unlink</h3><p>利用free时chunk向后合并，触发unlink</p>
+<p>fastbin的free不会改变相邻chunk的PREV_INUSE，也不会触发合并，所以要malloc大一点</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/how2heap%E5%88%86%E6%9E%90/" class="category-chain-item">how2heap分析</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Pwn/" class="print-no-link">#Pwn</a>
+      
+        <a href="/tags/how2heap-2-23/" class="print-no-link">#how2heap_2.23</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>how2heap分析-_2.23</div>
+      <div>https://ghostshark-pro.github.io/2026/04/23/how2heap分析-_2.23/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>shark</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted</div>
+          <div>2026年4月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>License</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/04/23/NewStar2024/" title="NewStar2024">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">NewStar2024</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/23/HGAME%202026/" title="HGAME 2026">
+                        <span class="hidden-mobile">HGAME 2026</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>TOC</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Grep</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/star.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Please enable JavaScript to render the matrix.</div>
+  </noscript>
+</body>
+</html>

