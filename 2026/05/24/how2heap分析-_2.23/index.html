@@ -22,7 +22,7 @@
     <meta name="description" content="how2heap  用how2heap辅助一下   按说明书操作就对了   源码加载进去   directory &#x2F;home&#x2F;shark&#x2F;Desktop&#x2F;ctf&#x2F;claude_code&#x2F;how2heap&#x2F;glibc_2.23&#x2F;malloc start add-symbol-file &#x2F;home&#x2F;sh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="how2heap分析-_2.23">
-<meta property="og:url" content="https://ghostshark-pro.github.io/2026/05/08/how2heap%E5%88%86%E6%9E%90-_2.23/index.html">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/05/24/how2heap%E5%88%86%E6%9E%90-_2.23/index.html">
 <meta property="og:site_name" content="shark&#39;s home">
 <meta property="og:description" content="how2heap  用how2heap辅助一下   按说明书操作就对了   源码加载进去   directory &#x2F;home&#x2F;shark&#x2F;Desktop&#x2F;ctf&#x2F;claude_code&#x2F;how2heap&#x2F;glibc_2.23&#x2F;malloc start add-symbol-file &#x2F;home&#x2F;sh">
 <meta property="og:locale" content="zh_CN">
@@ -189,8 +189,113 @@
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1777296333394-dbd7c25f-7014-4bc8-acea-7f3d59ff536c.png">
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1777296480107-5dbb2a96-d028-4655-8eaf-7f2b10c9a13a.png">
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1777296754138-6bd3c57e-accb-4f89-8cdd-72437ba6ffb7.png">
-<meta property="article:published_time" content="2026-05-08T04:28:17.000Z">
-<meta property="article:modified_time" content="2026-05-08T04:40:55.988Z">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778408629599-1b0ca2e7-275c-4428-999f-09f558ccd991.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778408923892-c813f942-61e2-49ad-8c83-dbfaa70bd93c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778410421453-418c869a-a8e3-4fec-8587-5e035edcde52.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778410401822-66b1283a-1a51-4d08-9647-24916441a2c2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778411093456-15156aaa-20da-4566-ab38-0d2e6fb60ab6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778411216246-c6da5f0f-a340-4aa1-b515-e37a3dfd4c21.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778411642024-e28ae255-5f66-4bae-a038-644513710aa3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778411482257-eafbda9d-a8ff-4d40-9f86-da6cdb3e2481.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778412011807-db69f0ad-aceb-47c5-ba99-e3ea2d5d79f1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779263759292-95c4c87b-118d-449e-9839-608cddb2284a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779263816226-9852db77-080f-4ffa-a0e7-8341c6f0beda.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779264752146-8efa010f-223b-4285-a358-e4ae2ba800d4.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779264887291-9401c377-7bbe-42e9-9d0e-c4602392ebe7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265001370-b64395bc-04d7-430b-b4f7-c6b17da5801d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265192611-0f3a4506-cc41-41bb-9517-4e4cb7ee2a70.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265211583-c19d1875-3ec5-46bc-b8fe-1e0bb197a79b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265303084-fd606583-5c06-483a-a8b7-1705c2ae44ee.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265384393-37d737bd-f31b-4230-b917-f840c0d56192.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265451208-fe326a71-6307-491d-871c-0804955d6605.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265485169-b02fa9f6-d78c-41ea-a085-18a11269bc2b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266258650-22088323-679b-4d40-9479-663dbf484f0a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266361480-fdc07c30-73a1-411b-b780-d9bebb3d5d2c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266439774-62b776e0-be4a-4cb2-b3c4-a52724dd4f71.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266452121-6b3d7ffe-639e-4b93-bd54-3d97585e9118.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266745746-9d9ea109-93cd-4f54-88de-07130deb645e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266865966-b263d34a-7d8b-4379-9631-b4c04d5f0a68.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266909167-63bf4c64-cd12-4c2e-8943-cbaa9723481a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779267097921-6a30fee4-43e3-47c3-b290-43c129338f53.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779267177308-4ddd9577-41d2-43ec-a7b4-030e65b2fc08.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779269929996-33b6e2c6-9390-40a3-87cc-986651f528d2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779269958377-9e88b658-24a1-4aaf-8832-1ff496ac4850.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779270072784-11248e89-2a8c-4651-8d89-0f185165d19f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779270433971-6f4a2b12-b07f-42cf-be77-5373ffa9ab06.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779271274601-6c96baa7-9b9c-4b6b-bb11-a2bef083e30a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779271404101-f2b92161-6520-47a0-a42d-c78fb86811ae.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779271769335-694ea78f-b8e1-4c88-938f-4e057c228015.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779271961161-26c452ce-7307-469a-8a85-d75735bf85b2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779272041300-0215e8bc-941b-4684-b4b5-c5f70034bf35.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779272195421-3c45ee9c-3c33-41d7-8040-d24070b1b879.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779272397244-41933ddf-eac1-4c28-bd10-e42105b13c75.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779272614315-d2fa5d03-b918-4a6d-8eb2-4cd6bf35534e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779272793635-15f100d4-43cf-4b33-9d7e-10fc2a8ae7e2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779273092767-673b938e-3c96-41c2-9fa0-9397605d39b7.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280241275-d9105ff4-27c6-4b40-9b6c-c1ca67e5c357.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280283370-4ada74d5-5924-45ea-8d00-31086026a499.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280308699-7f597112-f934-45a7-b5b1-3c5453999995.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280510802-6132b25d-8f57-4bc4-ad5a-8ddbc775d0c9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280528350-2ca214c6-3044-4ea7-9870-4cede8369da8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280967131-809c31dd-7a50-40fa-90ad-9abe32b6afec.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779281245860-989dbe5d-2216-43ee-8f4b-e4cf798d4d52.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779283565247-91db8a29-e350-48e7-aab2-993e25003736.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779283713562-bd8bb321-cd51-433e-991b-9e0756daff17.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779283974582-3a67ac79-27c1-48d5-840a-61843cdc6908.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779284611876-f742e59f-e78f-401a-bfe2-d6153a786940.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285071486-d453408a-a774-4a5a-afed-149c0d310a09.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285108421-16bf8d86-a3c3-4ea4-aff4-192093cbdd81.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285211752-fbb46c51-052b-4bc2-881f-d01f2e7a5ae2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285551577-7d576b29-7d2b-41d0-b678-353dc5da7997.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285632649-46bbc309-5420-421b-8d1c-1602f6550470.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285707610-7343c3e8-ea27-4937-84b6-4fa02bee0209.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285779474-5fb4107d-eb53-4cf7-bd7e-fac00b147876.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285812387-2c7f3105-d421-4c31-bf2f-705be82eac7a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285837829-e68d2097-f8a5-4f8c-b38b-7975351b3b79.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285994776-bdf59657-cc51-49f3-b992-2f7ecb1c90d9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779286038032-1df1d01c-b7d3-464a-8c9b-66adeb67c284.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779286110585-ad2d4564-a47a-4343-9cb8-ad1e0b57acef.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779286175186-1f0658a5-7410-4392-977b-9c01fbd4b60d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779435389570-57b906cf-a234-46e2-8647-eef8d3806318.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779435518943-edc6612b-e71a-4b00-8e0b-ad06e8c5b1b6.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779435869157-680ec884-c07f-467d-9ce9-1a8731194e22.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779436339618-a8a99112-70b3-4b8e-bfdb-5b87c05a7042.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779436434440-4f1b8586-3b60-4cac-9002-e980280af629.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779528917268-5e2e754c-26a9-4b8f-a774-cfe66c2eb8a9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779436631447-d49a6e5e-d48e-49a2-bf7f-ac27e310d665.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779454243408-705300c5-ac31-454d-b48e-826225d3503e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779454878074-12985fc4-f2ab-49bb-8be4-c63cb2ce5d11.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779529092673-e3e145fa-ed70-44f3-8294-1164d6ca1091.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779530401823-6f5e9bc7-58b8-46bf-a0bf-f834370fef19.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534046554-b9ba2328-b19d-4012-8dcb-a3c42fb2a228.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534220032-3464fa38-966f-4081-ba03-9f496cc63d00.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534317370-93a0955e-e587-4d0e-bfc8-fbfb48efc8d9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534495366-5d9027c0-2b52-490f-80f9-7a4792cdefd0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534547721-373e710d-b386-4a41-b505-c3188c69f0f9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534580051-67a9ebc9-25fb-4571-8c50-f2fd3cae7d55.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534641058-17c693ed-01b3-4faf-8f25-45380181413b.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534889158-bec71a23-1490-4c04-999b-949928d5cc4c.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535057463-f2e3d635-bf40-48da-98c1-4f3ca79e4f5a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535094655-39d0c3c6-214d-44bf-904d-57ad8e3fd5b3.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535353554-148c0cc1-ec4f-4eb8-99a0-3033ac9eabec.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535370946-de057f51-916c-4480-b9af-ad7097f561ca.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535551274-992b2e1f-b4ed-4ab3-81b0-682e44989eac.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535616210-0b8c5881-dcbc-4d1d-997b-3c808d9ee81f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535627162-9f0e3b7d-cdce-47da-96db-bee2023d06d5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535663708-182f27ee-5c52-4126-accf-8ca12bf211fb.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535702821-509cba56-6bf8-473c-af99-a1d13ff17f71.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779615890028-6d6b4148-9138-4380-b596-f5f703015b9d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779615979446-6dad6ad3-987b-4d56-8f92-2941136a0fe0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616220498-648350a9-5f5e-4d8a-a8c0-5a940707b763.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616233811-fe464a84-fa80-46d6-8e3b-4c112277b3cc.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616247626-a25a5036-5375-4a5c-8e1b-289790cc948e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616355904-72b10600-6eeb-4110-9924-b9f7b019f22e.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616438817-568f9b4c-31e3-4bee-8fc0-250bff051b39.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616700457-1aaa1953-361a-400c-a667-737d42314de9.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616802525-5ca55b84-2990-4a59-a344-b1fb3a1e210d.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616833102-e6394d58-b9a0-4dc3-a542-6fa3018e576b.png">
+<meta property="article:published_time" content="2026-05-24T14:04:17.000Z">
+<meta property="article:modified_time" content="2026-05-24T14:04:40.529Z">
 <meta property="article:author" content="shark">
 <meta property="article:tag" content="Pwn">
 <meta property="article:tag" content="glibc_2.23">
@@ -510,8 +615,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-05-08 12:28" pubdate>
-          2026年5月8日 中午
+        <time datetime="2026-05-24 22:04" pubdate>
+          2026年5月24日 晚上
         </time>
       </span>
     
@@ -522,7 +627,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.4k bytes
+          8.7k bytes
         
       </span>
     
@@ -533,7 +638,7 @@
         
         
         
-          ETA: 45 min
+          ETA: 73 min
         
       </span>
     
@@ -1047,7 +1152,7 @@
 <p>改size</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1777291041346-d8611f65-412c-46e4-b0e0-ddf2358796d6.png" srcset="/img/loading.gif" lazyload>malloc后，可以看到p4跟p3重合了</p>
-<h3 id="overlapping-chunks-1"><a href="#overlapping-chunks-1" class="headerlink" title="overlapping_chunks"></a>overlapping_chunks</h3><p>我看看，非相邻chunk合并？</p>
+<h3 id="overlapping-chunks2"><a href="#overlapping-chunks2" class="headerlink" title="overlapping_chunks2"></a>overlapping_chunks2</h3><p>我看看，非相邻chunk合并？</p>
 <p>这回是改正在使用中的chunk,然后通过free使其产生更大的free chunk</p>
 <p>看看源码</p>
 <!-- 这是一张图片，ocr 内容为： -->
@@ -1105,7 +1210,348 @@
 <p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1777296754138-6bd3c57e-accb-4f89-8cdd-72437ba6ffb7.png" srcset="/img/loading.gif" lazyload></p>
 <p>成功</p>
 <h3 id="poison-null-byte"><a href="#poison-null-byte" class="headerlink" title="poison_null_byte"></a>poison_null_byte</h3><p>单字节溢出？</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+<p>用一个NULL byte 污染chunk size</p>
+<h4 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778408629599-1b0ca2e7-275c-4428-999f-09f558ccd991.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc 4个chunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778408923892-c813f942-61e2-49ad-8c83-dbfaa70bd93c.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc unlink的时候会有检查</p>
+<p>chunksize(P) &#x3D;&#x3D; prev_size(next_chunk(P))</p>
+<p>提前写0x200绕过</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778410421453-418c869a-a8e3-4fec-8587-5e035edcde52.png" srcset="/img/loading.gif" lazyload></p>
+<p>先free，后覆盖size低字节</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778410401822-66b1283a-1a51-4d08-9647-24916441a2c2.png" srcset="/img/loading.gif" lazyload></p>
+<p>从之前free掉的b中切一块给b1</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778411093456-15156aaa-20da-4566-ab38-0d2e6fb60ab6.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778411216246-c6da5f0f-a340-4aa1-b515-e37a3dfd4c21.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc  b2，依然从之前free 掉的 chunk中切</p>
+<p>并把其中塞满’B’</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778411642024-e28ae255-5f66-4bae-a038-644513710aa3.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778411482257-eafbda9d-a8ff-4d40-9f86-da6cdb3e2481.png" srcset="/img/loading.gif" lazyload></p>
+<p>接着free 掉 b1和c</p>
+<p>当 b1,b2,c 其中b2在使用时，free b1,c不会让它们合并成一个大chunk</p>
+<p>但是现在的metadata错位了，从0x210变成了0x200</p>
+<p>free c时，glibc根据c-&gt;prev_size 和前一个chunk的状态判断是否合并</p>
+<p>这时候glibc就会忽略b2</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1778412011807-db69f0ad-aceb-47c5-ba99-e3ea2d5d79f1.png" srcset="/img/loading.gif" lazyload></p>
+<p>随后malloc 0x300会return那个合并后的chunk，其中包含正在使用的b2</p>
+<h4 id="gdb启动-1"><a href="#gdb启动-1" class="headerlink" title="gdb启动"></a>gdb启动</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779263759292-95c4c87b-118d-449e-9839-608cddb2284a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779263816226-9852db77-080f-4ffa-a0e7-8341c6f0beda.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779264752146-8efa010f-223b-4285-a358-e4ae2ba800d4.png" srcset="/img/loading.gif" lazyload></p>
+<p>初始化</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779264887291-9401c377-7bbe-42e9-9d0e-c4602392ebe7.png" srcset="/img/loading.gif" lazyload></p>
+<p>提前写0x200绕过</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265001370-b64395bc-04d7-430b-b4f7-c6b17da5801d.png" srcset="/img/loading.gif" lazyload></p>
+<p>free b</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265192611-0f3a4506-cc41-41bb-9517-4e4cb7ee2a70.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265211583-c19d1875-3ec5-46bc-b8fe-1e0bb197a79b.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265303084-fd606583-5c06-483a-a8b7-1705c2ae44ee.png" srcset="/img/loading.gif" lazyload></p>
+<p>poison null</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265384393-37d737bd-f31b-4230-b917-f840c0d56192.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265451208-fe326a71-6307-491d-871c-0804955d6605.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc 0x100</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779265485169-b02fa9f6-d78c-41ea-a085-18a11269bc2b.png" srcset="/img/loading.gif" lazyload></p>
+<p>从free掉的b中切</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266258650-22088323-679b-4d40-9479-663dbf484f0a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266361480-fdc07c30-73a1-411b-b780-d9bebb3d5d2c.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc 0x80</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266439774-62b776e0-be4a-4cb2-b3c4-a52724dd4f71.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266452121-6b3d7ffe-639e-4b93-bd54-3d97585e9118.png" srcset="/img/loading.gif" lazyload></p>
+<p>free b1,c</p>
+<p>free c时，glibc根据c-&gt;prev_size 和前一个chunk的状态判断是否合并</p>
+<p>这时候glibc就会忽略b2</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266745746-9d9ea109-93cd-4f54-88de-07130deb645e.png" srcset="/img/loading.gif" lazyload></p>
+<p>feee b1</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266865966-b263d34a-7d8b-4379-9631-b4c04d5f0a68.png" srcset="/img/loading.gif" lazyload></p>
+<p>free c</p>
+<p>变成一个0x300多的大块</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779266909167-63bf4c64-cd12-4c2e-8943-cbaa9723481a.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后会malloc 0x300,return刚才合并的大块</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779267097921-6a30fee4-43e3-47c3-b290-43c129338f53.png" srcset="/img/loading.gif" lazyload></p>
+<p>成了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779267177308-4ddd9577-41d2-43ec-a7b4-030e65b2fc08.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="house-of-einherjar"><a href="#house-of-einherjar" class="headerlink" title="house_of_einherjar"></a>house_of_einherjar</h3><p>利用off-by-one null byte 清掉下一个chunk的PREV_INUSE位，让free()以为前面有一个free chunk，然后向后合并到我们伪造的fake chunk，最后malloc 返回可控的地址附近</p>
+<h4 id="源码分析-1"><a href="#源码分析-1" class="headerlink" title="源码分析"></a>源码分析</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779269929996-33b6e2c6-9390-40a3-87cc-986651f528d2.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc a &#x3D; 0x38</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779269958377-9e88b658-24a1-4aaf-8832-1ff496ac4850.png" srcset="/img/loading.gif" lazyload></p>
+<p>造fake chunk</p>
+<p>为通过unlink的检查，fwd和bck都指向自己</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779270072784-11248e89-2a8c-4651-8d89-0f185165d19f.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779270433971-6f4a2b12-b07f-42cf-be77-5373ffa9ab06.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc 0xf8 ，b</p>
+<p>prve_inuse清0</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779271274601-6c96baa7-9b9c-4b6b-bb11-a2bef083e30a.png" srcset="/img/loading.gif" lazyload></p>
+<p>free b 后跟fake chunk合并</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779271404101-f2b92161-6520-47a0-a42d-c78fb86811ae.png" srcset="/img/loading.gif" lazyload></p>
+<p>return fake chunk附近的可控地址</p>
+<h4 id="gdb启动-2"><a href="#gdb启动-2" class="headerlink" title="gdb启动"></a>gdb启动</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779271769335-694ea78f-b8e1-4c88-938f-4e057c228015.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779271961161-26c452ce-7307-469a-8a85-d75735bf85b2.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779272041300-0215e8bc-941b-4684-b4b5-c5f70034bf35.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779272195421-3c45ee9c-3c33-41d7-8040-d24070b1b879.png" srcset="/img/loading.gif" lazyload></p>
+<p>fake chunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779272397244-41933ddf-eac1-4c28-bd10-e42105b13c75.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc b</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779272614315-d2fa5d03-b918-4a6d-8eb2-4cd6bf35534e.png" srcset="/img/loading.gif" lazyload></p>
+<p>清0</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779272793635-15f100d4-43cf-4b33-9d7e-10fc2a8ae7e2.png" srcset="/img/loading.gif" lazyload></p>
+<p>写fake prev_size</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779273092767-673b938e-3c96-41c2-9fa0-9397605d39b7.png" srcset="/img/loading.gif" lazyload></p>
+<p>把 B 的 prev_size 改成：</p>
+<p>B - fake_chunk_addr</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280241275-d9105ff4-27c6-4b40-9b6c-c1ca67e5c357.png" srcset="/img/loading.gif" lazyload></p>
+<p>更新fake chunk【1】</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280283370-4ada74d5-5924-45ea-8d00-31086026a499.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280308699-7f597112-f934-45a7-b5b1-3c5453999995.png" srcset="/img/loading.gif" lazyload></p>
+<p>free b, 触发合并</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280510802-6132b25d-8f57-4bc4-ad5a-8ddbc775d0c9.png" srcset="/img/loading.gif" lazyload></p>
+<p>成功</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280528350-2ca214c6-3044-4ea7-9870-4cede8369da8.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc回来</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779280967131-809c31dd-7a50-40fa-90ad-9abe32b6afec.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok</p>
+<h3 id="unsorted-bin-into-stack"><a href="#unsorted-bin-into-stack" class="headerlink" title="unsorted_bin_into_stack"></a>unsorted_bin_into_stack</h3><p>篡改 unsorted bin chunk 的 bk，让下一次 malloc() 从伪造的栈上 fake chunk 返回地址</p>
+<h4 id="源码分析-2"><a href="#源码分析-2" class="headerlink" title="源码分析"></a>源码分析</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779281245860-989dbe5d-2216-43ee-8f4b-e4cf798d4d52.png" srcset="/img/loading.gif" lazyload></p>
+<p>我去，就这么点</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779283565247-91db8a29-e350-48e7-aab2-993e25003736.png" srcset="/img/loading.gif" lazyload></p>
+<p>先初始化一块地方用来造fake chunk</p>
+<p>然后malloc 0x100,malloc p1用来防止后续与top chunk合并</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779283713562-bd8bb321-cd51-433e-991b-9e0756daff17.png" srcset="/img/loading.gif" lazyload></p>
+<p>free 掉victim进入unsorted bin</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779283974582-3a67ac79-27c1-48d5-840a-61843cdc6908.png" srcset="/img/loading.gif" lazyload></p>
+<p>create a fake chunk</p>
+<p>set size and bk pointer</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779284611876-f742e59f-e78f-401a-bfe2-d6153a786940.png" srcset="/img/loading.gif" lazyload></p>
+<p>victim[-1] &#x3D; 32; &#x2F;&#x2F; 改小 victim 的 size (0x20)  , 16字节对齐<br>victim[1] &#x3D; (intptr_t)stack_buffer; &#x2F;&#x2F; 篡改 victim 的 bk 指向栈上的 Fake Chunk</p>
+<p>当 malloc 遍历 unsorted bin 时，会顺着 bk 指针往下找。把 bk 改成 stack_buffer，就能把栈强行拉入 unsorted bin 的链表中</p>
+<p>改成 32 后，malloc 遍历到 victim 时，发现 size (32) 不等于请求的 size (0x110)，就会将 victim 从 unsorted bin 中卸下，并丢进对应的 Small Bin，然后继续顺着 bk 遍历下一个 chunk（stack_buffer）</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285071486-d453408a-a774-4a5a-afed-149c0d310a09.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后malloc出来</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285108421-16bf8d86-a3c3-4ea4-aff4-192093cbdd81.png" srcset="/img/loading.gif" lazyload></p>
+<p>把ret 地址改成后门函数来检验</p>
+<h4 id="gdb启动-3"><a href="#gdb启动-3" class="headerlink" title="gdb启动"></a>gdb启动</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285211752-fbb46c51-052b-4bc2-881f-d01f2e7a5ae2.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285551577-7d576b29-7d2b-41d0-b678-353dc5da7997.png" srcset="/img/loading.gif" lazyload></p>
+<p>那个0x400的是缓冲区，下面两个0x111的才是victim和p1</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285632649-46bbc309-5420-421b-8d1c-1602f6550470.png" srcset="/img/loading.gif" lazyload></p>
+<p>free victim</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285707610-7343c3e8-ea27-4937-84b6-4fa02bee0209.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285779474-5fb4107d-eb53-4cf7-bd7e-fac00b147876.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285812387-2c7f3105-d421-4c31-bf2f-705be82eac7a.png" srcset="/img/loading.gif" lazyload></p>
+<p>fake chunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285837829-e68d2097-f8a5-4f8c-b38b-7975351b3b79.png" srcset="/img/loading.gif" lazyload></p>
+<p>改victim，uaf</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779285994776-bdf59657-cc51-49f3-b992-2f7ecb1c90d9.png" srcset="/img/loading.gif" lazyload></p>
+<p>之前</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779286038032-1df1d01c-b7d3-464a-8c9b-66adeb67c284.png" srcset="/img/loading.gif" lazyload></p>
+<p>改完</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779286110585-ad2d4564-a47a-4343-9cb8-ad1e0b57acef.png" srcset="/img/loading.gif" lazyload></p>
+<p>这时malloc 0x100</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779286175186-1f0658a5-7410-4392-977b-9c01fbd4b60d.png" srcset="/img/loading.gif" lazyload></p>
+<p>成了</p>
+<h3 id="house-of-orange"><a href="#house-of-orange" class="headerlink" title="house_of_orange"></a>house_of_orange</h3><p>终于看到io了，top chunk还能这么用？</p>
+<p>the core of the house of orange is to get a free unsorted chunk  without free function</p>
+<p>this operation uses an overflow in the heap to corrupt the io_list_all pointer</p>
+<p>It requries a leak of heap and libc</p>
+<h4 id="源码分析-3"><a href="#源码分析-3" class="headerlink" title="源码分析"></a>源码分析</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779435389570-57b906cf-a234-46e2-8647-eef8d3806318.png" srcset="/img/loading.gif" lazyload></p>
+<p>先malloc一块chunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779435518943-edc6612b-e71a-4b00-8e0b-ad06e8c5b1b6.png" srcset="/img/loading.gif" lazyload></p>
+<p>利用溢出把 top chunk size 改成0xc01，要页对齐，同时PREV_INUSE位要保留</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779435869157-680ec884-c07f-467d-9ce9-1a8731194e22.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc一个大chunk，此时top chunk size 小于0x1000</p>
+<p>触发sysmalloc()扩heap</p>
+<p>old top chunk 进入unsorted bin</p>
+<p>这就在没有明面上的free()的情况下实现了unsorted bin attack</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779436339618-a8a99112-70b3-4b8e-bfdb-5b87c05a7042.png" srcset="/img/loading.gif" lazyload></p>
+<p>此时old top chunk进入unsorted bin </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779436434440-4f1b8586-3b60-4cac-9002-e980280af629.png" srcset="/img/loading.gif" lazyload></p>
+<p>这样就可以反推libc地址</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779528917268-5e2e754c-26a9-4b8f-a774-cfe66c2eb8a9.png" srcset="/img/loading.gif" lazyload></p>
+<p>old top chunk在unsorted bin中，它的fd&#x2F;bk会指向main_arena里的unsorted bin 链表头附近，而io_list_all也是libc的全局符号</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779436631447-d49a6e5e-d48e-49a2-bf7f-ac27e310d665.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后改bk地址</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779454243408-705300c5-ac31-454d-b48e-826225d3503e.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779454878074-12985fc4-f2ab-49bb-8be4-c63cb2ce5d11.png" srcset="/img/loading.gif" lazyload></p>
+<p>将file结构写入old top chunk</p>
+<p>old top chunk作为fake file</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779529092673-e3e145fa-ed70-44f3-8294-1164d6ca1091.png" srcset="/img/loading.gif" lazyload></p>
+<p>把old top chunk的size改坏，以便后续触发malloc_printer(),malloc_printer()会触发abort(),abort()会触发_io_flush_all_lockp(),它会遍历io_list_all,然后fake file就有用了</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779530401823-6f5e9bc7-58b8-46bf-a0bf-f834370fef19.png" srcset="/img/loading.gif" lazyload></p>
+<p>继续伪造fake file</p>
+<p>fp -&gt;_mode &#x3D; 0是为了通过检查</p>
+<p>fp-&gt;_mode &lt;&#x3D; 0 是 glibc 在刷新 FILE 流时用来判断：</p>
+<p>这个流是不是普通的字节流，能不能按普通 _IO_FILE 的方式去 flush</p>
+<p>_mode &lt; 0   还没确定 &#x2F; 未初始化状态</p>
+<p>_mode &#x3D; 0   普通字节流</p>
+<p>_mode &gt; 0   宽字符流</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534046554-b9ba2328-b19d-4012-8dcb-a3c42fb2a228.png" srcset="/img/loading.gif" lazyload></p>
+<p>glibc 在刷新所有流时，会判断这个 FILE 有没有待输出的数据：</p>
+<p>if (fp-&gt;_IO_write_ptr &gt; fp-&gt;_IO_write_base)</p>
+<p>所以这里故意设置成：</p>
+<p>_IO_write_base &#x3D; 2<br>_IO_write_ptr  &#x3D; 3</p>
+<p>于是：</p>
+<p>3 &gt; 2</p>
+<p>条件成立。</p>
+<p>glibc 就会认为：</p>
+<p>这个 FILE 的写缓冲区里还有数据没刷新</p>
+<p>然后继续调用：</p>
+<p>_IO_OVERFLOW(fp, EOF);</p>
+<p>底层就是：</p>
+<p>fp-&gt;vtable-&gt;__overflow(fp, EOF);</p>
+<p>overflow是写缓冲区满了，或者需要把缓冲区内容刷出去时，调用的处理函数，即输出缓冲区处理函数</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534220032-3464fa38-966f-4081-ba03-9f496cc63d00.png" srcset="/img/loading.gif" lazyload></p>
+<p>伪造vtable</p>
+<p>jump_table对应io_overflow,，这里是jump到winner()函数</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534317370-93a0955e-e587-4d0e-bfc8-fbfb48efc8d9.png" srcset="/img/loading.gif" lazyload></p>
+<p>winner()调用的是system(ptr)这里prt指向fake file开头，也就是”&#x2F;bin&#x2F;sh\x00”</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534495366-5d9027c0-2b52-490f-80f9-7a4792cdefd0.png" srcset="/img/loading.gif" lazyload></p>
+<p>触发malloc_printerr()</p>
+<p>get shell</p>
+<h4 id="gdb启动-4"><a href="#gdb启动-4" class="headerlink" title="gdb启动"></a>gdb启动</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534547721-373e710d-b386-4a41-b505-c3188c69f0f9.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534580051-67a9ebc9-25fb-4571-8c50-f2fd3cae7d55.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534641058-17c693ed-01b3-4faf-8f25-45380181413b.png" srcset="/img/loading.gif" lazyload></p>
+<p>改top chunk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779534889158-bec71a23-1490-4c04-999b-949928d5cc4c.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc 0x1000, unsorted bin attack</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535057463-f2e3d635-bf40-48da-98c1-4f3ca79e4f5a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535094655-39d0c3c6-214d-44bf-904d-57ad8e3fd5b3.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535353554-148c0cc1-ec4f-4eb8-99a0-3033ac9eabec.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535370946-de057f51-916c-4480-b9af-ad7097f561ca.png" srcset="/img/loading.gif" lazyload></p>
+<p>对的对的</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535551274-992b2e1f-b4ed-4ab3-81b0-682e44989eac.png" srcset="/img/loading.gif" lazyload></p>
+<p>改bk</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535616210-0b8c5881-dcbc-4d1d-997b-3c808d9ee81f.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535627162-9f0e3b7d-cdce-47da-96db-bee2023d06d5.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535663708-182f27ee-5c52-4126-accf-8ca12bf211fb.png" srcset="/img/loading.gif" lazyload></p>
+<p>最后触发</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779535702821-509cba56-6bf8-473c-af99-a1d13ff17f71.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok</p>
+<h3 id="house-of-mind-fastbin"><a href="#house-of-mind-fastbin" class="headerlink" title="house_of_mind_fastbin"></a>house_of_mind_fastbin</h3><p>伪造非main arena，然后把一个fastbin chunk 的non_main_arena位打开，这样在free时glibc会通过chunk地址找fake heap_info,然后取其中的ar_ptr当arena，最后把freed chunk 指针写入fake arena 的fastbinsY，这样就能将一个chunk地址写入指定内存中</p>
+<h4 id="源码分析-4"><a href="#源码分析-4" class="headerlink" title="源码分析"></a>源码分析</h4><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779615890028-6d6b4148-9138-4380-b596-f5f703015b9d.png" srcset="/img/loading.gif" lazyload></p>
+<p>伪造fake arena</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779615979446-6dad6ad3-987b-4d56-8f92-2941136a0fe0.png" srcset="/img/loading.gif" lazyload></p>
+<p>伪造malloc_state.system_mem</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616220498-648350a9-5f5e-4d8a-a8c0-5a940707b763.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616233811-fe464a84-fa80-46d6-8e3b-4c112277b3cc.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616247626-a25a5036-5375-4a5c-8e1b-289790cc948e.png" srcset="/img/loading.gif" lazyload></p>
+<p>把heap推到fake_heap_info附近  </p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616355904-72b10600-6eeb-4110-9924-b9f7b019f22e.png" srcset="/img/loading.gif" lazyload></p>
+<p>malloc 0x50</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616438817-568f9b4c-31e3-4bee-8fc0-250bff051b39.png" srcset="/img/loading.gif" lazyload></p>
+<p>伪造heap_info 的ar_ptr</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616700457-1aaa1953-361a-400c-a667-737d42314de9.png" srcset="/img/loading.gif" lazyload></p>
+<p> 改size标志位</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616802525-5ca55b84-2990-4a59-a344-b1fb3a1e210d.png" srcset="/img/loading.gif" lazyload></p>
+<p>free掉</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/how2heap%E5%88%86%E6%9E%90-_2.23/1779616833102-e6394d58-b9a0-4dc3-a542-6fa3018e576b.png" srcset="/img/loading.gif" lazyload></p>
+<p>ok</p>
+<h3 id="house-of-roman"><a href="#house-of-roman" class="headerlink" title="house_of_roman"></a>house_of_roman</h3><p>还有hook hijack</p>
+<p>直接利用unsorted bin attack 中的libc地址</p>
+<h3 id="不全记笔记了，之后遇到调试方面的问题再记"><a href="#不全记笔记了，之后遇到调试方面的问题再记" class="headerlink" title="不全记笔记了，之后遇到调试方面的问题再记"></a>不全记笔记了，之后遇到调试方面的问题再记</h3>
                 
               </div>
             
@@ -1155,7 +1601,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>how2heap分析-_2.23</div>
-      <div>https://ghostshark-pro.github.io/2026/05/08/how2heap分析-_2.23/</div>
+      <div>https://ghostshark-pro.github.io/2026/05/24/how2heap分析-_2.23/</div>
     </div>
     <div class="license-meta">
       
@@ -1167,7 +1613,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted</div>
-          <div>2026年5月8日</div>
+          <div>2026年5月24日</div>
         </div>
       
       
