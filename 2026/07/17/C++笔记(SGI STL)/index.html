@@ -1,0 +1,1460 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="shark">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="starthttps:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v&#x3D;18c3MTX0PK0&amp;list&#x3D;PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb 找到了一位大佬的教学视频   面向对象编程是何意位？面向对象编程，英文叫 OOP：Object-Oriented Programming 把程序里的东西看成一个个对象，每个对象有自己的数据和行为 好比是人的‘硬件’">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++笔记(SGI STL)">
+<meta property="og:url" content="https://ghostshark-pro.github.io/2026/07/17/C++%E7%AC%94%E8%AE%B0(SGI%20STL)/index.html">
+<meta property="og:site_name" content="shark&#39;s home">
+<meta property="og:description" content="starthttps:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v&#x3D;18c3MTX0PK0&amp;list&#x3D;PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb 找到了一位大佬的教学视频   面向对象编程是何意位？面向对象编程，英文叫 OOP：Object-Oriented Programming 把程序里的东西看成一个个对象，每个对象有自己的数据和行为 好比是人的‘硬件’">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1777508845742-2945a652-37ee-4103-b9a4-48f66e90ef86.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778418246253-542b8560-edcb-45b5-843b-a04d5345ee75.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778418264619-fc3b9a57-90bd-4897-a0e5-e99d3b1ba09a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778418285028-6d0990c7-80e3-4dd6-8f8d-fa117e942fa2.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778559326101-9a6e7ac7-dbd5-4783-a957-880f76ec6ef1.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778590646819-7bad924b-d423-43f5-8a70-dcd0cc765345.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778591720310-f54d66cc-1234-4f76-bfb8-093fb6950782.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783246955836-b7f7acf5-393c-4a18-ab6e-590f83070ae0.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783794485882-7a969a1b-859c-4e9b-abde-9ffb32bc5ee5.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783797035346-057b322a-861c-4d5f-9e23-6d2605c052bd.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783796785139-9625909d-41e2-4eb1-bc22-bd042ca61e6f.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783796772878-6cf72927-460f-4298-8b07-515198fc4836.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783837951854-2b9ce1c0-4ff9-4308-b3c6-ea5bce6cff43.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783839899091-db4f7888-523d-44fd-942a-ed18108d6319.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783840588665-8140bcb7-38ba-45dd-8dd4-ec09bfd38198.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783840537865-590f3138-54fc-4057-aed9-4b02f93c68ad.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784215694955-3fc5d4d6-98dc-44c8-9c9b-8540a7d5e5d2.jpeg">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784217079517-d8701dcc-3dbd-46c4-9c14-2179d5af20b8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784223128865-f32e25b7-c94d-4f17-a46a-0ee7a8d69b4a.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784228095597-81f387f7-05e5-45b6-aba1-3a7a4c0651fe.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784228247224-a50aaf20-101f-44f7-83ab-9b3aa1d0d2d8.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784228612797-3fb7a750-8af6-4f35-ac0f-db8cab251434.png">
+<meta property="og:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784228765407-acc4b4ce-c003-40a9-8329-55342b4005c4.png">
+<meta property="article:published_time" content="2026-07-16T19:19:45.000Z">
+<meta property="article:modified_time" content="2026-07-16T19:21:11.786Z">
+<meta property="article:author" content="shark">
+<meta property="article:tag" content="SGI STL">
+<meta property="article:tag" content="c++">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ghostshark-pro.github.io/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1777508845742-2945a652-37ee-4103-b9a4-48f66e90ef86.jpeg">
+  
+  
+  
+  <title>C++笔记(SGI STL) - shark&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ghostshark-pro.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#00FFFF","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":false,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>shark&#39;s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Terminal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Arsenal</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Timeline</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Friends</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>Whoami</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>Terminal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>Arsenal</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>Tags</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>Timeline</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>Friends</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>Whoami</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>Grep</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="Light Mode"
+               data-label-dark="Dark Mode">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">Dark Mode</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C++笔记(SGI STL)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-07-17 03:19" pubdate>
+          2026年7月17日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k bytes
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          ETA: 88 min
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">C++笔记(SGI STL)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="start"><a href="#start" class="headerlink" title="start"></a>start</h1><p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=18c3MTX0PK0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb">https://www.youtube.com/watch?v=18c3MTX0PK0&amp;list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb</a></p>
+<p>找到了一位大佬的教学视频</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1777508845742-2945a652-37ee-4103-b9a4-48f66e90ef86.jpeg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="面向对象编程是何意位？"><a href="#面向对象编程是何意位？" class="headerlink" title="面向对象编程是何意位？"></a>面向对象编程是何意位？</h2><p><strong>面向对象编程</strong>，英文叫 <strong>OOP：Object-Oriented Programming</strong></p>
+<p>把程序里的东西看成一个个对象，每个对象有自己的数据和行为</p>
+<p>好比是人的‘硬件’和‘软件’</p>
+<p>c++里可以把这些封装成一个类，class</p>
+<p>之前看php的时候也有这东西</p>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> &#123;</span><br>public:<br>    <span class="hljs-built_in">string</span> name;<br>    <span class="hljs-type">int</span> age;<br><br>    <span class="hljs-type">void</span> <span class="hljs-title function_">sayHello</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;你好，我叫 &quot;</span> &lt;&lt; name &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>Person作为一个类，描述了一个人应该有什么</p>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">Person p1;<br>p1.name = <span class="hljs-string">&quot;shark&quot;</span>;<br>p1.age = <span class="hljs-number">18</span>;<br><br>p1.sayHello();<br></code></pre></td></tr></table></figure>
+
+<p>p1为具体的人</p>
+<p>连起来就是这样</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br>using namespace <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> &#123;</span><br>public:<br>    <span class="hljs-built_in">string</span> name;<br>    <span class="hljs-type">int</span> age;<br><br>    <span class="hljs-type">void</span> <span class="hljs-title function_">sayHello</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;你好，我叫 &quot;</span> &lt;&lt; name &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br>&#125;;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    Person p1;<br><br>    p1.name = <span class="hljs-string">&quot;shark&quot;</span>;<br>    p1.age = <span class="hljs-number">18</span>;<br><br>    p1.sayHello();<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778418246253-542b8560-edcb-45b5-843b-a04d5345ee75.png" srcset="/img/loading.gif" lazyload></p>
+<p>对的对的</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778418264619-fc3b9a57-90bd-4897-a0e5-e99d3b1ba09a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778418285028-6d0990c7-80e3-4dd6-8f8d-fa117e942fa2.png" srcset="/img/loading.gif" lazyload></p>
+<p>有点熟悉但不那么熟悉的std</p>
+<h3 id="类和对像的关系"><a href="#类和对像的关系" class="headerlink" title="类和对像的关系"></a>类和对像的关系</h3><p>class 类 &#x3D; 图纸 &#x2F; 模板</p>
+<p>object 对象 &#x3D; 根据图纸造出来的具体东西</p>
+<h3 id="面向对象的三大特性"><a href="#面向对象的三大特性" class="headerlink" title="面向对象的三大特性"></a>面向对象的三大特性</h3><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><p>把数据和操作数据的函数放在一起，并控制外部能不能直接访问</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Player</span> &#123;</span><br>private:<br>    <span class="hljs-type">int</span> hp;<br><br>public:<br>    <span class="hljs-type">void</span> <span class="hljs-title function_">setHp</span><span class="hljs-params">(<span class="hljs-type">int</span> value)</span> &#123;<br>        <span class="hljs-keyword">if</span> (value &gt;= <span class="hljs-number">0</span>) &#123;<br>            hp = value;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-type">int</span> <span class="hljs-title function_">getHp</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> hp;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>这里：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">private:<br>    int hp;<br></code></pre></td></tr></table></figure>
+
+<p>表示 <code>hp</code> 外部不能直接改</p>
+<p>只能通过setHp(),getHp()访问</p>
+<p>防止乱改数据</p>
+<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>一个类可以继承另一个类的属性和函数</p>
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Animal &#123;<br>public:<br>    void eat() &#123;<br>        cout &lt;&lt; &quot;正在吃东西&quot; &lt;&lt; endl;<br>    &#125;<br>&#125;;<br><br>class Dog : public Animal &#123;<br>public:<br>    void bark() &#123;<br>        cout &lt;&lt; &quot;汪汪&quot; &lt;&lt; endl;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p><code>Dog</code> 继承了 <code>Animal</code>。</p>
+<p>所以：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">Dog d;<br>d.eat();<br>d.bark();<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">正在吃东西<br>汪汪<br></code></pre></td></tr></table></figure>
+
+<p>意思是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">Dog 是 Animal 的一种<br>Dog 拥有 Animal 的能力<br>Dog 还可以有自己的能力<br></code></pre></td></tr></table></figure>
+
+<h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><p>同一个接口在不同对象中表现出不同的效果</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> &#123;</span><br>public:<br>    virtual <span class="hljs-type">void</span> <span class="hljs-title function_">speak</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;动物叫&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> :</span> public Animal &#123;<br>public:<br>    <span class="hljs-type">void</span> <span class="hljs-title function_">speak</span><span class="hljs-params">()</span> override &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;汪汪&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> :</span> public Animal &#123;<br>public:<br>    <span class="hljs-type">void</span> <span class="hljs-title function_">speak</span><span class="hljs-params">()</span> override &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;喵喵&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>函数调用：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">Animal* a1 = new Dog();<br>Animal* a2 = new Cat();<br><br>a1-&gt;speak();<br>a2-&gt;speak();<br></code></pre></td></tr></table></figure>
+
+<p>a1和a2会发出不同的叫声</p>
+<h2 id="小细节"><a href="#小细节" class="headerlink" title="小细节"></a>小细节</h2><h3 id="note1"><a href="#note1" class="headerlink" title="note1"></a>note1</h3><p>#include <iostream></p>
+<p>#include <string></p>
+<p>iostrean是输出输入库</p>
+<p>cont,cin,endl都是里面的</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-built_in">cout</span>  <span class="hljs-comment">// 输出到屏幕</span><br><span class="hljs-built_in">cin</span>   <span class="hljs-comment">// 从键盘输入</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br>using namespace <span class="hljs-built_in">std</span>;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">int</span> age;<br><br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入你的年龄：&quot;</span>;<br>    <span class="hljs-built_in">cin</span> &gt;&gt; age;<br><br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;你的年龄是：&quot;</span> &lt;&lt; age &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-built_in">cout</span> &lt;&lt;   <span class="hljs-comment">// 输出</span><br><span class="hljs-built_in">cin</span>  &gt;&gt;   <span class="hljs-comment">// 输入</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>string是字符串库</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br>using namespace <span class="hljs-built_in">std</span>;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">string</span> name = <span class="hljs-string">&quot;shark&quot;</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; name &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>就这样</p>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br>using namespace <span class="hljs-built_in">std</span>;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">int</span> age = <span class="hljs-number">18</span>;<br><br>    <span class="hljs-built_in">cout</span> &lt;&lt; age &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>不多说，c里面的老东西</p>
+<h3 id="数据类型（常见）"><a href="#数据类型（常见）" class="headerlink" title="数据类型（常见）"></a>数据类型（常见）</h3><h4 id="整数：int"><a href="#整数：int" class="headerlink" title="整数：int"></a>整数：<code>int</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">int age = 18;<br>int score = 100;<br></code></pre></td></tr></table></figure>
+
+<p>适合存整数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">1<br>2<br>18<br>100<br>-5<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="小数：double"><a href="#小数：double" class="headerlink" title="小数：double"></a>小数：<code>double</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">double height = 1.75;<br>double price = 9.99;<br></code></pre></td></tr></table></figure>
+
+<p>适合存小数。</p>
+<hr>
+<h4 id="字符：char"><a href="#字符：char" class="headerlink" title="字符：char"></a>字符：<code>char</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">char grade = &#x27;A&#x27;;<br></code></pre></td></tr></table></figure>
+
+<p>注意：<code>char</code> 用<strong>单引号</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">char c = &#x27;x&#x27;;<br></code></pre></td></tr></table></figure>
+
+<p>不能这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">char c = &quot;x&quot;; // 错<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="字符串：string"><a href="#字符串：string" class="headerlink" title="字符串：string"></a>字符串：<code>string</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">string name = &quot;shark&quot;;<br></code></pre></td></tr></table></figure>
+
+<p>注意：<code>string</code> 用<strong>双引号</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">string s = &quot;hello&quot;;<br></code></pre></td></tr></table></figure>
+
+<p>依旧老东西</p>
+<h4 id="布尔值：bool"><a href="#布尔值：bool" class="headerlink" title="布尔值：bool"></a>布尔值：<code>bool</code></h4><p><code>bool</code> 只有两个值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">true<br>false<br></code></pre></td></tr></table></figure>
+
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">bool isAdmin = true;<br>bool isDead = false;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br>using namespace <span class="hljs-built_in">std</span>;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">string</span> name = <span class="hljs-string">&quot;shark&quot;</span>;<br>    <span class="hljs-type">int</span> age = <span class="hljs-number">18</span>;<br>    <span class="hljs-type">double</span> height = <span class="hljs-number">1.75</span>;<br>    <span class="hljs-type">char</span> grade = <span class="hljs-string">&#x27;A&#x27;</span>;<br>    <span class="hljs-type">bool</span> isStudent = <span class="hljs-literal">true</span>;<br><br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;名字：&quot;</span> &lt;&lt; name &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;年龄：&quot;</span> &lt;&lt; age &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;身高：&quot;</span> &lt;&lt; height &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;等级：&quot;</span> &lt;&lt; grade &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;是否学生：&quot;</span> &lt;&lt; isStudent &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>算了，不说了，都是c学过的</p>
+<h3 id="构造函数和析构函数"><a href="#构造函数和析构函数" class="headerlink" title="构造函数和析构函数"></a>构造函数和析构函数</h3><p>构造函数：对象出生时自动执行</p>
+<p>析构函数：对象死亡时自动执行</p>
+<p>自动生成的析构函数只会自动销毁成员变量本身，不会帮你释放你手动 new 出来的内存</p>
+<p>如果不写析构函数，c++会自动给类加一个默认析构函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span>* data;<br><span class="hljs-type">int</span>* p;<br>Node* child;<br></code></pre></td></tr></table></figure>
+
+<p>这些裸指针如果指向 <code>new</code> 出来的内存，通常你就要考虑自己写析构函数  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br>using namespace <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Buffer</span> &#123;</span><br>public:<br>    <span class="hljs-type">char</span>* data;<br><br>    Buffer() &#123;<br>        data = new <span class="hljs-type">char</span>[<span class="hljs-number">16</span>];<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;申请内存&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br>    ~Buffer() &#123;<br>        delete[] data;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;释放内存&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br>&#125;;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    Buffer buf;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样</p>
+<h3 id="c-对象生命周期"><a href="#c-对象生命周期" class="headerlink" title="c++对象生命周期"></a>c++对象生命周期</h3><p>对象从出生到死亡会经历一系列函数调用</p>
+<p>分配内存</p>
+<p>↓</p>
+<p>构造对象</p>
+<p>↓</p>
+<p>使用对象</p>
+<p>↓</p>
+<p>析构对象</p>
+<p>↓</p>
+<p>释放内存</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br>using namespace <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> &#123;</span><br>public:<br>    Node() &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;构造 Node&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br>    ~Node() &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;析构 Node&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br>&#125;;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    Node n;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>main 中Node n;自动调用构造函数Node()</p>
+<p>main结束时n 离开作用域，自动调用析构函数~Node()</p>
+<h4 id="栈对象的生命周期"><a href="#栈对象的生命周期" class="headerlink" title="栈对象的生命周期"></a>栈对象的生命周期</h4><p>Node n;</p>
+<p>就是这种</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c">进入作用域<br>↓<br>创建 n<br>↓<br>调用构造函数<br>↓<br>使用 n<br>↓<br>离开作用域<br>↓<br>调用析构函数<br>↓<br>n 消失<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br>using namespace <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> &#123;</span><br>public:<br>    Node() &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Node 构造&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br>    ~Node() &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Node 析构&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br>&#125;;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;进入 test&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    Node n;<br><br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;离开 test 前&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;main 开始&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    test();<br><br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;main 结束&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>跑一个试试看</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778559326101-9a6e7ac7-dbd5-4783-a957-880f76ec6ef1.png" srcset="/img/loading.gif" lazyload></p>
+<p>确实是函数结束后才调用析构</p>
+<h4 id="堆对象的生命周期"><a href="#堆对象的生命周期" class="headerlink" title="堆对象的生命周期"></a>堆对象的生命周期</h4><p>堆对象得用new创建</p>
+<p>Node* p &#x3D; new Node();</p>
+<p>不会自动析构，必须用delete</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br>using namespace <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> &#123;</span><br>public:<br>    Node() &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Node 构造&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br>    ~Node() &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Node 析构&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br>&#125;;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    Node* p = new Node();<br><br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;正在使用 p&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    delete p;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778590646819-7bad924b-d423-43f5-8a70-dcd0cc765345.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br>using namespace <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> &#123;</span><br>public:<br>    <span class="hljs-type">int</span> value;<br><br>    Node(<span class="hljs-type">int</span> v) &#123;<br>        value = v;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;普通构造&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br>    Node(<span class="hljs-type">const</span> Node&amp; other) &#123;<br>        value = other.value;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;拷贝构造&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br>    ~Node() &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;析构&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br>&#125;;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    Node <span class="hljs-title function_">a</span><span class="hljs-params">(<span class="hljs-number">123</span>)</span>;<br><br>    Node b = a;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1778591720310-f54d66cc-1234-4f76-bfb8-093fb6950782.png" srcset="/img/loading.gif" lazyload></p>
+<p>Node b &#x3D; a;并非赋值，而是创建b并用a初始化它</p>
+<p>Node ( const Node&amp; other) 就是拷贝构造函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">Node <span class="hljs-title function_">a</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span>;<br>Node <span class="hljs-title function_">b</span><span class="hljs-params">(<span class="hljs-number">2</span>)</span>;<br><br>b = a;<br></code></pre></td></tr></table></figure>
+
+<p>若b已经存在就调用赋值函数</p>
+<p>Node&amp; operator&#x3D;(constNode&amp; other)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c">Node n;<br>栈上创建对象，自动构造，离开作用域自动析构<br><br>Node* p = new Node();<br>堆上创建对象，new 时构造，delete 时析构<br><br>new Node()<br>分配内存 + 调用构造函数<br><br>delete p<br>调用析构函数 + 释放内存<br><br>operator new(<span class="hljs-keyword">sizeof</span>(Node))<br>只分配内存，不构造对象<br><br>p-&gt;~Node()<br>只析构对象，不释放内存<br><br>operator delete(p)<br>只释放内存<br><br>C++ 对象生命周期 = 内存分配 + 构造 + 使用 + 析构 + 内存释放<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h3><p>模板的作用是：</p>
+<p>先写一份通用代码，具体类型由编译器在使用时确定。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">template&lt;class T&gt;<br>T add(T a, T b) &#123;<br>    return a + b;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">add(1, 2);<br></code></pre></td></tr></table></figure>
+
+<p>编译器根据参数推导：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">T = int<br></code></pre></td></tr></table></figure>
+
+<p>然后生成近似这样的函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">int add(int a, int b) &#123;<br>    return a + b;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>函数函数函数</p>
+<h3 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h3><p>函数重载是：</p>
+<p>函数名相同，但参数列表不同，编译器根据实参选择最合适的版本。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain">void print(int x) &#123;<br>    cout &lt;&lt; &quot;int\n&quot;;<br>&#125;<br><br>void print(double x) &#123;<br>    cout &lt;&lt; &quot;double\n&quot;;<br>&#125;<br><br>void print(const char* x) &#123;<br>    cout &lt;&lt; &quot;string\n&quot;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">print(10);       // print(int)<br>print(3.14);     // print(double)<br>print(&quot;hello&quot;);  // print(const char*)<br></code></pre></td></tr></table></figure>
+
+<h1 id="before-stl"><a href="#before-stl" class="headerlink" title="before stl"></a>before stl</h1><h2 id="class-and-struct"><a href="#class-and-struct" class="headerlink" title="class and struct"></a>class and struct</h2><p>c++里的  class 和 struct 基本一样，唯一不同的就是默认public或private</p>
+<h2 id="how-to-write-a-c-class"><a href="#how-to-write-a-c-class" class="headerlink" title="how to write a c++ class"></a>how to write a c++ class</h2><p>c++里的class private类型只能通过public中的函数篡改</p>
+<p>class 类名<br>{<br>private:<br>&#x2F;&#x2F; 成员变量  </p>
+<p>public:<br>&#x2F;&#x2F; 成员函数<br>};</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Log<br>&#123;<br>private:<br>    int level;<br><br>public:<br>    void SetLevel(int newLevel)<br>    &#123;<br>        level = newLevel;<br>    &#125;<br><br>    void Write(const char* message)<br>    &#123;<br>        std::cout &lt;&lt; message &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>这里：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">private:<br>    int level;<br></code></pre></td></tr></table></figure>
+
+<p>外部不能直接访问</p>
+<p>只能通过：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">log.SetLevel(1);<br></code></pre></td></tr></table></figure>
+
+<p>来修改。</p>
+<p>这就是 <strong>封装</strong></p>
+<p><font style="color:#DF2A3F;">普通情况下，类外不能直接访问 </font><code>&lt;font style=&quot;color:#DF2A3F;&quot;&gt;private&lt;/font&gt;</code><font style="color:#DF2A3F;">，只能通过 </font><code>&lt;font style=&quot;color:#DF2A3F;&quot;&gt;public&lt;/font&gt;</code><font style="color:#DF2A3F;"> 函数访问；类内部、friend、同类对象之间可以访问 </font> </p>
+<h2 id="static-in-c"><a href="#static-in-c" class="headerlink" title="static in c++"></a>static in c++</h2><p>普通成员变量：</p>
+<pre><code class="hljs">每个对象一份
+</code></pre>
+<p>static 成员变量：</p>
+<pre><code class="hljs">整个类共享一份
+</code></pre>
+<p>普通成员函数：</p>
+<pre><code class="hljs">有 this 指针，可以访问普通成员变量
+</code></pre>
+<p>static 成员函数：</p>
+<pre><code class="hljs">没有 this 指针，只能直接访问 static 成员
+</code></pre>
+<p> static 成员不属于对象，属于类  </p>
+<h1 id="SGI-STL"><a href="#SGI-STL" class="headerlink" title="SGI STL"></a>SGI STL</h1><p>要用到的源码从这里下</p>
+<p><a target="_blank" rel="noopener" href="https://sgistl.github.io/download.html">https://sgistl.github.io/download.html</a></p>
+<p>我看的是v3.3的</p>
+<p>终于把cherno的小视频看完了</p>
+<h2 id="六大组件"><a href="#六大组件" class="headerlink" title="六大组件"></a>六大组件</h2><p>容器 Container</p>
+<pre><code class="hljs">↓ 提供迭代器
+</code></pre>
+<p>迭代器 Iterator</p>
+<pre><code class="hljs">↓ 传给算法（算法本身只负责做法，由迭代器与容器连接）
+</code></pre>
+<p>算法 Algorithm</p>
+<p>空间配置器 Allocator -&gt;为容器管理内存(空间配置器只分配内存，不执行构造函数)</p>
+<p>仿函数 Functor-&gt;为算法提供操作规则，调整算法行为</p>
+<p>适配器 Adapter-&gt;改造容器、迭代器或仿函数</p>
+<p>SGI STL 中，空间配置器为容器提供内存支持，容器真正负责存放和组织数据；</p>
+<p>算法本身不直接接触容器，而是通过迭代器访问和操作容器中的元素；</p>
+<p>仿函数可以作为算法的操作规则，用来改变算法的行为；</p>
+<p>适配器则是在已有容器、迭代器或仿函数的基础上，改变它们的接口或使用方式。</p>
+<pre><code class="hljs">    		   allocator
+
+       		       ↓
+
+       	 	  container
+
+           			 ↓
+
+          		iterator
+
+              		↓
+</code></pre>
+<p>algorithm  ←→  数据访问</p>
+<p>   ↑</p>
+<p>functor</p>
+<p>   ↑</p>
+<p>adapter</p>
+<h3 id="容器Container"><a href="#容器Container" class="headerlink" title="容器Container"></a>容器Container</h3><p>container负责存储数据，组织数据，管理数据的生命周期</p>
+<p>例如在vector中</p>
+<p>vector<int> v;</p>
+<p>v.push_back(10);</p>
+<p>v.push_back(20);</p>
+<p>存储10，20</p>
+<p>组织数据就是不同的容器用不同的数据结构，不存在一种数据结构能在所有操作上都最快</p>
+<table>
+<thead>
+<tr>
+<th>容器</th>
+<th>底层结构</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>vector</code></td>
+<td>连续数组</td>
+<td>随机访问快</td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td>双向链表</td>
+<td>中间插入、删除快</td>
+</tr>
+<tr>
+<td><code>deque</code></td>
+<td>分段连续空间</td>
+<td>头尾插入快</td>
+</tr>
+<tr>
+<td><code>set</code></td>
+<td>红黑树</td>
+<td>元素自动排序、不重复</td>
+</tr>
+<tr>
+<td><code>map</code></td>
+<td>红黑树</td>
+<td>保存键值对，按键排序</td>
+</tr>
+<tr>
+<td><code>hash_set</code></td>
+<td>哈希表</td>
+<td>平均查找速度快</td>
+</tr>
+<tr>
+<td><code>hash_map</code></td>
+<td>哈希表</td>
+<td>根据键快速查找值</td>
+</tr>
+</tbody></table>
+<p>容器会自动处理：</p>
+<ul>
+<li>申请内存</li>
+<li>构造对象</li>
+<li>扩容</li>
+<li>销毁对象</li>
+<li>释放内存</li>
+</ul>
+<p>即管理数据的生命周期</p>
+<p>容器可以分为两类，序列式容器和关联式容器</p>
+<p>序列式容器</p>
+<p>元素主要按照插入顺序排列。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">vector<br>list<br>deque<br>slist<br></code></pre></td></tr></table></figure>
+
+
+
+<p>关联式容器</p>
+<p>元素按照键值组织，通常支持快速查找。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">set<br>multiset<br>map<br>multimap<br></code></pre></td></tr></table></figure>
+
+<h3 id="空间配置器Allocator"><a href="#空间配置器Allocator" class="headerlink" title="空间配置器Allocator"></a>空间配置器Allocator</h3><p>allocator主要用来申请跟释放内存</p>
+<p>空间配置器主要管理内存空间，不一定负责对象构造</p>
+<p>STL 里通常分成两步：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">1. allocate：申请原始内存<br>2. construct：在这块内存上构造对象<br></code></pre></td></tr></table></figure>
+
+<p>销毁时也是两步：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">1. destroy：析构对象<br>2. deallocate：释放内存<br></code></pre></td></tr></table></figure>
+
+<p>STL中会频繁申请，释放小内存如果用malloc和free的话就很低效</p>
+<p>SGI STL中采用了两级配置器</p>
+<p>一级配置器：处理大块内存</p>
+<p>二级配置器：处理小块内存</p>
+<p>一级配置器主要处理<strong>大于 128 字节</strong>的内存。</p>
+<p>底层直接调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">malloc()<br>free()<br>realloc()<br></code></pre></td></tr></table></figure>
+
+
+
+<p>二级配置器主要处理<strong>小于等于 128 字节</strong>的小块内存。</p>
+<p>维护一个<strong>内存池</strong>和多个<strong>自由链表 free list</strong>。</p>
+<h3 id="迭代器Iterator"><a href="#迭代器Iterator" class="headerlink" title="迭代器Iterator"></a>迭代器Iterator</h3><p>迭代器将容器跟算法连接，让算法不用考虑容器内数据如何存储</p>
+<p>可以将迭代器视为指针的抽象</p>
+<p>vector 底层是连续数组，list 底层是链表，存数据的方式完全不同，但对于同一种算法则可以通过迭代器操作</p>
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">find(first, last, value);<br>sort(first, last);<br></code></pre></td></tr></table></figure>
+
+<p>并不直接操作 <code>vector</code> 或 <code>list</code>，而是通过迭代器操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">find(v.begin(), v.end(), 3);<br>find(l.begin(), l.end(), 3);<br></code></pre></td></tr></table></figure>
+
+<p>这样算法就不需要知道容器的内部结构</p>
+<p>迭代器的实现主要是在stl v3.3里的stl_iterator.h跟stl_iterator_base.h</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783246955836-b7f7acf5-393c-4a18-ab6e-590f83070ae0.png" srcset="/img/loading.gif" lazyload></p>
+<p>stl_iterator_base.h：定义迭代器的类型系统·类型萃取以及算法分派机制。</p>
+<p>stl_iterator.h：在基础机制之上实现各种具体的迭代器适配器。</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783794485882-7a969a1b-859c-4e9b-abde-9ffb32bc5ee5.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783797035346-057b322a-861c-4d5f-9e23-6d2605c052bd.png" srcset="/img/loading.gif" lazyload></p>
+<p>五种迭代器标签，结构体里无成员变量，用类型表示迭代器能力</p>
+<table>
+<thead>
+<tr>
+<th>迭代器</th>
+<th>能力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入迭代器</td>
+<td>读取、向前移动</td>
+</tr>
+<tr>
+<td>输出迭代器</td>
+<td>写入、向前移动</td>
+</tr>
+<tr>
+<td>前向迭代器</td>
+<td>可以多次向前遍历</td>
+</tr>
+<tr>
+<td>双向迭代器</td>
+<td>可以 <code>++</code> 和 <code>--</code></td>
+</tr>
+<tr>
+<td>随机访问迭代器</td>
+<td>可以 <code>+n</code>、<code>-n</code>、下标访问</td>
+</tr>
+</tbody></table>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783796785139-9625909d-41e2-4eb1-bc22-bd042ca61e6f.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783796772878-6cf72927-460f-4298-8b07-515198fc4836.png" srcset="/img/loading.gif" lazyload></p>
+<p>后面的distance() advance()会根据这些tag选择不同的函数</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783837951854-2b9ce1c0-4ff9-4308-b3c6-ea5bce6cff43.png" srcset="/img/loading.gif" lazyload></p>
+<p>iterator模板，规定迭代器必须提供哪些信息</p>
+<p>这个 <code>iterator</code> 只是提供五种类型信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">iterator_category<br>value_type<br>difference_type<br>pointer<br>reference<br></code></pre></td></tr></table></figure>
+
+<p>调用函数模板时，编译器根据你传入的实参类型，自动推导模板参数 <code>T</code> 是什么。</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783839899091-db4f7888-523d-44fd-942a-ed18108d6319.png" srcset="/img/loading.gif" lazyload></p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">template&lt;class T&gt;<br>void func(T x) &#123;<br>&#125;<br><br>int a = 10;<br>func(a);<br></code></pre></td></tr></table></figure>
+
+<p>编译器看到传入的是 <code>int</code>，于是推导：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">T = int<br></code></pre></td></tr></table></figure>
+
+<p>最终相当于调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">func&lt;int&gt;(a);<br></code></pre></td></tr></table></figure>
+
+<h4 id="traits-特性萃取）"><a href="#traits-特性萃取）" class="headerlink" title="traits(特性萃取）"></a>traits(特性萃取）</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c">迭代器类型<br>   ↓<br>提供五种关联类型<br>   ↓<br>iterator_traits 统一提取<br>   ↓<br>取出 iterator_category<br>   ↓<br>生成标签对象<br>   ↓<br>函数重载选择对应算法<br></code></pre></td></tr></table></figure>
+
+<p>两个例子：</p>
+<ul>
+<li><code>distance(first, last)</code>：计算两个迭代器之间相隔多少个元素。 </li>
+<li><code>advance(iterator, n)</code>：让迭代器向前或向后移动 <code>n</code> 个位置</li>
+</ul>
+<p>给定一个类型，让编译器在编译期获取这个类型的相关信息，并根据这些信息选择不同代码实现  </p>
+<p>类型 T</p>
+<p>  ↓</p>
+<p>traits<T></p>
+<p>  ↓</p>
+<p>提取 T 的各种特征</p>
+<p>自定义迭代器可以提供内部类型<br>原生指针不能提供内部类型</p>
+<p>intarr[] &#x3D; {1, 2, 3};</p>
+<p>针不是类，内部没有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">value_type<br>iterator_category<br>difference_type<br></code></pre></td></tr></table></figure>
+
+<p>为了解决这个问题，STL 增加了一层包装：</p>
+<p>iterator_traits</p>
+<p>不再直接查询：</p>
+<p>Iterator::value_type</p>
+<p>而是统一查询：</p>
+<p>iterator_traits::value_type</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783840588665-8140bcb7-38ba-45dd-8dd4-ec09bfd38198.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1783840537865-590f3138-54fc-4057-aed9-4b02f93c68ad.png" srcset="/img/loading.gif" lazyload></p>
+<p>iterator_traits主模板，stl_iterator_base.h：108～115</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>iterator_category</code></td>
+<td>迭代器能力类别</td>
+</tr>
+<tr>
+<td><code>value_type</code></td>
+<td>指向的元素类型</td>
+</tr>
+<tr>
+<td><code>difference_type</code></td>
+<td>两个迭代器之间距离的类型</td>
+</tr>
+<tr>
+<td><code>pointer</code></td>
+<td>指向元素的指针类型</td>
+</tr>
+<tr>
+<td><code>reference</code></td>
+<td>解引用后得到的引用类型</td>
+</tr>
+</tbody></table>
+<p>从迭代器类型内部提取出五种关联类型</p>
+<p>普通指针偏特化：stl_interator_base.h::117~125</p>
+<p>查询：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">iterator_traits&lt;int*&gt;<br></code></pre></td></tr></table></figure>
+
+<p>会匹配：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">iterator_traits&lt;_Tp*&gt;<br></code></pre></td></tr></table></figure>
+
+<p>c++函数模板自动推导</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784215694955-3fc5d4d6-98dc-44c8-9c9b-8540a7d5e5d2.jpeg" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784217079517-d8701dcc-3dbd-46c4-9c14-2179d5af20b8.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里是const指针偏特化</p>
+<h5 id="type-traits"><a href="#type-traits" class="headerlink" title="type_traits"></a>type_traits</h5><p>type_traits在type_traits.h里</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784223128865-f32e25b7-c94d-4f17-a46a-0ee7a8d69b4a.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784228095597-81f387f7-05e5-45b6-aba1-3a7a4c0651fe.png" srcset="/img/loading.gif" lazyload></p>
+<p>它们表示两种编译期结果：</p>
+<p>__true_type   → 该特性成立<br>__false_type  → 该特性不成立</p>
+<p>type_traits.h::61~86的是_type_traits的主模板</p>
+<p>对于任意未知类型 <code>_Tp</code>，默认采取保守判断：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">默认构造是否简单             false<br>拷贝构造是否简单             false<br>赋值操作是否简单             false<br>析构是否简单                 false<br>是否是 POD 类型              false<br></code></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784228247224-a50aaf20-101f-44f7-83ab-9b3aa1d0d2d8.png" srcset="/img/loading.gif" lazyload></p>
+<p>对于基础类型(int,bool,char…..)采用全特化</p>
+<p>(__STL_TEMPLATE_NULL就相当于templete&lt;&gt;)</p>
+<p>这样在处理例如int数组时可以用更简单的复制方式，不用调用析构函数</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784228612797-3fb7a750-8af6-4f35-ac0f-db8cab251434.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/C++%E7%AC%94%E8%AE%B0(SGI-STL)/1784228765407-acc4b4ce-c003-40a9-8329-55342b4005c4.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>__type_traits&lt;_Tp*&gt;</code> 是指针类型的偏特化，可以匹配 <code>int*</code>、<code>char*</code>、<code>Test*</code> 等指针。</p>
+<p>例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">__type_traits&lt;Test*&gt;<br></code></pre></td></tr></table></figure>
+
+<p>会推导出：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">_Tp = Test<br></code></pre></td></tr></table></figure>
+
+<p>它判断的是 <code>Test*</code> 指针本身，而不是 <code>Test</code> 类。指针只保存地址，复制时只需复制地址，也不需要特殊析构，所以属于简单类型。</p>
+<p>但 <code>Test</code> 类本身可能仍需要拷贝构造和析构。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/c/" class="category-chain-item">c++</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/SGI-STL/" class="category-chain-item">SGI STL</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/c/" class="print-no-link">#c++</a>
+      
+        <a href="/tags/SGI-STL/" class="print-no-link">#SGI STL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C++笔记(SGI STL)</div>
+      <div>https://ghostshark-pro.github.io/2026/07/17/C++笔记(SGI STL)/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>shark</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted</div>
+          <div>2026年7月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>License</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/05/24/how2heap%E5%88%86%E6%9E%90-_2.23/" title="how2heap分析-_2.23">
+                        <span class="hidden-mobile">how2heap分析-_2.23</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>TOC</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Grep</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/star.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Please enable JavaScript to render the matrix.</div>
+  </noscript>
+</body>
+</html>
