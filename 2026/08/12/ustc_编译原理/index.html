@@ -186,8 +186,8 @@
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1786544368778-6337da81-6bfb-4f46-9802-a308e7d58ade.png">
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1786545567154-37542d87-5195-4ecb-933c-3deeaed5f94b.png">
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1786545783249-9748d9f0-4aa7-4861-a6fe-a8f5b229cd24.png">
-<meta property="article:published_time" content="2026-08-12T14:55:55.000Z">
-<meta property="article:modified_time" content="2026-08-12T14:58:11.095Z">
+<meta property="article:published_time" content="2026-08-12T15:33:55.000Z">
+<meta property="article:modified_time" content="2026-08-12T15:33:35.863Z">
 <meta property="article:author" content="shark">
 <meta property="article:tag" content="Pwn">
 <meta property="article:tag" content="编译原理">
@@ -506,7 +506,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-08-12 22:55" pubdate>
+        <time datetime="2026-08-12 23:33" pubdate>
           2026年8月12日 晚上
         </time>
       </span>
@@ -518,7 +518,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          41k bytes
+          35k bytes
         
       </span>
     
@@ -529,7 +529,7 @@
         
         
         
-          ETA: 345 min
+          ETA: 294 min
         
       </span>
     
@@ -590,13 +590,13 @@
 <p>先词法分析，把字符拆成token然后识别这是什么词</p>
 <p>然后构造语法树</p>
 <pre><code class="hljs">    +
-
+  
    / \
-
+  
   +   3
-
+  
  / \
-
+  
 1   2
 </code></pre>
 <p>(1 + 2) + 3</p>
@@ -615,13 +615,13 @@
 <p>语义分析</p>
 <p>主要检查：</p>
 <ul>
-<li>变量是否声明 </li>
-<li>类型是否匹配 </li>
-<li>函数参数数量是否正确 </li>
-<li>返回值类型是否正确 </li>
-<li>标识符的作用域 </li>
-<li>是否重复定义 </li>
-<li><code>break</code> 是否位于循环中 </li>
+<li>变量是否声明</li>
+<li>类型是否匹配</li>
+<li>函数参数数量是否正确</li>
+<li>返回值类型是否正确</li>
+<li>标识符的作用域</li>
+<li>是否重复定义</li>
+<li><code>break</code> 是否位于循环中</li>
 <li>常量是否被修改</li>
 </ul>
 <p>语义分析时通常会建立符号表记录变量函数等信息</p>
@@ -629,10 +629,10 @@
 <p>IR位于源码和最终文件之间</p>
 <p>后端一般包括：</p>
 <ul>
-<li>代码优化 </li>
-<li>指令选择 </li>
-<li>寄存器分配 </li>
-<li>指令调度 </li>
+<li>代码优化</li>
+<li>指令选择</li>
+<li>寄存器分配</li>
+<li>指令调度</li>
 <li>目标代码生成</li>
 </ul>
 <h1 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h1><p>词法分析器把字符流转化成记号流（token流）</p>
@@ -666,13 +666,13 @@
 <h4 id="关键字表算法"><a href="#关键字表算法" class="headerlink" title="关键字表算法"></a>关键字表算法</h4><p>词法分析器会先按照标识符规则读一遍，然后准备一个关键字表（哈希表H），读取完整字符串后查询</p>
 <p>H &#x3D; {</p>
 <pre><code class="hljs">&quot;if&quot;     → IF,
-
+  
 &quot;else&quot;   → ELSE,
-
+  
 &quot;while&quot;  → WHILE,
-
+  
 &quot;return&quot; → RETURN,
-
+  
 &quot;int&quot;    → INT
 </code></pre>
 <p>}</p>
@@ -686,7 +686,7 @@
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1784571349175-7951b073-3da6-4153-b175-228142b654d8.png" srcset="/img/loading.gif" lazyload></p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1784571535056-2d121476-acd2-465c-acbc-c10abc7c8634.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="语法糖（Syntactic-Sugar）"><a href="#语法糖（Syntactic-Sugar）" class="headerlink" title="语法糖（Syntactic Sugar）"></a>语法糖（Syntactic Sugar）</h3><p><strong><font style="color:rgba(0, 0, 0, 0.87);">它完全不提供任何新的功能。</font></strong><font style="color:rgba(0, 0, 0, 0.87);"> 也就是脱了这层糖衣，用语言本身最基础的语法，依然能实现一模一样的逻辑。对于编译器来说，在生成机器码之前，都会进行“解糖”（Desugaring）操作，把语法糖还原成最基础的底层结构</font></p>
+<h3 id="语法糖（Syntactic-Sugar）"><a href="#语法糖（Syntactic-Sugar）" class="headerlink" title="语法糖（Syntactic Sugar）"></a>语法糖（Syntactic Sugar）</h3><p><strong>它完全不提供任何新的功能。</strong> 也就是脱了这层糖衣，用语言本身最基础的语法，依然能实现一模一样的逻辑。对于编译器来说，在生成机器码之前，都会进行“解糖”（Desugaring）操作，把语法糖还原成最基础的底层结构</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1784571758647-51f04acb-71ae-463f-8680-41085ce1e3a0.png" srcset="/img/loading.gif" lazyload></p>
 <p>c或java所提供的程序设计的语法都可以看作是语法糖，即在汇编层面上对赋值 跳转这两个运算的一种封装。</p>
@@ -1126,21 +1126,21 @@
 <h3 id="语法分析要解决的问题"><a href="#语法分析要解决的问题" class="headerlink" title="语法分析要解决的问题"></a>语法分析要解决的问题</h3><p>给定文法G和句子s，语法分析要回答的 问题：是否存在对句子s的推导</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1784974109592-d5501fe6-3012-47c8-9a3e-73ba0ac564cb.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="分析树与二义性"><a href="#分析树与二义性" class="headerlink" title="分析树与二义性"></a>分析树与二义性</h2><h3 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h3><p><font style="color:rgb(15, 17, 21);">主要分为</font><strong><font style="color:rgb(15, 17, 21);">深度优先遍历（DFS）</font></strong><font style="color:rgb(15, 17, 21);">和</font><strong><font style="color:rgb(15, 17, 21);">广度优先遍历（BFS）</font></strong><font style="color:rgb(15, 17, 21);">两大类</font></p>
-<h4 id="一、深度优先遍历（DFS）"><a href="#一、深度优先遍历（DFS）" class="headerlink" title="一、深度优先遍历（DFS）"></a><font style="color:rgb(15, 17, 21);">一、深度优先遍历（DFS）</font></h4><p><font style="color:rgb(15, 17, 21);">尽可能深地搜索树的分支，走到尽头再回溯。根据访问根节点的时机，又分为三种（对二叉树）：</font></p>
+<h2 id="分析树与二义性"><a href="#分析树与二义性" class="headerlink" title="分析树与二义性"></a>分析树与二义性</h2><h3 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h3><p>主要分为**深度优先遍历（DFS）<strong>和</strong>广度优先遍历（BFS）**两大类</p>
+<h4 id="一、深度优先遍历（DFS）"><a href="#一、深度优先遍历（DFS）" class="headerlink" title="一、深度优先遍历（DFS）"></a>一、深度优先遍历（DFS）</h4><p>尽可能深地搜索树的分支，走到尽头再回溯。根据访问根节点的时机，又分为三种（对二叉树）：</p>
 <ul>
-<li><strong><font style="color:rgb(15, 17, 21);">前序遍历（先序遍历）</font></strong><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">顺序：</font><strong><font style="color:rgb(15, 17, 21);">根 → 左子树 → 右子树</font></strong><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">特点：第一个访问的总是整棵树的根。常用于复制一棵树、输出目录结构等。</font></li>
-<li><strong><font style="color:rgb(15, 17, 21);">中序遍历</font></strong><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">顺序：</font><strong><font style="color:rgb(15, 17, 21);">左子树 → 根 → 右子树</font></strong><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">特点：</font><strong><font style="color:rgb(15, 17, 21);">仅对二叉树有意义</font></strong><font style="color:rgb(15, 17, 21);">。对于二叉搜索树，中序遍历得到的是有序序列。</font><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">普通树没有中序遍历。</font></li>
-<li><strong><font style="color:rgb(15, 17, 21);">后序遍历</font></strong><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">顺序：</font><strong><font style="color:rgb(15, 17, 21);">左子树 → 右子树 → 根</font></strong><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">特点：最后访问根节点。常用于删除树（先删子节点再删父节点）、计算文件夹大小等。</font></li>
+<li><strong>前序遍历（先序遍历）</strong><br>顺序：<strong>根 → 左子树 → 右子树</strong><br>特点：第一个访问的总是整棵树的根。常用于复制一棵树、输出目录结构等。</li>
+<li><strong>中序遍历</strong><br>顺序：<strong>左子树 → 根 → 右子树</strong><br>特点：<strong>仅对二叉树有意义</strong>。对于二叉搜索树，中序遍历得到的是有序序列。<br>普通树没有中序遍历。</li>
+<li><strong>后序遍历</strong><br>顺序：<strong>左子树 → 右子树 → 根</strong><br>特点：最后访问根节点。常用于删除树（先删子节点再删父节点）、计算文件夹大小等。</li>
 </ul>
-<p><strong><font style="color:rgb(15, 17, 21);">普通树（多叉树）的深度优先</font></strong><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">对于非二叉树，通常只有：</font></p>
+<p><strong>普通树（多叉树）的深度优先</strong><br>对于非二叉树，通常只有：</p>
 <ul>
-<li><font style="color:rgb(15, 17, 21);">先根遍历：先访问根，再依次递归遍历每一棵子树（效果类似前序）。</font></li>
-<li><font style="color:rgb(15, 17, 21);">后根遍历：先依次递归遍历每一棵子树，再访问根（效果类似后序）。</font></li>
+<li>先根遍历：先访问根，再依次递归遍历每一棵子树（效果类似前序）。</li>
+<li>后根遍历：先依次递归遍历每一棵子树，再访问根（效果类似后序）。</li>
 </ul>
-<p><font style="color:rgb(15, 17, 21);">实现方式上，递归最直观；非递归则需要显式使用栈来模拟递归过程。</font></p>
-<h4 id="二、广度优先遍历（BFS）"><a href="#二、广度优先遍历（BFS）" class="headerlink" title="二、广度优先遍历（BFS）"></a><font style="color:rgb(15, 17, 21);">二、广度优先遍历（BFS）</font></h4><ul>
-<li><strong><font style="color:rgb(15, 17, 21);">层序遍历</font></strong><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">顺序：从根节点开始，</font><strong><font style="color:rgb(15, 17, 21);">从上到下、从左到右</font></strong><font style="color:rgb(15, 17, 21);">逐层访问。<br></font><font style="color:rgb(15, 17, 21);">实现通常借助队列：根入队，每出队一个节点就将其子节点依次入队，直到队列为空。<br></font><font style="color:rgb(15, 17, 21);">应用场景：求树的宽度、按层打印、最短路径问题等</font></li>
+<p>实现方式上，递归最直观；非递归则需要显式使用栈来模拟递归过程。</p>
+<h4 id="二、广度优先遍历（BFS）"><a href="#二、广度优先遍历（BFS）" class="headerlink" title="二、广度优先遍历（BFS）"></a>二、广度优先遍历（BFS）</h4><ul>
+<li><strong>层序遍历</strong><br>顺序：从根节点开始，<strong>从上到下、从左到右</strong>逐层访问。<br>实现通常借助队列：根入队，每出队一个节点就将其子节点依次入队，直到队列为空。<br>应用场景：求树的宽度、按层打印、最短路径问题等</li>
 </ul>
 <h3 id="推导与分析树"><a href="#推导与分析树" class="headerlink" title="推导与分析树"></a>推导与分析树</h3><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1784975394757-eb7e40eb-2c15-4a04-9231-8c24ca188d0c.png" srcset="/img/loading.gif" lazyload></p>
@@ -1165,54 +1165,52 @@
 
 <p>这样：</p>
 <ul>
-<li><code>*</code> 的优先级高于 <code>+</code>； </li>
-<li><code>3+4*5</code> 只能解释为 <code>3+(4*5)</code>； </li>
+<li><code>*</code> 的优先级高于 <code>+</code>；</li>
+<li><code>3+4*5</code> 只能解释为 <code>3+(4*5)</code>；</li>
 <li><code>3+4+5</code> 会按照左结合解释为 <code>(3+4)+5</code></li>
 </ul>
-<h2 id="自顶向下分析"><a href="#自顶向下分析" class="headerlink" title="自顶向下分析"></a>自顶向下分析</h2><h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3><p>语法分析：给定文法 G和句子 s，回答 s是否能 够从 G推导出来？ </p>
-<p> 基本算法思想：从 G的开始符号出发，随意推 导出某个句子 t，比较 t 和 s </p>
-<p> 若t&#x3D;&#x3D;s，则回答“是” </p>
+<h2 id="自顶向下分析"><a href="#自顶向下分析" class="headerlink" title="自顶向下分析"></a>自顶向下分析</h2><h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3><p>语法分析：给定文法 G和句子 s，回答 s是否能 够从 G推导出来？</p>
+<p> 基本算法思想：从 G的开始符号出发，随意推 导出某个句子 t，比较 t 和 s</p>
+<p> 若t&#x3D;&#x3D;s，则回答“是”</p>
 <p> 若t!&#x3D;s，则需要回溯</p>
-<p> 因为这是从开始符号出发推出句子，因此称为 自顶向下分析 </p>
+<p> 因为这是从开始符号出发推出句子，因此称为 自顶向下分析</p>
 <p> 对应于分析树自顶向下的构造顺序  </p>
 <h4 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h4><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785014426250-8bc5719b-7405-4aaa-aaee-7d4e74ff0eee.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785014472136-e06bffc2-b2dd-4e4c-8f6e-0f57b8562674.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
-<li><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;tokens[]&lt;/font&gt;**</code><font style="color:rgb(15, 17, 21);">：存放所有词法单元，分析的目标就是看它们能否由文法推导出来。</font></li>
-<li><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;i&lt;/font&gt;**</code><font style="color:rgb(15, 17, 21);">：输入指针，指向下一个要匹配的终结符。</font></li>
-<li><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;stack&lt;/font&gt;**</code><font style="color:rgb(15, 17, 21);">：分析栈，栈顶在右端。栈中存放的是文法符号（终结符或非终结符），它表示“为了最终匹配输入，还需要看到的结构”。</font></li>
+<li><code>tokens[]</code>：存放所有词法单元，分析的目标就是看它们能否由文法推导出来。</li>
+<li><code>i</code>：输入指针，指向下一个要匹配的终结符。</li>
+<li><code>stack</code>：分析栈，栈顶在右端。栈中存放的是文法符号（终结符或非终结符），它表示“为了最终匹配输入，还需要看到的结构”。</li>
 </ul>
-<p><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;while (stack != [])&lt;/font&gt;</code><br><font style="color:rgb(15, 17, 21);">只要栈非空，就不断尝试匹配或展开。如果栈已空且输入也刚好读完，分析成功；若栈空但输入还有剩余，则失败。</font></p>
-<p><font style="color:rgb(15, 17, 21);"></font></p>
+<p><code>while (stack != [])</code><br>只要栈非空，就不断尝试匹配或展开。如果栈已空且输入也刚好读完，分析成功；若栈空但输入还有剩余，则失败。</p>
 <ul>
-<li><p><font style="color:rgb(15, 17, 21);">如果栈顶是一个终结符</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;t&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">，就把它与当前输入符号</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;tokens[i]&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">比较。</font></p>
+<li><p>如果栈顶是一个终结符 <code>t</code>，就把它与当前输入符号 <code>tokens[i]</code> 比较。</p>
 </li>
-<li><p><strong><font style="color:rgb(15, 17, 21);">匹配成功</font></strong><font style="color:rgb(15, 17, 21);">：两者相同，说明推导出的终结符与输入一致。此时：</font></p>
+<li><p><strong>匹配成功</strong>：两者相同，说明推导出的终结符与输入一致。此时：</p>
 <ul>
-<li><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;i++&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">消耗掉这个输入符号</font></li>
-<li><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;pop()&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">弹出栈顶终结符</font></li>
+<li><code>i++</code> 消耗掉这个输入符号</li>
+<li><code>pop()</code> 弹出栈顶终结符</li>
 </ul>
 </li>
-<li><p><strong><font style="color:rgb(15, 17, 21);">匹配失败</font></strong><font style="color:rgb(15, 17, 21);">：说明当前推导路径无法与输入相符，必须</font><strong><font style="color:rgb(15, 17, 21);">回溯</font></strong><font style="color:rgb(15, 17, 21);"> (</font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;backtrack()&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">)。<br></font><font style="color:rgb(15, 17, 21);">回溯会恢复到最近一个“选择点”（即某个非终结符展开时），换一条产生式右部重试</font></p>
+<li><p><strong>匹配失败</strong>：说明当前推导路径无法与输入相符，必须<strong>回溯</strong> (<code>backtrack()</code>)。<br>回溯会恢复到最近一个“选择点”（即某个非终结符展开时），换一条产生式右部重试</p>
 </li>
-<li><p><font style="color:rgb(15, 17, 21);">栈顶为非终结符</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;T&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">时，需要把它</font><strong><font style="color:rgb(15, 17, 21);">展开</font></strong><font style="color:rgb(15, 17, 21);">（用产生式替换），模拟一步最左推导。</font></p>
+<li><p>栈顶为非终结符 <code>T</code> 时，需要把它<strong>展开</strong>（用产生式替换），模拟一步最左推导。</p>
 </li>
-<li><p><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;pop()&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">先把栈顶的</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;T&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">弹出。</font></p>
+<li><p><code>pop()</code> 先把栈顶的 <code>T</code> 弹出。</p>
 </li>
-<li><p><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;push(the next right hand side of T)&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">将</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;T&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">的</font><strong><font style="color:rgb(15, 17, 21);">下一个</font></strong><font style="color:rgb(15, 17, 21);">候选产生式右部压入栈中。</font><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">因为要支持回溯，</font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;T&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">的所有产生式会按某种预设顺序逐个尝试。所谓 “next right hand side” 意味着：</font></p>
+<li><p><code>push(the next right hand side of T)</code> 将 <code>T</code> 的<strong>下一个</strong>候选产生式右部压入栈中。<br>因为要支持回溯，<code>T</code> 的所有产生式会按某种预设顺序逐个尝试。所谓 “next right hand side” 意味着：</p>
 <ul>
-<li><font style="color:rgb(15, 17, 21);">第一次遇到这个</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;T&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">时，压入它的第一个产生式右部；</font></li>
-<li><font style="color:rgb(15, 17, 21);">如果之后因失败而回溯到此处，就尝试第二个产生式，依此类推；</font></li>
-<li><font style="color:rgb(15, 17, 21);">如果所有产生式都试完仍失败，则向更早的选择点回溯。</font></li>
+<li>第一次遇到这个 <code>T</code> 时，压入它的第一个产生式右部；</li>
+<li>如果之后因失败而回溯到此处，就尝试第二个产生式，依此类推；</li>
+<li>如果所有产生式都试完仍失败，则向更早的选择点回溯。</li>
 </ul>
 </li>
 </ul>
-<p><strong><font style="color:rgb(15, 17, 21);">推入顺序</font></strong><font style="color:rgb(15, 17, 21);">：因为是自顶向下最左推导，产生式右部必须</font><strong><font style="color:rgb(15, 17, 21);">反向压栈</font></strong><font style="color:rgb(15, 17, 21);">，让左端符号出现在栈顶，这样才能优先展开。例如，产生式 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;T → A B C&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">，实际应 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;push(C)&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">、</font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;push(B)&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">、</font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;push(A)&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">，使得 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;A&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> 在栈顶</font></p>
-<p><font style="color:rgb(15, 17, 21);"></font></p>
-<p><font style="color:rgb(15, 17, 21);">backtrack中如果所有可能推导路径都尝试完毕仍无法匹配，则报告</font><strong><font style="color:rgb(15, 17, 21);">语法错误</font></strong></p>
-<h4 id="例子-3"><a href="#例子-3" class="headerlink" title="例子"></a><strong><font style="color:rgb(15, 17, 21);">例子</font></strong></h4><!-- 这是一张图片，ocr 内容为： -->
+<p><strong>推入顺序</strong>：因为是自顶向下最左推导，产生式右部必须<strong>反向压栈</strong>，让左端符号出现在栈顶，这样才能优先展开。例如，产生式 <code>T → A B C</code>，实际应 <code>push(C)</code>、<code>push(B)</code>、<code>push(A)</code>，使得 <code>A</code> 在栈顶</p>
+<p>backtrack中如果所有可能推导路径都尝试完毕仍无法匹配，则报告<strong>语法错误</strong></p>
+<h4 id="例子-3"><a href="#例子-3" class="headerlink" title="例子"></a><strong>例子</strong></h4><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785047678492-bb5ac9bd-6b54-4a8b-bd93-7abff6cd724f.png" srcset="/img/loading.gif" lazyload></p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785048823109-ba86185a-d7d7-4c1b-9f33-128deaa28683.png" srcset="/img/loading.gif" lazyload></p>
@@ -1287,10 +1285,10 @@
 <p>推导出所有可能的开头终结符集合</p>
 <h5 id="first集不动点算法"><a href="#first集不动点算法" class="headerlink" title="first集不动点算法"></a>first集不动点算法</h5><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785173066584-48506567-c45a-4714-9b37-6cd3d00a5068.png" srcset="/img/loading.gif" lazyload></p>
-<p><font style="color:rgb(15, 17, 21);">由于 FIRST 集是有限集合，且每次迭代只增不减，最终一定会收敛到最小不动点</font></p>
-<p><font style="color:rgb(15, 17, 21);">先把每一个非终结符的开始符号初始化空集</font></p>
-<p><font style="color:rgb(15, 17, 21);">然后条件判断，只要有集合还在变化就持续循环（扫描产生式）</font></p>
-<p><font style="color:rgb(15, 17, 21);">两个if判断，终结符和非终结符并入集合</font></p>
+<p>由于 FIRST 集是有限集合，且每次迭代只增不减，最终一定会收敛到最小不动点</p>
+<p>先把每一个非终结符的开始符号初始化空集</p>
+<p>然后条件判断，只要有集合还在变化就持续循环（扫描产生式）</p>
+<p>两个if判断，终结符和非终结符并入集合</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785229915742-b6cdc3cf-8b60-4e55-a34f-53d209a00936.png" srcset="/img/loading.gif" lazyload></p>
 <h5 id="推广到任意串上"><a href="#推广到任意串上" class="headerlink" title="推广到任意串上"></a>推广到任意串上</h5><!-- 这是一张图片，ocr 内容为： -->
@@ -1309,7 +1307,7 @@
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785232693589-1378f0bd-d029-4a1d-8ab5-c5564a607560.png" srcset="/img/loading.gif" lazyload></p>
 <p>当非终结符可以推出空串时，first集需要向后推</p>
 <p>这时就需要引入NULLABLE集合</p>
-<h4 id="NULLABLE集合"><a href="#NULLABLE集合" class="headerlink" title="NULLABLE集合"></a><font style="color:rgb(15, 17, 21);">NULLABLE集合</font></h4><!-- 这是一张图片，ocr 内容为： -->
+<h4 id="NULLABLE集合"><a href="#NULLABLE集合" class="headerlink" title="NULLABLE集合"></a>NULLABLE集合</h4><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785233976511-5f5ef9dd-a76e-4448-8801-40906eb2c51c.png" srcset="/img/loading.gif" lazyload></p>
 <p>可以直接推出空串或推出的都是非终结符且都属于NULLABLEJ集</p>
 <!-- 这是一张图片，ocr 内容为： -->
@@ -1325,7 +1323,6 @@
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785256200615-4fea4287-bcf2-4c95-a131-0cd99b4e46ce.png" srcset="/img/loading.gif" lazyload></p>
 <p>文法：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">Z → d | XYZ<br>Y → c | ε<br>X → Y | a<br></code></pre></td></tr></table></figure>
-
 
 
 <p>第0轮（初始化）</p>
@@ -1513,13 +1510,13 @@
 <p>注意到0跟2都存在左递归</p>
 <h5 id="消除左递归-1"><a href="#消除左递归-1" class="headerlink" title="消除左递归"></a>消除左递归</h5><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785401787564-6a666b3d-ab55-418c-b2c3-09bf84cd9a39.png" srcset="/img/loading.gif" lazyload></p>
-<p>把“自己调用自己”改成“尾递归循环”，将 <code>A→Aα|β</code> 改成 <code>A→βA&#39;，A&#39;→αA&#39;|ε</code>，使文法满足 LL(1) 分析要求 </p>
+<p>把“自己调用自己”改成“尾递归循环”，将 <code>A→Aα|β</code> 改成 <code>A→βA&#39;，A&#39;→αA&#39;|ε</code>，使文法满足 LL(1) 分析要求</p>
 <h5 id="提取左公因子"><a href="#提取左公因子" class="headerlink" title="提取左公因子"></a>提取左公因子</h5><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785402667898-5a3cb1c8-f559-45e0-a902-b5217fe8ccc1.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="LR-0-算法"><a href="#LR-0-算法" class="headerlink" title="LR(0)算法"></a>LR(0)算法</h2><p>LR(0) 是<strong>自底向上的语法分析算法</strong>，属于 LR 分析方法的一种。它通过构造 <strong>LR(0) 项目集族（DFA）</strong> 和 <strong>分析表（ACTION&#x2F;GOTO表）</strong> 来完成移进-归约分析。</p>
 <ul>
-<li><strong>L（Left）</strong>：从左到右扫描输入串 </li>
-<li><strong>R（Rightmost）</strong>：构造最右推导的逆过程（也就是自底向上归约） </li>
+<li><strong>L（Left）</strong>：从左到右扫描输入串</li>
+<li><strong>R（Rightmost）</strong>：构造最右推导的逆过程（也就是自底向上归约）</li>
 <li><strong>0</strong>：不看任何向前搜索符（没有 lookahead）</li>
 </ul>
 <p>LR(0)核心思想</p>
@@ -1591,44 +1588,44 @@
 <h4 id="goto和closure"><a href="#goto和closure" class="headerlink" title="goto和closure"></a>goto和closure</h4><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785824623388-7e1939d9-cfbd-4403-a565-7ab02771865c.png" srcset="/img/loading.gif" lazyload></p>
 <p>closure函数：</p>
-<p><font style="color:rgb(15, 17, 21);">如果一个项目点号右边紧跟着一个</font><strong><font style="color:rgb(15, 17, 21);">非终结符</font></strong><font style="color:rgb(15, 17, 21);">，那么就意味着“为了匹配这个非终结符，它的所有产生式都有可能接下来出现”。因此，要把这些产生式全部扩展并加入集合中</font></p>
-<p><font style="color:rgb(15, 17, 21);">goto函数：</font></p>
-<p><font style="color:rgb(15, 17, 21);">给定一个项目集合（状态）</font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;C&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> 和输入符号 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;x&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">，计算</font><strong><font style="color:rgb(15, 17, 21);">识别完 </font></strong><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;x&lt;/font&gt;**</code><strong><font style="color:rgb(15, 17, 21);"> 之后应该转移到的下一个状态</font></strong></p>
+<p>如果一个项目点号右边紧跟着一个<strong>非终结符</strong>，那么就意味着“为了匹配这个非终结符，它的所有产生式都有可能接下来出现”。因此，要把这些产生式全部扩展并加入集合中</p>
+<p>goto函数：</p>
+<p>给定一个项目集合（状态）<code>C</code> 和输入符号 <code>x</code>，计算<strong>识别完 <strong><code>x</code></strong> 之后应该转移到的下一个状态</strong></p>
 <h2 id="SLR分析算法"><a href="#SLR分析算法" class="headerlink" title="SLR分析算法"></a>SLR分析算法</h2><h3 id="LR-0-分析"><a href="#LR-0-分析" class="headerlink" title="LR(0)分析"></a>LR(0)分析</h3><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785839003089-f178a299-f16c-435b-8e9d-23293df54c51.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
-<li><strong><font style="color:rgb(15, 17, 21);">L (Left-to-right)</font></strong><font style="color:rgb(15, 17, 21);">：从左到右扫描输入源代码（程序）。</font></li>
-<li><strong><font style="color:rgb(15, 17, 21);">R (Rightmost derivation)</font></strong><font style="color:rgb(15, 17, 21);">：构造的是</font><strong><font style="color:rgb(15, 17, 21);">最右推导</font></strong><font style="color:rgb(15, 17, 21);">的逆过程（即进行</font><strong><font style="color:rgb(15, 17, 21);">最左归约</font></strong><font style="color:rgb(15, 17, 21);">）。</font></li>
-<li><strong><font style="color:rgb(15, 17, 21);">0 (0个前看符号)</font></strong><font style="color:rgb(15, 17, 21);">：这是LR(0)的核心特征。</font><strong><font style="color:rgb(15, 17, 21);">在决定是否进行“归约”（即识别出一个语法成分）时，完全不看当前尚未读入的下一个输入符号</font></strong></li>
+<li><strong>L (Left-to-right)</strong>：从左到右扫描输入源代码（程序）。</li>
+<li><strong>R (Rightmost derivation)</strong>：构造的是<strong>最右推导</strong>的逆过程（即进行<strong>最左归约</strong>）。</li>
+<li><strong>0 (0个前看符号)</strong>：这是LR(0)的核心特征。<strong>在决定是否进行“归约”（即识别出一个语法成分）时，完全不看当前尚未读入的下一个输入符号</strong></li>
 </ul>
-<p><strong><font style="color:rgb(15, 17, 21);">0前看</font></strong><font style="color:rgb(15, 17, 21);">：在 LR(0) 中，一个状态内部只要出现了</font><strong><font style="color:rgb(15, 17, 21);">“归约项目”</font></strong><font style="color:rgb(15, 17, 21);">（形如 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;A → α·&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">，点号在末尾意味着已经完整匹配了产生式右部），</font><strong><font style="color:rgb(15, 17, 21);">分析器就会强制在该状态中进行归约，而不去看输入的下一个字符是谁。</font></strong><font style="color:rgb(15, 17, 21);"> 这是导致它能力有限的最直接原因</font></p>
-<h4 id="LR-0-算法缺点"><a href="#LR-0-算法缺点" class="headerlink" title="LR(0)算法缺点"></a><font style="color:rgb(15, 17, 21);">LR(0)算法缺点</font></h4><!-- 这是一张图片，ocr 内容为： -->
+<p><strong>0前看</strong>：在 LR(0) 中，一个状态内部只要出现了**“归约项目”**（形如 <code>A → α·</code>，点号在末尾意味着已经完整匹配了产生式右部），<strong>分析器就会强制在该状态中进行归约，而不去看输入的下一个字符是谁。</strong> 这是导致它能力有限的最直接原因</p>
+<h4 id="LR-0-算法缺点"><a href="#LR-0-算法缺点" class="headerlink" title="LR(0)算法缺点"></a>LR(0)算法缺点</h4><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785839658395-cd7eb48e-07e1-473f-ba35-766fbccc9de5.png" srcset="/img/loading.gif" lazyload></p>
-<p><font style="color:rgb(15, 17, 21);">在 LR(0) 的状态中，只要圆点 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;•&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> 跑到了产生式的最右边（表示完全匹配了右部），它就会</font><strong><font style="color:rgb(15, 17, 21);">立刻、无条件地</font></strong><font style="color:rgb(15, 17, 21);">执行归约动作。</font><strong><font style="color:rgb(15, 17, 21);">它根本不管接下来输入的是什么字符（0个前看符号）。</font></strong><font style="color:rgb(15, 17, 21);">虽然它最后</font><strong><font style="color:rgb(15, 17, 21);">确实能发现错误</font></strong><font style="color:rgb(15, 17, 21);">（不会漏掉错误），但</font><strong><font style="color:rgb(15, 17, 21);">报错的时机滞后了</font></strong></p>
+<p>在 LR(0) 的状态中，只要圆点 <code>•</code> 跑到了产生式的最右边（表示完全匹配了右部），它就会<strong>立刻、无条件地</strong>执行归约动作。<strong>它根本不管接下来输入的是什么字符（0个前看符号）。<strong>虽然它最后</strong>确实能发现错误</strong>（不会漏掉错误），但<strong>报错的时机滞后了</strong></p>
 <ul>
-<li><strong><font style="color:rgb(15, 17, 21);">移进-归约冲突 (Shift-Reduce Conflict)</font></strong><font style="color:rgb(15, 17, 21);">：这是最常见的情况。在 LR(0) 的某个状态里，可能同时出现了两种情况：</font><ol>
-<li><font style="color:rgb(15, 17, 21);">可以继续读入下一个输入符（移进）。</font></li>
-<li><font style="color:rgb(15, 17, 21);">当前栈顶已经匹配完一个产生式，可以立即执行归约。</font></li>
-<li><strong><font style="color:rgb(15, 17, 21);">因为没有前看符号，LR(0) 完全无法决定是该“前进”还是该“收网”。遇到这种状态，分析表的构造就直接失败了。</font></strong></li>
+<li><strong>移进-归约冲突 (Shift-Reduce Conflict)</strong>：这是最常见的情况。在 LR(0) 的某个状态里，可能同时出现了两种情况：<ol>
+<li>可以继续读入下一个输入符（移进）。</li>
+<li>当前栈顶已经匹配完一个产生式，可以立即执行归约。</li>
+<li><strong>因为没有前看符号，LR(0) 完全无法决定是该“前进”还是该“收网”。遇到这种状态，分析表的构造就直接失败了。</strong></li>
 </ol>
 </li>
-<li><strong><font style="color:rgb(15, 17, 21);">归约-归约冲突 (Reduce-Reduce Conflict)</font></strong><font style="color:rgb(15, 17, 21);">：在同一个状态下，可能有两个不同的产生式都已经匹配完成（比如 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;A -&gt; α•&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> 和 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;B -&gt; α•&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">），机器完全不知道该用哪一条规则去归约。这也是冲突</font></li>
+<li><strong>归约-归约冲突 (Reduce-Reduce Conflict)</strong>：在同一个状态下，可能有两个不同的产生式都已经匹配完成（比如 <code>A -&gt; α•</code> 和 <code>B -&gt; α•</code>），机器完全不知道该用哪一条规则去归约。这也是冲突</li>
 </ul>
 <h3 id="SLR"><a href="#SLR" class="headerlink" title="SLR"></a>SLR</h3><p>和LR(0)分析算法基本步骤相同,仅区别于对归约的处理</p>
-<p><font style="color:rgb(15, 17, 21);">对于状态 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;i&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> 里的归约项目 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;X -&gt; α ·&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">，</font><strong><font style="color:rgb(15, 17, 21);">不能</font></strong><font style="color:rgb(15, 17, 21);">在所有的终结符下都进行归约。</font><strong><font style="color:rgb(15, 17, 21);">仅当</font></strong><font style="color:rgb(15, 17, 21);">当前输入符号 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;y&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> 属于 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;FOLLOW(X)&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> 集合时，才在 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;ACTION[i, y]&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> 中填入归约动作</font></p>
+<p>对于状态 <code>i</code> 里的归约项目 <code>X -&gt; α ·</code>，<strong>不能</strong>在所有的终结符下都进行归约。<strong>仅当</strong>当前输入符号 <code>y</code> 属于 <code>FOLLOW(X)</code> 集合时，才在 <code>ACTION[i, y]</code> 中填入归约动作</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785867190423-b7cb0c63-6eb8-4772-a493-fccba337447f.png" srcset="/img/loading.gif" lazyload></p>
 <p>SLR 的本质是：</p>
 <p>A→α⋅+当前输入符号∈FOLLOW(A)⟹归约</p>
 <h4 id="SLR冲突"><a href="#SLR冲突" class="headerlink" title="SLR冲突"></a>SLR冲突</h4><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785867249952-25c2f2a0-b5bf-46fa-bbdc-a22f1747769a.png" srcset="/img/loading.gif" lazyload></p>
-<p><strong><font style="color:rgb(15, 17, 21);">状态 2</font></strong><font style="color:rgb(15, 17, 21);">：</font></p>
+<p><strong>状态 2</strong>：</p>
 <ul>
-<li><font style="color:rgb(15, 17, 21);">项目</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;S -&gt; L • = R&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">表示：目前已经匹配到了</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;L&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">，下一个期待看到的输入符号是</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;=&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">，这是一个</font><strong><font style="color:rgb(15, 17, 21);">移进</font></strong><font style="color:rgb(15, 17, 21);">动作（Shift）。</font></li>
-<li><font style="color:rgb(15, 17, 21);">项目</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;R -&gt; L •&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">表示：目前已经识别出</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;L&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">，可以将它</font><strong><font style="color:rgb(15, 17, 21);">归约</font></strong><font style="color:rgb(15, 17, 21);">成</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;R&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">（Reduce，使用</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;R -&gt; L&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">规则）。</font></li>
+<li>项目 <code>S -&gt; L • = R</code> 表示：目前已经匹配到了 <code>L</code>，下一个期待看到的输入符号是 <code>=</code>，这是一个<strong>移进</strong>动作（Shift）。</li>
+<li>项目 <code>R -&gt; L •</code> 表示：目前已经识别出 <code>L</code>，可以将它<strong>归约</strong>成 <code>R</code>（Reduce，使用 <code>R -&gt; L</code> 规则）。</li>
 </ul>
-<p><strong><font style="color:rgb(15, 17, 21);">当语法分析器处于状态 2，且当前读入的输入符号是 </font></strong><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;=&lt;/font&gt;**</code><strong><font style="color:rgb(15, 17, 21);"> 时，它不知道该“移进 </font></strong><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;=&lt;/font&gt;**</code><strong><font style="color:rgb(15, 17, 21);">”还是“归约成 </font></strong><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;R&lt;/font&gt;**</code><strong><font style="color:rgb(15, 17, 21);">”，这就造成了冲突</font></strong></p>
-<h2 id="LR-1-算法"><a href="#LR-1-算法" class="headerlink" title="LR(1)算法"></a><strong><font style="color:rgb(15, 17, 21);">LR(1)算法</font></strong></h2><!-- 这是一张图片，ocr 内容为： -->
+<p><strong>当语法分析器处于状态 2，且当前读入的输入符号是 <strong><code>=</code></strong> 时，它不知道该“移进 <strong><code>=</code></strong>”还是“归约成 <strong><code>R</code></strong>”，这就造成了冲突</strong></p>
+<h2 id="LR-1-算法"><a href="#LR-1-算法" class="headerlink" title="LR(1)算法"></a><strong>LR(1)算法</strong></h2><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1785868821455-d583b3b7-2a44-4dec-aa2f-ebb8526e9796.png" srcset="/img/loading.gif" lazyload></p>
 <p>SLR 使用整个非终结符的 <code>FOLLOW</code> 集决定归约，范围仍然太大；LR(1) 给每个项目单独记录一个前看符号  </p>
 <p>这里的“1”表示使用 <strong>1 个前看符号</strong>。</p>
@@ -1636,13 +1633,13 @@
 <p>[A→α⋅β, a]</p>
 <p>由两部分组成：</p>
 <ul>
-<li>A→α⋅β：LR(0) 项目，称为项目的“核心”； </li>
+<li>A→α⋅β：LR(0) 项目，称为项目的“核心”；</li>
 <li>a：该项目自己的前看符号。</li>
 </ul>
 <p>含义是：</p>
 <ul>
-<li>α 已经识别，位于分析栈顶部； </li>
-<li>接下来需要识别 β； </li>
+<li>α 已经识别，位于分析栈顶部；</li>
+<li>接下来需要识别 β；</li>
 <li>完成整个产生式后，允许出现的符号是 a。</li>
 </ul>
 <p>SLR 使用：</p>
@@ -1676,9 +1673,9 @@
 <p>既要加入 FIRST(β) 中的终结符，也可能加入 a</p>
 <h3 id="LR-1-分析表构造"><a href="#LR-1-分析表构造" class="headerlink" title="LR(1)分析表构造"></a>LR(1)分析表构造</h3><p>项目集构造完成后：</p>
 <ul>
-<li>A→α⋅aβ：在 <code>a</code> 列填写移进； </li>
-<li>A→α⋅Bβ：填写 <code>GOTO</code>； </li>
-<li>[A→α⋅,a]：只在 <code>a</code> 列填写归约； </li>
+<li>A→α⋅aβ：在 <code>a</code> 列填写移进；</li>
+<li>A→α⋅Bβ：填写 <code>GOTO</code>；</li>
+<li>[A→α⋅,a]：只在 <code>a</code> 列填写归约；</li>
 <li>[S′→S⋅,$]：在 <code>$</code> 列填写 <code>accept</code></li>
 </ul>
 <h3 id="LR-1-项目集过多"><a href="#LR-1-项目集过多" class="headerlink" title="LR(1)项目集过多"></a>LR(1)项目集过多</h3><h3 id=""><a href="#" class="headerlink" title=""></a><!-- 这是一张图片，ocr 内容为： --></h3><p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1786039589107-133bb542-599d-45e4-862d-8f3efe4112db.png" srcset="/img/loading.gif" lazyload><br>有两个很像的状态：</p>
@@ -1710,7 +1707,7 @@
 <p>E→E+E⋅同时又有E→E⋅∗E</p>
 <p>现在输入 <code>*</code>：</p>
 <ul>
-<li>第一项：表达式已经完整，可以归约； </li>
+<li>第一项：表达式已经完整，可以归约；</li>
 <li>第二项：可以继续移进 <code>*</code>。</li>
 </ul>
 <p>于是产生移进-归约冲突</p>
@@ -1735,9 +1732,9 @@
 <p>那么识别完第一个 <code>n+n</code>，看到下一个 <code>+</code> 时归约</p>
 <p>如果是右结合运算符，则通常选择移进</p>
 <ul>
-<li>后面的运算符优先级更高 → 移进 </li>
-<li>后面的运算符优先级更低 → 归约 </li>
-<li>优先级相同且左结合 → 归约 </li>
+<li>后面的运算符优先级更高 → 移进</li>
+<li>后面的运算符优先级更低 → 归约</li>
+<li>优先级相同且左结合 → 归约</li>
 <li>优先级相同且右结合 → 移进</li>
 </ul>
 <p>LR 系列主线：</p>
@@ -1775,8 +1772,8 @@
 
 <p>其中：</p>
 <ul>
-<li><code>$$</code>：左边 <code>E</code> 的值 </li>
-<li><code>$1</code>：右边第一个 <code>E</code> 的值 </li>
+<li><code>$$</code>：左边 <code>E</code> 的值</li>
+<li><code>$1</code>：右边第一个 <code>E</code> 的值</li>
 <li><code>$2</code>：<code>+</code></li>
 <li><code>$3</code>：右边第二个 <code>E</code> 的值</li>
 </ul>
@@ -1791,13 +1788,12 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">$$ = $1 + $3;<br></code></pre></td></tr></table></figure>
 
 
-
 <p>注意到必须先得到左右孩子的值，才能计算父节点：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">7   8   +   9   +<br></code></pre></td></tr></table></figure>
 
-<p><font style="color:rgb(15, 17, 21);">也就是：</font></p>
-<p><font style="color:rgb(15, 17, 21);">7</font><font style="color:rgb(15, 17, 21);">,</font><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">8</font><font style="color:rgb(15, 17, 21);">,</font><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">+</font><font style="color:rgb(15, 17, 21);">,</font><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">9</font><font style="color:rgb(15, 17, 21);">,</font><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">+</font></p>
-<p><font style="color:rgb(15, 17, 21);">这正是表达式树的后序计算顺序</font></p>
+<p>也就是：</p>
+<p>7, 8, +, 9, +</p>
+<p>这正是表达式树的后序计算顺序</p>
 <h3 id="LR分析中的语法制导翻译"><a href="#LR分析中的语法制导翻译" class="headerlink" title="LR分析中的语法制导翻译"></a>LR分析中的语法制导翻译</h3><p>例如：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;E, 15, state?&gt;<br></code></pre></td></tr></table></figure>
 
@@ -1835,7 +1831,7 @@
 <p>返回节点指针</p>
 <h4 id="构造-2-3-4"><a href="#构造-2-3-4" class="headerlink" title="构造 2 + 3 * 4"></a>构造 <code>2 + 3 * 4</code></h4><p>文法：</p>
 <p> E -&gt; n</p>
-<p> | E + E </p>
+<p> | E + E</p>
 <p> | E * E  </p>
 <p>e1 &#x3D; Exp_Int_new(2);</p>
 <p>e2 &#x3D; Exp_Int_new(3);</p>
@@ -1851,8 +1847,8 @@
 <p>遍历 AST → 根据节点 <code>kind</code> 做不同事情。</p>
 <p>比如：</p>
 <ul>
-<li><code>pretty_print()</code>：重新输出代码 </li>
-<li><code>numNodes()</code>：统计 AST 节点数量 </li>
+<li><code>pretty_print()</code>：重新输出代码</li>
+<li><code>numNodes()</code>：统计 AST 节点数量</li>
 <li><code>compile()</code>：把 AST 翻译成机器指令&#x2F;中间代码</li>
 </ul>
 <h3 id="抽象语法树的自动生成"><a href="#抽象语法树的自动生成" class="headerlink" title="抽象语法树的自动生成"></a>抽象语法树的自动生成</h3><h4 id="LR分析中生成抽象语法树"><a href="#LR分析中生成抽象语法树" class="headerlink" title="LR分析中生成抽象语法树"></a>LR分析中生成抽象语法树</h4><p>在语法动作中，加入生成语法树的代码片段</p>
@@ -1930,12 +1926,12 @@
 
 <p>它的语法基本都能形成 AST，但语义存在大量错误</p>
 <ul>
-<li><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;x += 4;&lt;/font&gt;**</code><font style="color:rgb(15, 17, 21);"><br></font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;x&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">从未声明，属于使用未定义变量。</font></li>
-<li><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;p(23);&lt;/font&gt;**</code><font style="color:rgb(15, 17, 21);"><br></font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;p&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">的类型是</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;int*&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">（整型指针），不是函数指针，不能当作函数调用。</font></li>
-<li><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;&quot;hello&quot; + &quot;world&quot;;&lt;/font&gt;**</code><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">两个字符串字面量（</font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;const char*&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">）不能使用</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;+&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">相加，操作数类型非法。</font></li>
-<li><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;f() + 5;&lt;/font&gt;**</code><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">有两个错误：</font><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">①</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;f&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">需要传入一个</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;int*&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">参数，这里没传参；</font><font style="color:rgb(15, 17, 21);"><br></font><font style="color:rgb(15, 17, 21);">②</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;f&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">返回</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;void&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">，无法参与加法运算。</font></li>
-<li><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;break;&lt;/font&gt;**</code><font style="color:rgb(15, 17, 21);"><br></font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;break&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">不在循环或</font><font style="color:rgb(15, 17, 21);"> </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;switch&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">结构中，非法。</font></li>
-<li><code>**&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;return;&lt;/font&gt;**</code><font style="color:rgb(15, 17, 21);"><br></font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;main&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> 函数的返回类型是 </font><code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);&quot;&gt;int&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);">，空返回语句缺少返回值，类型不匹配</font></li>
+<li><code>x += 4;</code><br><code>x</code> 从未声明，属于使用未定义变量。</li>
+<li><code>p(23);</code><br><code>p</code> 的类型是 <code>int*</code>（整型指针），不是函数指针，不能当作函数调用。</li>
+<li><code>&quot;hello&quot; + &quot;world&quot;;</code><br>两个字符串字面量（<code>const char*</code>）不能使用 <code>+</code> 相加，操作数类型非法。</li>
+<li><code>f() + 5;</code><br>有两个错误：<br>① <code>f</code> 需要传入一个 <code>int*</code> 参数，这里没传参；<br>② <code>f</code> 返回 <code>void</code>，无法参与加法运算。</li>
+<li><code>break;</code><br><code>break</code> 不在循环或 <code>switch</code> 结构中，非法。</li>
+<li><code>return;</code><br><code>main</code> 函数的返回类型是 <code>int</code>，空返回语句缺少返回值，类型不匹配</li>
 </ul>
 <p><strong>通过了语法分析 ≠ 程序就是合法的</strong></p>
 <p>AST 可能完全构造成功：</p>
@@ -2019,17 +2015,17 @@
 <li>一张符号表</li>
 </ol>
 <ul>
-<li>进入作用域：插入该作用域声明的变量。 </li>
-<li>查找变量：优先找到最近插入的同名变量。 </li>
+<li>进入作用域：插入该作用域声明的变量。</li>
+<li>查找变量：优先找到最近插入的同名变量。</li>
 <li>退出作用域：删除该作用域插入的变量，使外层同名变量恢复可见。</li>
 </ul>
 <ol start="2">
 <li>符号表栈</li>
 </ol>
 <ul>
-<li>每个作用域单独建立一张符号表。 </li>
-<li>进入作用域：新符号表入栈。 </li>
-<li>查找变量：从栈顶向栈底查找，最先找到的就是当前使用的变量。 </li>
+<li>每个作用域单独建立一张符号表。</li>
+<li>进入作用域：新符号表入栈。</li>
+<li>查找变量：从栈顶向栈底查找，最先找到的就是当前使用的变量。</li>
 <li>退出作用域：弹出栈顶符号表。</li>
 </ul>
 <p>核心规则：始终优先使用距离当前位置最近的声明</p>
@@ -2039,9 +2035,9 @@
 
 <p>这里的 <code>list</code> 分别可以表示：</p>
 <ul>
-<li><code>struct list</code>：结构体标签 </li>
-<li><code>*list</code>：普通变量 </li>
-<li>结构体中的 <code>list</code>：成员名 </li>
+<li><code>struct list</code>：结构体标签</li>
+<li><code>*list</code>：普通变量</li>
+<li>结构体中的 <code>list</code>：成员名</li>
 <li><code>list:</code>：<code>goto</code> 标签</li>
 </ul>
 <p>它们虽然同名，但处于不同名字空间，因此不会冲突。</p>
@@ -2056,8 +2052,8 @@
 
 <p>这里不一定要求两个类型完全相等，还可能允许：</p>
 <ul>
-<li>类型转换 </li>
-<li>子类赋值给父类 </li>
+<li>类型转换</li>
+<li>子类赋值给父类</li>
 <li>结构相同的类型互相赋值</li>
 </ul>
 <table>
@@ -2084,9 +2080,9 @@
 <p>严格来说，赋值检查通常判断的是类型相容，而不只是类型相等</p>
 <p>类型相容可能包括：</p>
 <ul>
-<li>完全相同的类型； </li>
-<li>可以自动转换的类型； </li>
-<li>子类到父类； </li>
+<li>完全相同的类型；</li>
+<li>可以自动转换的类型；</li>
+<li>子类到父类；</li>
 <li>语言允许的其他转换。</li>
 </ul>
 <h3 id="错误诊断"><a href="#错误诊断" class="headerlink" title="错误诊断"></a>错误诊断</h3><!-- 这是一张图片，ocr 内容为： -->
@@ -2100,10 +2096,10 @@
 
 <p>语义分析遍历 AST 时会：</p>
 <ol>
-<li>查找 <code>x、a、b</code> 的符号信息； </li>
-<li>检查 <code>a + b</code> 是否合法； </li>
-<li>确定表达式结果类型； </li>
-<li>把类型、变量位置等信息标注到 AST； </li>
+<li>查找 <code>x、a、b</code> 的符号信息；</li>
+<li>检查 <code>a + b</code> 是否合法；</li>
+<li>确定表达式结果类型；</li>
+<li>把类型、变量位置等信息标注到 AST；</li>
 <li>生成或准备生成中间表示。</li>
 </ol>
 <p>可能生成：</p>
@@ -2127,16 +2123,16 @@
 </ol>
 <p>决定程序中的数据放在哪里：</p>
 <ul>
-<li>全局变量通常放在数据区； </li>
-<li>局部变量通常放在栈或寄存器； </li>
-<li>动态申请的数据放在堆； </li>
+<li>全局变量通常放在数据区；</li>
+<li>局部变量通常放在栈或寄存器；</li>
+<li>动态申请的数据放在堆；</li>
 <li>临时结果尽量放在寄存器中。</li>
 </ul>
 <ol start="2">
 <li>给代码选择机器指令</li>
 </ol>
 <p>用机器指令实现高级语言的操作：</p>
-<p>源程序的代码： </p>
+<p>源程序的代码：</p>
 <ul>
 <li>表达式运算、语句、函数等</li>
 </ul>
@@ -2146,14 +2142,14 @@
 </ul>
 <p>用机器指令实现高层代码的语义 ：</p>
 <ul>
-<li>等价性 </li>
+<li>等价性</li>
 <li>对机器指令集体系结构 （ISA）的熟悉</li>
 </ul>
 <h2 id="指令集体系结构-（ISA）-上的代码生成"><a href="#指令集体系结构-（ISA）-上的代码生成" class="headerlink" title="指令集体系结构 （ISA）  上的代码生成"></a>指令集体系结构 （ISA）  上的代码生成</h2><h3 id="栈式计算机"><a href="#栈式计算机" class="headerlink" title="栈式计算机"></a>栈式计算机</h3><p>栈式计算机是一种以“操作数栈”为主要运算空间的计算机模型</p>
 <ul>
 <li>栈式计算机在 20 世纪 70 年代比较流行。</li>
-<li>真实的栈式处理器现在很少，主要原因是执行效率不如寄存器计算机。 </li>
-<li>但栈式代码生成非常简单，适合学习编译器的代码生成过程。 </li>
+<li>真实的栈式处理器现在很少，主要原因是执行效率不如寄存器计算机。</li>
+<li>但栈式代码生成非常简单，适合学习编译器的代码生成过程。</li>
 <li>现代仍有很多栈式虚拟机，例如 JVM、Pascal P-code、PostScript</li>
 </ul>
 <h4 id="栈式计算机结构"><a href="#栈式计算机结构" class="headerlink" title="栈式计算机结构"></a>栈式计算机结构</h4><table>
@@ -2218,7 +2214,7 @@
 
 <p>表示一个程序由两部分组成：</p>
 <ul>
-<li><code>D</code>：变量声明； </li>
+<li><code>D</code>：变量声明；</li>
 <li><code>S</code>：可执行语句。</li>
 </ul>
 <p>因此代码生成函数非常简单：</p>
@@ -2227,16 +2223,16 @@
 <p>也就是先生成变量声明 → 再生成可执行指令</p>
 <h3 id="寄存器计算机"><a href="#寄存器计算机" class="headerlink" title="寄存器计算机"></a>寄存器计算机</h3><p>寄存器计算机主要依靠寄存器保存数据并完成运算：</p>
 <ul>
-<li>真实机器通常有 16、32 个或更多寄存器。 </li>
-<li>算术运算只能在寄存器之间进行。 </li>
-<li>内存不能直接参与计算，必须先 <code>load</code> 到寄存器。 </li>
+<li>真实机器通常有 16、32 个或更多寄存器。</li>
+<li>算术运算只能在寄存器之间进行。</li>
+<li>内存不能直接参与计算，必须先 <code>load</code> 到寄存器。</li>
 <li>结果通过 <code>store</code> 写回内存</li>
 </ul>
 <h4 id="Reg的结构"><a href="#Reg的结构" class="headerlink" title="Reg的结构"></a>Reg的结构</h4><p>主要包含：</p>
 <ul>
-<li><code>Memory</code>：保存溢出到内存中的变量。 </li>
-<li><code>Reg</code>：寄存器，保存变量和临时计算结果。 </li>
-<li><code>ALU</code>：执行加减乘除。 </li>
+<li><code>Memory</code>：保存溢出到内存中的变量。</li>
+<li><code>Reg</code>：寄存器，保存变量和临时计算结果。</li>
+<li><code>ALU</code>：执行加减乘除。</li>
 <li>执行引擎：读取并执行指令。</li>
 </ul>
 <p>先假设有无限多个寄存器，这些实际上是<strong>虚拟寄存器</strong>。后面再把虚拟寄存器映射到有限的物理寄存器，这个过程叫<strong>寄存器分配</strong></p>
@@ -2282,12 +2278,12 @@
 <td><code>r3 = r1 ÷ r2</code></td>
 </tr>
 </tbody></table>
-<h4 id="变量的寄存器分配伪指令"><a href="#变量的寄存器分配伪指令" class="headerlink" title="变量的寄存器分配伪指令"></a>变量的寄存器分配伪指令</h4><p><font style="color:rgb(15, 17, 21);">Reg机器只支持一种数据类型int，并且给变量x分配寄存器的伪指令是：</font></p>
+<h4 id="变量的寄存器分配伪指令"><a href="#变量的寄存器分配伪指令" class="headerlink" title="变量的寄存器分配伪指令"></a>变量的寄存器分配伪指令</h4><p>Reg机器只支持一种数据类型int，并且给变量x分配寄存器的伪指令是：</p>
 <ul>
-<li><font style="color:rgb(15, 17, 21);">.int x</font></li>
-<li><font style="color:rgb(15, 17, 21);">在代码生成的阶段，假设Reg机器上有无限多个寄存器</font></li>
-<li><font style="color:rgb(15, 17, 21);">因此每个声明变量和临时变量都会占用一个（虚拟）寄存器</font></li>
-<li><font style="color:rgb(15, 17, 21);">把虚拟寄存器分配到物理寄存器的过程称为寄存器分配</font></li>
+<li>.int x</li>
+<li>在代码生成的阶段，假设Reg机器上有无限多个寄存器</li>
+<li>因此每个声明变量和临时变量都会占用一个（虚拟）寄存器</li>
+<li>把虚拟寄存器分配到物理寄存器的过程称为寄存器分配</li>
 </ul>
 <h4 id="递归下降代码生成算法-1"><a href="#递归下降代码生成算法-1" class="headerlink" title="递归下降代码生成算法"></a>递归下降代码生成算法</h4><p>从C– 到Reg：</p>
 <!-- 这是一张图片，ocr 内容为： -->
@@ -2308,14 +2304,14 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">false &amp;&amp; func()<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>短路计算</strong>：左边是 <code>false</code>，整个表达式必然为 <code>false</code>，所以不执行 <code>func()</code>。 </li>
+<li><strong>短路计算</strong>：左边是 <code>false</code>，整个表达式必然为 <code>false</code>，所以不执行 <code>func()</code>。</li>
 <li><strong>非短路计算</strong>：即使左边是 <code>false</code>，仍然会执行 <code>func()</code>。</li>
 </ul>
 <h5 id="语句的代码生成-1"><a href="#语句的代码生成-1" class="headerlink" title="语句的代码生成"></a>语句的代码生成</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs plain">// 语句的代码生成<br>void Gen_S(S s) &#123;<br>    switch (s) &#123;<br>        case id = e: &#123;<br>            r = Gen_E(e);<br>            emit(&quot;mov r, id&quot;);<br>            break;<br>        &#125;<br>        case printi(e): &#123;<br>            r = Gen_E(e);<br>            emit(&quot;printi r&quot;);<br>            break;<br>        &#125;<br>        case printb(e): &#123;<br>            r = Gen_E(e);<br>            emit(&quot;printb r&quot;);<br>            break;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li><code>Gen_E(e)</code> 生成表达式代码，并返回结果寄存器 <code>r</code>。</li>
-<li>赋值语句把 <code>r</code> 复制给变量。 </li>
+<li>赋值语句把 <code>r</code> 复制给变量。</li>
 <li>输出语句直接输出 <code>r</code></li>
 </ul>
 <h5 id="类型的代码生成-1"><a href="#类型的代码生成-1" class="headerlink" title="类型的代码生成"></a>类型的代码生成</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain">void Gen_T(T t) &#123;<br>    switch (t) &#123;<br>        case int:<br>            emit(&quot;.int&quot;);<br>            break;<br><br>        case bool:<br>            emit(&quot;.int&quot;);<br>            break;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -2362,9 +2358,9 @@
 <h3 id="程序分析和优化的需要"><a href="#程序分析和优化的需要" class="headerlink" title="程序分析和优化的需要"></a>程序分析和优化的需要</h3><p>不同优化适合不同 IR。</p>
 <p>例如：</p>
 <ul>
-<li>AST：适合高级语言结构分析； </li>
-<li>三地址码：适合常量折叠、复制传播； </li>
-<li>CFG：适合循环分析、不可达代码删除； </li>
+<li>AST：适合高级语言结构分析；</li>
+<li>三地址码：适合常量折叠、复制传播；</li>
+<li>CFG：适合循环分析、不可达代码删除；</li>
 <li>SSA：适合数据流分析和变量优化。</li>
 </ul>
 <h2 id="通用编译器语言"><a href="#通用编译器语言" class="headerlink" title="通用编译器语言"></a>通用编译器语言</h2><!-- 这是一张图片，ocr 内容为： -->
@@ -2376,8 +2372,8 @@
 
 <p>一条指令最多涉及三个地址：</p>
 <ul>
-<li><code>x</code>：保存结果； </li>
-<li><code>y</code>：第一个操作数； </li>
+<li><code>x</code>：保存结果；</li>
+<li><code>y</code>：第一个操作数；</li>
 <li><code>z</code>：第二个操作数。</li>
 </ul>
 <p>例如：</p>
@@ -2393,9 +2389,9 @@
 
 <p>特点：</p>
 <ul>
-<li>每条指令只进行一次基本运算； </li>
-<li>使用临时变量保存中间结果； </li>
-<li><code>if</code>、<code>while</code> 等结构被转换为条件跳转、无条件跳转和标号； </li>
+<li>每条指令只进行一次基本运算；</li>
+<li>使用临时变量保存中间结果；</li>
+<li><code>if</code>、<code>while</code> 等结构被转换为条件跳转、无条件跳转和标号；</li>
 <li>形式接近机器指令，便于代码优化和生成汇编。</li>
 </ul>
 <p>典型形式：</p>
@@ -2406,7 +2402,7 @@
 <h4 id="例子-7"><a href="#例子-7" class="headerlink" title="例子"></a>例子</h4><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1786446713495-296b207a-1753-4f3d-a45b-5198e5b86107.png" srcset="/img/loading.gif" lazyload></p>
 <p>这里的 <code>x_1、x_2、x_3...</code> 可以理解成<strong>临时变量&#x2F;临时寄存器</strong></p>
-<p>其中 <code>**Cjmp**</code>** &#x3D; Conditional Jump，条件跳转**。</p>
+<p>其中 <code>Cjmp</code>** &#x3D; Conditional Jump，条件跳转**。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">Cjmp (x &lt; y) L1 L2<br></code></pre></td></tr></table></figure>
 
 <p><strong>意思就是：</strong></p>
@@ -2417,10 +2413,10 @@
 
 <p>其中：</p>
 <ul>
-<li><code>⊕</code>：二元运算符，如 <code>+、-、*、&lt;、&amp;&amp;</code>。 </li>
-<li><code>Θ</code>：一元运算符，如 <code>-、!</code>。 </li>
-<li><code>x[y] = z</code>：把 <code>z</code> 写入以 <code>x</code> 为基址、<code>y</code> 为偏移的位置。 </li>
-<li><code>x = y[v]</code>：从以 <code>y</code> 为基址、<code>v</code> 为偏移的位置读取数据。 </li>
+<li><code>⊕</code>：二元运算符，如 <code>+、-、*、&lt;、&amp;&amp;</code>。</li>
+<li><code>Θ</code>：一元运算符，如 <code>-、!</code>。</li>
+<li><code>x[y] = z</code>：把 <code>z</code> 写入以 <code>x</code> 为基址、<code>y</code> 为偏移的位置。</li>
+<li><code>x = y[v]</code>：从以 <code>y</code> 为基址、<code>v</code> 为偏移的位置读取数据。</li>
 <li><code>Cjmp(x1,L1,L2)</code>：<code>x1</code> 为真跳到 <code>L1</code>，否则跳到 <code>L2</code>。</li>
 </ul>
 <h3 id="三地址码的数据结构"><a href="#三地址码的数据结构" class="headerlink" title="三地址码的数据结构"></a>三地址码的数据结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">enum instr_kind &#123;<br>    INSTR_CONST,<br>    INSTR_MOVE,<br>    INSTR_ADD,<br>    ...<br>&#125;;<br><br>struct Instr_t &#123;<br>    enum instr_kind kind;<br>&#125;;<br></code></pre></td></tr></table></figure>
@@ -2457,7 +2453,7 @@
 <p>x&#x3D;e是赋值语句</p>
 <ul>
 <li><code>Gen_E(e)</code> 先生成表达式 <code>e</code> 的三地址码。</li>
-<li>返回保存结果的临时变量 <code>x1</code>。 </li>
+<li>返回保存结果的临时变量 <code>x1</code>。</li>
 <li>最后把 <code>x1</code> 赋值给变量 <code>x</code></li>
 </ul>
 <p>printi和printb分别输出int和bool值</p>
@@ -2467,22 +2463,22 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">case return e:<br>    x = Gen_E(e);<br>    emit(&quot;return x&quot;);<br>    break;<br></code></pre></td></tr></table></figure>
 
 <p><strong>先计算返回表达式，再返回计算结果</strong></p>
-<h4 id="if-else-的代码生成"><a href="#if-else-的代码生成" class="headerlink" title="**if-else**** 的代码生成**"></a><code>**if-else**</code>** 的代码生成**</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">case if(e, s1, s2):<br>    x = Gen_E(e);<br>    emit(&quot;Cjmp(x, L1, L2)&quot;);<br><br>    emit(&quot;Label L1:&quot;);<br>    Gen_SList(s1);<br>    emit(&quot;jmp L3&quot;);<br><br>    emit(&quot;Label L2:&quot;);<br>    Gen_SList(s2);<br>    emit(&quot;jmp L3&quot;);<br><br>    emit(&quot;Label L3:&quot;);<br>    break;<br></code></pre></td></tr></table></figure>
+<h4 id="if-else-的代码生成"><a href="#if-else-的代码生成" class="headerlink" title="if-else** 的代码生成**"></a><code>if-else</code>** 的代码生成**</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">case if(e, s1, s2):<br>    x = Gen_E(e);<br>    emit(&quot;Cjmp(x, L1, L2)&quot;);<br><br>    emit(&quot;Label L1:&quot;);<br>    Gen_SList(s1);<br>    emit(&quot;jmp L3&quot;);<br><br>    emit(&quot;Label L2:&quot;);<br>    Gen_SList(s2);<br>    emit(&quot;jmp L3&quot;);<br><br>    emit(&quot;Label L3:&quot;);<br>    break;<br></code></pre></td></tr></table></figure>
 
 <p>含义：</p>
 <ol>
-<li><code>Gen_E(e)</code>：计算条件，结果保存在 <code>x</code>。 </li>
-<li><code>Cjmp(x,L1,L2)</code>：<code>x</code> 为真跳到 <code>L1</code>，否则跳到 <code>L2</code>。 </li>
-<li><code>Gen_SList(s1)</code>：生成真分支的语句。 </li>
-<li><code>Gen_SList(s2)</code>：生成假分支的语句。 </li>
+<li><code>Gen_E(e)</code>：计算条件，结果保存在 <code>x</code>。</li>
+<li><code>Cjmp(x,L1,L2)</code>：<code>x</code> 为真跳到 <code>L1</code>，否则跳到 <code>L2</code>。</li>
+<li><code>Gen_SList(s1)</code>：生成真分支的语句。</li>
+<li><code>Gen_SList(s2)</code>：生成假分支的语句。</li>
 <li>两个分支完成后都跳到汇合点 <code>L3</code></li>
 </ol>
 <h4 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">case while(e, s):<br>    emit(&quot;Label L1:&quot;);<br><br>    x = Gen_E(e);<br>    emit(&quot;Cjmp(x, L2, L3)&quot;);<br><br>    emit(&quot;Label L2:&quot;);<br>    Gen_SList(s);<br>    emit(&quot;jmp L1&quot;);<br><br>    emit(&quot;Label L3:&quot;);<br>    break;<br></code></pre></td></tr></table></figure>
 
 <p>三个标号的作用：</p>
 <ul>
-<li><code>L1</code>：判断循环条件。 </li>
-<li><code>L2</code>：执行循环体。 </li>
+<li><code>L1</code>：判断循环条件。</li>
+<li><code>L2</code>：执行循环体。</li>
 <li><code>L3</code>：退出循环。</li>
 </ul>
 <h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><!-- 这是一张图片，ocr 内容为： -->
@@ -2491,14 +2487,14 @@
 <p>控制流图把这些跳转关系直接画成图</p>
 <p>控制流图能够清楚显示程序结构，方便分析：</p>
 <ul>
-<li>程序中是否存在循环； </li>
-<li>某个基本块能否执行； </li>
-<li>某行代码处变量可能是什么值； </li>
+<li>程序中是否存在循环；</li>
+<li>某个基本块能否执行；</li>
+<li>某行代码处变量可能是什么值；</li>
 <li>后续的数据流分析和代码优化。</li>
 </ul>
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="基本块"><a href="#基本块" class="headerlink" title="基本块"></a>基本块</h4><p>基本块是连续执行的一组语句，具有两个特点：</p>
 <ul>
-<li>不能从中间进入，只能从第一条进入。 </li>
+<li>不能从中间进入，只能从第一条进入。</li>
 <li>不能从中间退出，只能从最后一条离开。</li>
 </ul>
 <p>因此，跳转指令只能出现在基本块末尾</p>
@@ -2506,8 +2502,8 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">G = (V, E)<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li>** 结点 <strong><code>**V**</code></strong>：基本块。 **</li>
-<li>** 边 <strong><code>**E**</code></strong>：基本块之间可能发生的跳转**</li>
+<li>** 结点 <strong><code>V</code></strong>：基本块。 **</li>
+<li>** 边 <strong><code>E</code></strong>：基本块之间可能发生的跳转**</li>
 </ul>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1786455724668-64dbbd9c-b367-4fc2-b274-84cc8a09abb2.png" srcset="/img/loading.gif" lazyload></p>
@@ -2519,8 +2515,8 @@
 
 <p><code>J</code> 决定基本块执行完成后去哪里：</p>
 <ul>
-<li><code>jmp L</code>：跳到 <code>L</code>。 </li>
-<li><code>cjmp</code>：根据条件选择 <code>L1</code> 或 <code>L2</code>。 </li>
+<li><code>jmp L</code>：跳到 <code>L</code>。</li>
+<li><code>cjmp</code>：根据条件选择 <code>L1</code> 或 <code>L2</code>。</li>
 <li><code>return</code>：退出函数。</li>
 </ul>
 <h4 id="基本块-B"><a href="#基本块-B" class="headerlink" title="基本块 B"></a>基本块 <code>B</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">B -&gt; Label L;<br>     S1; S2; ...; Sn;<br>     J<br></code></pre></td></tr></table></figure>
@@ -2530,15 +2526,15 @@
 
 <p>因此每个基本块：</p>
 <ul>
-<li>开头有唯一的 <code>Label</code>； </li>
-<li>中间包含若干普通语句； </li>
+<li>开头有唯一的 <code>Label</code>；</li>
+<li>中间包含若干普通语句；</li>
 <li>最后必须有一条跳转或返回指令。</li>
 </ul>
 <h4 id="函数与程序"><a href="#函数与程序" class="headerlink" title="函数与程序"></a>函数与程序</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">F -&gt; x() &#123; B1, ..., Bn &#125;<br>P -&gt; F1, ..., Fn<br></code></pre></td></tr></table></figure>
 
 <p>即：</p>
 <ul>
-<li>一个函数由多个基本块组成； </li>
+<li>一个函数由多个基本块组成；</li>
 <li>一个程序由多个函数组成。</li>
 </ul>
 <h4 id="数据结构-1"><a href="#数据结构-1" class="headerlink" title="数据结构"></a>数据结构</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">struct Block &#123;<br>    Label_t label;  // 基本块入口标号<br>    List_t stms;    // 普通语句列表<br>    Jump_t j;       // 结尾跳转指令<br>&#125;;<br></code></pre></td></tr></table></figure>
@@ -2554,9 +2550,9 @@
 
 <p>优点：</p>
 <ul>
-<li>三地址码已经把 <code>if、while、goto</code> 统一成跳转指令； </li>
-<li>只需要根据 <code>Label、Cjmp、Jmp、Return</code> 划分基本块； </li>
-<li>更适合 C 这类包含 <code>goto</code> 的语言； </li>
+<li>三地址码已经把 <code>if、while、goto</code> 统一成跳转指令；</li>
+<li>只需要根据 <code>Label、Cjmp、Jmp、Return</code> 划分基本块；</li>
+<li>更适合 C 这类包含 <code>goto</code> 的语言；</li>
 <li>阶段划分清楚，编译器更容易实现和维护</li>
 </ul>
 <h3 id="由三地址码生成控制流图算法"><a href="#由三地址码生成控制流图算法" class="headerlink" title="由三地址码生成控制流图算法"></a>由三地址码生成控制流图算法</h3><p>初始化：</p>
@@ -2567,16 +2563,16 @@
 
 <p>处理规则：</p>
 <ul>
-<li>遇到 <code>Label L</code>：设置当前基本块的入口标号。 </li>
-<li>遇到普通指令：加入当前基本块的语句列表。 </li>
+<li>遇到 <code>Label L</code>：设置当前基本块的入口标号。</li>
+<li>遇到普通指令：加入当前基本块的语句列表。</li>
 <li>遇到 <code>Jmp、Cjmp、Return</code>：设置块的结尾，将该块保存，然后创建新块</li>
 </ul>
 <h3 id="控制流图的基本操作"><a href="#控制流图的基本操作" class="headerlink" title="控制流图的基本操作"></a>控制流图的基本操作</h3><p>控制流图本质上是有向图，所以可以直接使用图论算法。</p>
 <p>常见操作包括：</p>
 <ul>
-<li><strong>DFS&#x2F;BFS 遍历</strong>：判断哪些基本块可以从函数入口到达。 </li>
-<li><strong>生成树</strong>：记录遍历过程中基本块之间的关系。 </li>
-<li><strong>必经节点（支配结点）</strong>：如果从函数入口到达块 <code>B</code> 的所有路径都必须经过块 <code>A</code>，那么 <code>A</code> 是 <code>B</code> 的必经节点。 </li>
+<li><strong>DFS&#x2F;BFS 遍历</strong>：判断哪些基本块可以从函数入口到达。</li>
+<li><strong>生成树</strong>：记录遍历过程中基本块之间的关系。</li>
+<li><strong>必经节点（支配结点）</strong>：如果从函数入口到达块 <code>B</code> 的所有路径都必须经过块 <code>A</code>，那么 <code>A</code> 是 <code>B</code> 的必经节点。</li>
 <li><strong>拓扑序、逆拓扑序</strong>：确定分析基本块的处理顺序</li>
 </ul>
 <h3 id="死代码基本块删除"><a href="#死代码基本块删除" class="headerlink" title="死代码基本块删除"></a>死代码基本块删除</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">while (i &lt; 10) &#123;<br>    i = i + 1;<br>    printi(i);<br>    continue;<br>    printi(i);     // 永远不会执行<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -2591,9 +2587,9 @@
 
 <p>执行过程：</p>
 <ol>
-<li>从控制流图的入口基本块开始 DFS。 </li>
-<li>DFS 能访问到的基本块标记为 <code>visited</code>。 </li>
-<li>遍历所有基本块。 </li>
+<li>从控制流图的入口基本块开始 DFS。</li>
+<li>DFS 能访问到的基本块标记为 <code>visited</code>。</li>
+<li>遍历所有基本块。</li>
 <li>没有被访问的基本块就是不可达块，直接删除</li>
 </ol>
 <h2 id="数据流分析"><a href="#数据流分析" class="headerlink" title="数据流分析"></a>数据流分析</h2><p>控制流图描述的是“程序可能怎么执行”；数据流分析则进一步研究：</p>
@@ -2624,7 +2620,7 @@
 <h4 id="到达定义"><a href="#到达定义" class="headerlink" title="到达定义"></a>到达定义</h4><p>对每个变量的使用点有哪些定义可以到达（即该变量的值是在哪儿赋值的）</p>
 <p>定义 <code>d: x = ...</code> 能够到达位置 <code>p</code>，需要满足：</p>
 <ol>
-<li>从定义 <code>d</code> 到位置 <code>p</code> 存在一条控制流路径； </li>
+<li>从定义 <code>d</code> 到位置 <code>p</code> 存在一条控制流路径；</li>
 <li>这条路径中没有再次给 <code>x</code> 赋值</li>
 </ol>
 <h3 id="数据流方程"><a href="#数据流方程" class="headerlink" title="数据流方程"></a>数据流方程</h3><!-- 这是一张图片，ocr 内容为： -->
@@ -2660,7 +2656,7 @@
 <p>而要改成：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">in[s] = ⋃ out[p]<br>        p ∈ pred(s)<br></code></pre></td></tr></table></figure>
 
-<p>也就是<strong>把所有前驱语句的 <strong><code>**out**</code></strong> 集合取并集，得到当前语句的 <strong><code>**in**</code></strong>。</strong></p>
+<p>也就是<strong>把所有前驱语句的 <strong><code>out</code></strong> 集合取并集，得到当前语句的 <strong><code>in</code></strong>。</strong></p>
 <p>然后 <code>out</code> 的计算不变：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">out[s] = gen[s] ∪ (in[s] - kill[s])<br></code></pre></td></tr></table></figure>
 
@@ -2705,8 +2701,8 @@
 <h3 id="数据流方程-1"><a href="#数据流方程-1" class="headerlink" title="数据流方程"></a>数据流方程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">1: x = y + z<br>2: z = z + x<br></code></pre></td></tr></table></figure>
 
 <p>对于任意一条语句 <code>[d: s] </code>，首先计算两个集合</p>
-<p>gen[d: s] &#x3D; {x | 变量x在语句s中被使用} </p>
-<p>kill[d: s] &#x3D; {x | 变量x在语句s中被定义} </p>
+<p>gen[d: s] &#x3D; {x | 变量x在语句s中被使用}</p>
+<p>kill[d: s] &#x3D; {x | 变量x在语句s中被定义}</p>
 <ul>
 <li><strong>gen：这条语句要读取哪些变量</strong></li>
 <li><strong>kill：这条语句会重新赋值哪些变量</strong></li>
@@ -2733,7 +2729,7 @@
 <h4 id="基本块内的后向数据流方程"><a href="#基本块内的后向数据流方程" class="headerlink" title="基本块内的后向数据流方程"></a>基本块内的后向数据流方程</h4><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/ustc_%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1786526876680-57fc4078-7503-4159-b2c0-4151286fcbf7.png" srcset="/img/loading.gif" lazyload>对每条语句 <code>s</code>：</p>
 <ul>
-<li><code>in[s]</code>：执行语句 <code>s</code> 之前的活跃变量 </li>
+<li><code>in[s]</code>：执行语句 <code>s</code> 之前的活跃变量</li>
 <li><code>out[s]</code>：执行语句 <code>s</code> 之后的活跃变量</li>
 </ul>
 <p>基本块内部，下一条语句只有一个，因此out[si]&#x3D;in[si+1]</p>
@@ -2794,8 +2790,8 @@
 
 <ul>
 <li><code>in[s]</code>：执行语句 <code>s</code><strong>之前</strong>必须保留的变量。</li>
-<li><code>out[s]</code>：执行语句 <code>s</code><strong>之后</strong>仍然需要的变量。 </li>
-<li><code>gen/use</code>：本语句使用的变量。 </li>
+<li><code>out[s]</code>：执行语句 <code>s</code><strong>之后</strong>仍然需要的变量。</li>
+<li><code>gen/use</code>：本语句使用的变量。</li>
 <li><code>kill/def</code>：本语句重新定义的变量</li>
 </ul>
 <p>因为程序中存在循环：</p>
@@ -2848,7 +2844,7 @@
 <p>干扰图用于表示变量之间能不能共用寄存器，是一个无向图G&#x3D;(V,E)</p>
 <p>构造方法：</p>
 <ol>
-<li>每个变量对应一个结点。 </li>
+<li>每个变量对应一个结点。</li>
 <li>如果两个变量在某个程序点同时活跃，就在它们之间连边。</li>
 </ol>
 <p>边表示：</p>
@@ -2858,16 +2854,16 @@
 
 <p>例如：</p>
 <ul>
-<li>AST 阶段：常量折叠、删除恒假分支 </li>
-<li>IR 阶段：公共子表达式消除、死代码删除 </li>
+<li>AST 阶段：常量折叠、删除恒假分支</li>
+<li>IR 阶段：公共子表达式消除、死代码删除</li>
 <li>汇编阶段：寄存器分配、指令调度、窥孔优化</li>
 </ul>
 <p>前面的控制流、数据流和活性分析，都是为了判断某种优化是否安全</p>
 <h2 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="什么是代码优化"><a href="#什么是代码优化" class="headerlink" title="什么是代码优化"></a>什么是代码优化</h3><p>代码优化是对程序进行的一种<strong>语义保持的变换</strong>。</p>
 <p>“语义保持”就是优化前后程序的<strong>可观察行为不能改变</strong>，包括：</p>
 <ul>
-<li>输出结果相同 </li>
-<li>对外部文件、网络等操作相同 </li>
+<li>输出结果相同</li>
+<li>对外部文件、网络等操作相同</li>
 <li>正常情况下产生相同的副作用</li>
 </ul>
 <p>变换的目的是让程序能够比变换前更小、更快、cache行为更好、更节能等等</p>
@@ -2888,24 +2884,24 @@
 <p>“流不敏感”表示不考虑语句之间复杂的控制流关系，只观察当前表达式或语句。</p>
 <p>常见优化：</p>
 <ul>
-<li>常量折叠 </li>
-<li>代数化简 </li>
+<li>常量折叠</li>
+<li>代数化简</li>
 <li>简单死代码删除</li>
 </ul>
 <h4 id="中期优化"><a href="#中期优化" class="headerlink" title="中期优化"></a>中期优化</h4><p>特点：<strong>全局、流敏感</strong>，通常在 CFG 等中间表示上进行。</p>
 <p>“流敏感”表示需要考虑语句的执行顺序、分支和循环。</p>
 <p>常见优化：</p>
 <ul>
-<li>常量传播 </li>
-<li>拷贝传播 </li>
-<li>死代码删除 </li>
+<li>常量传播</li>
+<li>拷贝传播</li>
+<li>死代码删除</li>
 <li>公共子表达式消除</li>
 </ul>
 <p>前面学的到达定义、活性分析主要服务于这一阶段。</p>
 <h4 id="后端优化"><a href="#后端优化" class="headerlink" title="后端优化"></a>后端优化</h4><p>在汇编代码或机器相关的 IR 上进行，例如：</p>
 <ul>
-<li>寄存器分配 </li>
-<li>指令调度 </li>
+<li>寄存器分配</li>
+<li>指令调度</li>
 <li>窥孔优化</li>
 </ul>
 <h2 id="前端优化-1"><a href="#前端优化-1" class="headerlink" title="前端优化"></a>前端优化</h2><h3 id="常量折叠"><a href="#常量折叠" class="headerlink" title="常量折叠"></a>常量折叠</h3><p>在编译期间直接计算常量表达式的结果</p>
@@ -2923,7 +2919,7 @@
 
 <ul>
 <li>对固定宽度无符号整数，通常回绕为 <code>0</code></li>
-<li>对其他类型或语言，结果可能不同 </li>
+<li>对其他类型或语言，结果可能不同</li>
 <li>除零等表达式还可能产生异常</li>
 </ul>
 <h3 id="代数化简"><a href="#代数化简" class="headerlink" title="代数化简"></a>代数化简</h3><p>利用代数规律，把表达式改写得更简单。</p>
@@ -2943,9 +2939,9 @@
 
 <p>原因包括：</p>
 <ul>
-<li>运算顺序发生变化 </li>
-<li>整数可能溢出 </li>
-<li>浮点运算存在精度误差 </li>
+<li>运算顺序发生变化</li>
+<li>整数可能溢出</li>
+<li>浮点运算存在精度误差</li>
 <li>表达式可能包含副作用</li>
 </ul>
 <p>所以代数化简必须根据具体语言和数据类型判断</p>
@@ -2960,9 +2956,9 @@
 
 <h2 id="中间表示上的优化"><a href="#中间表示上的优化" class="headerlink" title="中间表示上的优化"></a>中间表示上的优化</h2><p>不同的 IR 会决定优化方法，例如：</p>
 <ul>
-<li><strong>CFG（控制流图）</strong>：表示基本块之间“可能跳到哪里” </li>
-<li><strong>CDG（控制依赖图）</strong>：表示一段代码是否执行依赖于哪个条件 </li>
-<li><strong>SSA（静态单赋值形式）</strong>：规定每个变量只被赋值一次，方便数据流分析 </li>
+<li><strong>CFG（控制流图）</strong>：表示基本块之间“可能跳到哪里”</li>
+<li><strong>CDG（控制依赖图）</strong>：表示一段代码是否执行依赖于哪个条件</li>
+<li><strong>SSA（静态单赋值形式）</strong>：规定每个变量只被赋值一次，方便数据流分析</li>
 <li><strong>CPS（后续传递风格）</strong>：把“程序下一步执行什么”显式表示出来</li>
 </ul>
 <p>共同的特点是需要进行程序分析，优化是全局进行的，而不是局部</p>
@@ -2987,9 +2983,6 @@
 
 <p>说明执行完 <code>x = v</code> 后，<code>x</code> 的值不再被使用，因此可以删除</p>
 <h4 id="算法-6"><a href="#算法-6" class="headerlink" title="算法"></a>算法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">dead_code(Prog_t p) &#123;<br>    // 第一步：程序分析<br>    liveness_analysis(p);<br>    // 第二步：程序改写<br>    foreach (语句s: y = ...) &#123;<br>        if (y不属于live_out[s])<br>            remove(s);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-
 
 
 
