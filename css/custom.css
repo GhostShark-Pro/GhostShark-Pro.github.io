@@ -1,11 +1,21 @@
-/* 白天模式下强制使用 day.png */
+/* 白天模式：优先现代图片格式，旧浏览器回退 PNG */
 [data-user-color-scheme="light"] #banner {
     background-image: url('/img/day.png') !important;
+    background-image: image-set(
+        url('/img/day.avif') type('image/avif'),
+        url('/img/day.webp') type('image/webp'),
+        url('/img/day.png') type('image/png')
+    ) !important;
 }
 
-/* 黑夜模式下强制使用 dark.png */
+/* 黑夜模式：优先现代图片格式，旧浏览器回退 PNG */
 [data-user-color-scheme="dark"] #banner {
     background-image: url('/img/dark.png') !important;
+    background-image: image-set(
+        url('/img/dark.avif') type('image/avif'),
+        url('/img/dark.webp') type('image/webp'),
+        url('/img/dark.png') type('image/png')
+    ) !important;
 }
 
 /* 无论白天黑夜，把 Fluid 默认的背景图强制设为透明 */
