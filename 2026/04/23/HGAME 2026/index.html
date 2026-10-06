@@ -119,7 +119,7 @@
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/HGAME-2026/1774521182296-10697528-85f4-4169-8d84-b9e909ff0cd9.png">
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/HGAME-2026/1774527808768-35f24799-8a69-4da1-b038-11462d865d9f.png">
 <meta property="article:published_time" content="2026-04-23T12:52:40.000Z">
-<meta property="article:modified_time" content="2026-10-05T22:46:23.593Z">
+<meta property="article:modified_time" content="2026-10-06T10:10:17.482Z">
 <meta property="article:author" content="shark">
 <meta property="article:tag" content="Pwn">
 <meta name="twitter:card" content="summary_large_image">
@@ -471,7 +471,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13k bytes
+          11k bytes
         
       </span>
     
@@ -482,7 +482,7 @@
         
         
         
-          ETA: 108 min
+          ETA: 93 min
         
       </span>
     
@@ -527,7 +527,7 @@
               <div class="markdown-body">
                 
                 <p>week1</p>
-<h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h3 id="Heap1sEz"><a href="#Heap1sEz" class="headerlink" title="Heap1sEz"></a><strong><font style="color:rgb(0, 0, 0);">Heap1sEz</font></strong></h3><p>Heap is easy :)</p>
+<h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h3 id="Heap1sEz"><a href="#Heap1sEz" class="headerlink" title="Heap1sEz"></a><strong>Heap1sEz</strong></h3><p>Heap is easy :)</p>
 <p>？源代码都给我了</p>
 <p>不急，先把pwn.college搞了</p>
 <p>ok,pwn.college 的DAM搞完了</p>
@@ -608,54 +608,54 @@
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">偏移 (Offset)</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">字段名称</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">说明</font></strong></th>
+<th><strong>偏移 (Offset)</strong></th>
+<th><strong>字段名称</strong></th>
+<th><strong>说明</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><strong><font style="color:rgb(31, 31, 31);">0x00</font></strong></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;prev_size&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">前一个 chunk 的大小（如果前块空闲）</font></td>
+<td><strong>0x00</strong></td>
+<td><code>prev_size</code></td>
+<td>前一个 chunk 的大小（如果前块空闲）</td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">0x08</font></strong></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;size&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">当前 chunk 的大小</font></td>
+<td><strong>0x08</strong></td>
+<td><code>size</code></td>
+<td>当前 chunk 的大小</td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">0x10</font></strong></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> (Forward Pointer)</font></td>
-<td><font style="color:rgb(31, 31, 31);">指向链表中下一个 chunk 的开头</font></td>
+<td><strong>0x10</strong></td>
+<td><code>fd</code><br/> (Forward Pointer)</td>
+<td>指向链表中下一个 chunk 的开头</td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">0x18</font></strong></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> (Backward Pointer)</font></td>
-<td><font style="color:rgb(31, 31, 31);">指向链表中前一个 chunk 的开头</font></td>
+<td><strong>0x18</strong></td>
+<td><code>bk</code><br/> (Backward Pointer)</td>
+<td>指向链表中前一个 chunk 的开头</td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">执行阶段</font></strong></th>
-<th>**<font style="color:rgb(31, 31, 31);">ptr 的值 (即 <em>target_addr)</font></em>*</th>
-<th><strong><font style="color:rgb(31, 31, 31);">备注</font></strong></th>
+<th><strong>执行阶段</strong></th>
+<th>*<em>ptr 的值 (即 <em>target_addr)</em></em></th>
+<th><strong>备注</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><strong><font style="color:rgb(31, 31, 31);">初始状态</font></strong></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;P&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> (堆块地址)</font></td>
-<td><font style="color:rgb(31, 31, 31);">正常指向堆块</font></td>
+<td><strong>初始状态</strong></td>
+<td><code>P</code><br/> (堆块地址)</td>
+<td>正常指向堆块</td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">执行 </font></strong><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd-&gt;bk = bk&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;&amp;ptr - 0x10&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;ptr&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 指向了自己前面 16 字节处</font></td>
+<td>**执行 **<code>**fd-&gt;bk = bk**</code></td>
+<td><code>&amp;ptr - 0x10</code></td>
+<td><code>ptr</code><br/> 指向了自己前面 16 字节处</td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">执行 </font></strong><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk-&gt;fd = fd&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;&amp;ptr - 0x18&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;ptr&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 最终指向了自己前面 24 字节处</font></td>
+<td>**执行 **<code>**bk-&gt;fd = fd**</code></td>
+<td><code>&amp;ptr - 0x18</code></td>
+<td><code>ptr</code><br/> 最终指向了自己前面 24 字节处</td>
 </tr>
 </tbody></table>
 <p>ok，there is no tcache in this challenge，tcache is in the ptmalloc(in glibc)</p>
@@ -707,7 +707,7 @@
 <p>buf只有125*8&#x3D;1000，而这里可以read0x410,存在overlfow,buf在rbp-0x3fa结束</p>
 <p>0x410-0x3fa &#x3D; 22</p>
 <p>可以overwrite canary and ret</p>
-<p><font style="color:rgb(0, 0, 0);">memset(buf, 0, sizeof(buf));会清空buf的内容</font></p>
+<p>memset(buf, 0, sizeof(buf));会清空buf的内容</p>
 <p>看看case1</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/HGAME-2026/1774159018365-5d570b5d-84cf-4773-9bfa-f1edba357a2c.png" srcset="/img/loading.gif" lazyload></p>
@@ -777,11 +777,11 @@
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/HGAME-2026/1774175843399-aec66bcb-6537-4910-8b9b-50aad757f670.png" srcset="/img/loading.gif" lazyload></p>
 <p>远程也过了</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a><strong><font style="color:rgb(0, 0, 0);"></font></strong></h3><p>你入侵了 SERN 的服务器, 该怎么找到他们的最高机密文件呢</p>
+<h3 id=""><a href="#" class="headerlink" title="****"></a>****</h3><p>你入侵了 SERN 的服务器, 该怎么找到他们的最高机密文件呢</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/HGAME-2026/1774176219628-e3b4bef2-fb10-4e3b-ad81-c0857e06f126.png" srcset="/img/loading.gif" lazyload></p>
 <p>？？</p>
-<h3 id="Producer-and-Consumer"><a href="#Producer-and-Consumer" class="headerlink" title="Producer and Consumer"></a><strong><font style="color:rgb(0, 0, 0);">Producer and Consumer</font></strong></h3><p>Can you find the decomposer in the system?</p>
+<h3 id="Producer-and-Consumer"><a href="#Producer-and-Consumer" class="headerlink" title="Producer and Consumer"></a><strong>Producer and Consumer</strong></h3><p>Can you find the decomposer in the system?</p>
 <p>条件竞争问题</p>
 <p>ida就找不到main函数，pwndbg动调</p>
 <p>不是heap，但也能写一下</p>
@@ -823,7 +823,7 @@
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs arkts">else if ( n3 == 2 )<br>&#123;<br>  pthread_create(&amp;newthread_, 0LL, start_routine, 0LL); // 创建消费者线程<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><font style="color:#DF2A3F;">—————————————————————————————-</font></p>
+<hr>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arkts">int pthread_create(pthread_t *thread, const pthread_attr_t *attr,<br>                   void *(*start_routine) (void *), void *arg);<br></code></pre></td></tr></table></figure>
 
 
@@ -831,30 +831,30 @@
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">参数</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">传入值</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">详细解释</font></strong></th>
+<th><strong>参数</strong></th>
+<th><strong>传入值</strong></th>
+<th><strong>详细解释</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;thread&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;&amp;newthread&lt;/font&gt;</code></td>
-<td><strong><font style="color:rgb(31, 31, 31);">输出参数</font></strong><font style="color:rgb(31, 31, 31);">。指向 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;pthread_t&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 类型变量的指针。函数执行成功后，新线程的 ID（TID）会被写入这个地址。在二进制层面，这通常是一个位于栈上或 Data 段的 8 字节空间。</font></td>
+<td><code>**thread**</code></td>
+<td><code>&amp;newthread</code></td>
+<td><strong>输出参数</strong>。指向 <code>pthread_t</code><br/> 类型变量的指针。函数执行成功后，新线程的 ID（TID）会被写入这个地址。在二进制层面，这通常是一个位于栈上或 Data 段的 8 字节空间。</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;attr&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0LL&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> (NULL)</font></td>
-<td><strong><font style="color:rgb(31, 31, 31);">线程属性</font></strong><font style="color:rgb(31, 31, 31);">。</font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0LL&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 等价于 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;NULL&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">，表示使用</font><strong><font style="color:rgb(31, 31, 31);">默认属性</font></strong><font style="color:rgb(31, 31, 31);">。默认属性包括：线程是可汇合的（joinable）、拥有默认大小的栈（通常是 8MB）、调度策略由系统决定等。</font></td>
+<td><code>**attr**</code></td>
+<td><code>0LL</code><br/> (NULL)</td>
+<td><strong>线程属性</strong>。<code>0LL</code><br/> 等价于 <code>NULL</code><br/>，表示使用<strong>默认属性</strong>。默认属性包括：线程是可汇合的（joinable）、拥有默认大小的栈（通常是 8MB）、调度策略由系统决定等。</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;start_routine&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;start_routine&lt;/font&gt;</code></td>
-<td><strong><font style="color:rgb(31, 31, 31);">新线程的入口函数</font></strong><font style="color:rgb(31, 31, 31);">。这是一个函数指针，新线程启动后会直接跳转到这里执行。它的签名必须是 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;void *func(void *)&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">。</font></td>
+<td><code>**start_routine**</code></td>
+<td><code>start_routine</code></td>
+<td><strong>新线程的入口函数</strong>。这是一个函数指针，新线程启动后会直接跳转到这里执行。它的签名必须是 <code>void *func(void *)</code><br/>。</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;arg&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;buf&lt;/font&gt;</code></td>
-<td><strong><font style="color:rgb(31, 31, 31);">传递给入口函数的参数</font></strong><font style="color:rgb(31, 31, 31);">。</font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;buf&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 的地址会作为唯一参数传递给 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;start_routine&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">。在 x64 调用约定下，</font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;buf&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 的值会被放入 </font><strong><font style="color:rgb(31, 31, 31);">RDI</font></strong><font style="color:rgb(31, 31, 31);"> 寄存器传递给目标函数。</font></td>
+<td><code>**arg**</code></td>
+<td><code>buf</code></td>
+<td><strong>传递给入口函数的参数</strong>。<code>buf</code><br/> 的地址会作为唯一参数传递给 <code>start_routine</code><br/>。在 x64 调用约定下，<code>buf</code><br/> 的值会被放入 <strong>RDI</strong> 寄存器传递给目标函数。</td>
 </tr>
 </tbody></table>
 <!-- 这是一张图片，ocr 内容为： -->
@@ -868,7 +868,7 @@
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/HGAME-2026/1774274029324-5d4b8bed-f0ee-4fee-87b1-be6dfce0e0e6.png" srcset="/img/loading.gif" lazyload></p>
 <p>检查完之后立即解锁</p>
-<p><font style="color:#DF2A3F;">在进入 </font><code>&lt;font style=&quot;color:#DF2A3F;&quot;&gt;if&lt;/font&gt;</code><font style="color:#DF2A3F;"> 分支后，其他线程可能会修改 </font><code>&lt;font style=&quot;color:#DF2A3F;&quot;&gt;n7&lt;/font&gt;</code><font style="color:#DF2A3F;"> 的值</font>  </p>
+<p>在进入 <code>if</code> 分支后，其他线程可能会修改 <code>n7</code> 的值  </p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/HGAME-2026/1774353843679-1694e6cc-2fd2-4f00-b830-0f6ec1f78f6f.png" srcset="/img/loading.gif" lazyload></p>
 <!-- 这是一张图片，ocr 内容为： -->
@@ -944,7 +944,7 @@
 
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/HGAME-2026/1774455806369-7c2bd902-c055-4ecf-896d-44552c8a8e6f.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="week2"><a href="#week2" class="headerlink" title="week2"></a>week2</h2><h3 id="Diary-keeper"><a href="#Diary-keeper" class="headerlink" title="Diary keeper"></a><strong><font style="color:rgb(0, 0, 0);">Diary keeper</font></strong></h3><!-- 这是一张图片，ocr 内容为： -->
+<h2 id="week2"><a href="#week2" class="headerlink" title="week2"></a>week2</h2><h3 id="Diary-keeper"><a href="#Diary-keeper" class="headerlink" title="Diary keeper"></a><strong>Diary keeper</strong></h3><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/HGAME-2026/1774521134505-e1406742-6237-43d2-b5e4-4628b40b7c02.png" srcset="/img/loading.gif" lazyload></p>
 <p>glibc 2.35</p>
 <!-- 这是一张图片，ocr 内容为： -->
@@ -953,7 +953,7 @@
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/HGAME-2026/1774527808768-35f24799-8a69-4da1-b038-11462d865d9f.png" srcset="/img/loading.gif" lazyload></p>
 <p>add,del,show,exit</p>
-<h3 id="IONOSTREAM"><a href="#IONOSTREAM" class="headerlink" title="IONOSTREAM"></a><strong><font style="color:rgb(0, 0, 0);">IONOSTREAM</font></strong></h3><h3 id="gosick"><a href="#gosick" class="headerlink" title="gosick"></a><strong><font style="color:rgb(0, 0, 0);">gosick</font></strong></h3>
+<h3 id="IONOSTREAM"><a href="#IONOSTREAM" class="headerlink" title="IONOSTREAM"></a><strong>IONOSTREAM</strong></h3><h3 id="gosick"><a href="#gosick" class="headerlink" title="gosick"></a><strong>gosick</strong></h3>
                 
               </div>
             

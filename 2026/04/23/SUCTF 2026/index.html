@@ -83,7 +83,7 @@
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773827363968-e63cf7ee-1c2c-4062-b7db-b5b2850cc168.png">
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/SUCTF-2026/1773841267428-3fefdfd8-840a-4f59-bbe2-3f0d22331ac6.png">
 <meta property="article:published_time" content="2026-04-23T12:57:31.000Z">
-<meta property="article:modified_time" content="2026-10-05T22:46:23.698Z">
+<meta property="article:modified_time" content="2026-10-06T10:10:17.514Z">
 <meta property="article:author" content="shark">
 <meta property="article:tag" content="Pwn">
 <meta name="twitter:card" content="summary_large_image">
@@ -435,7 +435,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.6k bytes
+          6.3k bytes
         
       </span>
     
@@ -446,7 +446,7 @@
         
         
         
-          ETA: 72 min
+          ETA: 53 min
         
       </span>
     
@@ -568,25 +568,25 @@
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">sub_1630 参数</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">来源 (从 event_new 传入)</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">具体含义</font></strong></th>
+<th><strong>sub_1630 参数</strong></th>
+<th><strong>来源 (从 event_new 传入)</strong></th>
+<th><strong>具体含义</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">触发事件的文件描述符（即 8889 端口的 UDP Socket）。</font></td>
+<td><code>**fd**</code></td>
+<td><code>fd</code></td>
+<td>触发事件的文件描述符（即 8889 端口的 UDP Socket）。</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;a2&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;18LL&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> (0x12)</font></td>
-<td><strong><font style="color:rgb(31, 31, 31);">触发的事件类型</font></strong><font style="color:rgb(31, 31, 31);">。</font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;18&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 是 </font>&#96;<font style="color:rgb(68, 71, 70);">EV_READ (0x02)</td>
+<td><code>**a2**</code></td>
+<td><code>18LL</code><br/> (0x12)</td>
+<td><strong>触发的事件类型</strong>。<code>18</code><br/> 是 &#96;EV_READ (0x02)</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;dest_1&lt;/font&gt;**</code></td>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;&amp;s_&lt;/font&gt;**</code></td>
-<td><strong><font style="color:rgb(31, 31, 31);">用户自定义参数</font></strong><font style="color:rgb(31, 31, 31);">。在 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;main&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 中传入的是全局变量 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;s_&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 的地址。</font></td>
+<td><code>**dest_1**</code></td>
+<td><code>**&amp;s_**</code></td>
+<td><strong>用户自定义参数</strong>。在 <code>main</code><br/> 中传入的是全局变量 <code>s_</code><br/> 的地址。</td>
 </tr>
 </tbody></table>
 <!-- 这是一张图片，ocr 内容为： -->
@@ -629,70 +629,70 @@
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">地址 (BSS)</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">角色</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">状态</font></strong></th>
+<th><strong>地址 (BSS)</strong></th>
+<th><strong>角色</strong></th>
+<th><strong>状态</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4040&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;s_&lt;/font&gt;</code></td>
-<td><strong><font style="color:rgb(31, 31, 31);">最佳的 Fake Object 放置点</font></strong><font style="color:rgb(31, 31, 31);">（可以通过 UDP 提前布置）。</font></td>
+<td><code>**0x4040**</code></td>
+<td><code>s_</code></td>
+<td><strong>最佳的 Fake Object 放置点</strong>（可以通过 UDP 提前布置）。</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4078&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;unk_4078&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">TCP 状态结构体。</font></td>
+<td><code>**0x4078**</code></td>
+<td><code>unk_4078</code></td>
+<td>TCP 状态结构体。</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4098&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;unk_4078 + 32&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">必须为 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;1&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 才能进入漏洞分支。</font></td>
+<td><code>**0x4098**</code></td>
+<td><code>unk_4078 + 32</code></td>
+<td>必须为 <code>1</code><br/> 才能进入漏洞分支。</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x40A0&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;unk_4078 + 40&lt;/font&gt;</code></td>
-<td><strong><font style="color:rgb(31, 31, 31);">劫持目标</font></strong><font style="color:rgb(31, 31, 31);">（指向伪造对象的指针）。</font></td>
+<td><code>**0x40A0**</code></td>
+<td><code>unk_4078 + 40</code></td>
+<td><strong>劫持目标</strong>（指向伪造对象的指针）。</td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">绝对地址</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">相对 0x4040 偏移</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">变量含义</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">攻击侧重点</font></strong></th>
+<th><strong>绝对地址</strong></th>
+<th><strong>相对 0x4040 偏移</strong></th>
+<th><strong>变量含义</strong></th>
+<th><strong>攻击侧重点</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4040&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x00&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">UDP 结构 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;s_&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 首地址</font></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Payload 起点</font></strong><font style="color:rgb(31, 31, 31);">，也是放置 Fake Object 的好地方。</font></td>
+<td><code>0x4040</code></td>
+<td><code>+0x00</code></td>
+<td>UDP 结构 <code>s_</code><br/> 首地址</td>
+<td><strong>Payload 起点</strong>，也是放置 Fake Object 的好地方。</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4070&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x30&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">UDP 监听 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">覆盖时需注意，如果填入无效值会导致后续 UDP 发送失败。</font></td>
+<td><code>0x4070</code></td>
+<td><code>+0x30</code></td>
+<td>UDP 监听 <code>fd</code></td>
+<td>覆盖时需注意，如果填入无效值会导致后续 UDP 发送失败。</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4078&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x38&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">TCP 结构 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;unk_4078&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">被溢出淹没的目标结构体。</font></td>
+<td><code>0x4078</code></td>
+<td><code>+0x38</code></td>
+<td>TCP 结构 <code>unk_4078</code></td>
+<td>被溢出淹没的目标结构体。</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4098&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x58&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> (即 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+32&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">)</font></td>
-<td><font style="color:rgb(31, 31, 31);">Flag 位</font></td>
-<td><strong><font style="color:rgb(31, 31, 31);">必须被覆盖为 </font></strong><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;1&lt;/font&gt;**</code><br/><font style="color:rgb(31, 31, 31);">，以通过 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;sub_13A4&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 的条件检查。</font></td>
+<td><code>0x4098</code></td>
+<td><code>+0x58</code><br/> (即 <code>+32</code><br/>)</td>
+<td>Flag 位</td>
+<td>**必须被覆盖为 **<code>**1**</code><br/>，以通过 <code>sub_13A4</code><br/> 的条件检查。</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x40A0&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x60&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> (即 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+40&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">)</font></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bufferevent&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 指针</font></td>
-<td><strong><font style="color:rgb(31, 31, 31);">核心劫持点</font></strong><font style="color:rgb(31, 31, 31);">。需要将其覆盖为你伪造的结构体地址（例如 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0x4040&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">）。</font></td>
+<td><code>0x40A0</code></td>
+<td><code>+0x60</code><br/> (即 <code>+40</code><br/>)</td>
+<td><code>bufferevent</code><br/> 指针</td>
+<td><strong>核心劫持点</strong>。需要将其覆盖为你伪造的结构体地址（例如 <code>0x4040</code><br/>）。</td>
 </tr>
 </tbody></table>
 <p>after hijeck the 0x40a0,</p>

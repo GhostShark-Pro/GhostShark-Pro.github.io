@@ -141,7 +141,7 @@
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-_2.23/1776254856048-ea6c1b89-68b1-4283-abe1-b846b0f09a79.png">
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-_2.23/1776254934005-e7e4c22a-ad19-41ac-ac5b-1ebdaf89fcab.png">
 <meta property="article:published_time" content="2026-04-23T12:51:58.000Z">
-<meta property="article:modified_time" content="2026-10-05T22:46:23.586Z">
+<meta property="article:modified_time" content="2026-10-06T10:10:17.480Z">
 <meta property="article:author" content="shark">
 <meta property="article:tag" content="Pwn">
 <meta property="article:tag" content="glibc_2.23">
@@ -494,7 +494,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          17k bytes
+          16k bytes
         
       </span>
     
@@ -505,7 +505,7 @@
         
         
         
-          ETA: 139 min
+          ETA: 131 min
         
       </span>
     
@@ -591,35 +591,35 @@
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">索引位置</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">对应指针</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">逻辑身份</font></strong></th>
+<th><strong>索引位置</strong></th>
+<th><strong>对应指针</strong></th>
+<th><strong>逻辑身份</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bins[0]&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">Unsorted Bin 的头指针（Forward）</font></td>
+<td><code>bins[0]</code></td>
+<td><code>fd</code></td>
+<td>Unsorted Bin 的头指针（Forward）</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bins[1]&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">Unsorted Bin 的尾指针（Backward）</font></td>
+<td><code>bins[1]</code></td>
+<td><code>bk</code></td>
+<td>Unsorted Bin 的尾指针（Backward）</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bins[2]&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">Small Bin 2 的头指针</font></td>
+<td><code>bins[2]</code></td>
+<td><code>fd</code></td>
+<td>Small Bin 2 的头指针</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bins[3]&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">Small Bin 2 的尾指针</font></td>
+<td><code>bins[3]</code></td>
+<td><code>bk</code></td>
+<td>Small Bin 2 的尾指针</td>
 </tr>
 <tr>
-<td><font style="color:rgb(31, 31, 31);">…</font></td>
-<td><font style="color:rgb(31, 31, 31);">…</font></td>
-<td><font style="color:rgb(31, 31, 31);">…</font></td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
 </tr>
 </tbody></table>
 <h4 id="mchunkptr-top"><a href="#mchunkptr-top" class="headerlink" title="mchunkptr top"></a>mchunkptr top</h4><p>指向top chunk的指针，在古老的houst of force有用</p>
@@ -768,35 +768,35 @@
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">特性</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">Smallbin</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">Largebin</font></strong></th>
+<th><strong>特性</strong></th>
+<th><strong>Smallbin</strong></th>
+<th><strong>Largebin</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><strong><font style="color:rgb(31, 31, 31);">尺寸</font></strong></td>
-<td><font style="color:rgb(31, 31, 31);">固定（0x20, 0x30…）</font></td>
-<td><font style="color:rgb(31, 31, 31);">范围（Range）</font></td>
+<td><strong>尺寸</strong></td>
+<td>固定（0x20, 0x30…）</td>
+<td>范围（Range）</td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">排序</font></strong></td>
-<td><font style="color:rgb(31, 31, 31);">FIFO</font></td>
-<td><font style="color:rgb(31, 31, 31);">按 Size 降序 + FIFO</font></td>
+<td><strong>排序</strong></td>
+<td>FIFO</td>
+<td>按 Size 降序 + FIFO</td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">指针数量</font></strong></td>
-<td><font style="color:rgb(31, 31, 31);">2 (</font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">, </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">)</font></td>
-<td><font style="color:rgb(31, 31, 31);">4 (</font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">, </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">, </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;fd_ns&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">, </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;bk_ns&lt;/font&gt;</code><font style="color:rgb(31, 31, 31);">)</font></td>
+<td><strong>指针数量</strong></td>
+<td>2 (<code>fd</code>, <code>bk</code>)</td>
+<td>4 (<code>fd</code>, <code>bk</code>, <code>fd_ns</code>, <code>bk_ns</code>)</td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">分配策略</font></strong></td>
-<td><font style="color:rgb(31, 31, 31);">精确匹配</font></td>
-<td><font style="color:rgb(31, 31, 31);">最佳匹配 (Best-fit)</font></td>
+<td><strong>分配策略</strong></td>
+<td>精确匹配</td>
+<td>最佳匹配 (Best-fit)</td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">攻击难点</font></strong></td>
-<td><font style="color:rgb(31, 31, 31);">主要是 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;unlink&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 检查</font></td>
-<td><font style="color:rgb(31, 31, 31);">需要操作 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;nextsize&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 指针，逻辑较深</font></td>
+<td><strong>攻击难点</strong></td>
+<td>主要是 <code>unlink</code><br/> 检查</td>
+<td>需要操作 <code>nextsize</code><br/> 指针，逻辑较深</td>
 </tr>
 </tbody></table>
 <p>为了加速查找，它引入了第二套指针：fd_nextsize 和 bk_nextsize（跳表结构）</p>
@@ -955,17 +955,17 @@
 <p>触发条件：size &lt;&#x3D; get_max_fast()</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-_2.23/1776171487565-7502e03c-8606-4403-8c4b-9856f52933c7.png" srcset="/img/loading.gif" lazyload></p>
-<p><font style="color:rgb(31, 31, 31);">如果开启了这个宏，并且当前释放的 chunk 物理上紧挨着 top chunk，那么它</font><strong><font style="color:rgb(31, 31, 31);">不能</font></strong><font style="color:rgb(31, 31, 31);">进入 fastbin，而是会进入后面的逻辑直接和 top chunk 合并</font></p>
+<p>如果开启了这个宏，并且当前释放的 chunk 物理上紧挨着 top chunk，那么它<strong>不能</strong>进入 fastbin，而是会进入后面的逻辑直接和 top chunk 合并</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-_2.23/1776171726842-f59f834d-2e69-4833-939a-ef812e23e8b3.png" srcset="/img/loading.gif" lazyload></p>
-<p><font style="color:rgb(31, 31, 31);">通过 chunk_at_offset(p, size) 找到当前 chunk 在内存中物理相邻的下一个 chunk。检查这个 next chunk 的 size 字段</font></p>
+<p>通过 chunk_at_offset(p, size) 找到当前 chunk 在内存中物理相邻的下一个 chunk。检查这个 next chunk 的 size 字段</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-_2.23/1776172145405-a4374657-6994-41f5-9511-0245d8d9ec90.png" srcset="/img/loading.gif" lazyload></p>
-<p><font style="color:rgb(31, 31, 31);">如果当前没锁（have_lock&#x3D;&#x3D;0），它会临时加锁重查一次，避免并发导致误报（malloc.c:3901-3919）</font></p>
-<p><font style="color:rgb(31, 31, 31);">3879-3919:</font></p>
+<p>如果当前没锁（have_lock&#x3D;&#x3D;0），它会临时加锁重查一次，避免并发导致误报（malloc.c:3901-3919）</p>
+<p>3879-3919:</p>
 <p>这段检查 next chunk 头是否离谱：</p>
-<p><font style="color:rgb(31, 31, 31);">next-&gt;size &lt;&#x3D; 2*SIZE_SZ 或 chunksize(next) &gt;&#x3D; av-&gt;system_mem</font></p>
-<p><font style="color:rgb(31, 31, 31);">命中就报：free(): invalid next size (fast)</font></p>
+<p>next-&gt;size &lt;&#x3D; 2*SIZE_SZ 或 chunksize(next) &gt;&#x3D; av-&gt;system_mem</p>
+<p>命中就报：free(): invalid next size (fast)</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-_2.23/1776172588672-4b1d7225-f38e-42e4-8b7e-d1123847a86f.png" srcset="/img/loading.gif" lazyload></p>
 <p>填充用户区数据</p>
@@ -977,8 +977,8 @@
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-_2.23/1776174285090-96b913a3-b8ca-4a8d-976a-1a76e298f297.png" srcset="/img/loading.gif" lazyload></p>
 <p>注释写的还挺详细的</p>
-<p>3935-3938：<font style="color:rgb(31, 31, 31);">检查 bin 的顶部是不是我们准备添加的 chunk。仅检查 old &#x3D;&#x3D; p，即“你要插入的 chunk 已经在链表头”能拦截 A -&gt; free(A) -&gt; free(A)，但fastbin dup（A,B,A）不行</font></p>
-<p><font style="color:rgb(31, 31, 31);">3944-3948：防多线程</font></p>
+<p>3935-3938：检查 bin 的顶部是不是我们准备添加的 chunk。仅检查 old &#x3D;&#x3D; p，即“你要插入的 chunk 已经在链表头”能拦截 A -&gt; free(A) -&gt; free(A)，但fastbin dup（A,B,A）不行</p>
+<p>3944-3948：防多线程</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/glibc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-_2.23/1776243311554-21d0a3c9-1bbf-4a16-8e69-de8fbc72df8d.png" srcset="/img/loading.gif" lazyload></p>
 <!-- 这是一张图片，ocr 内容为： -->

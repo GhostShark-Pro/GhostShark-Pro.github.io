@@ -136,7 +136,7 @@
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775132603352-df1c1fdb-355d-48e0-81a0-c46f1533d7bf.png">
 <meta property="og:image" content="https://ghostshark-pro.github.io/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775132965462-972d67ad-4ba9-4494-8c86-da699d943566.png">
 <meta property="article:published_time" content="2026-04-23T12:53:46.000Z">
-<meta property="article:modified_time" content="2026-10-05T22:46:23.610Z">
+<meta property="article:modified_time" content="2026-10-06T10:10:17.489Z">
 <meta property="article:author" content="shark">
 <meta property="article:tag" content="Pwn">
 <meta name="twitter:card" content="summary_large_image">
@@ -488,7 +488,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          17k bytes
+          14k bytes
         
       </span>
     
@@ -499,7 +499,7 @@
         
         
         
-          ETA: 143 min
+          ETA: 119 min
         
       </span>
     
@@ -580,30 +580,30 @@
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">字节序列</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">含义</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">解释</font></strong></th>
+<th><strong>字节序列</strong></th>
+<th><strong>含义</strong></th>
+<th><strong>解释</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;\x7fELF&lt;/font&gt;**</code></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Magic Number</font></strong></td>
-<td><font style="color:rgb(31, 31, 31);">告诉系统：“我是一个 ELF 格式的可执行文件”。</font></td>
+<td><code>**\x7fELF**</code></td>
+<td><strong>Magic Number</strong></td>
+<td>告诉系统：“我是一个 ELF 格式的可执行文件”。</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;\x02&lt;/font&gt;**</code></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Class</font></strong></td>
-<td><font style="color:rgb(31, 31, 31);">代表 </font><strong><font style="color:rgb(31, 31, 31);">64 位</font></strong><font style="color:rgb(31, 31, 31);">（如果是 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;\x01&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);"> 则代表 32 位）。</font></td>
+<td><code>**\x02**</code></td>
+<td><strong>Class</strong></td>
+<td>代表 <strong>64 位</strong>（如果是 <code>\x01</code><br/> 则代表 32 位）。</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;\x01&lt;/font&gt;**</code></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Data</font></strong></td>
-<td><font style="color:rgb(31, 31, 31);">代表 </font><strong><font style="color:rgb(31, 31, 31);">小端序（Little Endian）</font></strong><font style="color:rgb(31, 31, 31);">，这是 x86 架构的标准。</font></td>
+<td><code>**\x01**</code></td>
+<td><strong>Data</strong></td>
+<td>代表 <strong>小端序（Little Endian）</strong>，这是 x86 架构的标准。</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;\x01&lt;/font&gt;**</code></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Version</font></strong></td>
-<td><font style="color:rgb(31, 31, 31);">ELF 文件的版本，通常固定为 </font><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;01&lt;/font&gt;</code><br/><font style="color:rgb(31, 31, 31);">。</font></td>
+<td><code>**\x01**</code></td>
+<td><strong>Version</strong></td>
+<td>ELF 文件的版本，通常固定为 <code>01</code><br/>。</td>
 </tr>
 </tbody></table>
 <p>ez-nc的文件头</p>
@@ -642,70 +642,70 @@
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">编号</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">选项名称</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">翻译</font></strong></th>
+<th><strong>编号</strong></th>
+<th><strong>选项名称</strong></th>
+<th><strong>翻译</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[1]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Register model artifact</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">注册模型产物</font></strong></td>
+<td><strong>[1]</strong></td>
+<td><strong>Register model artifact</strong></td>
+<td><strong>注册模型产物</strong></td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[2]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Stream artifact chunk</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">流式传输产物分片</font></strong></td>
+<td><strong>[2]</strong></td>
+<td><strong>Stream artifact chunk</strong></td>
+<td><strong>流式传输产物分片</strong></td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[3]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Bootstrap async scheduler</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">引导异步调度器</font></strong></td>
+<td><strong>[3]</strong></td>
+<td><strong>Bootstrap async scheduler</strong></td>
+<td><strong>引导异步调度器</strong></td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[4]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Inspect scheduler queue</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">检查调度队列</font></strong></td>
+<td><strong>[4]</strong></td>
+<td><strong>Inspect scheduler queue</strong></td>
+<td><strong>检查调度队列</strong></td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[5]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Allocate session tensor</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">分配会话张量</font></strong></td>
+<td><strong>[5]</strong></td>
+<td><strong>Allocate session tensor</strong></td>
+<td><strong>分配会话张量</strong></td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[6]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Complete batch inference</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">完成批处理推理</font></strong></td>
+<td><strong>[6]</strong></td>
+<td><strong>Complete batch inference</strong></td>
+<td><strong>完成批处理推理</strong></td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[7]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Patch session metadata</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">修复&#x2F;更新会话元数据</font></strong></td>
+<td><strong>[7]</strong></td>
+<td><strong>Patch session metadata</strong></td>
+<td><strong>修复&#x2F;更新会话元数据</strong></td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[8]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Provision worker profile</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">配置工作节点配置文件</font></strong></td>
+<td><strong>[8]</strong></td>
+<td><strong>Provision worker profile</strong></td>
+<td><strong>配置工作节点配置文件</strong></td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[9]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Dispatch async task</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">派遣异步任务</font></strong><font style="color:rgb(31, 31, 31);">。</font></td>
+<td><strong>[9]</strong></td>
+<td><strong>Dispatch async task</strong></td>
+<td><strong>派遣异步任务</strong>。</td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[10]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Runtime telemetry</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">运行时遥测</font></strong></td>
+<td><strong>[10]</strong></td>
+<td><strong>Runtime telemetry</strong></td>
+<td><strong>运行时遥测</strong></td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[11]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Operator handbook</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">操作员手册</font></strong></td>
+<td><strong>[11]</strong></td>
+<td><strong>Operator handbook</strong></td>
+<td><strong>操作员手册</strong></td>
 </tr>
 <tr>
-<td><strong><font style="color:rgb(31, 31, 31);">[0]</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">Shutdown gateway</font></strong></td>
-<td><strong><font style="color:rgb(31, 31, 31);">关闭网关</font></strong></td>
+<td><strong>[0]</strong></td>
+<td><strong>Shutdown gateway</strong></td>
+<td><strong>关闭网关</strong></td>
 </tr>
 </tbody></table>
 <p>根本看不懂</p>
@@ -773,7 +773,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 1. 获取 Case 1 中记录的 64 位 chunk size</span><br>n0x5F_1 = *(_QWORD *)(buf + <span class="hljs-number">16</span>); <br><span class="hljs-comment">// 2. 获取输入的 offset</span><br>n0x5F_2 = n0x5F; <br><span class="hljs-comment">// 3. 尺寸检查</span><br><span class="hljs-keyword">if</span> ( n0x5F &gt;= n0x5F_1 ) &#123;<br>    <span class="hljs-comment">// 如果 offset 大于等于记录的大小，则报错</span><br>    <span class="hljs-built_in">std</span>::__ostream_insert(..., <span class="hljs-string">&quot;stream exceeds declared artifact size&quot;</span>, ...);<br>&#125; <br><span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-comment">// 4. 窗口策略检查</span><br>    <span class="hljs-keyword">if</span> ( n0x5F &lt;= <span class="hljs-number">0x5F</span> ) &#123; <span class="hljs-comment">// 0x5F = 95</span><br>        <span class="hljs-comment">// 将 payload 拷贝到 arena_ptr + offset 的位置</span><br>        <span class="hljs-comment">// 限制条件：offset &lt;= 95</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>看看case3</p>
-<p>什么叫**<font style="color:rgb(31, 31, 31);">引导异步调度器</font>**</p>
+<p>什么叫<strong>引导异步调度器</strong></p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774757522456-f4c0202b-b96d-4c22-b8e8-9117f86d47fd.jpeg" srcset="/img/loading.gif" lazyload></p>
 <p> 启动后台的任务分发系统  </p>
@@ -809,47 +809,47 @@
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">物理内存偏移</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">Case 8 以为它在写什么？ (Worker Profile)</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">实际传入的 Payload</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">Case 9 以为它在读什么？ (Task Descriptor)</font></strong></th>
+<th><strong>物理内存偏移</strong></th>
+<th><strong>Case 8 以为它在写什么？ (Worker Profile)</strong></th>
+<th><strong>实际传入的 Payload</strong></th>
+<th><strong>Case 9 以为它在读什么？ (Task Descriptor)</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x00&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;cpu_quota&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;task_id&lt;/font&gt;</code></td>
+<td><code>+0x00</code></td>
+<td><code>cpu_quota</code></td>
+<td><code>0</code></td>
+<td><code>task_id</code></td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x08&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;mem_quota&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">状态字段 &#x2F; 占位</font></td>
+<td><code>+0x08</code></td>
+<td><code>mem_quota</code></td>
+<td><code>0</code></td>
+<td>状态字段 &#x2F; 占位</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x10&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;io_weight&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;0&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">状态字段 &#x2F; 占位</font></td>
+<td><code>+0x10</code></td>
+<td><code>io_weight</code></td>
+<td><code>0</code></td>
+<td>状态字段 &#x2F; 占位</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x18&lt;/font&gt;**</code></td>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;latency_slo&lt;/font&gt;**</code></td>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;backdoor_addr&lt;/font&gt;**</code></td>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;handler&lt;/font&gt;**</code><br/><strong><font style="color:rgb(31, 31, 31);"> (后门函数指针)</font></strong></td>
+<td><code>**+0x18**</code></td>
+<td><code>**latency_slo**</code></td>
+<td><code>**backdoor_addr**</code></td>
+<td><code>**handler**</code><br/>** (后门函数指针)**</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x20&lt;/font&gt;**</code></td>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;replicas&lt;/font&gt;**</code></td>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;task_0_addr + 40&lt;/font&gt;**</code></td>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;context&lt;/font&gt;**</code><br/><strong><font style="color:rgb(31, 31, 31);"> (传给后门函数的参数指针！)</font></strong></td>
+<td><code>**+0x20**</code></td>
+<td><code>**replicas**</code></td>
+<td><code>**task_0_addr + 40**</code></td>
+<td><code>**context**</code><br/>** (传给后门函数的参数指针！)**</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0x28&lt;/font&gt;**</code></td>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;memo&lt;/font&gt;**</code></td>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;b&quot;\x00&quot;*8&lt;/font&gt;**</code></td>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;tag&lt;/font&gt;**</code><br/><strong><font style="color:rgb(31, 31, 31);"> 字符串 (随便)</font></strong></td>
+<td><code>**+0x28**</code></td>
+<td><code>**memo**</code></td>
+<td><code>**b&quot;\x00&quot;*8**</code></td>
+<td><code>**tag**</code><br/>** 字符串 (随便)**</td>
 </tr>
 </tbody></table>
 <!-- 这是一张图片，ocr 内容为： -->
@@ -877,7 +877,7 @@
 <p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775133126809-6676d8e6-0e0f-4c75-9a48-2c384ce205c0.png" srcset="/img/loading.gif" lazyload></p>
 <p>这题的阅读实在有点困难</p>
 <p>•᷄ࡇ•᷅</p>
-<h2 id="treasure"><a href="#treasure" class="headerlink" title="treasure"></a><font style="color:rgb(17, 24, 28);">treasure</font></h2><!-- 这是一张图片，ocr 内容为： -->
+<h2 id="treasure"><a href="#treasure" class="headerlink" title="treasure"></a>treasure</h2><!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774769557716-81bf2c59-10d1-4296-a835-2a100ae0c7c6.png" srcset="/img/loading.gif" lazyload></p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1774769573424-e83a97d6-990b-4be9-aecc-48492920410c.png" srcset="/img/loading.gif" lazyload></p>
@@ -960,65 +960,65 @@
 <table>
 <thead>
 <tr>
-<th><strong><font style="color:rgb(31, 31, 31);">偏移 (Offset)</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">字段名</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">长度&#x2F;类型</font></strong></th>
-<th><strong><font style="color:rgb(31, 31, 31);">说明</font></strong></th>
+<th><strong>偏移 (Offset)</strong></th>
+<th><strong>字段名</strong></th>
+<th><strong>长度&#x2F;类型</strong></th>
+<th><strong>说明</strong></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+0&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Method&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">16 bytes</font></td>
-<td><font style="color:rgb(31, 31, 31);">如 “GET” 或 “POST”</font></td>
+<td><code>+0</code></td>
+<td><code>Method</code></td>
+<td>16 bytes</td>
+<td>如 “GET” 或 “POST”</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+16&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Path&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">256 bytes</font></td>
-<td><font style="color:rgb(31, 31, 31);">请求路径</font></td>
+<td><code>+16</code></td>
+<td><code>Path</code></td>
+<td>256 bytes</td>
+<td>请求路径</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+272&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Proto&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">16 bytes</font></td>
-<td><font style="color:rgb(31, 31, 31);">协议版本 (如 “HTTP&#x2F;1.1”)</font></td>
+<td><code>+272</code></td>
+<td><code>Proto</code></td>
+<td>16 bytes</td>
+<td>协议版本 (如 “HTTP&#x2F;1.1”)</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+288&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Header_Count&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">4 bytes (int)</font></td>
-<td><font style="color:rgb(31, 31, 31);">当前解析到的 Header 数量</font></td>
+<td><code>**+288**</code></td>
+<td><code>Header_Count</code></td>
+<td>4 bytes (int)</td>
+<td>当前解析到的 Header 数量</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+292&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Headers&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">32 * 320 bytes</font></td>
-<td><font style="color:rgb(31, 31, 31);">Header 数组 (每个 Key 64B, Value 256B)</font></td>
+<td><code>+292</code></td>
+<td><code>Headers</code></td>
+<td>32 * 320 bytes</td>
+<td>Header 数组 (每个 Key 64B, Value 256B)</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+10532&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Token_Key&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">64 bytes</font></td>
-<td><font style="color:rgb(31, 31, 31);">Cookie 中的 token 键名</font></td>
+<td><code>+10532</code></td>
+<td><code>Token_Key</code></td>
+<td>64 bytes</td>
+<td>Cookie 中的 token 键名</td>
 </tr>
 <tr>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+10596&lt;/font&gt;</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Token_Value&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">256 bytes</font></td>
-<td><font style="color:rgb(31, 31, 31);">Cookie 中的 token 值</font></td>
+<td><code>+10596</code></td>
+<td><code>Token_Value</code></td>
+<td>256 bytes</td>
+<td>Cookie 中的 token 值</td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+10856&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Body_Ptr&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">8 bytes (QWORD)</font></td>
-<td><strong><font style="color:rgb(31, 31, 31);">指向 POST Body 的堆指针</font></strong></td>
+<td><code>**+10856**</code></td>
+<td><code>Body_Ptr</code></td>
+<td>8 bytes (QWORD)</td>
+<td><strong>指向 POST Body 的堆指针</strong></td>
 </tr>
 <tr>
-<td><code>**&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;+10864&lt;/font&gt;**</code></td>
-<td><code>&lt;font style=&quot;color:rgb(68, 71, 70);&quot;&gt;Content_Length&lt;/font&gt;</code></td>
-<td><font style="color:rgb(31, 31, 31);">8 bytes (QWORD)</font></td>
-<td><font style="color:rgb(31, 31, 31);">解析出的正文长度</font></td>
+<td><code>**+10864**</code></td>
+<td><code>Content_Length</code></td>
+<td>8 bytes (QWORD)</td>
+<td>解析出的正文长度</td>
 </tr>
 </tbody></table>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">read(fd, buf, <span class="hljs-number">0xFFFu</span>LL);<br><br>haystack_1 = <span class="hljs-built_in">strstr</span>((<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)buf, <span class="hljs-string">&quot;\r\n\r\n&quot;</span>); <span class="hljs-comment">// 寻找 Header 结束标志</span><br>v7 = <span class="hljs-built_in">strstr</span>((<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)buf, <span class="hljs-string">&quot;\r\n&quot;</span>);            <span class="hljs-comment">// 寻找第一行结束</span><br>*v7 = <span class="hljs-number">0</span>;                                           <span class="hljs-comment">// 截断第一行，方便 sscanf 解析</span><br></code></pre></td></tr></table></figure>
@@ -1074,14 +1074,14 @@
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775048500072-50dcee28-3da3-4a55-bf6d-4c61390a9135.png" srcset="/img/loading.gif" lazyload></p>
 <p>canary is here</p>
-<p><font style="color:#DF2A3F;">dest_3[5]&#x3D;rbp-0x40+40bytes&#x3D;rbp-0x18</font></p>
+<p>dest_3[5]&#x3D;rbp-0x40+40bytes&#x3D;rbp-0x18</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775049030976-2209ea70-e484-4d03-ac02-6c27081a0117.png" srcset="/img/loading.gif" lazyload></p>
 <p>寻找 “gateway” 对应的结构体，把指针赋给 a3  </p>
 <p>dest_3 只有56bytes，但memcpy的字节是post上去的payload决定</p>
 <p>显然可以打rop</p>
-<p><font style="color:rgb(38, 38, 38);">get,host请求+canary-fork泄露+stack-pivot+reset register+ret2libc</font></p>
-<p><font style="color:rgb(38, 38, 38);">canary-leak</font></p>
+<p>get,host请求+canary-fork泄露+stack-pivot+reset register+ret2libc</p>
+<p>canary-leak</p>
 <!-- 这是一张图片，ocr 内容为： -->
 <p><img src="/images/Polarisctf%E6%8B%9B%E6%96%B0%E8%B5%9B/1775049569086-c4d65de1-3cdd-43b2-a990-e3e22829c5f0.png" srcset="/img/loading.gif" lazyload></p>
 <p>leak read_real_addr</p>
